@@ -155,7 +155,7 @@ AC_DEFUN([PPRINT_PROP_BOOL_CUSTOM], [
 
   test pprint_value -eq 0 && pprint_msg="$PPRINT_NO_MSG (pprint_value_no_msg)" || pprint_msg="$PPRINT_YES_MSG"
 
-  m4_if([$#], [3], [
+  m4_if([$#], [4], [
     PPRINT_PROP_STRING(pprint_title, [$pprint_msg], $4)
   ], [
     PPRINT_PROP_STRING(pprint_title, [$pprint_msg])

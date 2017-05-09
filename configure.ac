@@ -3,10 +3,11 @@ m4_define([V_MAJOR], [2])
 m4_define([V_MINOR], [10])
 m4_define([V_PATCH], [0])
 m4_define([V_EXTRA], [rc1])
-m4_define([V_STRING], [V_MAJOR.V_MINOR.V_PATCH])
-m4_ifdef([V_EXTRA], [m4_append([V_STRING], [-V_EXTRA])])
 m4_define([V_NAME], [[KeKriek]])
 m4_define([V_DESC], [[From Brasserie Dunham, a sour mashed golden wheat ale fermented with local sour cherries from Tougas orchards. Fresh sweet cherry notes with some tartness, lively carbonation with a dry finish.]])
+
+m4_define([V_STRING], [V_MAJOR.V_MINOR.V_PATCH])
+m4_ifdef([V_EXTRA], [m4_append([V_STRING], [-V_EXTRA])])
 
 AC_PREREQ(2.59)
 AC_INIT([lttng-ust], V_STRING, [mathieu dot desnoyers at efficios dot com], [], [https://lttng.org])
@@ -540,11 +541,11 @@ AS_ECHO
 AS_ECHO("${PPRINT_COLOR_BLDBLU}LTTng-ust $PACKAGE_VERSION \"V_NAME\"$PPRINT_COLOR_RST")
 AS_ECHO
 
-AS_IF([test -n "$report_fold"], [
-	AS_ECHO("`AS_ECHO(["m4_bpatsubst(V_DESC, ["], [\\"])"]) | $report_fold -s`")
-], [
-	AS_ECHO(["m4_bpatsubst(V_DESC, ["], [\\"])"])
-])
+#AS_IF([test -n "$report_fold"], [
+#	AS_ECHO("`AS_ECHO(["m4_bpatsubst(V_DESC, ["], [\\"])"]) | $report_fold -s`")
+#], [
+#	AS_ECHO(["m4_bpatsubst(V_DESC, ["], [\\"])"])
+#])
 
 AS_ECHO
 PPRINT_SUBTITLE([System])
