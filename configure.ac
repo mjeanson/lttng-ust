@@ -249,9 +249,6 @@ AS_IF([test "x${ac_cv_header_dlfcn_h}" = "xyes"], [
 
 AM_CONDITIONAL([HAVE_DLINFO], [test "x${ac_cv_have_decl_RTLD_DI_LINKMAP}" = "xyes"])
 
-# Require URCU >= 0.12 for DEFINE_URCU_TLS_INIT
-PKG_CHECK_MODULES([URCU], [liburcu >= 0.12])
-
 # numa.h integration
 AS_IF([test "x$NO_NUMA" = "x1"],[
       AS_IF([test "x$enable_numa" = "x" ], [enable_numa=no])
@@ -480,7 +477,7 @@ AC_DEFUN([_AC_DEFINE_AND_SUBST], [
 
 _AC_DEFINE_AND_SUBST([LTTNG_UST_DEFAULT_CONSTRUCTOR_TIMEOUT_MS], [3000])
 
-AM_CFLAGS="-Wall $URCU_CFLAGS $PTHREAD_CFLAGS"
+AM_CFLAGS="-Wall $PTHREAD_CFLAGS"
 AC_SUBST(AM_CFLAGS)
 
 AM_CXXFLAGS="$AM_CFLAGS"
