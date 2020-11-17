@@ -28,10 +28,55 @@ nobase_include_HEADERS = \
 	lttng/ust-elf.h \
 	lttng/counter-config.h \
 	lttng/bitmap.h \
+	lttng/urcu/arch/aarch64.h \
+	lttng/urcu/arch/alpha.h \
+	lttng/urcu/arch/arm.h \
+	lttng/urcu/arch/gcc.h \
+	lttng/urcu/arch/generic.h \
+	lttng/urcu/arch/hppa.h \
+	lttng/urcu/arch/ia64.h \
+	lttng/urcu/arch/m68k.h \
+	lttng/urcu/arch/mips.h \
+	lttng/urcu/arch/nios2.h \
+	lttng/urcu/arch/ppc.h \
+	lttng/urcu/arch/riscv.h \
+	lttng/urcu/arch/s390.h \
+	lttng/urcu/arch/sparc64.h \
+	lttng/urcu/arch/tile.h \
+	lttng/urcu/arch/unknown.h \
+	lttng/urcu/arch/x86.h \
+	lttng/urcu/arch.h \
+	lttng/urcu/compiler.h \
+	lttng/urcu/debug.h \
+	lttng/urcu/hlist.h \
+	lttng/urcu/list.h \
 	lttng/urcu/pointer.h \
-	lttng/urcu/urcu-ust.h \
+	lttng/urcu/rculist.h \
 	lttng/urcu/static/pointer.h \
 	lttng/urcu/static/urcu-ust.h
+	lttng/urcu/static/wfcqueue.h \
+	lttng/urcu/system.h \
+	lttng/urcu/tls-compat.h \
+	lttng/urcu/uatomic/aarch64.h \
+	lttng/urcu/uatomic/alpha.h \
+	lttng/urcu/uatomic/arm.h \
+	lttng/urcu/uatomic/gcc.h \
+	lttng/urcu/uatomic/generic.h \
+	lttng/urcu/uatomic/hppa.h \
+	lttng/urcu/uatomic/ia64.h \
+	lttng/urcu/uatomic/m68k.h \
+	lttng/urcu/uatomic/mips.h \
+	lttng/urcu/uatomic/nios2.h \
+	lttng/urcu/uatomic/ppc.h \
+	lttng/urcu/uatomic/riscv.h \
+	lttng/urcu/uatomic/s390.h \
+	lttng/urcu/uatomic/sparc64.h \
+	lttng/urcu/uatomic/tile.h \
+	lttng/urcu/uatomic/unknown.h \
+	lttng/urcu/uatomic/x86.h \
+	lttng/urcu/uatomic.h
+	lttng/urcu/urcu-ust.h \
+	lttng/urcu/wfcqueue.h
 
 # note: usterr-signal-safe.h, core.h and share.h need namespace cleanup.
 
