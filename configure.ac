@@ -211,10 +211,13 @@ AS_CASE([$host_os],
 	[freebsd*], [NO_NUMA=1]
 )
 
-# Configuration options, which will be installed in the config.h
+# Configuration options, which will be installed in ust-config.h
 AH_TEMPLATE([LTTNG_UST_HAVE_EFFICIENT_UNALIGNED_ACCESS], [Use efficient unaligned access.])
 AH_TEMPLATE([LTTNG_UST_HAVE_SDT_INTEGRATION], [SystemTap integration via sdt.h])
 AH_TEMPLATE([LTTNG_UST_HAVE_PERF_EVENT], [Perf event integration via perf_event.h])
+AH_TEMPLATE([LTTNG_UST_CONFIG_DEBUG], [Enable internal debugging self-checks. Introduces a performance penalty.])
+AH_TEMPLATE([LTTNG_UST_CONFIG_COMPILER_TLS], [TLS provided by the compiler.])
+AH_TEMPLATE([LTTNG_UST_CONFIG_FORCE_SYS_MEMBARRIER], [Require the operating system to support the membarrier system call.])
 
 # Checks for libraries.
 AC_CHECK_LIB([dl], [dlopen], [
@@ -362,6 +365,31 @@ AS_HELP_STRING([--enable-python-agent], [build the LTTng UST Python agent [defau
 AM_CONDITIONAL([BUILD_PYTHON_AGENT], [test "x$python_agent" = "xyes"])
 AS_IF([test "x$python_agent" = "xyes"], [
 	AM_PATH_PYTHON([2.7])
+])
+
+# RCU debugging option
+AC_ARG_ENABLE([debug],
+AS_HELP_STRING([--enable-debug], [Enable internal debugging self-checks. Introduces a performance penalty.]))
+AS_IF([test "x$enable_rcu_debug" = "xyes"], [
+       AC_DEFINE([LTTNG_UST_CONFIG_DEBUG], [1])
+])
+
+# Allow overriding storage used for TLS variables.
+AC_ARG_ENABLE([compiler-tls],
+AS_HELP_STRING([--disable-compiler-tls], [Use pthread_getspecific() to emulate Thread Local Storage (TLS) variables.]),
+	[enable_compiler_tls=$enableval],
+	[enable_compiler_tls="yes"])
+AS_IF([test "x$enable_compiler_tls" = "xyes"], [
+	AC_DEFINE([LTTNG_UST_CONFIG_COMPILER_TLS], [1])
+])
+
+# Allow a fallback if the operating system does not support the membarrier system call.
+AC_ARG_ENABLE([sys-membarrier-fallback],
+        AS_HELP_STRING([--disable-sys-membarrier-fallback], [Abort if sys-membarrier is needed but not available rather than using a fallback.]),
+	[enable_sys_membarrier_fallback=$enableval],
+	[enable_sys_membarrier_fallback="yes"])
+AS_IF([test "x$enable_sys_membarrier_fallback" != "xyes"], [
+	AC_DEFINE([LTTNG_UST_CONFIG_FORCE_SYS_MEMBARRIER], [1])
 ])
 
 # sdt.h integration
@@ -611,6 +639,15 @@ PPRINT_PROP_BOOL_CUSTOM([Perf event integration], $value)
 
 test "x$enable_numa" = xyes && value=1 || value=0
 PPRINT_PROP_BOOL([NUMA], $value)
+
+test "x$enable_compiler_tls" = "xyes" && value="compiler TLS" || value="pthread_getspecific()"
+PPRINT_PROP_STRING([Thread Local Storage (TLS)], [$value])
+
+test "x$enable_sys_membarrier_fallback" != "xyes" && value=1 || value=0
+PPRINT_PROP_BOOL([Require membarrier syscall], $value)
+
+test "x$enable_debug" = "xyes" && value=1 || value=0
+PPRINT_PROP_BOOL([Internal debugging], $value)
 
 AS_ECHO
 PPRINT_SET_INDENT(0)

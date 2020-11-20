@@ -8,3 +8,12 @@
 
 /* Perf event integration via perf_event.h */
 #undef LTTNG_UST_HAVE_PERF_EVENT
+
+/* TLS provided by the compiler. */
+#undef LTTNG_UST_CONFIG_COMPILER_TLS
+
+/* Require the operating system supports the membarrier system call. */
+#undef LTTNG_UST_CONFIG_FORCE_SYS_MEMBARRIER
+
+/* Enable internal debugging self-checks. Introduces a performance penalty. */
+#undef LTTNG_UST_CONFIG_DEBUG
