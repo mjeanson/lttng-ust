@@ -27,17 +27,17 @@
  * SOFTWARE.
  */
 
-#include <urcu/list.h>
-#include <urcu/hlist.h>
+#include <lttng/urcu/list.h>
+#include <lttng/urcu/hlist.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <stdbool.h>
 #include <lttng/ust-config.h>
 #include <lttng/ust-abi.h>
 #include <lttng/ust-tracer.h>
 #include <lttng/ust-endian.h>
 #include <float.h>
 #include <errno.h>
-#include <urcu/ref.h>
 #include <pthread.h>
 
 #ifndef LTTNG_PACKED

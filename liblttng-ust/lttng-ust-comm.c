@@ -38,9 +38,9 @@
 #include <assert.h>
 #include <signal.h>
 #include <limits.h>
-#include <urcu/uatomic.h>
+#include <lttng/urcu/uatomic.h>
 #include "futex.h"
-#include <urcu/compiler.h>
+#include <lttng/urcu/compiler.h>
 #include <lttng/urcu/urcu-ust.h>
 
 #include <lttng/align.h>
@@ -49,7 +49,7 @@
 #include <lttng/ust.h>
 #include <lttng/ust-error.h>
 #include <lttng/ust-ctl.h>
-#include <urcu/tls-compat.h>
+#include <lttng/urcu/tls-compat.h>
 #include <ust-comm.h>
 #include <ust-fd.h>
 #include <usterr-signal-safe.h>

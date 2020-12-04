@@ -21,9 +21,9 @@
 
 #include <assert.h>
 
-#include <urcu/config.h>
+#include <lttng/ust-config.h>
 
-#if defined(DEBUG_RCU) || defined(CONFIG_RCU_DEBUG)
+#if defined(LTTNG_UST_DEBUG) || defined(LTTNG_UST_CONFIG_DEBUG)
 #define urcu_assert(...)	assert(__VA_ARGS__)
 #else
 #define urcu_assert(...)

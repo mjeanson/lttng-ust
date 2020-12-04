@@ -32,7 +32,7 @@
 
 #include <stddef.h>
 
-#include <urcu/compiler.h>
+#include <lttng/urcu/compiler.h>
 
 #include "frontend.h"
 

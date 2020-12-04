@@ -22,8 +22,8 @@
  */
 
 #include <stdint.h>
-#include <urcu/compiler.h>
-#include <urcu/system.h>
+#include <lttng/urcu/compiler.h>
+#include <lttng/urcu/system.h>
 
 #ifdef __cplusplus
 extern "C" {

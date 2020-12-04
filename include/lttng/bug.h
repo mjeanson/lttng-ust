@@ -25,7 +25,7 @@
  * SOFTWARE.
  */
 
-#include <urcu/compiler.h>
+#include <lttng/urcu/compiler.h>
 #include <stdio.h>
 #include <stdlib.h>
 

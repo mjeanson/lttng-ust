@@ -28,8 +28,8 @@
 #include <poll.h>
 #include <stdint.h>
 
-#include <urcu/arch.h>
-#include <urcu/system.h>
+#include <lttng/urcu/arch.h>
+#include <lttng/urcu/system.h>
 #include "futex.h"
 
 /*

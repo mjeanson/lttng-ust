@@ -25,12 +25,12 @@
 #include <stddef.h>
 #include <stdio.h>
 
-#include <urcu/arch.h>
+#include <lttng/urcu/arch.h>
 #include <lttng/urcu/urcu-ust.h>
-#include <urcu/hlist.h>
-#include <urcu/uatomic.h>
-#include <urcu/compiler.h>
-#include <urcu/system.h>
+#include <lttng/urcu/hlist.h>
+#include <lttng/urcu/uatomic.h>
+#include <lttng/urcu/compiler.h>
+#include <lttng/urcu/system.h>
 
 #include <lttng/tracepoint.h>
 #include <lttng/ust-abi.h>	/* for LTTNG_UST_SYM_NAME_LEN */

@@ -25,7 +25,8 @@
 #include <lttng/ust-events.h>
 #include <lttng/ust-tracer.h>
 #include <lttng/ringbuffer-config.h>
-#include <urcu/tls-compat.h>
+#include <lttng/urcu/system.h>
+#include <lttng/urcu/tls-compat.h>
 #include <assert.h>
 #include "compat.h"
 

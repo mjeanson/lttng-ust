@@ -42,8 +42,8 @@
 #include <stdint.h>
 #include <unistd.h>
 
-#include <urcu/compiler.h>
-#include <urcu/list.h>
+#include <lttng/urcu/compiler.h>
+#include <lttng/urcu/list.h>
 
 #include <helper.h>
 #include <lttng/tracepoint.h>

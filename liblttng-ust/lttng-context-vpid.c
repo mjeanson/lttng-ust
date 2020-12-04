@@ -27,6 +27,7 @@
 #include <lttng/ust-events.h>
 #include <lttng/ust-tracer.h>
 #include <lttng/ringbuffer-config.h>
+#include <lttng/urcu/system.h>
 
 /*
  * We cache the result to ensure we don't trigger a system call for

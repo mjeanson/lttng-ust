@@ -26,7 +26,7 @@
  */
 
 #include <assert.h>
-#include <urcu/uatomic.h>
+#include <lttng/urcu/uatomic.h>
 
 /*
  * Same data type (long) accessed differently depending on configuration.

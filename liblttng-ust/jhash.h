@@ -18,7 +18,7 @@
 
 #include <stddef.h>
 #include <stdint.h>
-#include <urcu/compiler.h>
+#include <lttng/urcu/compiler.h>
 #include <lttng/ust-endian.h>
 
 /*

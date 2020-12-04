@@ -26,11 +26,11 @@
 #include <sys/types.h>
 #include <stdio.h>
 #include <assert.h>
-#include <urcu/system.h>
-#include <urcu/uatomic.h>
-#include <urcu/compiler.h>
-#include <urcu/tls-compat.h>
-#include <urcu/arch.h>
+#include <lttng/urcu/system.h>
+#include <lttng/urcu/uatomic.h>
+#include <lttng/urcu/compiler.h>
+#include <lttng/urcu/tls-compat.h>
+#include <lttng/urcu/arch.h>
 #include <lttng/align.h>
 #include <helper.h>
 

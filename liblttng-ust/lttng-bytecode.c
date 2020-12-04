@@ -28,7 +28,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include <urcu/rculist.h>
+#include <lttng/urcu/rculist.h>
 
 #include "lttng-bytecode.h"
 #include "ust-events-internal.h"

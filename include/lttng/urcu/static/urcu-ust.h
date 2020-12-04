@@ -33,14 +33,14 @@
 #include <pthread.h>
 #include <unistd.h>
 
-#include <urcu/config.h>
-#include <urcu/compiler.h>
-#include <urcu/arch.h>
-#include <urcu/system.h>
-#include <urcu/uatomic.h>
-#include <urcu/list.h>
-#include <urcu/tls-compat.h>
-#include <urcu/debug.h>
+#include <lttng/ust-config.h>
+#include <lttng/urcu/compiler.h>
+#include <lttng/urcu/arch.h>
+#include <lttng/urcu/system.h>
+#include <lttng/urcu/uatomic.h>
+#include <lttng/urcu/list.h>
+#include <lttng/urcu/tls-compat.h>
+#include <lttng/urcu/debug.h>
 
 /*
  * This code section can only be included in LGPL 2.1 compatible source code.
@@ -103,7 +103,7 @@ struct lttng_ust_urcu_reader {
  */
 extern DECLARE_URCU_TLS(struct lttng_ust_urcu_reader *, lttng_ust_urcu_reader);
 
-#ifdef CONFIG_RCU_FORCE_SYS_MEMBARRIER
+#ifdef LTTNG_UST_CONFIG_FORCE_SYS_MEMBARRIER
 #define lttng_ust_urcu_has_sys_membarrier	1
 #else
 extern int lttng_ust_urcu_has_sys_membarrier;

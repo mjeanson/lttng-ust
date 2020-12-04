@@ -27,8 +27,8 @@
 #include <stdlib.h>
 #include <lttng/tracepoint-types.h>
 #include <lttng/tracepoint-rcu.h>
-#include <urcu/compiler.h>
-#include <urcu/system.h>
+#include <lttng/urcu/compiler.h>
+#include <lttng/urcu/system.h>
 #include <dlfcn.h>	/* for dlopen */
 #include <string.h>	/* for memset */
 #include <lttng/ust-config.h>	/* for sdt */

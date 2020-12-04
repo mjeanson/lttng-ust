@@ -25,7 +25,7 @@
 #include <stdint.h>
 #include <unistd.h>
 #include <usterr-signal-safe.h>
-#include <urcu/compiler.h>
+#include <lttng/urcu/compiler.h>
 #include "shm_types.h"
 
 /* lttng_counter_handle_create - for UST. */

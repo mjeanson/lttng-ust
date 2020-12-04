@@ -29,6 +29,7 @@
 #include <lttng/ust-events.h>
 #include <lttng/ust-tracer.h>
 #include <lttng/ringbuffer-config.h>
+#include <lttng/urcu/system.h>
 
 #include "ns.h"
 

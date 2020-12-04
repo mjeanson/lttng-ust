@@ -24,6 +24,7 @@
 #include <errno.h>
 #include <lttng/ust-events.h>
 #include <lttng/ust-endian.h>
+#include <lttng/urcu/system.h>
 #include <usterr-signal-safe.h>
 
 #include "../libmsgpack/msgpack.h"

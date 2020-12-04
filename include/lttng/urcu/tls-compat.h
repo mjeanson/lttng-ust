@@ -24,15 +24,15 @@
  */
 
 #include <stdlib.h>
-#include <urcu/config.h>
-#include <urcu/compiler.h>
-#include <urcu/arch.h>
+#include <lttng/ust-config.h>
+#include <lttng/urcu/compiler.h>
+#include <lttng/urcu/arch.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#ifdef CONFIG_RCU_TLS
+#ifdef LTTNG_UST_CONFIG_COMPILER_TLS
 
 #if defined (__cplusplus) && (__cplusplus >= 201103L)
 # define URCU_TLS_STORAGE_CLASS	thread_local
@@ -85,7 +85,7 @@ extern "C" {
 
 # define URCU_TLS(name)		(name)
 
-#else /* #ifndef CONFIG_RCU_TLS */
+#else /* #ifndef LTTNG_UST_CONFIG_COMPILER_TLS */
 
 /*
  * The *_1() macros ensure macro parameters are expanded.
@@ -151,7 +151,7 @@ struct urcu_tls {
 
 # define URCU_TLS(name)		URCU_TLS_1(name)
 
-#endif	/* #else #ifndef CONFIG_RCU_TLS */
+#endif	/* #else #ifndef LTTNG_UST_CONFIG_COMPILER_TLS */
 
 #ifdef __cplusplus
 }

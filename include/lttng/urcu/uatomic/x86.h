@@ -20,10 +20,10 @@
  * Boehm-Demers-Weiser conservative garbage collector.
  */
 
-#include <urcu/arch.h>
-#include <urcu/config.h>
-#include <urcu/compiler.h>
-#include <urcu/system.h>
+#include <lttng/urcu/arch.h>
+#include <lttng/ust-config.h>
+#include <lttng/urcu/compiler.h>
+#include <lttng/urcu/system.h>
 
 #define UATOMIC_HAS_ATOMIC_BYTE
 #define UATOMIC_HAS_ATOMIC_SHORT
@@ -630,6 +630,6 @@ extern unsigned long _compat_uatomic_add_return(void *addr,
 }
 #endif
 
-#include <urcu/uatomic/generic.h>
+#include <lttng/urcu/uatomic/generic.h>
 
 #endif /* _URCU_ARCH_UATOMIC_X86_H */

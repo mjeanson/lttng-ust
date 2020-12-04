@@ -31,8 +31,8 @@
 #include <assert.h>
 #include <poll.h>
 #include <stdbool.h>
-#include <urcu/compiler.h>
-#include <urcu/uatomic.h>
+#include <lttng/urcu/compiler.h>
+#include <lttng/urcu/uatomic.h>
 
 #ifdef __cplusplus
 extern "C" {

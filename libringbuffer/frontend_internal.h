@@ -31,8 +31,8 @@
  * Dual LGPL v2.1/GPL v2 license.
  */
 
-#include <urcu/compiler.h>
-#include <urcu/tls-compat.h>
+#include <lttng/urcu/compiler.h>
+#include <lttng/urcu/tls-compat.h>
 #include <signal.h>
 #include <stdint.h>
 #include <pthread.h>

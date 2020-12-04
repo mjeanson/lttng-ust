@@ -22,9 +22,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-#include <urcu/compiler.h>
-#include <urcu/config.h>
-#include <urcu/syscall-compat.h>
+#include <lttng/urcu/compiler.h>
+#include <lttng/ust-config.h>
+#include <sys/syscall.h>
 #include <stdint.h>
 
 #ifdef __cplusplus
@@ -120,6 +120,6 @@ static inline caa_cycles_t caa_get_cycles(void)
 }
 #endif
 
-#include <urcu/arch/generic.h>
+#include <lttng/urcu/arch/generic.h>
 
 #endif /* _URCU_ARCH_PPC_H */

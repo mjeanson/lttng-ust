@@ -26,7 +26,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <unistd.h>
-#include <urcu/compiler.h>
+#include <lttng/urcu/compiler.h>
 
 #include <lttng/ringbuffer-config.h>
 #include "backend_types.h"

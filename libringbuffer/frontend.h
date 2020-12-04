@@ -31,8 +31,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include <urcu/compiler.h>
-#include <urcu/uatomic.h>
+#include <lttng/urcu/compiler.h>
+#include <lttng/urcu/uatomic.h>
 
 #include "smp.h"
 /* Internal helpers */

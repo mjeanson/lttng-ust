@@ -23,8 +23,8 @@
 #define _LGPL_SOURCE
 #include <string.h>
 #include <errno.h>
-#include <urcu/list.h>
-#include <urcu/hlist.h>
+#include <lttng/urcu/list.h>
+#include <lttng/urcu/hlist.h>
 #include <lttng/ust-events.h>
 #include <lttng/tracepoint.h>
 #include "tracepoint-internal.h"

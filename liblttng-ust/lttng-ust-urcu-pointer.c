@@ -23,7 +23,7 @@
  * IBM's contributions to this file may be relicensed under LGPLv2 or later.
  */
 
-#include <urcu/uatomic.h>
+#include <lttng/urcu/uatomic.h>
 
 #include <lttng/urcu/static/pointer.h>
 /* Do not #define _LGPL_SOURCE to ensure we can emit the wrapper symbols */

@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#include <urcu/list.h>
+#include <lttng/urcu/list.h>
 #include <lttng/tracepoint-types.h>
 #include <lttng/ust-events.h>
 

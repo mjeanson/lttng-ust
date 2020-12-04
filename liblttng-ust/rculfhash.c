@@ -271,9 +271,9 @@
 #include <unistd.h>
 
 #include <lttng/urcu/pointer.h>
-#include <urcu/arch.h>
-#include <urcu/uatomic.h>
-#include <urcu/compiler.h>
+#include <lttng/urcu/arch.h>
+#include <lttng/urcu/uatomic.h>
+#include <lttng/urcu/compiler.h>
 #include "rculfhash.h"
 #include "rculfhash-internal.h"
 #include <stdio.h>

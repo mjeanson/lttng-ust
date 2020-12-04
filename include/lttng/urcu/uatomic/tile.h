@@ -22,8 +22,8 @@
  * Boehm-Demers-Weiser conservative garbage collector.
  */
 
-#include <urcu/compiler.h>
-#include <urcu/system.h>
+#include <lttng/urcu/compiler.h>
+#include <lttng/urcu/system.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -36,6 +36,6 @@ extern "C" {
 }
 #endif
 
-#include <urcu/uatomic/generic.h>
+#include <lttng/urcu/uatomic/generic.h>
 
 #endif /* _URCU_ARCH_UATOMIC_TILE_H */

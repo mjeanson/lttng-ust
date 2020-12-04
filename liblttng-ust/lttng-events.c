@@ -37,11 +37,11 @@
 #include <dlfcn.h>
 #include <lttng/ust-endian.h>
 
-#include <urcu/arch.h>
-#include <urcu/compiler.h>
-#include <urcu/hlist.h>
-#include <urcu/list.h>
-#include <urcu/uatomic.h>
+#include <lttng/urcu/arch.h>
+#include <lttng/urcu/compiler.h>
+#include <lttng/urcu/hlist.h>
+#include <lttng/urcu/list.h>
+#include <lttng/urcu/uatomic.h>
 
 #include <lttng/tracepoint.h>
 #include <lttng/ust-events.h>

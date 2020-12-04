@@ -19,9 +19,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-#include <urcu/compiler.h>
-#include <urcu/system.h>
-#include <urcu/arch.h>
+#include <lttng/urcu/compiler.h>
+#include <lttng/urcu/system.h>
+#include <lttng/urcu/arch.h>
 
 void lttng_ust_getcpu_init(void);
 

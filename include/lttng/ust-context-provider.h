@@ -25,7 +25,7 @@
 
 #include <stddef.h>
 #include <lttng/ust-events.h>
-#include <urcu/hlist.h>
+#include <lttng/urcu/hlist.h>
 
 struct lttng_ust_context_provider {
 	char *name;

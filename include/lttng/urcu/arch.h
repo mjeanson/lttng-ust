@@ -55,75 +55,75 @@
 #define URCU_ARCH_X86 1
 #define URCU_ARCH_AMD64 1
 #define URCU_ARCH_K1OM 1
-#include <urcu/arch/x86.h>
+#include <lttng/urcu/arch/x86.h>
 
 #elif (defined(__amd64__) || defined(__amd64) || defined(__x86_64__) || defined(__x86_64))
 
 #define URCU_ARCH_X86 1
 #define URCU_ARCH_AMD64 1
-#include <urcu/arch/x86.h>
+#include <lttng/urcu/arch/x86.h>
 
 #elif (defined(__i486__) || defined(__i586__) || defined(__i686__))
 
 #define URCU_ARCH_X86 1
-#include <urcu/arch/x86.h>
+#include <lttng/urcu/arch/x86.h>
 
 #elif (defined(__i386__) || defined(__i386))
 
 #define URCU_ARCH_X86 1
 #define URCU_ARCH_I386 1
-#include <urcu/arch/x86.h>
+#include <lttng/urcu/arch/x86.h>
 
 #elif (defined(__powerpc64__) || defined(__ppc64__))
 
 #define URCU_ARCH_PPC 1
 #define URCU_ARCH_PPC64 1
-#include <urcu/arch/ppc.h>
+#include <lttng/urcu/arch/ppc.h>
 
 #elif (defined(__powerpc__) || defined(__powerpc) || defined(__ppc__))
 
 #define URCU_ARCH_PPC 1
-#include <urcu/arch/ppc.h>
+#include <lttng/urcu/arch/ppc.h>
 
 #elif (defined(__s390__) || defined(__s390x__) || defined(__zarch__))
 
 #define URCU_ARCH_S390 1
-#include <urcu/arch/s390.h>
+#include <lttng/urcu/arch/s390.h>
 
 #elif (defined(__sparc__) || defined(__sparc) || defined(__sparc64__))
 
 #define URCU_ARCH_SPARC64 1
-#include <urcu/arch/sparc64.h>
+#include <lttng/urcu/arch/sparc64.h>
 
 #elif (defined(__alpha__) || defined(__alpha))
 
 #define URCU_ARCH_ALPHA 1
-#include <urcu/arch/alpha.h>
+#include <lttng/urcu/arch/alpha.h>
 
 #elif (defined(__ia64__) || defined(__ia64))
 
 #define URCU_ARCH_IA64 1
-#include <urcu/arch/ia64.h>
+#include <lttng/urcu/arch/ia64.h>
 
 #elif (defined(__arm__) || defined(__arm))
 
 #define URCU_ARCH_ARM 1
-#include <urcu/arch/arm.h>
+#include <lttng/urcu/arch/arm.h>
 
 #elif defined(__aarch64__)
 
 #define URCU_ARCH_AARCH64 1
-#include <urcu/arch/aarch64.h>
+#include <lttng/urcu/arch/aarch64.h>
 
 #elif (defined(__mips__) || defined(__mips))
 
 #define URCU_ARCH_MIPS 1
-#include <urcu/arch/mips.h>
+#include <lttng/urcu/arch/mips.h>
 
 #elif (defined(__nios2__) || defined(__nios2))
 
 #define URCU_ARCH_NIOS2 1
-#include <urcu/arch/nios2.h>
+#include <lttng/urcu/arch/nios2.h>
 
 #elif defined(__tilegx__)
 /*
@@ -133,25 +133,25 @@
  */
 
 #define URCU_ARCH_TILE 1
-#include <urcu/arch/tile.h>
+#include <lttng/urcu/arch/tile.h>
 
 #elif (defined(__hppa__) || defined(__HPPA__) || defined(__hppa))
 
 #define URCU_ARCH_HPPA 1
-#include <urcu/arch/hppa.h>
+#include <lttng/urcu/arch/hppa.h>
 
 #elif defined(__m68k__)
 
 #define URCU_ARCH_M68K 1
-#include <urcu/arch/m68k.h>
+#include <lttng/urcu/arch/m68k.h>
 
 #elif defined(__riscv)
 
 #define URCU_ARCH_RISCV 1
-#include <urcu/arch/riscv.h>
+#include <lttng/urcu/arch/riscv.h>
 
 #else
-#error "Cannot build: unrecognized architecture, see <urcu/arch.h>."
+#error "Cannot build: unrecognized architecture, see <lttng/urcu/arch.h>."
 #endif
 
 

@@ -32,8 +32,8 @@
 #include <string.h>
 #include <time.h>	/* for timer_t */
 
-#include <urcu/list.h>
-#include <urcu/uatomic.h>
+#include <lttng/urcu/list.h>
+#include <lttng/urcu/uatomic.h>
 
 #include <lttng/ringbuffer-config.h>
 #include <usterr-signal-safe.h>

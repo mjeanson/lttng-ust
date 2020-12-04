@@ -22,8 +22,8 @@
 #include <stdlib.h>
 #include <usterr-signal-safe.h>
 #include <lttng/ust-getcpu.h>
-#include <urcu/system.h>
-#include <urcu/arch.h>
+#include <lttng/urcu/system.h>
+#include <lttng/urcu/arch.h>
 
 #include "getenv.h"
 #include "../libringbuffer/getcpu.h"

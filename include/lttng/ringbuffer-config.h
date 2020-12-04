@@ -32,7 +32,7 @@
 #include "lttng/ust-tracer.h"
 #include <stdint.h>
 #include <stddef.h>
-#include <urcu/arch.h>
+#include <lttng/urcu/arch.h>
 #include <string.h>
 #include "lttng/align.h"
 #include <lttng/ust-compiler.h>

@@ -22,9 +22,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-#include <urcu/compiler.h>
-#include <urcu/config.h>
-#include <urcu/syscall-compat.h>
+#include <lttng/urcu/compiler.h>
+#include <lttng/ust-config.h>
+#include <sys/syscall.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -57,6 +57,6 @@ __asm__ __volatile__("ba,pt %%xcc, 1f\n\t"	\
 }
 #endif
 
-#include <urcu/arch/generic.h>
+#include <lttng/urcu/arch/generic.h>
 
 #endif /* _URCU_ARCH_SPARC64_H */

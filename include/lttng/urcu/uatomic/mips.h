@@ -25,8 +25,8 @@
  * IN THE SOFTWARE.
  */
 
-#include <urcu/compiler.h>
-#include <urcu/system.h>
-#include <urcu/uatomic/generic.h>
+#include <lttng/urcu/compiler.h>
+#include <lttng/urcu/system.h>
+#include <lttng/urcu/uatomic/generic.h>
 
 #endif /* _URCU_UATOMIC_ARCH_MIPS_H */

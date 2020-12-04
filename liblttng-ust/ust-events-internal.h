@@ -27,8 +27,8 @@
 
 #include <stdint.h>
 
-#include <urcu/list.h>
-#include <urcu/hlist.h>
+#include <lttng/urcu/list.h>
+#include <lttng/urcu/hlist.h>
 
 #include <helper.h>
 #include <lttng/ust-events.h>

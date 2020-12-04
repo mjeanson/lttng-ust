@@ -23,7 +23,7 @@
  * SOFTWARE.
  */
 
-#include <urcu/compiler.h>
+#include <lttng/urcu/compiler.h>
 #include <lttng/urcu/pointer.h>
 
 #ifdef _LGPL_SOURCE

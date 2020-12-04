@@ -29,8 +29,8 @@
  * IN THE SOFTWARE.
  */
 
-#include <urcu/compiler.h>
-#include <urcu/system.h>
+#include <lttng/urcu/compiler.h>
+#include <lttng/urcu/system.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -156,6 +156,6 @@ unsigned long _uatomic_cmpxchg(void *addr, unsigned long old,
 }
 #endif
 
-#include <urcu/uatomic/generic.h>
+#include <lttng/urcu/uatomic/generic.h>
 
 #endif /* _URCU_UATOMIC_ARCH_S390_H */

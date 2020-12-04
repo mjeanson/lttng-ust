@@ -26,9 +26,9 @@
  * IBM's contributions to this file may be relicensed under LGPLv2 or later.
  */
 
-#include <urcu/compiler.h>
-#include <urcu/arch.h>
-#include <urcu/uatomic.h>
+#include <lttng/urcu/compiler.h>
+#include <lttng/urcu/arch.h>
+#include <lttng/urcu/uatomic.h>
 
 #ifdef __cplusplus
 extern "C" {

@@ -22,7 +22,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <unistd.h>
-#include <urcu/arch.h>
+#include <lttng/urcu/arch.h>
 #include <limits.h>
 
 #include <lttng/align.h>

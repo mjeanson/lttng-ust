@@ -29,7 +29,7 @@
 
 #include <stdint.h>
 #include <lttng/ust-config.h>
-#include <urcu/compiler.h>
+#include <lttng/urcu/compiler.h>
 #include "counter-types.h"
 
 static inline int lttng_counter_validate_indexes(const struct lib_counter_config *config,

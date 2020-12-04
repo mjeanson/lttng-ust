@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-#include <urcu/compiler.h>
+#include <lttng/urcu/compiler.h>
 #include <unistd.h>
 
 #define MAX_ERRNO	4095

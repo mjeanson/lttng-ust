@@ -19,8 +19,8 @@
  * all copies or substantial portions of the Software.
  */
 
-#include <urcu/compiler.h>
-#include <urcu/arch.h>
+#include <lttng/urcu/compiler.h>
+#include <lttng/urcu/arch.h>
 
 /*
  * Identify a shared load. A cmm_smp_rmc() or cmm_smp_mc() should come

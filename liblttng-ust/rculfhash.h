@@ -26,7 +26,7 @@
 
 #include <stdint.h>
 #include <pthread.h>
-#include <urcu/compiler.h>
+#include <lttng/urcu/compiler.h>
 
 #ifdef __cplusplus
 extern "C" {

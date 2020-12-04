@@ -34,14 +34,13 @@
 #include <lttng/ust-events.h>
 #include <lttng/ust-tracer.h>
 #include <lttng/ringbuffer-config.h>
-#include <urcu/system.h>
-#include <urcu/arch.h>
-#include <urcu/rculist.h>
+#include <lttng/urcu/system.h>
+#include <lttng/urcu/arch.h>
+#include <lttng/urcu/rculist.h>
 #include <helper.h>
-#include <urcu/ref.h>
 #include <usterr-signal-safe.h>
 #include <signal.h>
-#include <urcu/tls-compat.h>
+#include <lttng/urcu/tls-compat.h>
 #include "perf_event.h"
 #include "lttng-tracer-core.h"
 

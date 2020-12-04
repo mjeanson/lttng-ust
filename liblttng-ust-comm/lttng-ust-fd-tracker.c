@@ -33,9 +33,9 @@
 #include <pthread.h>
 #include <signal.h>
 #include <stdbool.h>
-#include <urcu/compiler.h>
-#include <urcu/tls-compat.h>
-#include <urcu/system.h>
+#include <lttng/urcu/compiler.h>
+#include <lttng/urcu/tls-compat.h>
+#include <lttng/urcu/system.h>
 
 #include <ust-fd.h>
 #include <helper.h>

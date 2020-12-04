@@ -10,8 +10,8 @@
 #include "counter.h"
 #include "counter-internal.h"
 #include <lttng/bitmap.h>
-#include <urcu/system.h>
-#include <urcu/compiler.h>
+#include <lttng/urcu/system.h>
+#include <lttng/urcu/compiler.h>
 #include <stdbool.h>
 #include <helper.h>
 #include <lttng/align.h>

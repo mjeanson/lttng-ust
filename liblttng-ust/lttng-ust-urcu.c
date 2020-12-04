@@ -36,11 +36,11 @@
 #include <stdbool.h>
 #include <sys/mman.h>
 
-#include <urcu/arch.h>
-#include <urcu/wfcqueue.h>
+#include <lttng/urcu/arch.h>
+#include <lttng/urcu/wfcqueue.h>
 #include <lttng/urcu/static/urcu-ust.h>
 #include <lttng/urcu/pointer.h>
-#include <urcu/tls-compat.h>
+#include <lttng/urcu/tls-compat.h>
 
 /* Do not #define _LGPL_SOURCE to ensure we can emit the wrapper symbols */
 #undef _LGPL_SOURCE
@@ -113,7 +113,7 @@ void __attribute__((constructor)) _lttng_ust_urcu_init(void);
 static
 void __attribute__((destructor)) lttng_ust_urcu_exit(void);
 
-#ifndef CONFIG_RCU_FORCE_SYS_MEMBARRIER
+#ifndef LTTNG_UST_CONFIG_FORCE_SYS_MEMBARRIER
 int lttng_ust_urcu_has_sys_membarrier;
 #endif
 
@@ -592,7 +592,7 @@ void lttng_ust_urcu_thread_exit_notifier(void *rcu_key)
 	lttng_ust_urcu_unregister(rcu_key);
 }
 
-#ifdef CONFIG_RCU_FORCE_SYS_MEMBARRIER
+#ifdef LTTNG_UST_CONFIG_FORCE_SYS_MEMBARRIER
 static
 void lttng_ust_urcu_sys_membarrier_status(bool available)
 {

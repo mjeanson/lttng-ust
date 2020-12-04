@@ -23,8 +23,8 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <urcu/compiler.h>
-#include <urcu/rculist.h>
+#include <lttng/urcu/compiler.h>
+#include <lttng/urcu/rculist.h>
 #include <lttng/ust-events.h>
 #include <lttng/ringbuffer-config.h>
 #include <lttng/ust-compiler.h>

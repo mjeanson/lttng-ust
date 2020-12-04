@@ -31,8 +31,8 @@
 #include <limits.h>
 #include "counter.h"
 #include "counter-internal.h"
-#include <urcu/compiler.h>
-#include <urcu/uatomic.h>
+#include <lttng/urcu/compiler.h>
+#include <lttng/urcu/uatomic.h>
 #include <lttng/bitmap.h>
 #include "../libringbuffer/getcpu.h"
 

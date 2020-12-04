@@ -27,8 +27,8 @@
 #include <pthread.h>
 #include <assert.h>
 #include <stdbool.h>
-#include <urcu/compiler.h>
-#include <urcu/arch.h>
+#include <lttng/urcu/compiler.h>
+#include <lttng/urcu/arch.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -130,7 +130,7 @@ struct cds_wfcq_tail {
 
 #ifdef _LGPL_SOURCE
 
-#include <urcu/static/wfcqueue.h>
+#include <lttng/urcu/static/wfcqueue.h>
 
 #define cds_wfcq_node_init		_cds_wfcq_node_init
 #define cds_wfcq_init			_cds_wfcq_init

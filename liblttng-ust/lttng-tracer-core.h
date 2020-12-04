@@ -22,8 +22,8 @@
  */
 
 #include <stddef.h>
-#include <urcu/arch.h>
-#include <urcu/list.h>
+#include <lttng/urcu/arch.h>
+#include <lttng/urcu/list.h>
 #include <lttng/ust-tracer.h>
 #include <lttng/bug.h>
 #include <lttng/ringbuffer-config.h>

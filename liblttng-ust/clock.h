@@ -25,8 +25,8 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdio.h>
-#include <urcu/system.h>
-#include <urcu/arch.h>
+#include <lttng/urcu/system.h>
+#include <lttng/urcu/arch.h>
 #include <lttng/ust-clock.h>
 
 #include "lttng-ust-uuid.h"

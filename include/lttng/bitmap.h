@@ -27,9 +27,9 @@
 #ifndef _LTTNG_BITMAP_H
 #define _LTTNG_BITMAP_H
 
-#include <urcu/compiler.h>
-#include <urcu/system.h>
-#include <urcu/uatomic.h>
+#include <lttng/urcu/compiler.h>
+#include <lttng/urcu/system.h>
+#include <lttng/urcu/uatomic.h>
 #include <stdbool.h>
 
 static inline void lttng_bitmap_index(unsigned int index, unsigned int *word,

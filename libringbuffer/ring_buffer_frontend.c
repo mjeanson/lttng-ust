@@ -61,9 +61,8 @@
 #include <time.h>
 #include <stdbool.h>
 #include <stdint.h>
-#include <urcu/compiler.h>
-#include <urcu/ref.h>
-#include <urcu/tls-compat.h>
+#include <lttng/urcu/compiler.h>
+#include <lttng/urcu/tls-compat.h>
 #include <poll.h>
 #include <helper.h>
 
