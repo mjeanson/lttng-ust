@@ -27,7 +27,7 @@
 static inline
 int IS_ERR_VALUE(long value)
 {
-	if (caa_unlikely((unsigned long) value >= (unsigned long) -MAX_ERRNO))
+	if (lttng_ust_unlikely((unsigned long) value >= (unsigned long) -MAX_ERRNO))
 		return 1;
 	else
 		return 0;

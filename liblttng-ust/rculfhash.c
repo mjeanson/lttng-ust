@@ -667,7 +667,7 @@ void _lttng_ust_lfht_gc_bucket(struct lttng_ust_lfht_node *bucket, struct lttng_
 		 */
 		assert(bucket != node);
 		for (;;) {
-			if (caa_unlikely(is_end(iter)))
+			if (lttng_ust_unlikely(is_end(iter)))
 				return;
 			if (lttng_ust_likely(clear_flag(iter)->reverse_hash > node->reverse_hash))
 				return;
@@ -789,7 +789,7 @@ void _lttng_ust_lfht_add(struct lttng_ust_lfht *ht,
 		iter = lttng_ust_rcu_dereference(iter_prev->next);
 		assert(iter_prev->reverse_hash <= node->reverse_hash);
 		for (;;) {
-			if (caa_unlikely(is_end(iter)))
+			if (lttng_ust_unlikely(is_end(iter)))
 				goto insert;
 			if (lttng_ust_likely(clear_flag(iter)->reverse_hash > node->reverse_hash))
 				goto insert;
@@ -799,7 +799,7 @@ void _lttng_ust_lfht_add(struct lttng_ust_lfht *ht,
 				goto insert;
 
 			next = lttng_ust_rcu_dereference(clear_flag(iter)->next);
-			if (caa_unlikely(is_removed(next)))
+			if (lttng_ust_unlikely(is_removed(next)))
 				goto gc_node;
 
 			/* uniquely add */
@@ -896,7 +896,7 @@ int _lttng_ust_lfht_del(struct lttng_ust_lfht *ht, unsigned long size,
 	 * previously been removed.
 	 */
 	next = CMM_LOAD_SHARED(node->next);	/* next is not dereferenced */
-	if (caa_unlikely(is_removed(next)))
+	if (lttng_ust_unlikely(is_removed(next)))
 		return -ENOENT;
 	assert(!is_bucket(next));
 	/*
@@ -1089,11 +1089,11 @@ void lttng_ust_lfht_lookup(struct lttng_ust_lfht *ht, unsigned long hash,
 	node = lttng_ust_rcu_dereference(bucket->next);
 	node = clear_flag(node);
 	for (;;) {
-		if (caa_unlikely(is_end(node))) {
+		if (lttng_ust_unlikely(is_end(node))) {
 			node = next = NULL;
 			break;
 		}
-		if (caa_unlikely(node->reverse_hash > reverse_hash)) {
+		if (lttng_ust_unlikely(node->reverse_hash > reverse_hash)) {
 			node = next = NULL;
 			break;
 		}
@@ -1125,11 +1125,11 @@ void lttng_ust_lfht_next_duplicate(struct lttng_ust_lfht *ht, lttng_ust_lfht_mat
 	node = clear_flag(next);
 
 	for (;;) {
-		if (caa_unlikely(is_end(node))) {
+		if (lttng_ust_unlikely(is_end(node))) {
 			node = next = NULL;
 			break;
 		}
-		if (caa_unlikely(node->reverse_hash > reverse_hash)) {
+		if (lttng_ust_unlikely(node->reverse_hash > reverse_hash)) {
 			node = next = NULL;
 			break;
 		}
@@ -1153,7 +1153,7 @@ void lttng_ust_lfht_next(struct lttng_ust_lfht *ht, struct lttng_ust_lfht_iter *
 	lttng_ust_lfht_iter_debug_assert(ht == iter->lfht);
 	node = clear_flag(iter->next);
 	for (;;) {
-		if (caa_unlikely(is_end(node))) {
+		if (lttng_ust_unlikely(is_end(node))) {
 			node = next = NULL;
 			break;
 		}
@@ -1239,9 +1239,9 @@ int lttng_ust_lfht_replace(struct lttng_ust_lfht *ht,
 	new_node->reverse_hash = bit_reverse_ulong(hash);
 	if (!old_iter->node)
 		return -ENOENT;
-	if (caa_unlikely(old_iter->node->reverse_hash != new_node->reverse_hash))
+	if (lttng_ust_unlikely(old_iter->node->reverse_hash != new_node->reverse_hash))
 		return -EINVAL;
-	if (caa_unlikely(!match(old_iter->node, key)))
+	if (lttng_ust_unlikely(!match(old_iter->node, key)))
 		return -EINVAL;
 	size = lttng_ust_rcu_dereference(ht->size);
 	return _lttng_ust_lfht_replace(ht, size, old_iter->node, old_iter->next,

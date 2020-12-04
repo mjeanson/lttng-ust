@@ -55,7 +55,7 @@ membar_safe lttng_ust_membar_safe
 # lttng/urcu/compiler.h
 
 caa_likely lttng_ust_likely
-caa_unlikely lttng_ust_caa_unlikely
+caa_unlikely lttng_ust_unlikely
 cmm_barrier lttng_ust_cmm_barrier
 CMM_ACCESS_ONCE LTTNG_UST_CMM_ACCESS_ONCE
 caa_max lttng_ust_caa_max

@@ -126,7 +126,7 @@ int last_tsc_overflow(const struct lttng_ust_lib_ring_buffer_config *config,
 		return 0;
 
 	tsc_shifted = (unsigned long)(tsc >> config->tsc_bits);
-	if (caa_unlikely(tsc_shifted
+	if (lttng_ust_unlikely(tsc_shifted
 		     - (unsigned long)v_read(config, &buf->last_tsc)))
 		return 1;
 	else
@@ -150,7 +150,7 @@ int last_tsc_overflow(const struct lttng_ust_lib_ring_buffer_config *config,
 	if (config->tsc_bits == 0 || config->tsc_bits == 64)
 		return 0;
 
-	if (caa_unlikely((tsc - v_read(config, &buf->last_tsc))
+	if (lttng_ust_unlikely((tsc - v_read(config, &buf->last_tsc))
 		     >> config->tsc_bits))
 		return 1;
 	else
@@ -196,13 +196,13 @@ void lib_ring_buffer_reserve_push_reader(struct lttng_ust_lib_ring_buffer *buf,
 		 * write position sub-buffer index in the buffer being the one
 		 * which will win this loop.
 		 */
-		if (caa_unlikely(subbuf_trunc(offset, chan)
+		if (lttng_ust_unlikely(subbuf_trunc(offset, chan)
 			      - subbuf_trunc(consumed_old, chan)
 			     >= chan->backend.buf_size))
 			consumed_new = subbuf_align(consumed_old, chan);
 		else
 			return;
-	} while (caa_unlikely(uatomic_cmpxchg(&buf->consumed, consumed_old,
+	} while (lttng_ust_unlikely(uatomic_cmpxchg(&buf->consumed, consumed_old,
 					      consumed_new) != consumed_old));
 }
 
@@ -235,7 +235,7 @@ void lib_ring_buffer_clear_reader(struct lttng_ust_lib_ring_buffer *buf,
 				- subbuf_trunc(consumed_old, chan))
 				< 0);
 		consumed_new = subbuf_trunc(offset, chan);
-	} while (caa_unlikely(uatomic_cmpxchg(&buf->consumed, consumed_old,
+	} while (lttng_ust_unlikely(uatomic_cmpxchg(&buf->consumed, consumed_old,
 					      consumed_new) != consumed_old));
 }
 
@@ -285,7 +285,7 @@ int lib_ring_buffer_reserve_committed(const struct lttng_ust_lib_ring_buffer_con
 		offset = v_read(config, &buf->offset);
 		idx = subbuf_index(offset, chan);
 		cc_hot = shmp_index(handle, buf->commit_hot, idx);
-		if (caa_unlikely(!cc_hot))
+		if (lttng_ust_unlikely(!cc_hot))
 			return 0;
 		commit_count = v_read(config, &cc_hot->cc);
 	} while (offset != v_read(config, &buf->offset));
@@ -315,7 +315,7 @@ void lib_ring_buffer_check_deliver(const struct lttng_ust_lib_ring_buffer_config
 					 - chan->backend.subbuf_size;
 
 	/* Check if all commits have been done */
-	if (caa_unlikely((buf_trunc(offset, chan) >> chan->backend.num_subbuf_order)
+	if (lttng_ust_unlikely((buf_trunc(offset, chan) >> chan->backend.num_subbuf_order)
 		     - (old_commit_count & chan->commit_count_mask) == 0))
 		lib_ring_buffer_check_deliver_slow(config, buf, chan, offset,
 			commit_count, idx, handle, tsc);
@@ -349,7 +349,7 @@ void lib_ring_buffer_write_commit_counter(const struct lttng_ust_lib_ring_buffer
 	 * buffer full/empty mismatch because offset is never zero here
 	 * (subbuffer header and record headers have non-zero length).
 	 */
-	if (caa_unlikely(subbuf_offset(buf_offset - commit_count, chan)))
+	if (lttng_ust_unlikely(subbuf_offset(buf_offset - commit_count, chan)))
 		return;
 
 	commit_seq_old = v_read(config, &cc_hot->seq);

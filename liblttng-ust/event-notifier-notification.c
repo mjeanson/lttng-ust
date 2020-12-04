@@ -382,7 +382,7 @@ void lttng_event_notifier_notification_send(
 
 	notification_init(&notif, event_notifier);
 
-	if (caa_unlikely(!cds_list_empty(&event_notifier->capture_bytecode_runtime_head))) {
+	if (lttng_ust_unlikely(!cds_list_empty(&event_notifier->capture_bytecode_runtime_head))) {
 		struct lttng_bytecode_runtime *capture_bc_runtime;
 
 		/*

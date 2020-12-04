@@ -129,7 +129,7 @@ struct urcu_tls {
 		}						\
 		cmm_smp_rmb();	/* read init_done before getting key */ \
 		__tls_p = pthread_getspecific(__tls_ ## name.key); \
-		if (caa_unlikely(__tls_p == NULL)) {		\
+		if (lttng_ust_unlikely(__tls_p == NULL)) {		\
 			__tls_p = calloc(1, sizeof(type));	\
 			do_init					\
 			(void) pthread_setspecific(__tls_ ## name.key,	\

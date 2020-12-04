@@ -51,7 +51,7 @@ static inline int __lttng_counter_add(const struct lib_counter_config *config,
 	struct lib_counter_layout *layout;
 	int64_t move_sum = 0;
 
-	if (caa_unlikely(lttng_counter_validate_indexes(config, counter, dimension_indexes)))
+	if (lttng_ust_unlikely(lttng_counter_validate_indexes(config, counter, dimension_indexes)))
 		return -EOVERFLOW;
 	index = lttng_counter_get_index(config, counter, dimension_indexes);
 
@@ -65,7 +65,7 @@ static inline int __lttng_counter_add(const struct lib_counter_config *config,
 	default:
 		return -EINVAL;
 	}
-	if (caa_unlikely(!layout->counters))
+	if (lttng_ust_unlikely(!layout->counters))
 		return -ENODEV;
 
 	switch (config->counter_size) {
@@ -83,9 +83,9 @@ static inline int __lttng_counter_add(const struct lib_counter_config *config,
 				move_sum = 0;
 				old = res;
 				n = (int8_t) ((uint8_t) old + (uint8_t) v);
-				if (caa_unlikely(n > (int8_t) global_sum_step))
+				if (lttng_ust_unlikely(n > (int8_t) global_sum_step))
 					move_sum = (int8_t) global_sum_step / 2;
-				else if (caa_unlikely(n < -(int8_t) global_sum_step))
+				else if (lttng_ust_unlikely(n < -(int8_t) global_sum_step))
 					move_sum = -((int8_t) global_sum_step / 2);
 				n -= move_sum;
 				res = uatomic_cmpxchg(int_p, old, n);
@@ -124,9 +124,9 @@ static inline int __lttng_counter_add(const struct lib_counter_config *config,
 				move_sum = 0;
 				old = res;
 				n = (int16_t) ((uint16_t) old + (uint16_t) v);
-				if (caa_unlikely(n > (int16_t) global_sum_step))
+				if (lttng_ust_unlikely(n > (int16_t) global_sum_step))
 					move_sum = (int16_t) global_sum_step / 2;
-				else if (caa_unlikely(n < -(int16_t) global_sum_step))
+				else if (lttng_ust_unlikely(n < -(int16_t) global_sum_step))
 					move_sum = -((int16_t) global_sum_step / 2);
 				n -= move_sum;
 				res = uatomic_cmpxchg(int_p, old, n);
@@ -165,9 +165,9 @@ static inline int __lttng_counter_add(const struct lib_counter_config *config,
 				move_sum = 0;
 				old = res;
 				n = (int32_t) ((uint32_t) old + (uint32_t) v);
-				if (caa_unlikely(n > (int32_t) global_sum_step))
+				if (lttng_ust_unlikely(n > (int32_t) global_sum_step))
 					move_sum = (int32_t) global_sum_step / 2;
-				else if (caa_unlikely(n < -(int32_t) global_sum_step))
+				else if (lttng_ust_unlikely(n < -(int32_t) global_sum_step))
 					move_sum = -((int32_t) global_sum_step / 2);
 				n -= move_sum;
 				res = uatomic_cmpxchg(int_p, old, n);
@@ -207,9 +207,9 @@ static inline int __lttng_counter_add(const struct lib_counter_config *config,
 				move_sum = 0;
 				old = res;
 				n = (int64_t) ((uint64_t) old + (uint64_t) v);
-				if (caa_unlikely(n > (int64_t) global_sum_step))
+				if (lttng_ust_unlikely(n > (int64_t) global_sum_step))
 					move_sum = (int64_t) global_sum_step / 2;
-				else if (caa_unlikely(n < -(int64_t) global_sum_step))
+				else if (lttng_ust_unlikely(n < -(int64_t) global_sum_step))
 					move_sum = -((int64_t) global_sum_step / 2);
 				n -= move_sum;
 				res = uatomic_cmpxchg(int_p, old, n);
@@ -238,9 +238,9 @@ static inline int __lttng_counter_add(const struct lib_counter_config *config,
 	default:
 		return -EINVAL;
 	}
-	if (caa_unlikely(overflow && !lttng_bitmap_test_bit(index, layout->overflow_bitmap)))
+	if (lttng_ust_unlikely(overflow && !lttng_bitmap_test_bit(index, layout->overflow_bitmap)))
 		lttng_bitmap_set_bit(index, layout->overflow_bitmap);
-	else if (caa_unlikely(underflow && !lttng_bitmap_test_bit(index, layout->underflow_bitmap)))
+	else if (lttng_ust_unlikely(underflow && !lttng_bitmap_test_bit(index, layout->underflow_bitmap)))
 		lttng_bitmap_set_bit(index, layout->underflow_bitmap);
 	if (remainder)
 		*remainder = move_sum;
@@ -256,9 +256,9 @@ static inline int __lttng_counter_add_percpu(const struct lib_counter_config *co
 
 	ret = __lttng_counter_add(config, COUNTER_ALLOC_PER_CPU, config->sync,
 				       counter, dimension_indexes, v, &move_sum);
-	if (caa_unlikely(ret))
+	if (lttng_ust_unlikely(ret))
 		return ret;
-	if (caa_unlikely(move_sum))
+	if (lttng_ust_unlikely(move_sum))
 		return __lttng_counter_add(config, COUNTER_ALLOC_GLOBAL, COUNTER_SYNC_GLOBAL,
 					   counter, dimension_indexes, move_sum, NULL);
 	return 0;

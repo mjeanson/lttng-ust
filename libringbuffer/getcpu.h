@@ -59,7 +59,7 @@ int lttng_ust_get_cpu_internal(void)
 	int cpu, ret;
 
 	ret = __getcpu(&cpu, NULL, NULL);
-	if (caa_unlikely(ret < 0))
+	if (lttng_ust_unlikely(ret < 0))
 		return 0;
 	return cpu;
 }
@@ -75,7 +75,7 @@ int lttng_ust_get_cpu_internal(void)
 	int cpu;
 
 	cpu = sched_getcpu();
-	if (caa_unlikely(cpu < 0))
+	if (lttng_ust_unlikely(cpu < 0))
 		return 0;
 	return cpu;
 }

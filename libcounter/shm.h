@@ -57,13 +57,13 @@ char *_lttng_counter_shmp_offset(struct lttng_counter_shm_object_table *table,
 	size_t objindex, ref_offset;
 
 	objindex = (size_t) ref->index;
-	if (caa_unlikely(objindex >= table->allocated_len))
+	if (lttng_ust_unlikely(objindex >= table->allocated_len))
 		return NULL;
 	obj = &table->objects[objindex];
 	ref_offset = (size_t) ref->offset;
 	ref_offset += idx * elem_size;
 	/* Check if part of the element returned would exceed the limits. */
-	if (caa_unlikely(ref_offset + elem_size > obj->memory_map_size))
+	if (lttng_ust_unlikely(ref_offset + elem_size > obj->memory_map_size))
 		return NULL;
 	return &obj->memory_map[ref_offset];
 }
@@ -116,7 +116,7 @@ int lttng_counter_shm_get_shm_fd(struct lttng_counter_shm_handle *handle, struct
 	size_t index;
 
 	index = (size_t) ref->index;
-	if (caa_unlikely(index >= table->allocated_len))
+	if (lttng_ust_unlikely(index >= table->allocated_len))
 		return -EPERM;
 	obj = &table->objects[index];
 	return obj->shm_fd;
@@ -132,7 +132,7 @@ int lttng_counter_shm_get_shm_size(struct lttng_counter_shm_handle *handle, stru
 	size_t index;
 
 	index = (size_t) ref->index;
-	if (caa_unlikely(index >= table->allocated_len))
+	if (lttng_ust_unlikely(index >= table->allocated_len))
 		return -EPERM;
 	obj = &table->objects[index];
 	*size = obj->memory_map_size;

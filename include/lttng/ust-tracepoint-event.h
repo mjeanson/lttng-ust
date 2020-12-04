@@ -871,22 +871,22 @@ void __event_probe__##_provider##___##_name(_TP_ARGS_DATA_PROTO(_args))	      \
 		(void) __dynamic_len_idx;	/* don't warn if unused */    \
 	if (!_TP_SESSION_CHECK(session, __chan->session))		      \
 		return;							      \
-	if (caa_unlikely(!CMM_ACCESS_ONCE(__chan->session->active)))	      \
+	if (lttng_ust_unlikely(!CMM_ACCESS_ONCE(__chan->session->active)))	      \
 		return;							      \
-	if (caa_unlikely(!CMM_ACCESS_ONCE(__chan->enabled)))		      \
+	if (lttng_ust_unlikely(!CMM_ACCESS_ONCE(__chan->enabled)))		      \
 		return;							      \
-	if (caa_unlikely(!CMM_ACCESS_ONCE(__event->enabled)))		      \
+	if (lttng_ust_unlikely(!CMM_ACCESS_ONCE(__event->enabled)))		      \
 		return;							      \
-	if (caa_unlikely(!TP_RCU_LINK_TEST()))				      \
+	if (lttng_ust_unlikely(!TP_RCU_LINK_TEST()))				      \
 		return;							      \
-	if (caa_unlikely(!cds_list_empty(&__event->filter_bytecode_runtime_head))) { \
+	if (lttng_ust_unlikely(!cds_list_empty(&__event->filter_bytecode_runtime_head))) { \
 		struct lttng_bytecode_runtime *__filter_bc_runtime;		      \
 		int __filter_record = __event->has_enablers_without_bytecode; \
 									      \
 		__event_prepare_interpreter_stack__##_provider##___##_name(__stackvar.__filter_stack_data, \
 			_TP_ARGS_DATA_VAR(_args));			      \
 		tp_list_for_each_entry_rcu(__filter_bc_runtime, &__event->filter_bytecode_runtime_head, node) { \
-			if (caa_unlikely(__filter_bc_runtime->interpreter_funcs.filter(__filter_bc_runtime,     \
+			if (lttng_ust_unlikely(__filter_bc_runtime->interpreter_funcs.filter(__filter_bc_runtime,     \
 					__stackvar.__filter_stack_data) & LTTNG_INTERPRETER_RECORD_FLAG)) { \
 				__filter_record = 1;			      \
 				break;					      \
@@ -958,25 +958,25 @@ void __event_notifier_probe__##_provider##___##_name(_TP_ARGS_DATA_PROTO(_args))
 		char __interpreter_stack_data[2 * sizeof(unsigned long) * __num_fields]; \
 	} __stackvar;							      \
 									      \
-	if (caa_unlikely(!CMM_ACCESS_ONCE(__event_notifier->enabled)))	      \
+	if (lttng_ust_unlikely(!CMM_ACCESS_ONCE(__event_notifier->enabled)))	      \
 		return;							      \
-	if (caa_unlikely(!TP_RCU_LINK_TEST()))				      \
+	if (lttng_ust_unlikely(!TP_RCU_LINK_TEST()))				      \
 		return;							      \
-	if (caa_unlikely(!cds_list_empty(&__event_notifier->filter_bytecode_runtime_head))) { \
+	if (lttng_ust_unlikely(!cds_list_empty(&__event_notifier->filter_bytecode_runtime_head))) { \
 		struct lttng_bytecode_runtime *__filter_bc_runtime;		       \
 		int __filter_record = __event_notifier->has_enablers_without_bytecode; \
 									      \
 		__event_prepare_interpreter_stack__##_provider##___##_name(__stackvar.__interpreter_stack_data, \
 			_TP_ARGS_DATA_VAR(_args));			      \
 		tp_list_for_each_entry_rcu(__filter_bc_runtime, &__event_notifier->filter_bytecode_runtime_head, node) { \
-			if (caa_unlikely(__filter_bc_runtime->interpreter_funcs.filter(__filter_bc_runtime,	  \
+			if (lttng_ust_unlikely(__filter_bc_runtime->interpreter_funcs.filter(__filter_bc_runtime,	  \
 					__stackvar.__interpreter_stack_data) & LTTNG_INTERPRETER_RECORD_FLAG)) \
 				__filter_record = 1;			      \
 		}							      \
 		if (lttng_ust_likely(!__filter_record))			      \
 			return;						      \
 	}								      \
-	if (caa_unlikely(!cds_list_empty(&__event_notifier->capture_bytecode_runtime_head))) \
+	if (lttng_ust_unlikely(!cds_list_empty(&__event_notifier->capture_bytecode_runtime_head))) \
 		__event_prepare_interpreter_stack__##_provider##___##_name(__stackvar.__interpreter_stack_data, \
 			_TP_ARGS_DATA_VAR(_args));			      \
 									      \

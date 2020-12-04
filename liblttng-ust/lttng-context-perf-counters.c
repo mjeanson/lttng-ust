@@ -181,10 +181,10 @@ uint64_t read_perf_counter_syscall(
 {
 	uint64_t count;
 
-	if (caa_unlikely(thread_field->fd < 0))
+	if (lttng_ust_unlikely(thread_field->fd < 0))
 		return 0;
 
-	if (caa_unlikely(read(thread_field->fd, &count, sizeof(count))
+	if (lttng_ust_unlikely(read(thread_field->fd, &count, sizeof(count))
 				< sizeof(count)))
 		return 0;
 
@@ -206,7 +206,7 @@ uint64_t rdpmc(unsigned int counter)
 static
 bool has_rdpmc(struct perf_event_mmap_page *pc)
 {
-	if (caa_unlikely(!pc->cap_bit0_is_deprecated))
+	if (lttng_ust_unlikely(!pc->cap_bit0_is_deprecated))
 		return false;
 	/* Since Linux kernel 3.12. */
 	return pc->cap_user_rdpmc;
@@ -220,7 +220,7 @@ uint64_t arch_read_perf_counter(
 	uint64_t count;
 	struct perf_event_mmap_page *pc = thread_field->pc;
 
-	if (caa_unlikely(!pc))
+	if (lttng_ust_unlikely(!pc))
 		return 0;
 
 	do {

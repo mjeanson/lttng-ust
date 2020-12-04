@@ -53,9 +53,9 @@ char *wrapper_getprocname(void)
 {
 	int nesting = CMM_LOAD_SHARED(URCU_TLS(procname_nesting));
 
-	if (caa_unlikely(nesting >= PROCNAME_NESTING_MAX))
+	if (lttng_ust_unlikely(nesting >= PROCNAME_NESTING_MAX))
 		return "<unknown>";
-	if (caa_unlikely(!URCU_TLS(cached_procname)[nesting][0])) {
+	if (lttng_ust_unlikely(!URCU_TLS(cached_procname)[nesting][0])) {
 		CMM_STORE_SHARED(URCU_TLS(procname_nesting), nesting + 1);
 		/* Increment nesting before updating cache. */
 		cmm_barrier();

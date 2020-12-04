@@ -83,7 +83,7 @@ void lib_ring_buffer_write(const struct lttng_ust_lib_ring_buffer_config *config
 	struct lttng_ust_lib_ring_buffer_backend_pages *backend_pages;
 	void *p;
 
-	if (caa_unlikely(!len))
+	if (lttng_ust_unlikely(!len))
 		return;
 	/*
 	 * Underlying layer should never ask for writes across
@@ -91,12 +91,12 @@ void lib_ring_buffer_write(const struct lttng_ust_lib_ring_buffer_config *config
 	 */
 	CHAN_WARN_ON(chanb, (offset & (chanb->buf_size - 1)) + len > chanb->buf_size);
 	backend_pages = lib_ring_buffer_get_backend_pages_from_ctx(config, ctx);
-	if (caa_unlikely(!backend_pages)) {
+	if (lttng_ust_unlikely(!backend_pages)) {
 		if (lib_ring_buffer_backend_get_pages(config, ctx, &backend_pages))
 			return;
 	}
 	p = shmp_index(handle, backend_pages->p, offset & (chanb->subbuf_size - 1));
-	if (caa_unlikely(!p))
+	if (lttng_ust_unlikely(!p))
 		return;
 	lib_ring_buffer_do_copy(config, p, src, len);
 	ctx->buf_offset += len;
@@ -155,7 +155,7 @@ void lib_ring_buffer_strcpy(const struct lttng_ust_lib_ring_buffer_config *confi
 	struct lttng_ust_lib_ring_buffer_backend_pages *backend_pages;
 	void *p;
 
-	if (caa_unlikely(!len))
+	if (lttng_ust_unlikely(!len))
 		return;
 	/*
 	 * Underlying layer should never ask for writes across
@@ -163,29 +163,29 @@ void lib_ring_buffer_strcpy(const struct lttng_ust_lib_ring_buffer_config *confi
 	 */
 	CHAN_WARN_ON(chanb, (offset & (chanb->buf_size - 1)) + len > chanb->buf_size);
 	backend_pages = lib_ring_buffer_get_backend_pages_from_ctx(config, ctx);
-	if (caa_unlikely(!backend_pages)) {
+	if (lttng_ust_unlikely(!backend_pages)) {
 		if (lib_ring_buffer_backend_get_pages(config, ctx, &backend_pages))
 			return;
 	}
 	p = shmp_index(handle, backend_pages->p, offset & (chanb->subbuf_size - 1));
-	if (caa_unlikely(!p))
+	if (lttng_ust_unlikely(!p))
 		return;
 
 	count = lib_ring_buffer_do_strcpy(config, p, src, len - 1);
 	offset += count;
 	/* Padding */
-	if (caa_unlikely(count < len - 1)) {
+	if (lttng_ust_unlikely(count < len - 1)) {
 		size_t pad_len = len - 1 - count;
 
 		p = shmp_index(handle, backend_pages->p, offset & (chanb->subbuf_size - 1));
-		if (caa_unlikely(!p))
+		if (lttng_ust_unlikely(!p))
 			return;
 		lib_ring_buffer_do_memset(p, pad, pad_len);
 		offset += pad_len;
 	}
 	/* Final '\0' */
 	p = shmp_index(handle, backend_pages->p, offset & (chanb->subbuf_size - 1));
-	if (caa_unlikely(!p))
+	if (lttng_ust_unlikely(!p))
 		return;
 	lib_ring_buffer_do_memset(p, '\0', 1);
 	ctx->buf_offset += len;

@@ -266,7 +266,7 @@ void lttng_write_event_header(const struct lttng_ust_lib_ring_buffer_config *con
 	struct lttng_event *event = ctx->priv;
 	struct lttng_stack_ctx *lttng_ctx = ctx->priv2;
 
-	if (caa_unlikely(ctx->rflags))
+	if (lttng_ust_unlikely(ctx->rflags))
 		goto slow_path;
 
 	switch (lttng_chan->header_type) {
@@ -759,7 +759,7 @@ int lttng_event_reserve(struct lttng_ust_lib_ring_buffer_ctx *ctx,
 	}
 
 	ret = lib_ring_buffer_reserve(&client_config, ctx, &client_ctx);
-	if (caa_unlikely(ret))
+	if (lttng_ust_unlikely(ret))
 		goto put;
 	if (lttng_ust_likely(ctx->ctx_len
 			>= sizeof(struct lttng_ust_lib_ring_buffer_ctx))) {

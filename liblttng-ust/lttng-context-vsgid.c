@@ -57,7 +57,7 @@ gid_t get_vsgid(void)
 
 	vsgid = CMM_LOAD_SHARED(cached_vsgid);
 
-	if (caa_unlikely(vsgid == INVALID_GID)) {
+	if (lttng_ust_unlikely(vsgid == INVALID_GID)) {
 		gid_t gid, egid, sgid;
 
 		if (getresgid(&gid, &egid, &sgid) == 0) {

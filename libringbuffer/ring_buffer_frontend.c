@@ -1966,7 +1966,7 @@ int lib_ring_buffer_try_switch_slow(enum switch_mode mode,
 	if (mode != SWITCH_FLUSH && !off)
 		return -1;	/* we do not have to switch : buffer is empty */
 
-	if (caa_unlikely(off == 0)) {
+	if (lttng_ust_unlikely(off == 0)) {
 		unsigned long sb_index, commit_count;
 		struct commit_counters_cold *cc_cold;
 
@@ -1995,7 +1995,7 @@ int lib_ring_buffer_try_switch_slow(enum switch_mode mode,
 		  - (commit_count & chan->commit_count_mask);
 		if (lttng_ust_likely(reserve_commit_diff == 0)) {
 			/* Next subbuffer not being written to. */
-			if (caa_unlikely(config->mode != RING_BUFFER_OVERWRITE &&
+			if (lttng_ust_unlikely(config->mode != RING_BUFFER_OVERWRITE &&
 				subbuf_trunc(offsets->begin, chan)
 				 - subbuf_trunc((unsigned long)
 				     uatomic_read(&buf->consumed), chan)
@@ -2152,7 +2152,7 @@ retry:
 	if (last_tsc_overflow(config, buf, ctx->tsc))
 		ctx->rflags |= RING_BUFFER_RFLAG_FULL_TSC;
 
-	if (caa_unlikely(subbuf_offset(offsets->begin, ctx->chan) == 0)) {
+	if (lttng_ust_unlikely(subbuf_offset(offsets->begin, ctx->chan) == 0)) {
 		offsets->switch_new_start = 1;		/* For offsets->begin */
 	} else {
 		offsets->size = config->cb.record_header_size(config, chan,
@@ -2163,13 +2163,13 @@ retry:
 			lib_ring_buffer_align(offsets->begin + offsets->size,
 					      ctx->largest_align)
 			+ ctx->data_size;
-		if (caa_unlikely(subbuf_offset(offsets->begin, chan) +
+		if (lttng_ust_unlikely(subbuf_offset(offsets->begin, chan) +
 			     offsets->size > chan->backend.subbuf_size)) {
 			offsets->switch_old_end = 1;	/* For offsets->old */
 			offsets->switch_new_start = 1;	/* For offsets->begin */
 		}
 	}
-	if (caa_unlikely(offsets->switch_new_start)) {
+	if (lttng_ust_unlikely(offsets->switch_new_start)) {
 		unsigned long sb_index, commit_count;
 		struct commit_counters_cold *cc_cold;
 
@@ -2196,7 +2196,7 @@ retry:
 		commit_count = v_read(config, &cc_cold->cc_sb);
 		/* Read buf->commit_cold[sb_index].cc_sb before buf->offset. */
 		cmm_smp_rmb();
-		if (caa_unlikely(offset_cmp != v_read(config, &buf->offset))) {
+		if (lttng_ust_unlikely(offset_cmp != v_read(config, &buf->offset))) {
 			/*
 			 * The reserve counter have been concurrently updated
 			 * while we read the commit counter. This means the
@@ -2211,7 +2211,7 @@ retry:
 		  - (commit_count & chan->commit_count_mask);
 		if (lttng_ust_likely(reserve_commit_diff == 0)) {
 			/* Next subbuffer not being written to. */
-			if (caa_unlikely(config->mode != RING_BUFFER_OVERWRITE &&
+			if (lttng_ust_unlikely(config->mode != RING_BUFFER_OVERWRITE &&
 				subbuf_trunc(offsets->begin, chan)
 				 - subbuf_trunc((unsigned long)
 				     uatomic_read(&buf->consumed), chan)
@@ -2269,7 +2269,7 @@ retry:
 			lib_ring_buffer_align(offsets->begin + offsets->size,
 					      ctx->largest_align)
 			+ ctx->data_size;
-		if (caa_unlikely(subbuf_offset(offsets->begin, chan)
+		if (lttng_ust_unlikely(subbuf_offset(offsets->begin, chan)
 			     + offsets->size > chan->backend.subbuf_size)) {
 			unsigned long nr_lost;
 
@@ -2300,7 +2300,7 @@ retry:
 	}
 	offsets->end = offsets->begin + offsets->size;
 
-	if (caa_unlikely(subbuf_offset(offsets->end, chan) == 0)) {
+	if (lttng_ust_unlikely(subbuf_offset(offsets->end, chan) == 0)) {
 		/*
 		 * The offset_end will fall at the very beginning of the next
 		 * subbuffer.
@@ -2341,9 +2341,9 @@ int lib_ring_buffer_reserve_slow(struct lttng_ust_lib_ring_buffer_ctx *ctx,
 	do {
 		ret = lib_ring_buffer_try_reserve_slow(buf, chan, &offsets,
 						       ctx, client_ctx);
-		if (caa_unlikely(ret))
+		if (lttng_ust_unlikely(ret))
 			return ret;
-	} while (caa_unlikely(v_cmpxchg(config, &buf->offset, offsets.old,
+	} while (lttng_ust_unlikely(v_cmpxchg(config, &buf->offset, offsets.old,
 				    offsets.end)
 			  != offsets.old));
 
@@ -2370,7 +2370,7 @@ int lib_ring_buffer_reserve_slow(struct lttng_ust_lib_ring_buffer_ctx *ctx,
 	/*
 	 * Switch old subbuffer if needed.
 	 */
-	if (caa_unlikely(offsets.switch_old_end)) {
+	if (lttng_ust_unlikely(offsets.switch_old_end)) {
 		lib_ring_buffer_clear_noref(config, &buf->backend,
 					    subbuf_index(offsets.old - 1, chan),
 					    handle);
@@ -2380,10 +2380,10 @@ int lib_ring_buffer_reserve_slow(struct lttng_ust_lib_ring_buffer_ctx *ctx,
 	/*
 	 * Populate new subbuffer.
 	 */
-	if (caa_unlikely(offsets.switch_new_start))
+	if (lttng_ust_unlikely(offsets.switch_new_start))
 		lib_ring_buffer_switch_new_start(buf, chan, &offsets, ctx->tsc, handle);
 
-	if (caa_unlikely(offsets.switch_new_end))
+	if (lttng_ust_unlikely(offsets.switch_new_end))
 		lib_ring_buffer_switch_new_end(buf, chan, &offsets, ctx->tsc, handle);
 
 	ctx->slot_size = offsets.size;

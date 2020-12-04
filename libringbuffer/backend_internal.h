@@ -216,18 +216,18 @@ int lib_ring_buffer_backend_get_pages(const struct lttng_ust_lib_ring_buffer_con
 	offset &= chanb->buf_size - 1;
 	sbidx = offset >> chanb->subbuf_size_order;
 	wsb = shmp_index(handle, bufb->buf_wsb, sbidx);
-	if (caa_unlikely(!wsb))
+	if (lttng_ust_unlikely(!wsb))
 		return -1;
 	id = wsb->id;
 	sb_bindex = subbuffer_id_get_index(config, id);
 	rpages = shmp_index(handle, bufb->array, sb_bindex);
-	if (caa_unlikely(!rpages))
+	if (lttng_ust_unlikely(!rpages))
 		return -1;
 	CHAN_WARN_ON(ctx->chan,
 		     config->mode == RING_BUFFER_OVERWRITE
 		     && subbuffer_id_is_noref(config, id));
 	_backend_pages = shmp(handle, rpages->shmp);
-	if (caa_unlikely(!_backend_pages))
+	if (lttng_ust_unlikely(!_backend_pages))
 		return -1;
 	*backend_pages = _backend_pages;
 	return 0;
@@ -239,7 +239,7 @@ struct lttng_ust_lib_ring_buffer_backend_pages *
 	lib_ring_buffer_get_backend_pages_from_ctx(const struct lttng_ust_lib_ring_buffer_config *config,
 		struct lttng_ust_lib_ring_buffer_ctx *ctx)
 {
-	if (caa_unlikely(ctx->ctx_len
+	if (lttng_ust_unlikely(ctx->ctx_len
 			< sizeof(struct lttng_ust_lib_ring_buffer_ctx)))
 		return NULL;
 	return ctx->backend_pages;
@@ -259,7 +259,7 @@ void subbuffer_count_record(const struct lttng_ust_lib_ring_buffer_config *confi
 	struct lttng_ust_lib_ring_buffer_backend_pages *backend_pages;
 
 	backend_pages = lib_ring_buffer_get_backend_pages_from_ctx(config, ctx);
-	if (caa_unlikely(!backend_pages)) {
+	if (lttng_ust_unlikely(!backend_pages)) {
 		if (lib_ring_buffer_backend_get_pages(config, ctx, &backend_pages))
 			return;
 	}
@@ -551,7 +551,7 @@ int update_read_sb_index(const struct lttng_ust_lib_ring_buffer_config *config,
 	unsigned long old_id, new_id;
 
 	wsb = shmp_index(handle, bufb->buf_wsb, consumed_idx);
-	if (caa_unlikely(!wsb))
+	if (lttng_ust_unlikely(!wsb))
 		return -EPERM;
 
 	if (config->mode == RING_BUFFER_OVERWRITE) {
@@ -564,23 +564,23 @@ int update_read_sb_index(const struct lttng_ust_lib_ring_buffer_config *config,
 		 * following cmpxchg().
 		 */
 		old_id = wsb->id;
-		if (caa_unlikely(!subbuffer_id_is_noref(config, old_id)))
+		if (lttng_ust_unlikely(!subbuffer_id_is_noref(config, old_id)))
 			return -EAGAIN;
 		/*
 		 * Make sure the offset count we are expecting matches the one
 		 * indicated by the writer.
 		 */
-		if (caa_unlikely(!subbuffer_id_compare_offset(config, old_id,
+		if (lttng_ust_unlikely(!subbuffer_id_compare_offset(config, old_id,
 							  consumed_count)))
 			return -EAGAIN;
 		chan = shmp(handle, bufb->chan);
-		if (caa_unlikely(!chan))
+		if (lttng_ust_unlikely(!chan))
 			return -EPERM;
 		CHAN_WARN_ON(chan, !subbuffer_id_is_noref(config, bufb->buf_rsb.id));
 		subbuffer_id_set_noref_offset(config, &bufb->buf_rsb.id,
 					      consumed_count);
 		new_id = uatomic_cmpxchg(&wsb->id, old_id, bufb->buf_rsb.id);
-		if (caa_unlikely(old_id != new_id))
+		if (lttng_ust_unlikely(old_id != new_id))
 			return -EAGAIN;
 		bufb->buf_rsb.id = new_id;
 	} else {

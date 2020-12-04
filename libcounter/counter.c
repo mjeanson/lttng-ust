@@ -327,7 +327,7 @@ int lttng_counter_read(const struct lib_counter_config *config,
 	size_t index;
 	struct lib_counter_layout *layout;
 
-	if (caa_unlikely(lttng_counter_validate_indexes(config, counter, dimension_indexes)))
+	if (lttng_ust_unlikely(lttng_counter_validate_indexes(config, counter, dimension_indexes)))
 		return -EOVERFLOW;
 	index = lttng_counter_get_index(config, counter, dimension_indexes);
 
@@ -354,7 +354,7 @@ int lttng_counter_read(const struct lib_counter_config *config,
 	default:
 		return -EINVAL;
 	}
-	if (caa_unlikely(!layout->counters))
+	if (lttng_ust_unlikely(!layout->counters))
 		return -ENODEV;
 
 	switch (config->counter_size) {
@@ -461,7 +461,7 @@ int lttng_counter_clear_cpu(const struct lib_counter_config *config,
 	size_t index;
 	struct lib_counter_layout *layout;
 
-	if (caa_unlikely(lttng_counter_validate_indexes(config, counter, dimension_indexes)))
+	if (lttng_ust_unlikely(lttng_counter_validate_indexes(config, counter, dimension_indexes)))
 		return -EOVERFLOW;
 	index = lttng_counter_get_index(config, counter, dimension_indexes);
 
@@ -488,7 +488,7 @@ int lttng_counter_clear_cpu(const struct lib_counter_config *config,
 	default:
 		return -EINVAL;
 	}
-	if (caa_unlikely(!layout->counters))
+	if (lttng_ust_unlikely(!layout->counters))
 		return -ENODEV;
 
 	switch (config->counter_size) {

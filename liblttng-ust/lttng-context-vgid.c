@@ -57,7 +57,7 @@ gid_t get_vgid(void)
 
 	vgid = CMM_LOAD_SHARED(cached_vgid);
 
-	if (caa_unlikely(cached_vgid == (gid_t) -1)) {
+	if (lttng_ust_unlikely(cached_vgid == (gid_t) -1)) {
 		vgid = getgid();
 		CMM_STORE_SHARED(cached_vgid, vgid);
 	}

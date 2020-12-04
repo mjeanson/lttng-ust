@@ -280,7 +280,7 @@ void free(void *ptr)
 	 * Check whether the memory was allocated with
 	 * static_calloc_align, in which case there is nothing to free.
 	 */
-	if (caa_unlikely((char *)ptr >= static_calloc_buf &&
+	if (lttng_ust_unlikely((char *)ptr >= static_calloc_buf &&
 			(char *)ptr < static_calloc_buf + STATIC_CALLOC_LEN)) {
 		goto end;
 	}
@@ -333,7 +333,7 @@ void *realloc(void *ptr, size_t size)
 	 * static_calloc_align, in which case there is nothing
 	 * to free, and we need to copy the old data.
 	 */
-	if (caa_unlikely((char *)ptr >= static_calloc_buf &&
+	if (lttng_ust_unlikely((char *)ptr >= static_calloc_buf &&
 			(char *)ptr < static_calloc_buf + STATIC_CALLOC_LEN)) {
 		size_t *old_size;
 

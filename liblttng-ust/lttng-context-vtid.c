@@ -64,7 +64,7 @@ pid_t wrapper_getvtid(void)
 	pid_t vtid;
 
 	vtid = CMM_LOAD_SHARED(URCU_TLS(cached_vtid));
-	if (caa_unlikely(!vtid)) {
+	if (lttng_ust_unlikely(!vtid)) {
 		vtid = lttng_gettid();
 		CMM_STORE_SHARED(URCU_TLS(cached_vtid), vtid);
 	}

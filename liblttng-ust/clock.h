@@ -50,7 +50,7 @@ uint64_t trace_clock_read64_monotonic(void)
 {
 	struct timespec ts;
 
-	if (caa_unlikely(clock_gettime(CLOCK_MONOTONIC, &ts))) {
+	if (lttng_ust_unlikely(clock_gettime(CLOCK_MONOTONIC, &ts))) {
 		ts.tv_sec = 0;
 		ts.tv_nsec = 0;
 	}

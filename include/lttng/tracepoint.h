@@ -62,7 +62,7 @@ extern "C" {
 #endif
 
 #define tracepoint_enabled(provider, name) \
-	caa_unlikely(CMM_LOAD_SHARED(__tracepoint_##provider##___##name.state))
+	lttng_ust_unlikely(CMM_LOAD_SHARED(__tracepoint_##provider##___##name.state))
 
 #define do_tracepoint(provider, name, ...) \
 	__tracepoint_cb_##provider##___##name(__VA_ARGS__)
@@ -182,11 +182,11 @@ void __tracepoint_cb_##_provider##___##_name(_TP_ARGS_PROTO(__VA_ARGS__))		\
 {											\
 	struct lttng_ust_tracepoint_probe *__tp_probe;					\
 											\
-	if (caa_unlikely(!TP_RCU_LINK_TEST()))						\
+	if (lttng_ust_unlikely(!TP_RCU_LINK_TEST()))						\
 		return;									\
 	tp_rcu_read_lock();								\
 	__tp_probe = tp_rcu_dereference(__tracepoint_##_provider##___##_name.probes);	\
-	if (caa_unlikely(!__tp_probe))							\
+	if (lttng_ust_unlikely(!__tp_probe))							\
 		goto end;								\
 	do {										\
 		void (*__tp_cb)(void) = __tp_probe->func;				\

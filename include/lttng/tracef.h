@@ -38,13 +38,13 @@ void _lttng_ust_vtracef(const char *fmt, va_list ap);
 #define tracef(fmt, ...)						\
 	do {								\
 		LTTNG_STAP_PROBEV(tracepoint_lttng_ust_tracef, event, ## __VA_ARGS__); \
-		if (caa_unlikely(__tracepoint_lttng_ust_tracef___event.state)) \
+		if (lttng_ust_unlikely(__tracepoint_lttng_ust_tracef___event.state)) \
 			_lttng_ust_tracef(fmt, ## __VA_ARGS__);		\
 	} while (0)
 
 #define vtracef(fmt, ap)						\
 	do {								\
-		if (caa_unlikely(__tracepoint_lttng_ust_tracef___event.state)) \
+		if (lttng_ust_unlikely(__tracepoint_lttng_ust_tracef___event.state)) \
 			_lttng_ust_vtracef(fmt, ap);		\
 	} while (0)
 #ifdef __cplusplus

@@ -31,7 +31,7 @@
 
 #define LTTNG_BUG_ON(condition)						\
 	do {								\
-		if (caa_unlikely(condition)) {				\
+		if (lttng_ust_unlikely(condition)) {				\
 			fprintf(stderr,					\
 				"LTTng BUG in file %s, line %d.\n",	\
 				__FILE__, __LINE__);			\

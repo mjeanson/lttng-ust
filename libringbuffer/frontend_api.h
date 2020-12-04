@@ -59,7 +59,7 @@ int lib_ring_buffer_get_cpu(const struct lttng_ust_lib_ring_buffer_config *confi
 	nesting = ++URCU_TLS(lib_ring_buffer_nesting);
 	cmm_barrier();
 
-	if (caa_unlikely(nesting > 4)) {
+	if (lttng_ust_unlikely(nesting > 4)) {
 		WARN_ON_ONCE(1);
 		URCU_TLS(lib_ring_buffer_nesting)--;
 		return -EPERM;
@@ -109,7 +109,7 @@ int lib_ring_buffer_try_reserve(const struct lttng_ust_lib_ring_buffer_config *c
 	if (last_tsc_overflow(config, buf, ctx->tsc))
 		ctx->rflags |= RING_BUFFER_RFLAG_FULL_TSC;
 
-	if (caa_unlikely(subbuf_offset(*o_begin, chan) == 0))
+	if (lttng_ust_unlikely(subbuf_offset(*o_begin, chan) == 0))
 		return 1;
 
 	ctx->slot_size = record_header_size(config, chan, *o_begin,
@@ -117,7 +117,7 @@ int lib_ring_buffer_try_reserve(const struct lttng_ust_lib_ring_buffer_config *c
 	ctx->slot_size +=
 		lib_ring_buffer_align(*o_begin + ctx->slot_size,
 				      ctx->largest_align) + ctx->data_size;
-	if (caa_unlikely((subbuf_offset(*o_begin, chan) + ctx->slot_size)
+	if (lttng_ust_unlikely((subbuf_offset(*o_begin, chan) + ctx->slot_size)
 		     > chan->backend.subbuf_size))
 		return 1;
 
@@ -127,7 +127,7 @@ int lib_ring_buffer_try_reserve(const struct lttng_ust_lib_ring_buffer_config *c
 	 */
 	*o_end = *o_begin + ctx->slot_size;
 
-	if (caa_unlikely((subbuf_offset(*o_end, chan)) == 0))
+	if (lttng_ust_unlikely((subbuf_offset(*o_end, chan)) == 0))
 		/*
 		 * The offset_end will fall at the very beginning of the next
 		 * subbuffer.
@@ -164,27 +164,27 @@ int lib_ring_buffer_reserve(const struct lttng_ust_lib_ring_buffer_config *confi
 	unsigned long o_begin, o_end, o_old;
 	size_t before_hdr_pad = 0;
 
-	if (caa_unlikely(uatomic_read(&chan->record_disabled)))
+	if (lttng_ust_unlikely(uatomic_read(&chan->record_disabled)))
 		return -EAGAIN;
 
 	if (config->alloc == RING_BUFFER_ALLOC_PER_CPU)
 		buf = shmp(handle, chan->backend.buf[ctx->cpu].shmp);
 	else
 		buf = shmp(handle, chan->backend.buf[0].shmp);
-	if (caa_unlikely(!buf))
+	if (lttng_ust_unlikely(!buf))
 		return -EIO;
-	if (caa_unlikely(uatomic_read(&buf->record_disabled)))
+	if (lttng_ust_unlikely(uatomic_read(&buf->record_disabled)))
 		return -EAGAIN;
 	ctx->buf = buf;
 
 	/*
 	 * Perform retryable operations.
 	 */
-	if (caa_unlikely(lib_ring_buffer_try_reserve(config, ctx, client_ctx, &o_begin,
+	if (lttng_ust_unlikely(lib_ring_buffer_try_reserve(config, ctx, client_ctx, &o_begin,
 						 &o_end, &o_old, &before_hdr_pad)))
 		goto slow_path;
 
-	if (caa_unlikely(v_cmpxchg(config, &ctx->buf->offset, o_old, o_end)
+	if (lttng_ust_unlikely(v_cmpxchg(config, &ctx->buf->offset, o_old, o_end)
 		     != o_old))
 		goto slow_path;
 
@@ -259,7 +259,7 @@ void lib_ring_buffer_commit(const struct lttng_ust_lib_ring_buffer_config *confi
 	struct commit_counters_hot *cc_hot = shmp_index(handle,
 						buf->commit_hot, endidx);
 
-	if (caa_unlikely(!cc_hot))
+	if (lttng_ust_unlikely(!cc_hot))
 		return;
 
 	/*

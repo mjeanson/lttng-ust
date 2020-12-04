@@ -74,7 +74,7 @@ static inline int lttng_ust_futex_noasync(int32_t *uaddr, int op, int32_t val,
 	int ret;
 
 	ret = lttng_ust_futex(uaddr, op, val, timeout, uaddr2, val3);
-	if (caa_unlikely(ret < 0 && errno == ENOSYS)) {
+	if (lttng_ust_unlikely(ret < 0 && errno == ENOSYS)) {
 		/*
 		 * The fallback on ENOSYS is the async-safe version of
 		 * the compat futex implementation, because the
@@ -97,7 +97,7 @@ static inline int lttng_ust_futex_async(int32_t *uaddr, int op, int32_t val,
 	int ret;
 
 	ret = lttng_ust_futex(uaddr, op, val, timeout, uaddr2, val3);
-	if (caa_unlikely(ret < 0 && errno == ENOSYS)) {
+	if (lttng_ust_unlikely(ret < 0 && errno == ENOSYS)) {
 		return lttng_ust_compat_futex_async(uaddr, op, val, timeout,
 				uaddr2, val3);
 	}

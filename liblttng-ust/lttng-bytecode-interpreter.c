@@ -1770,7 +1770,7 @@ uint64_t bytecode_interpret(void *interpreter_data,
 			}
 
 			/* Catch undefined behavior. */
-			if (caa_unlikely(estack_ax_v < 0 || estack_ax_v >= 64)) {
+			if (lttng_ust_unlikely(estack_ax_v < 0 || estack_ax_v >= 64)) {
 				ret = -EINVAL;
 				goto end;
 			}
@@ -1791,7 +1791,7 @@ uint64_t bytecode_interpret(void *interpreter_data,
 			}
 
 			/* Catch undefined behavior. */
-			if (caa_unlikely(estack_ax_v < 0 || estack_ax_v >= 64)) {
+			if (lttng_ust_unlikely(estack_ax_v < 0 || estack_ax_v >= 64)) {
 				ret = -EINVAL;
 				goto end;
 			}

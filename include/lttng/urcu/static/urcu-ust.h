@@ -165,7 +165,7 @@ static inline void _lttng_ust_urcu_read_lock(void)
 {
 	unsigned long tmp;
 
-	if (caa_unlikely(!URCU_TLS(lttng_ust_urcu_reader)))
+	if (lttng_ust_unlikely(!URCU_TLS(lttng_ust_urcu_reader)))
 		lttng_ust_urcu_register(); /* If not yet registered. */
 	cmm_barrier();	/* Ensure the compiler does not reorder us with mutex */
 	tmp = URCU_TLS(lttng_ust_urcu_reader)->ctr;
@@ -199,7 +199,7 @@ static inline void _lttng_ust_urcu_read_unlock(void)
  */
 static inline int _lttng_ust_urcu_read_ongoing(void)
 {
-	if (caa_unlikely(!URCU_TLS(lttng_ust_urcu_reader)))
+	if (lttng_ust_unlikely(!URCU_TLS(lttng_ust_urcu_reader)))
 		lttng_ust_urcu_register(); /* If not yet registered. */
 	return URCU_TLS(lttng_ust_urcu_reader)->ctr & LTTNG_UST_URCU_GP_CTR_NEST_MASK;
 }

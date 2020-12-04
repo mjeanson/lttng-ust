@@ -555,7 +555,7 @@ end:
 
 void lttng_ust_urcu_register_thread(void)
 {
-	if (caa_unlikely(!URCU_TLS(lttng_ust_urcu_reader)))
+	if (lttng_ust_unlikely(!URCU_TLS(lttng_ust_urcu_reader)))
 		lttng_ust_urcu_register(); /* If not yet registered. */
 }
 

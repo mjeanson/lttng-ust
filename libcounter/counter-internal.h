@@ -39,7 +39,7 @@ static inline int lttng_counter_validate_indexes(const struct lib_counter_config
 	size_t nr_dimensions = counter->nr_dimensions, i;
 
 	for (i = 0; i < nr_dimensions; i++) {
-		if (caa_unlikely(dimension_indexes[i] >= counter->dimensions[i].max_nr_elem))
+		if (lttng_ust_unlikely(dimension_indexes[i] >= counter->dimensions[i].max_nr_elem))
 			return -EOVERFLOW;
 	}
 	return 0;
