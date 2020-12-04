@@ -353,7 +353,7 @@ void lib_ring_buffer_write_commit_counter(const struct lttng_ust_lib_ring_buffer
 		return;
 
 	commit_seq_old = v_read(config, &cc_hot->seq);
-	if (caa_likely((long) (commit_seq_old - commit_count) < 0))
+	if (lttng_ust_likely((long) (commit_seq_old - commit_count) < 0))
 		v_set(config, &cc_hot->seq, commit_count);
 }
 

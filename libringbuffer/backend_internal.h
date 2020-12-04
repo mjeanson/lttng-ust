@@ -476,7 +476,7 @@ void lib_ring_buffer_clear_noref(const struct lttng_ust_lib_ring_buffer_config *
 	id = CMM_ACCESS_ONCE(wsb->id);
 	for (;;) {
 		/* This check is called on the fast path for each record. */
-		if (caa_likely(!subbuffer_id_is_noref(config, id))) {
+		if (lttng_ust_likely(!subbuffer_id_is_noref(config, id))) {
 			/*
 			 * Store after load dependency ordering the writes to
 			 * the subbuffer after load and test of the noref flag
@@ -488,7 +488,7 @@ void lib_ring_buffer_clear_noref(const struct lttng_ust_lib_ring_buffer_config *
 		new_id = id;
 		subbuffer_id_clear_noref(config, &new_id);
 		new_id = uatomic_cmpxchg(&wsb->id, id, new_id);
-		if (caa_likely(new_id == id))
+		if (lttng_ust_likely(new_id == id))
 			break;
 		id = new_id;
 	}

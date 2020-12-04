@@ -228,7 +228,7 @@ uint64_t arch_read_perf_counter(
 		cmm_barrier();
 
 		idx = pc->index;
-		if (caa_likely(has_rdpmc(pc) && idx)) {
+		if (lttng_ust_likely(has_rdpmc(pc) && idx)) {
 			int64_t pmcval;
 
 			pmcval = rdpmc(idx - 1);

@@ -21,7 +21,7 @@
 
 #include <stddef.h>	/* for offsetof */
 
-#define caa_likely(x)	__builtin_expect(!!(x), 1)
+#define lttng_ust_likely(x)	__builtin_expect(!!(x), 1)
 #define caa_unlikely(x)	__builtin_expect(!!(x), 0)
 
 #define	cmm_barrier()	__asm__ __volatile__ ("" : : : "memory")

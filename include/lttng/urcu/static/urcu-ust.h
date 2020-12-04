@@ -111,7 +111,7 @@ extern int lttng_ust_urcu_has_sys_membarrier;
 
 static inline void lttng_ust_urcu_smp_mb_slave(void)
 {
-	if (caa_likely(lttng_ust_urcu_has_sys_membarrier))
+	if (lttng_ust_likely(lttng_ust_urcu_has_sys_membarrier))
 		cmm_barrier();
 	else
 		cmm_smp_mb();
@@ -144,7 +144,7 @@ static inline enum lttng_ust_urcu_state lttng_ust_urcu_reader_state(unsigned lon
  */
 static inline void _lttng_ust_urcu_read_lock_update(unsigned long tmp)
 {
-	if (caa_likely(!(tmp & LTTNG_UST_URCU_GP_CTR_NEST_MASK))) {
+	if (lttng_ust_likely(!(tmp & LTTNG_UST_URCU_GP_CTR_NEST_MASK))) {
 		_CMM_STORE_SHARED(URCU_TLS(lttng_ust_urcu_reader)->ctr, _CMM_LOAD_SHARED(lttng_ust_urcu_gp.ctr));
 		lttng_ust_urcu_smp_mb_slave();
 	} else

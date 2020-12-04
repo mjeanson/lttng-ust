@@ -53,7 +53,7 @@ ino_t get_net_ns(void)
 	 * If the cache is populated, do nothing and return the
 	 * cached inode number.
 	 */
-	if (caa_likely(net_ns != NS_INO_UNINITIALIZED))
+	if (lttng_ust_likely(net_ns != NS_INO_UNINITIALIZED))
 		return net_ns;
 
 	/*

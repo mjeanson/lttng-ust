@@ -249,7 +249,7 @@ int lttng_event_reserve(struct lttng_ust_lib_ring_buffer_ctx *ctx, uint32_t even
 	ret = lib_ring_buffer_reserve(&client_config, ctx, NULL);
 	if (ret)
 		return ret;
-	if (caa_likely(ctx->ctx_len
+	if (lttng_ust_likely(ctx->ctx_len
 			>= sizeof(struct lttng_ust_lib_ring_buffer_ctx))) {
 		if (lib_ring_buffer_backend_get_pages(&client_config, ctx,
 				&ctx->backend_pages))

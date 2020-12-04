@@ -51,7 +51,7 @@ ino_t get_user_ns(void)
 	 * If the cache is populated, do nothing and return the
 	 * cached inode number.
 	 */
-	if (caa_likely(user_ns != NS_INO_UNINITIALIZED))
+	if (lttng_ust_likely(user_ns != NS_INO_UNINITIALIZED))
 		return user_ns;
 
 	/*

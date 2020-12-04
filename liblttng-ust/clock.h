@@ -62,7 +62,7 @@ uint64_t trace_clock_read64(void)
 {
 	struct lttng_trace_clock *ltc = CMM_LOAD_SHARED(lttng_trace_clock);
 
-	if (caa_likely(!ltc)) {
+	if (lttng_ust_likely(!ltc)) {
 		return trace_clock_read64_monotonic();
 	} else {
 		cmm_read_barrier_depends();	/* load ltc before content */

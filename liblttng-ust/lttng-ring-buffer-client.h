@@ -86,7 +86,7 @@ size_t ctx_get_aligned_size(size_t offset, struct lttng_ctx *ctx,
 {
 	size_t orig_offset = offset;
 
-	if (caa_likely(!ctx))
+	if (lttng_ust_likely(!ctx))
 		return 0;
 	offset += lib_ring_buffer_align(offset, ctx->largest_align);
 	offset += ctx_len;
@@ -100,7 +100,7 @@ void ctx_get_struct_size(struct lttng_ctx *ctx, size_t *ctx_len,
 	int i;
 	size_t offset = 0;
 
-	if (caa_likely(!ctx)) {
+	if (lttng_ust_likely(!ctx)) {
 		*ctx_len = 0;
 		return;
 	}
@@ -136,7 +136,7 @@ void ctx_record(struct lttng_ust_lib_ring_buffer_ctx *bufctx,
 {
 	int i;
 
-	if (caa_likely(!ctx))
+	if (lttng_ust_likely(!ctx))
 		return;
 	lib_ring_buffer_align_ctx(bufctx, ctx->largest_align);
 	for (i = 0; i < ctx->nr_fields; i++) {
@@ -761,7 +761,7 @@ int lttng_event_reserve(struct lttng_ust_lib_ring_buffer_ctx *ctx,
 	ret = lib_ring_buffer_reserve(&client_config, ctx, &client_ctx);
 	if (caa_unlikely(ret))
 		goto put;
-	if (caa_likely(ctx->ctx_len
+	if (lttng_ust_likely(ctx->ctx_len
 			>= sizeof(struct lttng_ust_lib_ring_buffer_ctx))) {
 		if (lib_ring_buffer_backend_get_pages(&client_config, ctx,
 				&ctx->backend_pages)) {

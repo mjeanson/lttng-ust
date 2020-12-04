@@ -669,10 +669,10 @@ void _lttng_ust_lfht_gc_bucket(struct lttng_ust_lfht_node *bucket, struct lttng_
 		for (;;) {
 			if (caa_unlikely(is_end(iter)))
 				return;
-			if (caa_likely(clear_flag(iter)->reverse_hash > node->reverse_hash))
+			if (lttng_ust_likely(clear_flag(iter)->reverse_hash > node->reverse_hash))
 				return;
 			next = lttng_ust_rcu_dereference(clear_flag(iter)->next);
-			if (caa_likely(is_removed(next)))
+			if (lttng_ust_likely(is_removed(next)))
 				break;
 			iter_prev = clear_flag(iter);
 			iter = next;
@@ -791,7 +791,7 @@ void _lttng_ust_lfht_add(struct lttng_ust_lfht *ht,
 		for (;;) {
 			if (caa_unlikely(is_end(iter)))
 				goto insert;
-			if (caa_likely(clear_flag(iter)->reverse_hash > node->reverse_hash))
+			if (lttng_ust_likely(clear_flag(iter)->reverse_hash > node->reverse_hash))
 				goto insert;
 
 			/* bucket node is the first node of the identical-hash-value chain */
@@ -1099,10 +1099,10 @@ void lttng_ust_lfht_lookup(struct lttng_ust_lfht *ht, unsigned long hash,
 		}
 		next = lttng_ust_rcu_dereference(node->next);
 		assert(node == clear_flag(node));
-		if (caa_likely(!is_removed(next))
+		if (lttng_ust_likely(!is_removed(next))
 		    && !is_bucket(next)
 		    && node->reverse_hash == reverse_hash
-		    && caa_likely(match(node, key))) {
+		    && lttng_ust_likely(match(node, key))) {
 				break;
 		}
 		node = clear_flag(next);
@@ -1134,9 +1134,9 @@ void lttng_ust_lfht_next_duplicate(struct lttng_ust_lfht *ht, lttng_ust_lfht_mat
 			break;
 		}
 		next = lttng_ust_rcu_dereference(node->next);
-		if (caa_likely(!is_removed(next))
+		if (lttng_ust_likely(!is_removed(next))
 		    && !is_bucket(next)
-		    && caa_likely(match(node, key))) {
+		    && lttng_ust_likely(match(node, key))) {
 				break;
 		}
 		node = clear_flag(next);
@@ -1158,7 +1158,7 @@ void lttng_ust_lfht_next(struct lttng_ust_lfht *ht, struct lttng_ust_lfht_iter *
 			break;
 		}
 		next = lttng_ust_rcu_dereference(node->next);
-		if (caa_likely(!is_removed(next))
+		if (lttng_ust_likely(!is_removed(next))
 		    && !is_bucket(next)) {
 				break;
 		}

@@ -194,7 +194,7 @@ static void mutex_unlock(pthread_mutex_t *mutex)
 
 static void smp_mb_master(void)
 {
-	if (caa_likely(lttng_ust_urcu_has_sys_membarrier)) {
+	if (lttng_ust_likely(lttng_ust_urcu_has_sys_membarrier)) {
 		if (membarrier(MEMBARRIER_CMD_PRIVATE_EXPEDITED, 0))
 			abort();
 	} else {

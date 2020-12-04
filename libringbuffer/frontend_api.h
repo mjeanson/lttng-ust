@@ -336,7 +336,7 @@ int lib_ring_buffer_try_discard_reserve(const struct lttng_ust_lib_ring_buffer_c
 	 */
 	save_last_tsc(config, buf, 0ULL);
 
-	if (caa_likely(v_cmpxchg(config, &buf->offset, end_offset, ctx->pre_offset)
+	if (lttng_ust_likely(v_cmpxchg(config, &buf->offset, end_offset, ctx->pre_offset)
 		   != end_offset))
 		return -EPERM;
 	else

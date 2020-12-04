@@ -54,7 +54,7 @@ ino_t get_cgroup_ns(void)
 	 * If the cache is populated, do nothing and return the
 	 * cached inode number.
 	 */
-	if (caa_likely(cgroup_ns != NS_INO_UNINITIALIZED))
+	if (lttng_ust_likely(cgroup_ns != NS_INO_UNINITIALIZED))
 		return cgroup_ns;
 
 	/*

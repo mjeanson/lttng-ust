@@ -892,7 +892,7 @@ void __event_probe__##_provider##___##_name(_TP_ARGS_DATA_PROTO(_args))	      \
 				break;					      \
 			}						      \
 		}							      \
-		if (caa_likely(!__filter_record))			      \
+		if (lttng_ust_likely(!__filter_record))			      \
 			return;						      \
 	}								      \
 	__event_len = __event_get_size__##_provider##___##_name(__stackvar.__dynamic_len, \
@@ -973,7 +973,7 @@ void __event_notifier_probe__##_provider##___##_name(_TP_ARGS_DATA_PROTO(_args))
 					__stackvar.__interpreter_stack_data) & LTTNG_INTERPRETER_RECORD_FLAG)) \
 				__filter_record = 1;			      \
 		}							      \
-		if (caa_likely(!__filter_record))			      \
+		if (lttng_ust_likely(!__filter_record))			      \
 			return;						      \
 	}								      \
 	if (caa_unlikely(!cds_list_empty(&__event_notifier->capture_bytecode_runtime_head))) \

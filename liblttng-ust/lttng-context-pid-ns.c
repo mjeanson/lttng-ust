@@ -51,7 +51,7 @@ ino_t get_pid_ns(void)
 	 * If the cache is populated, do nothing and return the
 	 * cached inode number.
 	 */
-	if (caa_likely(pid_ns != NS_INO_UNINITIALIZED))
+	if (lttng_ust_likely(pid_ns != NS_INO_UNINITIALIZED))
 		return pid_ns;
 
 	/*

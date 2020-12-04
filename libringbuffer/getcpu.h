@@ -104,7 +104,7 @@ int lttng_ust_get_cpu(void)
 {
 	int (*getcpu)(void) = CMM_LOAD_SHARED(lttng_get_cpu);
 
-	if (caa_likely(!getcpu)) {
+	if (lttng_ust_likely(!getcpu)) {
 		return lttng_ust_get_cpu_internal();
 	} else {
 		return getcpu();

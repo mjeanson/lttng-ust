@@ -1993,7 +1993,7 @@ int lib_ring_buffer_try_switch_slow(enum switch_mode mode,
 		  (buf_trunc(offsets->begin, chan)
 		   >> chan->backend.num_subbuf_order)
 		  - (commit_count & chan->commit_count_mask);
-		if (caa_likely(reserve_commit_diff == 0)) {
+		if (lttng_ust_likely(reserve_commit_diff == 0)) {
 			/* Next subbuffer not being written to. */
 			if (caa_unlikely(config->mode != RING_BUFFER_OVERWRITE &&
 				subbuf_trunc(offsets->begin, chan)
@@ -2106,7 +2106,7 @@ bool handle_blocking_retry(int *timeout_left_ms)
 {
 	int timeout = *timeout_left_ms, delay;
 
-	if (caa_likely(!timeout))
+	if (lttng_ust_likely(!timeout))
 		return false;	/* Do not retry, discard event. */
 	if (timeout < 0)	/* Wait forever. */
 		delay = RETRY_DELAY_MS;
@@ -2176,7 +2176,7 @@ retry:
 		/*
 		 * We are typically not filling the previous buffer completely.
 		 */
-		if (caa_likely(offsets->switch_old_end))
+		if (lttng_ust_likely(offsets->switch_old_end))
 			offsets->begin = subbuf_align(offsets->begin, chan);
 		offsets->begin = offsets->begin
 				 + config->cb.subbuffer_header_size();
@@ -2209,7 +2209,7 @@ retry:
 		  (buf_trunc(offsets->begin, chan)
 		   >> chan->backend.num_subbuf_order)
 		  - (commit_count & chan->commit_count_mask);
-		if (caa_likely(reserve_commit_diff == 0)) {
+		if (lttng_ust_likely(reserve_commit_diff == 0)) {
 			/* Next subbuffer not being written to. */
 			if (caa_unlikely(config->mode != RING_BUFFER_OVERWRITE &&
 				subbuf_trunc(offsets->begin, chan)
@@ -2485,7 +2485,7 @@ void lib_ring_buffer_check_deliver_slow(const struct lttng_ust_lib_ring_buffer_c
 	cc_cold = shmp_index(handle, buf->commit_cold, idx);
 	if (!cc_cold)
 		return;
-	if (caa_likely(v_cmpxchg(config, &cc_cold->cc_sb,
+	if (lttng_ust_likely(v_cmpxchg(config, &cc_cold->cc_sb,
 				 old_commit_count, old_commit_count + 1)
 		   == old_commit_count)) {
 		uint64_t *ts_end;
