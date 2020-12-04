@@ -36,7 +36,7 @@ void cds_list_add_rcu(struct cds_list_head *newp, struct cds_list_head *head)
 	newp->next = head->next;
 	newp->prev = head;
 	head->next->prev = newp;
-	rcu_assign_pointer(head->next, newp);
+	lttng_ust_rcu_assign_pointer(head->next, newp);
 }
 
 /* Add new element at the tail of the list. */
@@ -46,7 +46,7 @@ void cds_list_add_tail_rcu(struct cds_list_head *newp,
 {
 	newp->next = head;
 	newp->prev = head->prev;
-	rcu_assign_pointer(head->prev->next, newp);
+	lttng_ust_rcu_assign_pointer(head->prev->next, newp);
 	head->prev = newp;
 }
 
@@ -60,7 +60,7 @@ void cds_list_replace_rcu(struct cds_list_head *old, struct cds_list_head *_new)
 {
 	_new->next = old->next;
 	_new->prev = old->prev;
-	rcu_assign_pointer(_new->prev->next, _new);
+	lttng_ust_rcu_assign_pointer(_new->prev->next, _new);
 	_new->next->prev = _new;
 }
 
@@ -79,14 +79,14 @@ void cds_list_del_rcu(struct cds_list_head *elem)
 
 /* Iterate forward over the elements of the list.  */
 #define cds_list_for_each_rcu(pos, head) \
-	for (pos = rcu_dereference((head)->next); pos != (head); \
-		pos = rcu_dereference(pos->next))
+	for (pos = lttng_ust_rcu_dereference((head)->next); pos != (head); \
+		pos = lttng_ust_rcu_dereference(pos->next))
 
 
 /* Iterate through elements of the list. */
 #define cds_list_for_each_entry_rcu(pos, head, member) \
-	for (pos = cds_list_entry(rcu_dereference((head)->next), __typeof__(*pos), member); \
+	for (pos = cds_list_entry(lttng_ust_rcu_dereference((head)->next), __typeof__(*pos), member); \
 		&pos->member != (head); \
-		pos = cds_list_entry(rcu_dereference(pos->member.next), __typeof__(*pos), member))
+		pos = cds_list_entry(lttng_ust_rcu_dereference(pos->member.next), __typeof__(*pos), member))
 
 #endif	/* _URCU_RCULIST_H */
