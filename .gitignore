@@ -104,3 +104,9 @@ python-lttngust/lttngust/__init__.py
 python-lttngust/**/*.pyc
 python-lttngust/build
 python-lttngust/setup.py
+
+# Eclipse CDT
+/.autotools
+/.cproject
+/.project
+/.settings/
