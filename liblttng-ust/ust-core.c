@@ -103,7 +103,7 @@ struct lttng_enum *lttng_ust_enum_get_from_desc(struct lttng_session *session,
 		const struct lttng_enum_desc *enum_desc)
 {
 	struct lttng_enum *_enum;
-	struct cds_hlist_head *head;
+	struct lttng_ust_hlist_head *head;
 	struct cds_hlist_node *node;
 	size_t name_len = strlen(enum_desc->name);
 	uint32_t hash;

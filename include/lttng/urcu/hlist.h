@@ -18,7 +18,7 @@
 
 #include <stddef.h>
 
-struct cds_hlist_head {
+struct lttng_ust_hlist_head {
 	struct cds_hlist_node *next;
 };
 
@@ -28,13 +28,13 @@ struct cds_hlist_node {
 
 /* Initialize a new list head. */
 static inline
-void CDS_INIT_HLIST_HEAD(struct cds_hlist_head *ptr)
+void CDS_INIT_HLIST_HEAD(struct lttng_ust_hlist_head *ptr)
 {
 	ptr->next = NULL;
 }
 
 #define CDS_HLIST_HEAD(name) \
-	struct cds_hlist_head name = { NULL }
+	struct lttng_ust_hlist_head name = { NULL }
 
 #define CDS_HLIST_HEAD_INIT(name) \
 	{ .next = NULL }
@@ -46,7 +46,7 @@ void CDS_INIT_HLIST_HEAD(struct cds_hlist_head *ptr)
 /* Add new element at the head of the list. */
 static inline
 void cds_hlist_add_head(struct cds_hlist_node *newp,
-		struct cds_hlist_head *head)
+		struct lttng_ust_hlist_head *head)
 {
 	if (head->next)
 		head->next->prev = newp;

@@ -75,7 +75,7 @@ urcu_assert lttng_ust_urcu_assert
 
 # lttng/urcu/hlist.h
 
-cds_hlist_head lttng_ust_cds_hlist_head
+cds_hlist_head lttng_ust_hlist_head
 cds_hlist_node lttng_ust_cds_hlist_node
 CDS_INIT_HLIST_HEAD LTTNG_UST_CDS_INIT_HLIST_HEAD
 CDS_HLIST_HEAD LTTNG_UST_CDS_HLIST_HEAD

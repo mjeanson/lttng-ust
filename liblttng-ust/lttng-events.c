@@ -451,7 +451,7 @@ int lttng_enum_create(const struct lttng_enum_desc *desc,
 {
 	const char *enum_name = desc->name;
 	struct lttng_enum *_enum;
-	struct cds_hlist_head *head;
+	struct lttng_ust_hlist_head *head;
 	int ret = 0;
 	size_t name_len = strlen(enum_name);
 	uint32_t hash;
@@ -733,8 +733,8 @@ end:
 }
 
 static inline
-struct cds_hlist_head *borrow_hash_table_bucket(
-		struct cds_hlist_head *hash_table,
+struct lttng_ust_hlist_head *borrow_hash_table_bucket(
+		struct lttng_ust_hlist_head *hash_table,
 		unsigned int hash_table_size,
 		const struct lttng_event_desc *desc)
 {
@@ -758,7 +758,7 @@ int lttng_event_create(const struct lttng_event_desc *desc,
 {
 	struct lttng_event *event;
 	struct lttng_session *session = chan->session;
-	struct cds_hlist_head *head;
+	struct lttng_ust_hlist_head *head;
 	int ret = 0;
 	int notify_socket, loglevel;
 	const char *uri;
@@ -840,7 +840,7 @@ int lttng_event_notifier_create(const struct lttng_event_desc *desc,
 		struct lttng_event_notifier_group *event_notifier_group)
 {
 	struct lttng_event_notifier *event_notifier;
-	struct cds_hlist_head *head;
+	struct lttng_ust_hlist_head *head;
 	int ret = 0;
 
 	/*
@@ -1050,7 +1050,7 @@ void lttng_create_event_if_missing(struct lttng_event_enabler *event_enabler)
 		for (i = 0; i < probe_desc->nr_events; i++) {
 			int ret;
 			bool found = false;
-			struct cds_hlist_head *head;
+			struct lttng_ust_hlist_head *head;
 			struct cds_hlist_node *node;
 
 			desc = probe_desc->event_desc[i];
@@ -1108,7 +1108,7 @@ void probe_provider_event_for_each(struct lttng_probe_desc *provider_desc,
 		struct lttng_event_notifier_group *event_notifier_group;
 		struct lttng_event_notifier *event_notifier;
 		struct lttng_session *session;
-		struct cds_hlist_head *head;
+		struct lttng_ust_hlist_head *head;
 		struct lttng_event *event;
 
 		event_desc = provider_desc->event_desc[i];
@@ -1725,7 +1725,7 @@ void lttng_create_event_notifier_if_missing(
 			bool found = false;
 			const struct lttng_event_desc *desc;
 			struct lttng_event_notifier *event_notifier;
-			struct cds_hlist_head *head;
+			struct lttng_ust_hlist_head *head;
 			struct cds_hlist_node *node;
 
 			desc = probe_desc->event_desc[i];

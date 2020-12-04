@@ -36,7 +36,7 @@
 #define CONTEXT_PROVIDER_HT_BITS	12
 #define CONTEXT_PROVIDER_HT_SIZE	(1U << CONTEXT_PROVIDER_HT_BITS)
 struct context_provider_ht {
-	struct cds_hlist_head table[CONTEXT_PROVIDER_HT_SIZE];
+	struct lttng_ust_hlist_head table[CONTEXT_PROVIDER_HT_SIZE];
 };
 
 static struct context_provider_ht context_provider_ht;
@@ -44,7 +44,7 @@ static struct context_provider_ht context_provider_ht;
 static struct lttng_ust_context_provider *
 		lookup_provider_by_name(const char *name)
 {
-	struct cds_hlist_head *head;
+	struct lttng_ust_hlist_head *head;
 	struct cds_hlist_node *node;
 	struct lttng_ust_context_provider *provider;
 	uint32_t hash;
@@ -68,7 +68,7 @@ static struct lttng_ust_context_provider *
 
 int lttng_ust_context_provider_register(struct lttng_ust_context_provider *provider)
 {
-	struct cds_hlist_head *head;
+	struct lttng_ust_hlist_head *head;
 	size_t name_len = strlen(provider->name);
 	uint32_t hash;
 	int ret = 0;

@@ -104,7 +104,7 @@ static CDS_LIST_HEAD(libs);
  */
 #define TRACEPOINT_HASH_BITS 12
 #define TRACEPOINT_TABLE_SIZE (1 << TRACEPOINT_HASH_BITS)
-static struct cds_hlist_head tracepoint_table[TRACEPOINT_TABLE_SIZE];
+static struct lttng_ust_hlist_head tracepoint_table[TRACEPOINT_TABLE_SIZE];
 
 static CDS_LIST_HEAD(old_probes);
 static int need_update;
@@ -142,7 +142,7 @@ struct tp_probes {
  */
 #define CALLSITE_HASH_BITS 12
 #define CALLSITE_TABLE_SIZE (1 << CALLSITE_HASH_BITS)
-static struct cds_hlist_head callsite_table[CALLSITE_TABLE_SIZE];
+static struct lttng_ust_hlist_head callsite_table[CALLSITE_TABLE_SIZE];
 
 struct callsite_entry {
 	struct cds_hlist_node hlist;	/* hash table node */
@@ -351,7 +351,7 @@ tracepoint_entry_remove_probe(struct tracepoint_entry *entry,
  */
 static struct tracepoint_entry *get_tracepoint(const char *name)
 {
-	struct cds_hlist_head *head;
+	struct lttng_ust_hlist_head *head;
 	struct cds_hlist_node *node;
 	struct tracepoint_entry *e;
 	size_t name_len = strlen(name);
@@ -377,7 +377,7 @@ static struct tracepoint_entry *get_tracepoint(const char *name)
 static struct tracepoint_entry *add_tracepoint(const char *name,
 		const char *signature)
 {
-	struct cds_hlist_head *head;
+	struct lttng_ust_hlist_head *head;
 	struct cds_hlist_node *node;
 	struct tracepoint_entry *e;
 	size_t name_len = strlen(name);
@@ -488,7 +488,7 @@ static void disable_tracepoint(struct lttng_ust_tracepoint *elem)
  */
 static void add_callsite(struct tracepoint_lib * lib, struct lttng_ust_tracepoint *tp)
 {
-	struct cds_hlist_head *head;
+	struct lttng_ust_hlist_head *head;
 	struct callsite_entry *e;
 	const char *name = tp->name;
 	size_t name_len = strlen(name);
@@ -544,7 +544,7 @@ static void remove_callsite(struct callsite_entry *e)
  */
 static void tracepoint_sync_callsites(const char *name)
 {
-	struct cds_hlist_head *head;
+	struct lttng_ust_hlist_head *head;
 	struct cds_hlist_node *node;
 	struct callsite_entry *e;
 	size_t name_len = strlen(name);

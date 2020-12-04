@@ -72,7 +72,7 @@ struct lttng_ust_dl_node {
 
 #define UST_DL_STATE_HASH_BITS	8
 #define UST_DL_STATE_TABLE_SIZE	(1 << UST_DL_STATE_HASH_BITS)
-struct cds_hlist_head dl_state_table[UST_DL_STATE_TABLE_SIZE];
+struct lttng_ust_hlist_head dl_state_table[UST_DL_STATE_TABLE_SIZE];
 
 typedef void (*tracepoint_cb)(struct lttng_session *session, void *priv);
 
@@ -164,7 +164,7 @@ int compare_bin_data(const struct bin_info_data *a,
 static
 struct lttng_ust_dl_node *find_or_create_dl_node(struct bin_info_data *bin_data)
 {
-	struct cds_hlist_head *head;
+	struct lttng_ust_hlist_head *head;
 	struct lttng_ust_dl_node *e;
 	unsigned int hash;
 	bool found = false;
@@ -380,7 +380,7 @@ void iter_begin(struct dl_iterate_data *data)
 
 	/* Ensure all entries are unmarked. */
 	for (i = 0; i < UST_DL_STATE_TABLE_SIZE; i++) {
-		struct cds_hlist_head *head;
+		struct lttng_ust_hlist_head *head;
 		struct lttng_ust_dl_node *e;
 
 		head = &dl_state_table[i];
@@ -431,7 +431,7 @@ void iter_end(struct dl_iterate_data *data, void *ip)
 	 * For each unmarked, not traced, remove node.
 	 */
 	for (i = 0; i < UST_DL_STATE_TABLE_SIZE; i++) {
-		struct cds_hlist_head *head;
+		struct lttng_ust_hlist_head *head;
 		struct lttng_ust_dl_node *e;
 
 		head = &dl_state_table[i];
@@ -541,7 +541,7 @@ void ust_dl_table_statedump(void *owner)
 
 	/* Statedump each traced table entry into session for owner. */
 	for (i = 0; i < UST_DL_STATE_TABLE_SIZE; i++) {
-		struct cds_hlist_head *head;
+		struct lttng_ust_hlist_head *head;
 		struct lttng_ust_dl_node *e;
 
 		head = &dl_state_table[i];
@@ -652,7 +652,7 @@ void ust_dl_state_destroy(void)
 	unsigned int i;
 
 	for (i = 0; i < UST_DL_STATE_TABLE_SIZE; i++) {
-		struct cds_hlist_head *head;
+		struct lttng_ust_hlist_head *head;
 		struct lttng_ust_dl_node *e, *tmp;
 
 		head = &dl_state_table[i];
