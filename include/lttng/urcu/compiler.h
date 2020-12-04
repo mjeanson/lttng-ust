@@ -75,16 +75,6 @@
  */
 #define lttng_ust_cast_long_keep_sign(v)	((unsigned long) (v))
 
-#if defined (__GNUC__) \
-	&& ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 5)	\
-		|| __GNUC__ >= 5)
-#define CDS_DEPRECATED(msg)	\
-	__attribute__((deprecated(msg)))
-#else
-#define CDS_DEPRECATED(msg)	\
-	__attribute__((deprecated))
-#endif
-
 #define CAA_ARRAY_SIZE(x)	(sizeof(x) / sizeof((x)[0]))
 
 /*
