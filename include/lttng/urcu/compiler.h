@@ -38,7 +38,7 @@
  * use is to mediate communication between process-level code and irq/NMI
  * handlers, all running on the same CPU.
  */
-#define CMM_ACCESS_ONCE(x)	(*(__volatile__  __typeof__(x) *)&(x))
+#define LTTNG_UST_ACCESS_ONCE(x)	(*(__volatile__  __typeof__(x) *)&(x))
 
 #ifndef caa_max
 #define caa_max(a,b) ((a)>(b)?(a):(b))

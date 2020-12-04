@@ -1305,7 +1305,7 @@ int lib_ring_buffer_snapshot(struct lttng_ust_lib_ring_buffer *buf,
 	if (!chan)
 		return -EPERM;
 	config = &chan->backend.config;
-	finalized = CMM_ACCESS_ONCE(buf->finalized);
+	finalized = LTTNG_UST_ACCESS_ONCE(buf->finalized);
 	/*
 	 * Read finalized before counters.
 	 */
@@ -1434,7 +1434,7 @@ int lib_ring_buffer_get_subbuf(struct lttng_ust_lib_ring_buffer *buf,
 		return -EPERM;
 	config = &chan->backend.config;
 retry:
-	finalized = CMM_ACCESS_ONCE(buf->finalized);
+	finalized = LTTNG_UST_ACCESS_ONCE(buf->finalized);
 	/*
 	 * Read finalized before counters.
 	 */

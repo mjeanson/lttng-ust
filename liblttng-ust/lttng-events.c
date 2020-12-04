@@ -341,7 +341,7 @@ void lttng_session_destroy(struct lttng_session *session)
 	struct lttng_enum *_enum, *tmp_enum;
 	struct lttng_event_enabler *event_enabler, *event_tmpenabler;
 
-	CMM_ACCESS_ONCE(session->active) = 0;
+	LTTNG_UST_ACCESS_ONCE(session->active) = 0;
 	cds_list_for_each_entry(event, &session->events_head, node) {
 		_lttng_event_unregister(event);
 	}
@@ -670,8 +670,8 @@ int lttng_session_enable(struct lttng_session *session)
 	}
 
 	/* Set atomically the state to "active" */
-	CMM_ACCESS_ONCE(session->active) = 1;
-	CMM_ACCESS_ONCE(session->been_active) = 1;
+	LTTNG_UST_ACCESS_ONCE(session->active) = 1;
+	LTTNG_UST_ACCESS_ONCE(session->been_active) = 1;
 
 	ret = lttng_session_statedump(session);
 	if (ret)
@@ -689,7 +689,7 @@ int lttng_session_disable(struct lttng_session *session)
 		goto end;
 	}
 	/* Set atomically the state to "inactive" */
-	CMM_ACCESS_ONCE(session->active) = 0;
+	LTTNG_UST_ACCESS_ONCE(session->active) = 0;
 
 	/* Set transient enabler state to "disabled" */
 	session->tstate = 0;
@@ -710,7 +710,7 @@ int lttng_channel_enable(struct lttng_channel *channel)
 	channel->tstate = 1;
 	lttng_session_sync_event_enablers(channel->session);
 	/* Set atomically the state to "enabled" */
-	CMM_ACCESS_ONCE(channel->enabled) = 1;
+	LTTNG_UST_ACCESS_ONCE(channel->enabled) = 1;
 end:
 	return ret;
 }
@@ -724,7 +724,7 @@ int lttng_channel_disable(struct lttng_channel *channel)
 		goto end;
 	}
 	/* Set atomically the state to "disabled" */
-	CMM_ACCESS_ONCE(channel->enabled) = 0;
+	LTTNG_UST_ACCESS_ONCE(channel->enabled) = 0;
 	/* Set transient enabler state to "enabled" */
 	channel->tstate = 0;
 	lttng_session_sync_event_enablers(channel->session);

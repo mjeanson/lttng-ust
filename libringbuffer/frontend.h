@@ -206,7 +206,7 @@ static inline
 int lib_ring_buffer_is_finalized(const struct lttng_ust_lib_ring_buffer_config *config,
 				 struct lttng_ust_lib_ring_buffer *buf)
 {
-	int finalized = CMM_ACCESS_ONCE(buf->finalized);
+	int finalized = LTTNG_UST_ACCESS_ONCE(buf->finalized);
 	/*
 	 * Read finalized before counters.
 	 */

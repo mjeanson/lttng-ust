@@ -871,11 +871,11 @@ void __event_probe__##_provider##___##_name(_TP_ARGS_DATA_PROTO(_args))	      \
 		(void) __dynamic_len_idx;	/* don't warn if unused */    \
 	if (!_TP_SESSION_CHECK(session, __chan->session))		      \
 		return;							      \
-	if (lttng_ust_unlikely(!CMM_ACCESS_ONCE(__chan->session->active)))	      \
+	if (lttng_ust_unlikely(!LTTNG_UST_ACCESS_ONCE(__chan->session->active)))	      \
 		return;							      \
-	if (lttng_ust_unlikely(!CMM_ACCESS_ONCE(__chan->enabled)))		      \
+	if (lttng_ust_unlikely(!LTTNG_UST_ACCESS_ONCE(__chan->enabled)))		      \
 		return;							      \
-	if (lttng_ust_unlikely(!CMM_ACCESS_ONCE(__event->enabled)))		      \
+	if (lttng_ust_unlikely(!LTTNG_UST_ACCESS_ONCE(__event->enabled)))		      \
 		return;							      \
 	if (lttng_ust_unlikely(!TP_RCU_LINK_TEST()))				      \
 		return;							      \
@@ -958,7 +958,7 @@ void __event_notifier_probe__##_provider##___##_name(_TP_ARGS_DATA_PROTO(_args))
 		char __interpreter_stack_data[2 * sizeof(unsigned long) * __num_fields]; \
 	} __stackvar;							      \
 									      \
-	if (lttng_ust_unlikely(!CMM_ACCESS_ONCE(__event_notifier->enabled)))	      \
+	if (lttng_ust_unlikely(!LTTNG_UST_ACCESS_ONCE(__event_notifier->enabled)))	      \
 		return;							      \
 	if (lttng_ust_unlikely(!TP_RCU_LINK_TEST()))				      \
 		return;							      \

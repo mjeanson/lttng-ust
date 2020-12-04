@@ -168,7 +168,7 @@ void subbuffer_id_set_noref_offset(const struct lttng_ust_lib_ring_buffer_config
 		tmp |= offset << SB_ID_OFFSET_SHIFT;
 		tmp |= SB_ID_NOREF_MASK;
 		/* Volatile store, read concurrently by readers. */
-		CMM_ACCESS_ONCE(*id) = tmp;
+		LTTNG_UST_ACCESS_ONCE(*id) = tmp;
 	}
 }
 
@@ -473,7 +473,7 @@ void lib_ring_buffer_clear_noref(const struct lttng_ust_lib_ring_buffer_config *
 	wsb = shmp_index(handle, bufb->buf_wsb, idx);
 	if (!wsb)
 		return;
-	id = CMM_ACCESS_ONCE(wsb->id);
+	id = LTTNG_UST_ACCESS_ONCE(wsb->id);
 	for (;;) {
 		/* This check is called on the fast path for each record. */
 		if (lttng_ust_likely(!subbuffer_id_is_noref(config, id))) {
