@@ -62,9 +62,6 @@
 		(type *)((char *)__ptr - offsetof(type, member));	\
 	})
 
-#define CAA_BUILD_BUG_ON_ZERO(cond) (sizeof(struct { int:-!!(cond); }))
-#define CAA_BUILD_BUG_ON(cond) ((void)CAA_BUILD_BUG_ON_ZERO(cond))
-
 /*
  * __rcu is an annotation that documents RCU pointer accesses that need
  * to be protected by a read-side critical section. Eventually, a static
