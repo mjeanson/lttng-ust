@@ -107,8 +107,8 @@ unsigned long __uatomic_cmpxchg(void *addr, unsigned long old,
 
 #define _uatomic_cmpxchg(addr, old, _new)				      \
 	((__typeof__(*(addr))) __uatomic_cmpxchg((addr),		      \
-						caa_cast_long_keep_sign(old), \
-						caa_cast_long_keep_sign(_new),\
+						lttng_ust_cast_long_keep_sign(old), \
+						lttng_ust_cast_long_keep_sign(_new),\
 						sizeof(*(addr))))
 
 /* xchg */
@@ -171,7 +171,7 @@ unsigned long __uatomic_exchange(void *addr, unsigned long val, int len)
 
 #define _uatomic_xchg(addr, v)						      \
 	((__typeof__(*(addr))) __uatomic_exchange((addr),		      \
-						caa_cast_long_keep_sign(v),   \
+						lttng_ust_cast_long_keep_sign(v),   \
 						sizeof(*(addr))))
 
 /* uatomic_add_return */
@@ -238,7 +238,7 @@ unsigned long __uatomic_add_return(void *addr, unsigned long val,
 
 #define _uatomic_add_return(addr, v)					    \
 	((__typeof__(*(addr))) __uatomic_add_return((addr),		    \
-						caa_cast_long_keep_sign(v), \
+						lttng_ust_cast_long_keep_sign(v), \
 						sizeof(*(addr))))
 
 /* uatomic_and */
@@ -295,7 +295,7 @@ void __uatomic_and(void *addr, unsigned long val, int len)
 }
 
 #define _uatomic_and(addr, v)						   \
-	(__uatomic_and((addr), caa_cast_long_keep_sign(v), sizeof(*(addr))))
+	(__uatomic_and((addr), lttng_ust_cast_long_keep_sign(v), sizeof(*(addr))))
 
 /* uatomic_or */
 
@@ -351,7 +351,7 @@ void __uatomic_or(void *addr, unsigned long val, int len)
 }
 
 #define _uatomic_or(addr, v)						   \
-	(__uatomic_or((addr), caa_cast_long_keep_sign(v), sizeof(*(addr))))
+	(__uatomic_or((addr), lttng_ust_cast_long_keep_sign(v), sizeof(*(addr))))
 
 /* uatomic_add */
 
@@ -407,7 +407,7 @@ void __uatomic_add(void *addr, unsigned long val, int len)
 }
 
 #define _uatomic_add(addr, v)						   \
-	(__uatomic_add((addr), caa_cast_long_keep_sign(v), sizeof(*(addr))))
+	(__uatomic_add((addr), lttng_ust_cast_long_keep_sign(v), sizeof(*(addr))))
 
 
 /* uatomic_inc */
@@ -540,7 +540,7 @@ extern unsigned long _compat_uatomic_set(void *addr,
 					 unsigned long _new, int len);
 #define compat_uatomic_set(addr, _new)				     	       \
 	((void) _compat_uatomic_set((addr),				       \
-				caa_cast_long_keep_sign(_new),		       \
+				lttng_ust_cast_long_keep_sign(_new),		       \
 				sizeof(*(addr))))
 
 
@@ -548,34 +548,34 @@ extern unsigned long _compat_uatomic_xchg(void *addr,
 					  unsigned long _new, int len);
 #define compat_uatomic_xchg(addr, _new)					       \
 	((__typeof__(*(addr))) _compat_uatomic_xchg((addr),		       \
-						caa_cast_long_keep_sign(_new), \
+						lttng_ust_cast_long_keep_sign(_new), \
 						sizeof(*(addr))))
 
 extern unsigned long _compat_uatomic_cmpxchg(void *addr, unsigned long old,
 					     unsigned long _new, int len);
 #define compat_uatomic_cmpxchg(addr, old, _new)				       \
 	((__typeof__(*(addr))) _compat_uatomic_cmpxchg((addr),		       \
-						caa_cast_long_keep_sign(old),  \
-						caa_cast_long_keep_sign(_new), \
+						lttng_ust_cast_long_keep_sign(old),  \
+						lttng_ust_cast_long_keep_sign(_new), \
 						sizeof(*(addr))))
 
 extern void _compat_uatomic_and(void *addr, unsigned long _new, int len);
 #define compat_uatomic_and(addr, v)				       \
 	(_compat_uatomic_and((addr),				       \
-			caa_cast_long_keep_sign(v),		       \
+			lttng_ust_cast_long_keep_sign(v),		       \
 			sizeof(*(addr))))
 
 extern void _compat_uatomic_or(void *addr, unsigned long _new, int len);
 #define compat_uatomic_or(addr, v)				       \
 	(_compat_uatomic_or((addr),				       \
-			  caa_cast_long_keep_sign(v),		       \
+			  lttng_ust_cast_long_keep_sign(v),		       \
 			  sizeof(*(addr))))
 
 extern unsigned long _compat_uatomic_add_return(void *addr,
 						unsigned long _new, int len);
 #define compat_uatomic_add_return(addr, v)			            \
 	((__typeof__(*(addr))) _compat_uatomic_add_return((addr),     	    \
-						caa_cast_long_keep_sign(v), \
+						lttng_ust_cast_long_keep_sign(v), \
 						sizeof(*(addr))))
 
 #define compat_uatomic_add(addr, v)					       \

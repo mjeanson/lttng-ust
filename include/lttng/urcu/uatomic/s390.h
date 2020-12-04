@@ -107,7 +107,7 @@ unsigned long _uatomic_exchange(volatile void *addr, unsigned long val, int len)
 
 #define uatomic_xchg(addr, v)						    \
 	(__typeof__(*(addr))) _uatomic_exchange((addr),			    \
-						caa_cast_long_keep_sign(v), \
+						lttng_ust_cast_long_keep_sign(v), \
 						sizeof(*(addr)))
 
 /* cmpxchg */
@@ -148,8 +148,8 @@ unsigned long _uatomic_cmpxchg(void *addr, unsigned long old,
 
 #define uatomic_cmpxchg(addr, old, _new)				     \
 	(__typeof__(*(addr))) _uatomic_cmpxchg((addr),			     \
-					       caa_cast_long_keep_sign(old), \
-					       caa_cast_long_keep_sign(_new),\
+					       lttng_ust_cast_long_keep_sign(old), \
+					       lttng_ust_cast_long_keep_sign(_new),\
 					       sizeof(*(addr)))
 
 #ifdef __cplusplus

@@ -73,7 +73,7 @@
  * Note: casting to a larger type or to same type size keeps the sign of
  * the expression being cast (see C99 6.3.1.3).
  */
-#define caa_cast_long_keep_sign(v)	((unsigned long) (v))
+#define lttng_ust_cast_long_keep_sign(v)	((unsigned long) (v))
 
 #if defined (__GNUC__) \
 	&& ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 5)	\

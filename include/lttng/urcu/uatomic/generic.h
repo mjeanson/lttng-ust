@@ -90,8 +90,8 @@ unsigned long _uatomic_cmpxchg(void *addr, unsigned long old,
 
 #define uatomic_cmpxchg(addr, old, _new)				      \
 	((__typeof__(*(addr))) _uatomic_cmpxchg((addr),			      \
-						caa_cast_long_keep_sign(old), \
-						caa_cast_long_keep_sign(_new),\
+						lttng_ust_cast_long_keep_sign(old), \
+						lttng_ust_cast_long_keep_sign(_new),\
 						sizeof(*(addr))))
 
 
@@ -127,7 +127,7 @@ void _uatomic_and(void *addr, unsigned long val,
 
 #define uatomic_and(addr, v)			\
 	(_uatomic_and((addr),			\
-		caa_cast_long_keep_sign(v),	\
+		lttng_ust_cast_long_keep_sign(v),	\
 		sizeof(*(addr))))
 #define cmm_smp_mb__before_uatomic_and()	lttng_ust_barrier()
 #define cmm_smp_mb__after_uatomic_and()		lttng_ust_barrier()
@@ -167,7 +167,7 @@ void _uatomic_or(void *addr, unsigned long val,
 
 #define uatomic_or(addr, v)			\
 	(_uatomic_or((addr),			\
-		caa_cast_long_keep_sign(v),	\
+		lttng_ust_cast_long_keep_sign(v),	\
 		sizeof(*(addr))))
 #define cmm_smp_mb__before_uatomic_or()		lttng_ust_barrier()
 #define cmm_smp_mb__after_uatomic_or()		lttng_ust_barrier()
@@ -205,7 +205,7 @@ unsigned long _uatomic_add_return(void *addr, unsigned long val,
 
 #define uatomic_add_return(addr, v)					    \
 	((__typeof__(*(addr))) _uatomic_add_return((addr),		    \
-						caa_cast_long_keep_sign(v), \
+						lttng_ust_cast_long_keep_sign(v), \
 						sizeof(*(addr))))
 #endif /* #ifndef uatomic_add_return */
 
@@ -273,7 +273,7 @@ unsigned long _uatomic_exchange(void *addr, unsigned long val, int len)
 
 #define uatomic_xchg(addr, v)						    \
 	((__typeof__(*(addr))) _uatomic_exchange((addr),		    \
-						caa_cast_long_keep_sign(v), \
+						lttng_ust_cast_long_keep_sign(v), \
 						sizeof(*(addr))))
 #endif /* #ifndef uatomic_xchg */
 
@@ -344,7 +344,7 @@ void _uatomic_and(void *addr, unsigned long val, int len)
 
 #define uatomic_and(addr, v)			\
 	(_uatomic_and((addr),			\
-		caa_cast_long_keep_sign(v),	\
+		lttng_ust_cast_long_keep_sign(v),	\
 		sizeof(*(addr))))
 #define cmm_smp_mb__before_uatomic_and()	lttng_ust_barrier()
 #define cmm_smp_mb__after_uatomic_and()		lttng_ust_barrier()
@@ -418,7 +418,7 @@ void _uatomic_or(void *addr, unsigned long val, int len)
 
 #define uatomic_or(addr, v)			\
 	(_uatomic_or((addr),			\
-		caa_cast_long_keep_sign(v),	\
+		lttng_ust_cast_long_keep_sign(v),	\
 		sizeof(*(addr))))
 #define cmm_smp_mb__before_uatomic_or()		lttng_ust_barrier()
 #define cmm_smp_mb__after_uatomic_or()		lttng_ust_barrier()
@@ -497,7 +497,7 @@ unsigned long _uatomic_add_return(void *addr, unsigned long val, int len)
 
 #define uatomic_add_return(addr, v)					    \
 	((__typeof__(*(addr))) _uatomic_add_return((addr),		    \
-						caa_cast_long_keep_sign(v), \
+						lttng_ust_cast_long_keep_sign(v), \
 						sizeof(*(addr))))
 #endif /* #ifndef uatomic_add_return */
 
@@ -573,7 +573,7 @@ unsigned long _uatomic_exchange(void *addr, unsigned long val, int len)
 
 #define uatomic_xchg(addr, v)						    \
 	((__typeof__(*(addr))) _uatomic_exchange((addr),		    \
-						caa_cast_long_keep_sign(v), \
+						lttng_ust_cast_long_keep_sign(v), \
 						sizeof(*(addr))))
 #endif /* #ifndef uatomic_xchg */
 
@@ -588,9 +588,9 @@ unsigned long _uatomic_exchange(void *addr, unsigned long val, int len)
 #endif
 
 #define uatomic_sub_return(addr, v)	\
-	uatomic_add_return((addr), -(caa_cast_long_keep_sign(v)))
+	uatomic_add_return((addr), -(lttng_ust_cast_long_keep_sign(v)))
 #define uatomic_sub(addr, v)		\
-	uatomic_add((addr), -(caa_cast_long_keep_sign(v)))
+	uatomic_add((addr), -(lttng_ust_cast_long_keep_sign(v)))
 #define cmm_smp_mb__before_uatomic_sub()	cmm_smp_mb__before_uatomic_add()
 #define cmm_smp_mb__after_uatomic_sub()		cmm_smp_mb__after_uatomic_add()
 
