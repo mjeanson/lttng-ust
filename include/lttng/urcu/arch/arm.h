@@ -57,6 +57,19 @@ extern "C" {
 #define __NR_membarrier		389
 #endif
 
+/*
+ * Don't allow compiling with buggy compiler.
+ *
+ * http://gcc.gnu.org/bugzilla/show_bug.cgi?id=58854
+ */
+#ifdef LTTNG_UST_GCC_VERSION
+# ifdef __ARMEL__
+#  if LTTNG_UST_GCC_VERSION >= 40800 && ULTTNG_UST_GCC_VERSION <= 40802
+#   error Your gcc version produces clobbered frame accesses
+#  endif
+# endif
+#endif
+
 #ifdef __cplusplus
 }
 #endif
