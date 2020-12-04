@@ -40,14 +40,6 @@
  */
 #define LTTNG_UST_ACCESS_ONCE(x)	(*(__volatile__  __typeof__(x) *)&(x))
 
-#ifndef caa_max
-#define caa_max(a,b) ((a)>(b)?(a):(b))
-#endif
-
-#ifndef caa_min
-#define caa_min(a,b) ((a)<(b)?(a):(b))
-#endif
-
 #if defined(__SIZEOF_LONG__)
 #define CAA_BITS_PER_LONG	(__SIZEOF_LONG__ * 8)
 #elif defined(_LP64)

@@ -58,8 +58,6 @@ caa_likely lttng_ust_likely
 caa_unlikely lttng_ust_unlikely
 cmm_barrier lttng_ust_barrier
 CMM_ACCESS_ONCE LTTNG_UST_ACCESS_ONCE
-caa_max lttng_ust_caa_max
-caa_min lttng_ust_caa_min
 CAA_BITS_PER_LONG LTTNG_UST_CAA_BITS_PER_LONG
 caa_container_of lttng_ust_caa_container_of
 CAA_BUILD_BUG_ON_ZERO LTTNG_UST_CAA_BUILD_BUG_ON_ZERO
