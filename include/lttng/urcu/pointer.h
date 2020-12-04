@@ -68,8 +68,8 @@ extern void *lttng_ust_rcu_dereference_sym(void *p);
 #define lttng_ust_rcu_dereference(p)					     \
 	__extension__							     \
 	({								     \
-		__typeof__(p) _________p1 =	URCU_FORCE_CAST(__typeof__(p), \
-			lttng_ust_rcu_dereference_sym(URCU_FORCE_CAST(void *, p))); \
+		__typeof__(p) _________p1 =	LTTNG_UST_URCU_FORCE_CAST(__typeof__(p), \
+			lttng_ust_rcu_dereference_sym(LTTNG_UST_URCU_FORCE_CAST(void *, p))); \
 		(_________p1);						     \
 	})
 
@@ -79,8 +79,8 @@ extern void *lttng_ust_rcu_cmpxchg_pointer_sym(void **p, void *old, void *_new);
 	({								     \
 		__typeof__(*(p)) _________pold = (old);			     \
 		__typeof__(*(p)) _________pnew = (_new);		     \
-		__typeof__(*(p)) _________p1 = URCU_FORCE_CAST(__typeof__(*(p)), \
-			lttng_ust_rcu_cmpxchg_pointer_sym(URCU_FORCE_CAST(void **, p), \
+		__typeof__(*(p)) _________p1 = LTTNG_UST_URCU_FORCE_CAST(__typeof__(*(p)), \
+			lttng_ust_rcu_cmpxchg_pointer_sym(LTTNG_UST_URCU_FORCE_CAST(void **, p), \
 						_________pold,		     \
 						_________pnew));	     \
 		(_________p1);						     \
@@ -91,8 +91,8 @@ extern void *lttng_ust_rcu_xchg_pointer_sym(void **p, void *v);
 	__extension__							     \
 	({								     \
 		__typeof__(*(p)) _________pv = (v);		             \
-		__typeof__(*(p)) _________p1 = URCU_FORCE_CAST(__typeof__(*(p)), \
-			lttng_ust_rcu_xchg_pointer_sym(URCU_FORCE_CAST(void **, p), \
+		__typeof__(*(p)) _________p1 = LTTNG_UST_URCU_FORCE_CAST(__typeof__(*(p)), \
+			lttng_ust_rcu_xchg_pointer_sym(LTTNG_UST_URCU_FORCE_CAST(void **, p), \
 					     _________pv));		     \
 		(_________p1);						     \
 	})
@@ -107,7 +107,7 @@ extern void *lttng_ust_rcu_set_pointer_sym(void **p, void *v);
 #define lttng_ust_rcu_set_pointer(p, v)					     \
 	do {								     \
 		__typeof__(*(p)) _________pv = (v);		             \
-		(void) lttng_ust_rcu_set_pointer_sym(URCU_FORCE_CAST(void **, p), \
+		(void) lttng_ust_rcu_set_pointer_sym(LTTNG_UST_URCU_FORCE_CAST(void **, p), \
 					    _________pv);		     \
 	} while (0)
 

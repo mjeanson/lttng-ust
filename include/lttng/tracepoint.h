@@ -192,7 +192,7 @@ void __tracepoint_cb_##_provider##___##_name(_TP_ARGS_PROTO(__VA_ARGS__))		\
 		void (*__tp_cb)(void) = __tp_probe->func;				\
 		void *__tp_data = __tp_probe->data;					\
 											\
-		URCU_FORCE_CAST(void (*)(_TP_ARGS_DATA_PROTO(__VA_ARGS__)), __tp_cb)	\
+		LTTNG_UST_URCU_FORCE_CAST(void (*)(_TP_ARGS_DATA_PROTO(__VA_ARGS__)), __tp_cb)	\
 				(_TP_ARGS_DATA_VAR(__VA_ARGS__));			\
 	} while ((++__tp_probe)->func);							\
 end:											\
@@ -310,17 +310,17 @@ __tracepoint__init_urcu_sym(void)
 	 */
 	if (!tracepoint_dlopen_ptr->rcu_read_lock_sym)
 		tracepoint_dlopen_ptr->rcu_read_lock_sym =
-			URCU_FORCE_CAST(void (*)(void),
+			LTTNG_UST_URCU_FORCE_CAST(void (*)(void),
 				dlsym(tracepoint_dlopen_ptr->liblttngust_handle,
 					"tp_rcu_read_lock"));
 	if (!tracepoint_dlopen_ptr->rcu_read_unlock_sym)
 		tracepoint_dlopen_ptr->rcu_read_unlock_sym =
-			URCU_FORCE_CAST(void (*)(void),
+			LTTNG_UST_URCU_FORCE_CAST(void (*)(void),
 				dlsym(tracepoint_dlopen_ptr->liblttngust_handle,
 					"tp_rcu_read_unlock"));
 	if (!tracepoint_dlopen_ptr->rcu_dereference_sym)
 		tracepoint_dlopen_ptr->rcu_dereference_sym =
-			URCU_FORCE_CAST(void *(*)(void *p),
+			LTTNG_UST_URCU_FORCE_CAST(void *(*)(void *p),
 				dlsym(tracepoint_dlopen_ptr->liblttngust_handle,
 					"tp_rcu_dereference_sym"));
 }
@@ -477,23 +477,23 @@ __tracepoints__ptrs_init(void)
 	if (!tracepoint_destructors_syms_ptr)
 		tracepoint_destructors_syms_ptr = &tracepoint_destructors_syms;
 	tracepoint_dlopen_ptr->tracepoint_register_lib =
-		URCU_FORCE_CAST(int (*)(struct lttng_ust_tracepoint * const *, int),
+		LTTNG_UST_URCU_FORCE_CAST(int (*)(struct lttng_ust_tracepoint * const *, int),
 				dlsym(tracepoint_dlopen_ptr->liblttngust_handle,
 					"tracepoint_register_lib2"));
 	tracepoint_dlopen_ptr->tracepoint_unregister_lib =
-		URCU_FORCE_CAST(int (*)(struct lttng_ust_tracepoint * const *),
+		LTTNG_UST_URCU_FORCE_CAST(int (*)(struct lttng_ust_tracepoint * const *),
 				dlsym(tracepoint_dlopen_ptr->liblttngust_handle,
 					"tracepoint_unregister_lib2"));
 	tracepoint_destructors_syms_ptr->old_tracepoint_disable_destructors =
-		URCU_FORCE_CAST(int *,
+		LTTNG_UST_URCU_FORCE_CAST(int *,
 				dlsym(tracepoint_dlopen_ptr->liblttngust_handle,
 					"__tracepoints__disable_destructors"));
 	tracepoint_destructors_syms_ptr->tracepoint_disable_destructors =
-		URCU_FORCE_CAST(void (*)(void),
+		LTTNG_UST_URCU_FORCE_CAST(void (*)(void),
 				dlsym(tracepoint_dlopen_ptr->liblttngust_handle,
 					"tp_disable_destructors"));
 	tracepoint_destructors_syms_ptr->tracepoint_get_destructors_state =
-		URCU_FORCE_CAST(int (*)(void),
+		LTTNG_UST_URCU_FORCE_CAST(int (*)(void),
 				dlsym(tracepoint_dlopen_ptr->liblttngust_handle,
 					"tp_get_destructors_state"));
 	__tracepoint__init_urcu_sym();

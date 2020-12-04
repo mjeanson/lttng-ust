@@ -71,9 +71,9 @@
 #define __rcu
 
 #ifdef __cplusplus
-#define URCU_FORCE_CAST(type, arg)	(reinterpret_cast<type>(arg))
+#define LTTNG_UST_URCU_FORCE_CAST(type, arg)	(reinterpret_cast<type>(arg))
 #else
-#define URCU_FORCE_CAST(type, arg)	((type) (arg))
+#define LTTNG_UST_URCU_FORCE_CAST(type, arg)	((type) (arg))
 #endif
 
 #define caa_is_signed_type(type)	((type) -1 < (type) 0)

@@ -41,8 +41,8 @@
 #define tp_rcu_read_unlock	tracepoint_dlopen_ptr->rcu_read_unlock_sym
 
 #define tp_rcu_dereference(p)						   \
-		URCU_FORCE_CAST(__typeof__(p),				   \
-			tracepoint_dlopen_ptr->rcu_dereference_sym(URCU_FORCE_CAST(void *, p)))
+		LTTNG_UST_URCU_FORCE_CAST(__typeof__(p),				   \
+			tracepoint_dlopen_ptr->rcu_dereference_sym(LTTNG_UST_URCU_FORCE_CAST(void *, p)))
 
 #define TP_RCU_LINK_TEST()	(tracepoint_dlopen_ptr && tp_rcu_read_lock)
 

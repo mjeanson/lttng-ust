@@ -173,7 +173,7 @@ static void lttng_ust_tracepoint_set_v1_used(void)
 		 * dlsym) inside the ust lock.
 		 */
 		if (!lttng_ust_liburcu_bp_synchronize_rcu) {
-			lttng_ust_liburcu_bp_synchronize_rcu = URCU_FORCE_CAST(void (*)(void),
+			lttng_ust_liburcu_bp_synchronize_rcu = LTTNG_UST_URCU_FORCE_CAST(void (*)(void),
 				dlsym(RTLD_DEFAULT, "synchronize_rcu_bp"));
 			/*
 			 * Allow legacy applications compiled without
@@ -193,31 +193,31 @@ static void lttng_ust_tracepoint_set_v1_used(void)
 				return;
 		}
 		if (!lttng_ust_liburcu_bp_before_fork) {
-			lttng_ust_liburcu_bp_before_fork = URCU_FORCE_CAST(void (*)(void),
+			lttng_ust_liburcu_bp_before_fork = LTTNG_UST_URCU_FORCE_CAST(void (*)(void),
 				dlsym(RTLD_DEFAULT, "rcu_bp_before_fork"));
 			if (!lttng_ust_liburcu_bp_before_fork)
 				abort();
 		}
 		if (!lttng_ust_liburcu_bp_after_fork_parent) {
-			lttng_ust_liburcu_bp_after_fork_parent = URCU_FORCE_CAST(void (*)(void),
+			lttng_ust_liburcu_bp_after_fork_parent = LTTNG_UST_URCU_FORCE_CAST(void (*)(void),
 				dlsym(RTLD_DEFAULT, "rcu_bp_after_fork_parent"));
 			if (!lttng_ust_liburcu_bp_after_fork_parent)
 				abort();
 		}
 		if (!lttng_ust_liburcu_bp_after_fork_child) {
-			lttng_ust_liburcu_bp_after_fork_child = URCU_FORCE_CAST(void (*)(void),
+			lttng_ust_liburcu_bp_after_fork_child = LTTNG_UST_URCU_FORCE_CAST(void (*)(void),
 				dlsym(RTLD_DEFAULT, "rcu_bp_after_fork_child"));
 			if (!lttng_ust_liburcu_bp_after_fork_child)
 				abort();
 		}
 		if (!lttng_ust_liburcu_bp_rcu_read_lock) {
-			lttng_ust_liburcu_bp_rcu_read_lock = URCU_FORCE_CAST(void (*)(void),
+			lttng_ust_liburcu_bp_rcu_read_lock = LTTNG_UST_URCU_FORCE_CAST(void (*)(void),
 				dlsym(RTLD_DEFAULT, "rcu_read_lock_bp"));
 			if (!lttng_ust_liburcu_bp_rcu_read_lock)
 				abort();
 		}
 		if (!lttng_ust_liburcu_bp_rcu_read_unlock) {
-			lttng_ust_liburcu_bp_rcu_read_unlock = URCU_FORCE_CAST(void (*)(void),
+			lttng_ust_liburcu_bp_rcu_read_unlock = LTTNG_UST_URCU_FORCE_CAST(void (*)(void),
 				dlsym(RTLD_DEFAULT, "rcu_read_unlock_bp"));
 			if (!lttng_ust_liburcu_bp_rcu_read_unlock)
 				abort();
