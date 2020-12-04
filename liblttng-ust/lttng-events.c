@@ -160,9 +160,9 @@ struct lttng_session *lttng_session_create(void)
 	CDS_INIT_LIST_HEAD(&session->enums_head);
 	CDS_INIT_LIST_HEAD(&session->enablers_head);
 	for (i = 0; i < LTTNG_UST_EVENT_HT_SIZE; i++)
-		CDS_INIT_HLIST_HEAD(&session->events_ht.table[i]);
+		LTTNG_UST_INIT_HLIST_HEAD(&session->events_ht.table[i]);
 	for (i = 0; i < LTTNG_UST_ENUM_HT_SIZE; i++)
-		CDS_INIT_HLIST_HEAD(&session->enums_ht.table[i]);
+		LTTNG_UST_INIT_HLIST_HEAD(&session->enums_ht.table[i]);
 	cds_list_add(&session->node, &sessions);
 	return session;
 }
@@ -225,7 +225,7 @@ struct lttng_event_notifier_group *lttng_event_notifier_group_create(void)
 	CDS_INIT_LIST_HEAD(&event_notifier_group->enablers_head);
 	CDS_INIT_LIST_HEAD(&event_notifier_group->event_notifiers_head);
 	for (i = 0; i < LTTNG_UST_EVENT_NOTIFIER_HT_SIZE; i++)
-		CDS_INIT_HLIST_HEAD(&event_notifier_group->event_notifiers_ht.table[i]);
+		LTTNG_UST_INIT_HLIST_HEAD(&event_notifier_group->event_notifiers_ht.table[i]);
 
 	cds_list_add(&event_notifier_group->node, &event_notifier_groups);
 

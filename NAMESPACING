@@ -77,7 +77,7 @@ urcu_assert lttng_ust_urcu_assert
 
 cds_hlist_head lttng_ust_hlist_head
 cds_hlist_node lttng_ust_hlist_node
-CDS_INIT_HLIST_HEAD LTTNG_UST_CDS_INIT_HLIST_HEAD
+CDS_INIT_HLIST_HEAD LTTNG_UST_INIT_HLIST_HEAD
 CDS_HLIST_HEAD LTTNG_UST_CDS_HLIST_HEAD
 CDS_HLIST_HEAD_INIT LTTNG_UST_CDS_HLIST_HEAD_INIT
 cds_hlist_entry lttng_ust_cds_hlist_entry

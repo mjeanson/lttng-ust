@@ -658,7 +658,7 @@ void ust_dl_state_destroy(void)
 		head = &dl_state_table[i];
 		cds_hlist_for_each_entry_safe_2(e, tmp, head, node)
 			free_dl_node(e);
-		CDS_INIT_HLIST_HEAD(head);
+		LTTNG_UST_INIT_HLIST_HEAD(head);
 	}
 }
 

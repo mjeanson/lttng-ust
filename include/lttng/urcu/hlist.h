@@ -28,7 +28,7 @@ struct lttng_ust_hlist_node {
 
 /* Initialize a new list head. */
 static inline
-void CDS_INIT_HLIST_HEAD(struct lttng_ust_hlist_head *ptr)
+void LTTNG_UST_INIT_HLIST_HEAD(struct lttng_ust_hlist_head *ptr)
 {
 	ptr->next = NULL;
 }
