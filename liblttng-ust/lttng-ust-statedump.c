@@ -65,7 +65,7 @@ struct bin_info_data {
 
 struct lttng_ust_dl_node {
 	struct bin_info_data bin_data;
-	struct cds_hlist_node node;
+	struct lttng_ust_hlist_node node;
 	bool traced;
 	bool marked;
 };

@@ -35,7 +35,7 @@ struct lttng_ust_context_provider {
 		       struct lttng_channel *chan);
 	void (*get_value)(struct lttng_ctx_field *field,
 			 struct lttng_ctx_value *value);
-	struct cds_hlist_node node;
+	struct lttng_ust_hlist_node node;
 };
 
 int lttng_ust_context_provider_register(struct lttng_ust_context_provider *provider);

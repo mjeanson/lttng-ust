@@ -1051,7 +1051,7 @@ void lttng_create_event_if_missing(struct lttng_event_enabler *event_enabler)
 			int ret;
 			bool found = false;
 			struct lttng_ust_hlist_head *head;
-			struct cds_hlist_node *node;
+			struct lttng_ust_hlist_node *node;
 
 			desc = probe_desc->event_desc[i];
 			if (!lttng_desc_match_enabler(desc,
@@ -1092,7 +1092,7 @@ void probe_provider_event_for_each(struct lttng_probe_desc *provider_desc,
 			struct lttng_event *event),
 		void (*event_notifier_func)(struct lttng_event_notifier *event_notifier))
 {
-	struct cds_hlist_node *node, *tmp_node;
+	struct lttng_ust_hlist_node *node, *tmp_node;
 	struct cds_list_head *sessionsp;
 	unsigned int i;
 
@@ -1726,7 +1726,7 @@ void lttng_create_event_notifier_if_missing(
 			const struct lttng_event_desc *desc;
 			struct lttng_event_notifier *event_notifier;
 			struct lttng_ust_hlist_head *head;
-			struct cds_hlist_node *node;
+			struct lttng_ust_hlist_node *node;
 
 			desc = probe_desc->event_desc[i];
 

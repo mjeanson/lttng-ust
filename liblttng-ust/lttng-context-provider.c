@@ -45,7 +45,7 @@ static struct lttng_ust_context_provider *
 		lookup_provider_by_name(const char *name)
 {
 	struct lttng_ust_hlist_head *head;
-	struct cds_hlist_node *node;
+	struct lttng_ust_hlist_node *node;
 	struct lttng_ust_context_provider *provider;
 	uint32_t hash;
 	const char *end;

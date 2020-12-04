@@ -119,7 +119,7 @@ static int release_queue_need_update;
  * Tracepoint entries modifications are protected by the tracepoint mutex.
  */
 struct tracepoint_entry {
-	struct cds_hlist_node hlist;
+	struct lttng_ust_hlist_node hlist;
 	struct lttng_ust_tracepoint_probe *probes;
 	int refcount;	/* Number of times armed. 0 if disarmed. */
 	int callsite_refcount;	/* how many libs use this tracepoint */
@@ -145,7 +145,7 @@ struct tp_probes {
 static struct lttng_ust_hlist_head callsite_table[CALLSITE_TABLE_SIZE];
 
 struct callsite_entry {
-	struct cds_hlist_node hlist;	/* hash table node */
+	struct lttng_ust_hlist_node hlist;	/* hash table node */
 	struct cds_list_head node;	/* lib list of callsites node */
 	struct lttng_ust_tracepoint *tp;
 	bool tp_entry_callsite_ref; /* Has a tp_entry took a ref on this callsite */
@@ -352,7 +352,7 @@ tracepoint_entry_remove_probe(struct tracepoint_entry *entry,
 static struct tracepoint_entry *get_tracepoint(const char *name)
 {
 	struct lttng_ust_hlist_head *head;
-	struct cds_hlist_node *node;
+	struct lttng_ust_hlist_node *node;
 	struct tracepoint_entry *e;
 	size_t name_len = strlen(name);
 	uint32_t hash;
@@ -378,7 +378,7 @@ static struct tracepoint_entry *add_tracepoint(const char *name,
 		const char *signature)
 {
 	struct lttng_ust_hlist_head *head;
-	struct cds_hlist_node *node;
+	struct lttng_ust_hlist_node *node;
 	struct tracepoint_entry *e;
 	size_t name_len = strlen(name);
 	size_t sig_len = strlen(signature);
@@ -545,7 +545,7 @@ static void remove_callsite(struct callsite_entry *e)
 static void tracepoint_sync_callsites(const char *name)
 {
 	struct lttng_ust_hlist_head *head;
-	struct cds_hlist_node *node;
+	struct lttng_ust_hlist_node *node;
 	struct callsite_entry *e;
 	size_t name_len = strlen(name);
 	uint32_t hash;

@@ -506,7 +506,7 @@ struct lttng_event {
 	int has_enablers_without_bytecode;
 	/* Backward references: list of lttng_enabler_ref (ref to enablers) */
 	struct cds_list_head enablers_ref_head;
-	struct cds_hlist_node hlist;	/* session ht of events */
+	struct lttng_ust_hlist_node hlist;	/* session ht of events */
 	int registered;			/* has reg'd tracepoint probe */
 };
 
@@ -523,7 +523,7 @@ struct lttng_event_notifier {
 	int has_enablers_without_bytecode;
 	struct cds_list_head enablers_ref_head;
 	const struct lttng_event_desc *desc;
-	struct cds_hlist_node hlist;	/* hashtable of event_notifiers */
+	struct lttng_ust_hlist_node hlist;	/* hashtable of event_notifiers */
 	struct cds_list_head node;	/* event_notifier list in session */
 	struct lttng_event_notifier_group *group; /* weak ref */
 };
@@ -532,7 +532,7 @@ struct lttng_enum {
 	const struct lttng_enum_desc *desc;
 	struct lttng_session *session;
 	struct cds_list_head node;	/* Enum list in session */
-	struct cds_hlist_node hlist;	/* Session ht of enums */
+	struct lttng_ust_hlist_node hlist;	/* Session ht of enums */
 	uint64_t id;			/* Enumeration ID in sessiond */
 };
 

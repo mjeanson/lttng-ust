@@ -19,11 +19,11 @@
 #include <stddef.h>
 
 struct lttng_ust_hlist_head {
-	struct cds_hlist_node *next;
+	struct lttng_ust_hlist_node *next;
 };
 
-struct cds_hlist_node {
-	struct cds_hlist_node *next, *prev;
+struct lttng_ust_hlist_node {
+	struct lttng_ust_hlist_node *next, *prev;
 };
 
 /* Initialize a new list head. */
@@ -45,19 +45,19 @@ void CDS_INIT_HLIST_HEAD(struct lttng_ust_hlist_head *ptr)
 
 /* Add new element at the head of the list. */
 static inline
-void cds_hlist_add_head(struct cds_hlist_node *newp,
+void cds_hlist_add_head(struct lttng_ust_hlist_node *newp,
 		struct lttng_ust_hlist_head *head)
 {
 	if (head->next)
 		head->next->prev = newp;
 	newp->next = head->next;
-	newp->prev = (struct cds_hlist_node *) head;
+	newp->prev = (struct lttng_ust_hlist_node *) head;
 	head->next = newp;
 }
 
 /* Remove element from list. */
 static inline
-void cds_hlist_del(struct cds_hlist_node *elem)
+void cds_hlist_del(struct lttng_ust_hlist_node *elem)
 {
 	if (elem->next)
 		elem->next->prev = elem->prev;
