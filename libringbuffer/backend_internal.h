@@ -75,7 +75,7 @@ extern void _lib_ring_buffer_write(struct lttng_ust_lib_ring_buffer_backend *buf
  * sampling and subbuffer ID exchange).
  */
 
-#define HALF_ULONG_BITS		(CAA_BITS_PER_LONG >> 1)
+#define HALF_ULONG_BITS		(LTTNG_UST_BITS_PER_LONG >> 1)
 
 #define SB_ID_OFFSET_SHIFT	(HALF_ULONG_BITS + 1)
 #define SB_ID_OFFSET_COUNT	(1UL << SB_ID_OFFSET_SHIFT)

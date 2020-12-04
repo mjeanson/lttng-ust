@@ -35,8 +35,8 @@
 static inline void lttng_bitmap_index(unsigned int index, unsigned int *word,
 		unsigned int *bit)
 {
-	*word = index / CAA_BITS_PER_LONG;
-	*bit = index % CAA_BITS_PER_LONG;
+	*word = index / LTTNG_UST_BITS_PER_LONG;
+	*bit = index % LTTNG_UST_BITS_PER_LONG;
 }
 
 static inline void lttng_bitmap_set_bit(unsigned int index, unsigned long *p)

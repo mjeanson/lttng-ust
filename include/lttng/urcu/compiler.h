@@ -41,11 +41,11 @@
 #define LTTNG_UST_ACCESS_ONCE(x)	(*(__volatile__  __typeof__(x) *)&(x))
 
 #if defined(__SIZEOF_LONG__)
-#define CAA_BITS_PER_LONG	(__SIZEOF_LONG__ * 8)
+#define LTTNG_UST_BITS_PER_LONG	(__SIZEOF_LONG__ * 8)
 #elif defined(_LP64)
-#define CAA_BITS_PER_LONG	64
+#define LTTNG_UST_BITS_PER_LONG	64
 #else
-#define CAA_BITS_PER_LONG	32
+#define LTTNG_UST_BITS_PER_LONG	32
 #endif
 
 /*

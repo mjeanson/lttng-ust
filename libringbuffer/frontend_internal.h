@@ -102,7 +102,7 @@ unsigned long subbuf_index(unsigned long offset, struct channel *chan)
  * last_tsc atomically.
  */
 
-#if (CAA_BITS_PER_LONG == 32)
+#if (LTTNG_UST_BITS_PER_LONG == 32)
 static inline
 void save_last_tsc(const struct lttng_ust_lib_ring_buffer_config *config,
 		   struct lttng_ust_lib_ring_buffer *buf, uint64_t tsc)

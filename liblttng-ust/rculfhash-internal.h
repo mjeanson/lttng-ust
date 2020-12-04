@@ -40,7 +40,7 @@ do {								\
 } while (0)
 #endif
 
-#if (CAA_BITS_PER_LONG == 32)
+#if (LTTNG_UST_BITS_PER_LONG == 32)
 #define MAX_TABLE_ORDER			32
 #else
 #define MAX_TABLE_ORDER			64

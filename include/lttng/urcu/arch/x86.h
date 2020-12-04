@@ -68,7 +68,7 @@ extern "C" {
  * IDT WinChip supports weak store ordering, and the kernel may enable it
  * under our feet; cmm_smp_wmb() ceases to be a nop for these processors.
  */
-#if (CAA_BITS_PER_LONG == 32)
+#if (LTTNG_UST_BITS_PER_LONG == 32)
 #define cmm_mb()    __asm__ __volatile__ ("lock; addl $0,0(%%esp)":::"memory")
 #define cmm_rmb()    __asm__ __volatile__ ("lock; addl $0,0(%%esp)":::"memory")
 #define cmm_wmb()    __asm__ __volatile__ ("lock; addl $0,0(%%esp)":::"memory")
@@ -86,7 +86,7 @@ extern "C" {
  * the system headers.
  */
 #if (defined(__linux__) && !defined(__NR_membarrier))
-#if (CAA_BITS_PER_LONG == 32)
+#if (LTTNG_UST_BITS_PER_LONG == 32)
 #define __NR_membarrier		375
 #else
 #define __NR_membarrier		324

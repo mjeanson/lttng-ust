@@ -128,7 +128,7 @@ void lttng_hashword2(
 	*pb = b;
 }
 
-#if (CAA_BITS_PER_LONG == 32)
+#if (LTTNG_UST_BITS_PER_LONG == 32)
 static inline
 unsigned long lttng_hash_mix(const void *_key, size_t length, unsigned long seed)
 {

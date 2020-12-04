@@ -642,7 +642,7 @@ int register_to_sessiond(int socket, enum ustctl_socket_type type)
 {
 	return ustcomm_send_reg_msg(socket,
 		type,
-		CAA_BITS_PER_LONG,
+		LTTNG_UST_BITS_PER_LONG,
 		lttng_alignof(uint8_t) * CHAR_BIT,
 		lttng_alignof(uint16_t) * CHAR_BIT,
 		lttng_alignof(uint32_t) * CHAR_BIT,

@@ -192,7 +192,7 @@ static inline int __lttng_counter_add(const struct lib_counter_config *config,
 			underflow = true;
 		break;
 	}
-#if CAA_BITS_PER_LONG == 64
+#if LTTNG_UST_BITS_PER_LONG == 64
 	case COUNTER_SIZE_64_BIT:
 	{
 		int64_t *int_p = (int64_t *) layout->counters + index;

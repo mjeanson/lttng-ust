@@ -77,7 +77,7 @@ unsigned long _uatomic_cmpxchg(void *addr, unsigned long old,
 	case 4:
 		return __sync_val_compare_and_swap_4((uint32_t *) addr, old,
 				_new);
-#if (CAA_BITS_PER_LONG == 64)
+#if (LTTNG_UST_BITS_PER_LONG == 64)
 	case 8:
 		return __sync_val_compare_and_swap_8((uint64_t *) addr, old,
 				_new);
@@ -116,7 +116,7 @@ void _uatomic_and(void *addr, unsigned long val,
 	case 4:
 		__sync_and_and_fetch_4((uint32_t *) addr, val);
 		return;
-#if (CAA_BITS_PER_LONG == 64)
+#if (LTTNG_UST_BITS_PER_LONG == 64)
 	case 8:
 		__sync_and_and_fetch_8((uint64_t *) addr, val);
 		return;
@@ -155,7 +155,7 @@ void _uatomic_or(void *addr, unsigned long val,
 	case 4:
 		__sync_or_and_fetch_4((uint32_t *) addr, val);
 		return;
-#if (CAA_BITS_PER_LONG == 64)
+#if (LTTNG_UST_BITS_PER_LONG == 64)
 	case 8:
 		__sync_or_and_fetch_8((uint64_t *) addr, val);
 		return;
@@ -193,7 +193,7 @@ unsigned long _uatomic_add_return(void *addr, unsigned long val,
 #endif
 	case 4:
 		return __sync_add_and_fetch_4((uint32_t *) addr, val);
-#if (CAA_BITS_PER_LONG == 64)
+#if (LTTNG_UST_BITS_PER_LONG == 64)
 	case 8:
 		return __sync_add_and_fetch_8((uint64_t *) addr, val);
 #endif
@@ -253,7 +253,7 @@ unsigned long _uatomic_exchange(void *addr, unsigned long val, int len)
 
 		return old;
 	}
-#if (CAA_BITS_PER_LONG == 64)
+#if (LTTNG_UST_BITS_PER_LONG == 64)
 	case 8:
 	{
 		uint64_t old;
@@ -324,7 +324,7 @@ void _uatomic_and(void *addr, unsigned long val, int len)
 
 		return;
 	}
-#if (CAA_BITS_PER_LONG == 64)
+#if (LTTNG_UST_BITS_PER_LONG == 64)
 	case 8:
 	{
 		uint64_t old, oldt;
@@ -398,7 +398,7 @@ void _uatomic_or(void *addr, unsigned long val, int len)
 
 		return;
 	}
-#if (CAA_BITS_PER_LONG == 64)
+#if (LTTNG_UST_BITS_PER_LONG == 64)
 	case 8:
 	{
 		uint64_t old, oldt;
@@ -475,7 +475,7 @@ unsigned long _uatomic_add_return(void *addr, unsigned long val, int len)
 
 		return old + val;
 	}
-#if (CAA_BITS_PER_LONG == 64)
+#if (LTTNG_UST_BITS_PER_LONG == 64)
 	case 8:
 	{
 		uint64_t old, oldt;
@@ -551,7 +551,7 @@ unsigned long _uatomic_exchange(void *addr, unsigned long val, int len)
 
 		return old;
 	}
-#if (CAA_BITS_PER_LONG == 64)
+#if (LTTNG_UST_BITS_PER_LONG == 64)
 	case 8:
 	{
 		uint64_t old, oldt;

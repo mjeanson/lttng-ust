@@ -171,7 +171,7 @@ int validate_args(const struct lib_counter_config *config,
 {
 	int nr_cpus = lttng_counter_num_possible_cpus();
 
-	if (CAA_BITS_PER_LONG != 64 && config->counter_size == COUNTER_SIZE_64_BIT) {
+	if (LTTNG_UST_BITS_PER_LONG != 64 && config->counter_size == COUNTER_SIZE_64_BIT) {
 		WARN_ON_ONCE(1);
 		return -1;
 	}
@@ -376,7 +376,7 @@ int lttng_counter_read(const struct lib_counter_config *config,
 		*value = (int64_t) CMM_LOAD_SHARED(*int_p);
 		break;
 	}
-#if CAA_BITS_PER_LONG == 64
+#if LTTNG_UST_BITS_PER_LONG == 64
 	case COUNTER_SIZE_64_BIT:
 	{
 		int64_t *int_p = (int64_t *) layout->counters + index;
@@ -510,7 +510,7 @@ int lttng_counter_clear_cpu(const struct lib_counter_config *config,
 		CMM_STORE_SHARED(*int_p, 0);
 		break;
 	}
-#if CAA_BITS_PER_LONG == 64
+#if LTTNG_UST_BITS_PER_LONG == 64
 	case COUNTER_SIZE_64_BIT:
 	{
 		int64_t *int_p = (int64_t *) layout->counters + index;

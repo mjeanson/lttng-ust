@@ -380,7 +380,7 @@ uint8_t bit_reverse_u8(uint8_t v)
 	return BitReverseTable256[v];
 }
 
-#if (CAA_BITS_PER_LONG == 32)
+#if (LTTNG_UST_BITS_PER_LONG == 32)
 static
 uint32_t bit_reverse_u32(uint32_t v)
 {
@@ -407,7 +407,7 @@ uint64_t bit_reverse_u64(uint64_t v)
 static
 unsigned long bit_reverse_ulong(unsigned long v)
 {
-#if (CAA_BITS_PER_LONG == 32)
+#if (LTTNG_UST_BITS_PER_LONG == 32)
 	return bit_reverse_u32(v);
 #else
 	return bit_reverse_u64(v);
@@ -522,7 +522,7 @@ unsigned int fls_u32(uint32_t x)
 
 unsigned int lttng_ust_lfht_fls_ulong(unsigned long x)
 {
-#if (CAA_BITS_PER_LONG == 32)
+#if (LTTNG_UST_BITS_PER_LONG == 32)
 	return fls_u32(x);
 #else
 	return fls_u64(x);
@@ -992,7 +992,7 @@ void lttng_ust_lfht_create_bucket(struct lttng_ust_lfht *ht, unsigned long size)
 	}
 }
 
-#if (CAA_BITS_PER_LONG > 32)
+#if (LTTNG_UST_BITS_PER_LONG > 32)
 /*
  * For 64-bit architectures, with max number of buckets small enough not to
  * use the entire 64-bit memory mapping space (and allowing a fair number of
