@@ -169,7 +169,7 @@ static inline void _lttng_ust_urcu_read_lock(void)
 		lttng_ust_urcu_register(); /* If not yet registered. */
 	lttng_ust_barrier();	/* Ensure the compiler does not reorder us with mutex */
 	tmp = URCU_TLS(lttng_ust_urcu_reader)->ctr;
-	urcu_assert((tmp & LTTNG_UST_URCU_GP_CTR_NEST_MASK) != LTTNG_UST_URCU_GP_CTR_NEST_MASK);
+	lttng_ust_urcu_assert((tmp & LTTNG_UST_URCU_GP_CTR_NEST_MASK) != LTTNG_UST_URCU_GP_CTR_NEST_MASK);
 	_lttng_ust_urcu_read_lock_update(tmp);
 }
 
@@ -183,7 +183,7 @@ static inline void _lttng_ust_urcu_read_unlock(void)
 	unsigned long tmp;
 
 	tmp = URCU_TLS(lttng_ust_urcu_reader)->ctr;
-	urcu_assert(tmp & LTTNG_UST_URCU_GP_CTR_NEST_MASK);
+	lttng_ust_urcu_assert(tmp & LTTNG_UST_URCU_GP_CTR_NEST_MASK);
 	/* Finish using rcu before decrementing the pointer. */
 	lttng_ust_urcu_smp_mb_slave();
 	_CMM_STORE_SHARED(URCU_TLS(lttng_ust_urcu_reader)->ctr, tmp - LTTNG_UST_URCU_GP_COUNT);
