@@ -259,7 +259,7 @@ void *channel_get_private(struct channel *chan)
 		int _____ret = lttng_ust_unlikely(cond);				\
 		if (_____ret) {						\
 			if (__rb_same_type(*(c), struct channel_backend))	\
-				__chan = caa_container_of((void *) (c),	\
+				__chan = lttng_ust_container_of((void *) (c),	\
 							struct channel, \
 							backend);	\
 			else if (__rb_same_type(*(c), struct channel))	\

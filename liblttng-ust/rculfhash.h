@@ -49,7 +49,7 @@ struct lttng_ust_lfht;
  * three bits.
  *
  * struct lttng_ust_lfht_node can be embedded into a structure (as a field).
- * caa_container_of() can be used to get the structure from the struct
+ * lttng_ust_container_of() can be used to get the structure from the struct
  * lttng_ust_lfht_node after a lookup.
  *
  * The structure which embeds it typically holds the key (or key-value
@@ -443,21 +443,21 @@ void lttng_ust_lfht_resize(struct lttng_ust_lfht *ht, unsigned long new_size);
 
 #define lttng_ust_lfht_for_each_entry(ht, iter, pos, member)			\
 	for (lttng_ust_lfht_first(ht, iter),					\
-			pos = caa_container_of(lttng_ust_lfht_iter_get_node(iter), \
+			pos = lttng_ust_container_of(lttng_ust_lfht_iter_get_node(iter), \
 					__typeof__(*(pos)), member);	\
 		lttng_ust_lfht_iter_get_node(iter) != NULL;			\
 		lttng_ust_lfht_next(ht, iter),				\
-			pos = caa_container_of(lttng_ust_lfht_iter_get_node(iter), \
+			pos = lttng_ust_container_of(lttng_ust_lfht_iter_get_node(iter), \
 					__typeof__(*(pos)), member))
 
 #define lttng_ust_lfht_for_each_entry_duplicate(ht, hash, match, key,		\
 				iter, pos, member)			\
 	for (lttng_ust_lfht_lookup(ht, hash, match, key, iter),		\
-			pos = caa_container_of(lttng_ust_lfht_iter_get_node(iter), \
+			pos = lttng_ust_container_of(lttng_ust_lfht_iter_get_node(iter), \
 					__typeof__(*(pos)), member);	\
 		lttng_ust_lfht_iter_get_node(iter) != NULL;			\
 		lttng_ust_lfht_next_duplicate(ht, match, key, iter),		\
-			pos = caa_container_of(lttng_ust_lfht_iter_get_node(iter), \
+			pos = lttng_ust_container_of(lttng_ust_lfht_iter_get_node(iter), \
 					__typeof__(*(pos)), member))
 
 #ifdef __cplusplus

@@ -342,7 +342,7 @@ int lib_ring_buffer_create(struct lttng_ust_lib_ring_buffer *buf,
 			   struct shm_object *shmobj)
 {
 	const struct lttng_ust_lib_ring_buffer_config *config = &chanb->config;
-	struct channel *chan = caa_container_of(chanb, struct channel, backend);
+	struct channel *chan = lttng_ust_container_of(chanb, struct channel, backend);
 	struct lttng_ust_lib_ring_buffer_backend_subbuffer *wsb;
 	struct channel *shmp_chan;
 	struct commit_counters_hot *cc_hot;

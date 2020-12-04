@@ -244,7 +244,7 @@ static void *allocate_probes(int count)
 static void release_probes(void *old)
 {
 	if (old) {
-		struct tp_probes *tp_probes = caa_container_of(old,
+		struct tp_probes *tp_probes = lttng_ust_container_of(old,
 			struct tp_probes, probes[0]);
 		lttng_ust_synchronize_trace();
 		free(tp_probes);
@@ -681,7 +681,7 @@ static void tracepoint_release_queue_add_old_probes(void *old)
 {
 	release_queue_need_update = 1;
 	if (old) {
-		struct tp_probes *tp_probes = caa_container_of(old,
+		struct tp_probes *tp_probes = lttng_ust_container_of(old,
 			struct tp_probes, probes[0]);
 		cds_list_add(&tp_probes->u.list, &release_queue);
 	}
@@ -844,7 +844,7 @@ static void tracepoint_add_old_probes(void *old)
 {
 	need_update = 1;
 	if (old) {
-		struct tp_probes *tp_probes = caa_container_of(old,
+		struct tp_probes *tp_probes = lttng_ust_container_of(old,
 			struct tp_probes, probes[0]);
 		cds_list_add(&tp_probes->u.list, &old_probes);
 	}

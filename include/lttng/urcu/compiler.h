@@ -49,13 +49,13 @@
 #endif
 
 /*
- * caa_container_of - Get the address of an object containing a field.
+ * lttng_ust_container_of - Get the address of an object containing a field.
  *
  * @ptr: pointer to the field.
  * @type: type of the object.
  * @member: name of the field within the object.
  */
-#define caa_container_of(ptr, type, member)				\
+#define lttng_ust_container_of(ptr, type, member)				\
 	__extension__							\
 	({								\
 		const __typeof__(((type *) NULL)->member) * __ptr = (ptr); \

@@ -62,7 +62,7 @@ static
 int lttng_hash_match(struct lttng_ust_lfht_node *node, const void *key)
 {
 	struct lfht_mp_node *mp_node =
-		caa_container_of(node, struct lfht_mp_node, node);
+		lttng_ust_container_of(node, struct lfht_mp_node, node);
 	unsigned long key_pc = (unsigned long) key;
 
 	if (mp_node->target_pc == key_pc)
@@ -111,7 +111,7 @@ int merge_point_add_check(struct lttng_ust_lfht *ht, unsigned long target_pc,
 		(const char *) target_pc, &node->node);
 	if (ret != &node->node) {
 		struct lfht_mp_node *ret_mp =
-			caa_container_of(ret, struct lfht_mp_node, node);
+			lttng_ust_container_of(ret, struct lfht_mp_node, node);
 
 		/* Key already present */
 		dbg_printf("Bytecode: compare merge points for offset %lu, hash %lu\n",
@@ -1246,7 +1246,7 @@ int validate_instruction_all_contexts(struct bytecode_runtime *bytecode,
 			(const char *) target_pc, &iter);
 	node = lttng_ust_lfht_iter_get_node(&iter);
 	if (node) {
-		mp_node = caa_container_of(node, struct lfht_mp_node, node);
+		mp_node = lttng_ust_container_of(node, struct lfht_mp_node, node);
 
 		dbg_printf("Bytecode: validate merge point at offset %lu\n",
 				target_pc);

@@ -1834,7 +1834,7 @@ struct lttng_ust_client_lib_ring_buffer_client_cb *get_client_cb(
 	config = &chan->backend.config;
 	if (!config->cb_ptr)
 		return NULL;
-	client_cb = caa_container_of(config->cb_ptr,
+	client_cb = lttng_ust_container_of(config->cb_ptr,
 			struct lttng_ust_client_lib_ring_buffer_client_cb,
 			parent);
 	return client_cb;
