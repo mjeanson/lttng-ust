@@ -52,8 +52,8 @@ extern "C" {
  */
 #define cmm_rmb()     __asm__ __volatile__ ("lfence":::"memory")
 #define cmm_wmb()     __asm__ __volatile__ ("sfence"::: "memory")
-#define cmm_smp_rmb() cmm_barrier()
-#define cmm_smp_wmb() cmm_barrier()
+#define cmm_smp_rmb() lttng_ust_barrier()
+#define cmm_smp_wmb() lttng_ust_barrier()
 
 #else
 

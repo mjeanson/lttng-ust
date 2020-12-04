@@ -58,11 +58,11 @@ char *wrapper_getprocname(void)
 	if (lttng_ust_unlikely(!URCU_TLS(cached_procname)[nesting][0])) {
 		CMM_STORE_SHARED(URCU_TLS(procname_nesting), nesting + 1);
 		/* Increment nesting before updating cache. */
-		cmm_barrier();
+		lttng_ust_barrier();
 		lttng_pthread_getname_np(URCU_TLS(cached_procname)[nesting], LTTNG_UST_ABI_PROCNAME_LEN);
 		URCU_TLS(cached_procname)[nesting][LTTNG_UST_ABI_PROCNAME_LEN - 1] = '\0';
 		/* Decrement nesting after updating cache. */
-		cmm_barrier();
+		lttng_ust_barrier();
 		CMM_STORE_SHARED(URCU_TLS(procname_nesting), nesting);
 	}
 	return URCU_TLS(cached_procname)[nesting];

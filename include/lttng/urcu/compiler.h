@@ -24,7 +24,7 @@
 #define lttng_ust_likely(x)	__builtin_expect(!!(x), 1)
 #define lttng_ust_unlikely(x)	__builtin_expect(!!(x), 0)
 
-#define	cmm_barrier()	__asm__ __volatile__ ("" : : : "memory")
+#define	lttng_ust_barrier()	__asm__ __volatile__ ("" : : : "memory")
 
 /*
  * Instruct the compiler to perform only a single access to a variable

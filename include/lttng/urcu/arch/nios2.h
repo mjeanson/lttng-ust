@@ -29,7 +29,7 @@
 extern "C" {
 #endif
 
-#define cmm_mb()	cmm_barrier()
+#define cmm_mb()	lttng_ust_barrier()
 
 #ifdef __cplusplus
 }

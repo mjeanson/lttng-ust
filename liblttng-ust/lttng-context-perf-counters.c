@@ -122,7 +122,7 @@ void lttng_perf_lock(void)
 		 * Ensure the compiler don't move the store after the close()
 		 * call in case close() would be marked as leaf.
 		 */
-		cmm_barrier();
+		lttng_ust_barrier();
 		pthread_mutex_lock(&ust_perf_mutex);
 		ust_perf_saved_cancelstate = oldstate;
 	}
@@ -147,7 +147,7 @@ void lttng_perf_unlock(void)
 	 * Ensure the compiler don't move the store before the close()
 	 * call, in case close() would be marked as leaf.
 	 */
-	cmm_barrier();
+	lttng_ust_barrier();
 	if (!--URCU_TLS(ust_perf_mutex_nest)) {
 		newstate = ust_perf_saved_cancelstate;
 		restore_cancel = true;
@@ -225,7 +225,7 @@ uint64_t arch_read_perf_counter(
 
 	do {
 		seq = CMM_LOAD_SHARED(pc->lock);
-		cmm_barrier();
+		lttng_ust_barrier();
 
 		idx = pc->index;
 		if (lttng_ust_likely(has_rdpmc(pc) && idx)) {
@@ -240,7 +240,7 @@ uint64_t arch_read_perf_counter(
 			/* Fall-back on system call if rdpmc cannot be used. */
 			return read_perf_counter_syscall(thread_field);
 		}
-		cmm_barrier();
+		lttng_ust_barrier();
 	} while (CMM_LOAD_SHARED(pc->lock) != seq);
 
 	return count;

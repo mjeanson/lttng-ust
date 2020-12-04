@@ -54,9 +54,9 @@ extern "C" {
 #define cmm_wmb()	cmm_mb()
 #endif
 
-#define cmm_mc()	cmm_barrier()
-#define cmm_rmc()	cmm_barrier()
-#define cmm_wmc()	cmm_barrier()
+#define cmm_mc()	lttng_ust_barrier()
+#define cmm_rmc()	lttng_ust_barrier()
+#define cmm_wmc()	lttng_ust_barrier()
 #else
 /*
  * Architectures without cache coherency need something like the following:
@@ -122,7 +122,7 @@ extern "C" {
 #endif
 
 #ifndef caa_cpu_relax
-#define caa_cpu_relax()		cmm_barrier()
+#define caa_cpu_relax()		lttng_ust_barrier()
 #endif
 
 #ifdef __cplusplus

@@ -154,7 +154,7 @@ void lttng_ust_lock_fd_tracker(void)
 		 * Ensure the compiler don't move the store after the close()
 		 * call in case close() would be marked as leaf.
 		 */
-		cmm_barrier();
+		lttng_ust_barrier();
 		pthread_mutex_lock(&ust_safe_guard_fd_mutex);
 		ust_safe_guard_saved_cancelstate = oldstate;
 	}
@@ -179,7 +179,7 @@ void lttng_ust_unlock_fd_tracker(void)
 	 * Ensure the compiler don't move the store before the close()
 	 * call, in case close() would be marked as leaf.
 	 */
-	cmm_barrier();
+	lttng_ust_barrier();
 	if (!--URCU_TLS(ust_fd_mutex_nest)) {
 		newstate = ust_safe_guard_saved_cancelstate;
 		restore_cancel = true;

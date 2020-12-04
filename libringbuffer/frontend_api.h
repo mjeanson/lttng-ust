@@ -57,7 +57,7 @@ int lib_ring_buffer_get_cpu(const struct lttng_ust_lib_ring_buffer_config *confi
 
 	cpu = lttng_ust_get_cpu();
 	nesting = ++URCU_TLS(lib_ring_buffer_nesting);
-	cmm_barrier();
+	lttng_ust_barrier();
 
 	if (lttng_ust_unlikely(nesting > 4)) {
 		WARN_ON_ONCE(1);
@@ -73,7 +73,7 @@ int lib_ring_buffer_get_cpu(const struct lttng_ust_lib_ring_buffer_config *confi
 static inline
 void lib_ring_buffer_put_cpu(const struct lttng_ust_lib_ring_buffer_config *config)
 {
-	cmm_barrier();
+	lttng_ust_barrier();
 	URCU_TLS(lib_ring_buffer_nesting)--;		/* TLS */
 }
 

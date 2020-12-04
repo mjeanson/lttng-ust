@@ -112,7 +112,7 @@ extern int lttng_ust_urcu_has_sys_membarrier;
 static inline void lttng_ust_urcu_smp_mb_slave(void)
 {
 	if (lttng_ust_likely(lttng_ust_urcu_has_sys_membarrier))
-		cmm_barrier();
+		lttng_ust_barrier();
 	else
 		cmm_smp_mb();
 }
@@ -154,7 +154,7 @@ static inline void _lttng_ust_urcu_read_lock_update(unsigned long tmp)
 /*
  * Enter an RCU read-side critical section.
  *
- * The first cmm_barrier() call ensures that the compiler does not reorder
+ * The first lttng_ust_barrier() call ensures that the compiler does not reorder
  * the body of _lttng_ust_urcu_read_lock() with a mutex.
  *
  * This function and its helper are both less than 10 lines long.  The
@@ -167,7 +167,7 @@ static inline void _lttng_ust_urcu_read_lock(void)
 
 	if (lttng_ust_unlikely(!URCU_TLS(lttng_ust_urcu_reader)))
 		lttng_ust_urcu_register(); /* If not yet registered. */
-	cmm_barrier();	/* Ensure the compiler does not reorder us with mutex */
+	lttng_ust_barrier();	/* Ensure the compiler does not reorder us with mutex */
 	tmp = URCU_TLS(lttng_ust_urcu_reader)->ctr;
 	urcu_assert((tmp & LTTNG_UST_URCU_GP_CTR_NEST_MASK) != LTTNG_UST_URCU_GP_CTR_NEST_MASK);
 	_lttng_ust_urcu_read_lock_update(tmp);
@@ -187,7 +187,7 @@ static inline void _lttng_ust_urcu_read_unlock(void)
 	/* Finish using rcu before decrementing the pointer. */
 	lttng_ust_urcu_smp_mb_slave();
 	_CMM_STORE_SHARED(URCU_TLS(lttng_ust_urcu_reader)->ctr, tmp - LTTNG_UST_URCU_GP_COUNT);
-	cmm_barrier();	/* Ensure the compiler does not reorder us with mutex */
+	lttng_ust_barrier();	/* Ensure the compiler does not reorder us with mutex */
 }
 
 /*
