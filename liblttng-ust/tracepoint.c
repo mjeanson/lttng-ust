@@ -420,7 +420,7 @@ static struct tracepoint_entry *add_tracepoint(const char *name,
 	e->refcount = 0;
 	e->callsite_refcount = 0;
 
-	cds_hlist_add_head(&e->hlist, head);
+	lttng_ust_hlist_add_head(&e->hlist, head);
 	return e;
 }
 
@@ -506,7 +506,7 @@ static void add_callsite(struct tracepoint_lib * lib, struct lttng_ust_tracepoin
 		PERROR("Unable to add callsite for tracepoint \"%s\"", name);
 		return;
 	}
-	cds_hlist_add_head(&e->hlist, head);
+	lttng_ust_hlist_add_head(&e->hlist, head);
 	e->tp = tp;
 	cds_list_add(&e->node, &lib->callsites);
 

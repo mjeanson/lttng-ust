@@ -91,7 +91,7 @@ int lttng_ust_context_provider_register(struct lttng_ust_context_provider *provi
 	}
 	hash = jhash(provider->name, name_len, 0);
 	head = &context_provider_ht.table[hash & (CONTEXT_PROVIDER_HT_SIZE - 1)];
-	cds_hlist_add_head(&provider->node, head);
+	lttng_ust_hlist_add_head(&provider->node, head);
 
 	lttng_ust_context_set_session_provider(provider->name,
 		provider->get_size, provider->record,

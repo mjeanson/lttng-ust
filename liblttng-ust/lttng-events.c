@@ -492,7 +492,7 @@ int lttng_enum_create(const struct lttng_enum_desc *desc,
 		goto sessiond_register_error;
 	}
 	cds_list_add(&_enum->node, &session->enums_head);
-	cds_hlist_add_head(&_enum->hlist, head);
+	lttng_ust_hlist_add_head(&_enum->hlist, head);
 	return 0;
 
 sessiond_register_error:
@@ -823,7 +823,7 @@ int lttng_event_create(const struct lttng_event_desc *desc,
 	}
 
 	cds_list_add(&event->node, &chan->session->events_head);
-	cds_hlist_add_head(&event->hlist, head);
+	lttng_ust_hlist_add_head(&event->hlist, head);
 	return 0;
 
 sessiond_register_error:
@@ -873,7 +873,7 @@ int lttng_event_notifier_create(const struct lttng_event_desc *desc,
 
 	cds_list_add(&event_notifier->node,
 			&event_notifier_group->event_notifiers_head);
-	cds_hlist_add_head(&event_notifier->hlist, head);
+	lttng_ust_hlist_add_head(&event_notifier->hlist, head);
 
 	return 0;
 

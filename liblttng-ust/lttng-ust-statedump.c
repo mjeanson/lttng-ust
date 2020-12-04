@@ -183,7 +183,7 @@ struct lttng_ust_dl_node *find_or_create_dl_node(struct bin_info_data *bin_data)
 		e = alloc_dl_node(bin_data);
 		if (!e)
 			return NULL;
-		cds_hlist_add_head(&e->node, head);
+		lttng_ust_hlist_add_head(&e->node, head);
 	}
 	return e;
 }

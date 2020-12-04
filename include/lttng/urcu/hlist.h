@@ -45,7 +45,7 @@ void LTTNG_UST_INIT_HLIST_HEAD(struct lttng_ust_hlist_head *ptr)
 
 /* Add new element at the head of the list. */
 static inline
-void cds_hlist_add_head(struct lttng_ust_hlist_node *newp,
+void lttng_ust_hlist_add_head(struct lttng_ust_hlist_node *newp,
 		struct lttng_ust_hlist_head *head)
 {
 	if (head->next)
