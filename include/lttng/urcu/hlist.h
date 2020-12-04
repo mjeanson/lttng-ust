@@ -33,10 +33,10 @@ void LTTNG_UST_INIT_HLIST_HEAD(struct lttng_ust_hlist_head *ptr)
 	ptr->next = NULL;
 }
 
-#define CDS_HLIST_HEAD(name) \
+#define LTTNG_UST_HLIST_HEAD(name) \
 	struct lttng_ust_hlist_head name = { NULL }
 
-#define CDS_HLIST_HEAD_INIT(name) \
+#define LTTNG_UST_HLIST_HEAD_INIT(name) \
 	{ .next = NULL }
 
 /* Get typed element from list at a given position. */
