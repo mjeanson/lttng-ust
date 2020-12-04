@@ -76,8 +76,6 @@
 #define LTTNG_UST_URCU_FORCE_CAST(type, arg)	((type) (arg))
 #endif
 
-#define caa_is_signed_type(type)	((type) -1 < (type) 0)
-
 /*
  * Cast to unsigned long, sign-extending if @v is signed.
  * Note: casting to a larger type or to same type size keeps the sign of
