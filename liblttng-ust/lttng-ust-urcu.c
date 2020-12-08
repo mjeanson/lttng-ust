@@ -146,7 +146,7 @@ struct lttng_ust_urcu_gp lttng_ust_urcu_gp = { .ctr = LTTNG_UST_URCU_GP_COUNT };
  */
 DEFINE_URCU_TLS(struct lttng_ust_urcu_reader *, lttng_ust_urcu_reader);
 
-static CDS_LIST_HEAD(registry);
+static LTTNG_UST_LIST_HEAD(registry);
 
 struct registry_chunk {
 	size_t data_len;		/* data length */
@@ -160,7 +160,7 @@ struct registry_arena {
 };
 
 static struct registry_arena registry_arena = {
-	.chunk_list = CDS_LIST_HEAD_INIT(registry_arena.chunk_list),
+	.chunk_list = LTTNG_UST_LIST_HEAD_INIT(registry_arena.chunk_list),
 };
 
 /* Saved fork signal mask, protected by rcu_gp_lock */
@@ -262,8 +262,8 @@ static void wait_for_readers(struct lttng_ust_list_head *input_readers,
 
 void lttng_ust_urcu_synchronize_rcu(void)
 {
-	CDS_LIST_HEAD(cur_snap_readers);
-	CDS_LIST_HEAD(qsreaders);
+	LTTNG_UST_LIST_HEAD(cur_snap_readers);
+	LTTNG_UST_LIST_HEAD(qsreaders);
 	sigset_t newmask, oldmask;
 	int ret;
 

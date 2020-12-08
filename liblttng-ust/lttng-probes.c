@@ -40,12 +40,12 @@
 /*
  * probe list is protected by ust_lock()/ust_unlock().
  */
-static CDS_LIST_HEAD(_probe_list);
+static LTTNG_UST_LIST_HEAD(_probe_list);
 
 /*
  * List of probes registered by not yet processed.
  */
-static CDS_LIST_HEAD(lazy_probe_init);
+static LTTNG_UST_LIST_HEAD(lazy_probe_init);
 
 /*
  * lazy_nesting counter ensures we don't trigger lazy probe registration

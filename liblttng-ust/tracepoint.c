@@ -88,7 +88,7 @@ static pthread_mutex_t tracepoint_mutex = PTHREAD_MUTEX_INITIALIZER;
  * libraries that contain tracepoints (struct tracepoint_lib).
  * Protected by tracepoint mutex.
  */
-static CDS_LIST_HEAD(libs);
+static LTTNG_UST_LIST_HEAD(libs);
 
 /*
  * The tracepoint mutex protects the library tracepoints, the hash table, and
@@ -106,10 +106,10 @@ static CDS_LIST_HEAD(libs);
 #define TRACEPOINT_TABLE_SIZE (1 << TRACEPOINT_HASH_BITS)
 static struct lttng_ust_hlist_head tracepoint_table[TRACEPOINT_TABLE_SIZE];
 
-static CDS_LIST_HEAD(old_probes);
+static LTTNG_UST_LIST_HEAD(old_probes);
 static int need_update;
 
-static CDS_LIST_HEAD(release_queue);
+static LTTNG_UST_LIST_HEAD(release_queue);
 static int release_queue_need_update;
 
 /*
@@ -817,7 +817,7 @@ end:
 
 void __tracepoint_probe_prune_release_queue(void)
 {
-	CDS_LIST_HEAD(release_probes);
+	LTTNG_UST_LIST_HEAD(release_probes);
 	struct tp_probes *pos, *next;
 
 	DBG("Release queue of unregistered tracepoint probes.");
@@ -908,7 +908,7 @@ end:
  */
 void tracepoint_probe_update_all(void)
 {
-	CDS_LIST_HEAD(release_probes);
+	LTTNG_UST_LIST_HEAD(release_probes);
 	struct tp_probes *pos, *next;
 
 	pthread_mutex_lock(&tracepoint_mutex);

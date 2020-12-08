@@ -27,8 +27,8 @@
 #include "lttng-tracer-core.h"
 #include "jhash.h"
 
-static CDS_LIST_HEAD(lttng_transport_list);
-static CDS_LIST_HEAD(lttng_counter_transport_list);
+static LTTNG_UST_LIST_HEAD(lttng_transport_list);
+static LTTNG_UST_LIST_HEAD(lttng_counter_transport_list);
 
 struct lttng_transport *lttng_transport_find(const char *name)
 {

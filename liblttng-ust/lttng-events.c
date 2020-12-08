@@ -76,8 +76,8 @@
  * thread, under ust_lock protection.
  */
 
-static CDS_LIST_HEAD(sessions);
-static CDS_LIST_HEAD(event_notifier_groups);
+static LTTNG_UST_LIST_HEAD(sessions);
+static LTTNG_UST_LIST_HEAD(event_notifier_groups);
 
 struct lttng_ust_list_head *_lttng_get_sessions(void)
 {
