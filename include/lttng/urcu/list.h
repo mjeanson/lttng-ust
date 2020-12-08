@@ -130,52 +130,52 @@ void lttng_ust_list_splice(struct lttng_ust_list_head *add, struct lttng_ust_lis
 	lttng_ust_list_entry((ptr)->next, type, member)
 
 /* Iterate forward over the elements of the list. */
-#define cds_list_for_each(pos, head) \
+#define lttng_ust_list_for_each(pos, head) \
 	for (pos = (head)->next; pos != (head); pos = pos->next)
 
 /*
  * Iterate forward over the elements list. The list elements can be
  * removed from the list while doing this.
  */
-#define cds_list_for_each_safe(pos, p, head) \
+#define lttng_ust_list_for_each_safe(pos, p, head) \
 	for (pos = (head)->next, p = pos->next; \
 		pos != (head); \
 		pos = p, p = pos->next)
 
 /* Iterate backward over the elements of the list. */
-#define cds_list_for_each_prev(pos, head) \
+#define lttng_ust_list_for_each_prev(pos, head) \
 	for (pos = (head)->prev; pos != (head); pos = pos->prev)
 
 /*
  * Iterate backwards over the elements list. The list elements can be
  * removed from the list while doing this.
  */
-#define cds_list_for_each_prev_safe(pos, p, head) \
+#define lttng_ust_list_for_each_prev_safe(pos, p, head) \
 	for (pos = (head)->prev, p = pos->prev; \
 		pos != (head); \
 		pos = p, p = pos->prev)
 
-#define cds_list_for_each_entry(pos, head, member) \
+#define lttng_ust_list_for_each_entry(pos, head, member) \
 	for (pos = lttng_ust_list_entry((head)->next, __typeof__(*pos), member); \
 		&pos->member != (head); \
 		pos = lttng_ust_list_entry(pos->member.next, __typeof__(*pos), member))
 
-#define cds_list_for_each_entry_reverse(pos, head, member) \
+#define lttng_ust_list_for_each_entry_reverse(pos, head, member) \
 	for (pos = lttng_ust_list_entry((head)->prev, __typeof__(*pos), member); \
 		&pos->member != (head); \
 		pos = lttng_ust_list_entry(pos->member.prev, __typeof__(*pos), member))
 
-#define cds_list_for_each_entry_safe(pos, p, head, member) \
+#define lttng_ust_list_for_each_entry_safe(pos, p, head, member) \
 	for (pos = lttng_ust_list_entry((head)->next, __typeof__(*pos), member), \
 			p = lttng_ust_list_entry(pos->member.next, __typeof__(*pos), member); \
 		&pos->member != (head); \
 		pos = p, p = lttng_ust_list_entry(pos->member.next, __typeof__(*pos), member))
 
 /*
- * Same as cds_list_for_each_entry_safe, but starts from "pos" which should
+ * Same as lttng_ust_list_for_each_entry_safe, but starts from "pos" which should
  * point to an entry within the list.
  */
-#define cds_list_for_each_entry_safe_from(pos, p, head, member) \
+#define lttng_ust_list_for_each_entry_safe_from(pos, p, head, member) \
         for (p = lttng_ust_list_entry(pos->member.next, __typeof__(*pos), member); \
                 &pos->member != (head); \
                 pos = p, p = lttng_ust_list_entry(pos->member.next, __typeof__(*pos), member))

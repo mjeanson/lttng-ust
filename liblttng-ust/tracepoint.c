@@ -637,7 +637,7 @@ static void lib_unregister_callsites(struct tracepoint_lib *lib)
 {
 	struct callsite_entry *callsite, *tmp;
 
-	cds_list_for_each_entry_safe(callsite, tmp, &lib->callsites, node)
+	lttng_ust_list_for_each_entry_safe(callsite, tmp, &lib->callsites, node)
 		remove_callsite(callsite);
 }
 
@@ -649,7 +649,7 @@ static void tracepoint_update_probes(void)
 	struct tracepoint_lib *lib;
 
 	/* tracepoints registered from libraries and executable. */
-	cds_list_for_each_entry(lib, &libs, list)
+	lttng_ust_list_for_each_entry(lib, &libs, list)
 		lib_update_tracepoints(lib);
 }
 
@@ -832,7 +832,7 @@ void __tracepoint_probe_prune_release_queue(void)
 	/* Wait for grace period between all sync_callsites and free. */
 	lttng_ust_synchronize_trace();
 
-	cds_list_for_each_entry_safe(pos, next, &release_probes, u.list) {
+	lttng_ust_list_for_each_entry_safe(pos, next, &release_probes, u.list) {
 		lttng_ust_list_del(&pos->u.list);
 		free(pos);
 	}
@@ -922,7 +922,7 @@ void tracepoint_probe_update_all(void)
 	tracepoint_update_probes();
 	/* Wait for grace period between update_probes and free. */
 	lttng_ust_synchronize_trace();
-	cds_list_for_each_entry_safe(pos, next, &release_probes, u.list) {
+	lttng_ust_list_for_each_entry_safe(pos, next, &release_probes, u.list) {
 		lttng_ust_list_del(&pos->u.list);
 		free(pos);
 	}
@@ -980,7 +980,7 @@ int tracepoint_register_lib2(struct lttng_ust_tracepoint * const *tracepoints_st
 	/*
 	 * We sort the libs by struct lib pointer address.
 	 */
-	cds_list_for_each_entry_reverse(iter, &libs, list) {
+	lttng_ust_list_for_each_entry_reverse(iter, &libs, list) {
 		BUG_ON(iter == pl);    /* Should never be in the list twice */
 		if (iter < pl) {
 			/* We belong to the location right after iter. */
@@ -1022,7 +1022,7 @@ int tracepoint_unregister_lib2(struct lttng_ust_tracepoint * const *tracepoints_
 	struct tracepoint_lib *lib;
 
 	pthread_mutex_lock(&tracepoint_mutex);
-	cds_list_for_each_entry(lib, &libs, list) {
+	lttng_ust_list_for_each_entry(lib, &libs, list) {
 		if (lib->tracepoints_start != tracepoints_start)
 			continue;
 

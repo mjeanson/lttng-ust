@@ -102,7 +102,7 @@ void lttng_lazy_probe_register(struct lttng_probe_desc *desc)
 	 * address.
 	 */
 	probe_list = &_probe_list;
-	cds_list_for_each_entry_reverse(iter, probe_list, head) {
+	lttng_ust_list_for_each_entry_reverse(iter, probe_list, head) {
 		BUG_ON(iter == desc); /* Should never be in the list twice */
 		if (iter < desc) {
 			/* We belong to the location right after iter. */
@@ -127,7 +127,7 @@ void fixup_lazy_probes(void)
 	int ret;
 
 	lazy_nesting++;
-	cds_list_for_each_entry_safe(iter, tmp,
+	lttng_ust_list_for_each_entry_safe(iter, tmp,
 			&lazy_probe_init, lazy_init_head) {
 		lttng_lazy_probe_register(iter);
 		iter->lazy = 0;
@@ -246,7 +246,7 @@ void lttng_probes_prune_event_list(struct lttng_ust_tracepoint_list *list)
 {
 	struct tp_list_entry *list_entry, *tmp;
 
-	cds_list_for_each_entry_safe(list_entry, tmp, &list->head, head) {
+	lttng_ust_list_for_each_entry_safe(list_entry, tmp, &list->head, head) {
 		lttng_ust_list_del(&list_entry->head);
 		free(list_entry);
 	}
@@ -263,7 +263,7 @@ int lttng_probes_get_event_list(struct lttng_ust_tracepoint_list *list)
 
 	probe_list = lttng_get_probe_list_head();
 	LTTNG_UST_INIT_LIST_HEAD(&list->head);
-	cds_list_for_each_entry(probe_desc, probe_list, head) {
+	lttng_ust_list_for_each_entry(probe_desc, probe_list, head) {
 		for (i = 0; i < probe_desc->nr_events; i++) {
 			struct tp_list_entry *list_entry;
 
@@ -318,7 +318,7 @@ void lttng_probes_prune_field_list(struct lttng_ust_field_list *list)
 {
 	struct tp_field_list_entry *list_entry, *tmp;
 
-	cds_list_for_each_entry_safe(list_entry, tmp, &list->head, head) {
+	lttng_ust_list_for_each_entry_safe(list_entry, tmp, &list->head, head) {
 		lttng_ust_list_del(&list_entry->head);
 		free(list_entry);
 	}
@@ -335,7 +335,7 @@ int lttng_probes_get_field_list(struct lttng_ust_field_list *list)
 
 	probe_list = lttng_get_probe_list_head();
 	LTTNG_UST_INIT_LIST_HEAD(&list->head);
-	cds_list_for_each_entry(probe_desc, probe_list, head) {
+	lttng_ust_list_for_each_entry(probe_desc, probe_list, head) {
 		for (i = 0; i < probe_desc->nr_events; i++) {
 			const struct lttng_event_desc *event_desc =
 				probe_desc->event_desc[i];

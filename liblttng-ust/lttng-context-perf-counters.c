@@ -386,7 +386,7 @@ struct lttng_perf_counter_thread_field *
 	if (ret)
 		abort();
 	/* Check again with signals disabled */
-	cds_list_for_each_entry_rcu(thread_field, &perf_thread->rcu_field_list,
+	lttng_ust_list_for_each_entry_rcu(thread_field, &perf_thread->rcu_field_list,
 			rcu_field_node) {
 		if (thread_field->field == perf_field)
 			goto skip;
@@ -425,7 +425,7 @@ struct lttng_perf_counter_thread_field *
 	perf_thread = pthread_getspecific(perf_counter_key);
 	if (!perf_thread)
 		perf_thread = alloc_perf_counter_thread();
-	cds_list_for_each_entry_rcu(thread_field, &perf_thread->rcu_field_list,
+	lttng_ust_list_for_each_entry_rcu(thread_field, &perf_thread->rcu_field_list,
 			rcu_field_node) {
 		if (thread_field->field == field)
 			return thread_field;
@@ -483,7 +483,7 @@ void lttng_destroy_perf_thread_key(void *_key)
 	struct lttng_perf_counter_thread_field *pos, *p;
 
 	lttng_perf_lock();
-	cds_list_for_each_entry_safe(pos, p, &perf_thread->rcu_field_list,
+	lttng_ust_list_for_each_entry_safe(pos, p, &perf_thread->rcu_field_list,
 			rcu_field_node)
 		lttng_destroy_perf_thread_field(pos);
 	lttng_perf_unlock();
@@ -507,7 +507,7 @@ void lttng_destroy_perf_counter_field(struct lttng_ctx_field *field)
 	 * list.
 	 */
 	lttng_perf_lock();
-	cds_list_for_each_entry_safe(pos, p, &perf_field->thread_field_list,
+	lttng_ust_list_for_each_entry_safe(pos, p, &perf_field->thread_field_list,
 			thread_field_node)
 		lttng_destroy_perf_thread_field(pos);
 	lttng_perf_unlock();

@@ -34,7 +34,7 @@ struct lttng_transport *lttng_transport_find(const char *name)
 {
 	struct lttng_transport *transport;
 
-	cds_list_for_each_entry(transport, &lttng_transport_list, node) {
+	lttng_ust_list_for_each_entry(transport, &lttng_transport_list, node) {
 		if (!strcmp(transport->name, name))
 			return transport;
 	}
@@ -45,7 +45,7 @@ struct lttng_counter_transport *lttng_counter_transport_find(const char *name)
 {
 	struct lttng_counter_transport *transport;
 
-	cds_list_for_each_entry(transport, &lttng_counter_transport_list, node) {
+	lttng_ust_list_for_each_entry(transport, &lttng_counter_transport_list, node) {
 		if (!strcmp(transport->name, name))
 			return transport;
 	}

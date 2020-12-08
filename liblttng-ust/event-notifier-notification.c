@@ -391,7 +391,7 @@ void lttng_event_notifier_notification_send(
 		 * `output` parameter to the capture buffer. If the interpreter
 		 * fails, append an empty capture to the buffer.
 		 */
-		cds_list_for_each_entry(capture_bc_runtime,
+		lttng_ust_list_for_each_entry(capture_bc_runtime,
 				&event_notifier->capture_bytecode_runtime_head, node) {
 			struct lttng_interpreter_output output;
 

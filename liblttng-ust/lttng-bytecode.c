@@ -409,7 +409,7 @@ int bytecode_is_linked(struct lttng_ust_bytecode_node *bytecode,
 {
 	struct lttng_bytecode_runtime *bc_runtime;
 
-	cds_list_for_each_entry(bc_runtime, bytecode_runtime_head, node) {
+	lttng_ust_list_for_each_entry(bc_runtime, bytecode_runtime_head, node) {
 		if (bc_runtime->bc == bytecode)
 			return 1;
 	}
@@ -553,7 +553,7 @@ void lttng_enabler_link_bytecode(const struct lttng_event_desc *event_desc,
 	assert(event_desc);
 
 	/* Go over all the bytecode programs of the enabler. */
-	cds_list_for_each_entry(enabler_bc, enabler_bytecode_head, node) {
+	lttng_ust_list_for_each_entry(enabler_bc, enabler_bytecode_head, node) {
 		int found = 0, ret;
 		struct lttng_ust_list_head *insert_loc;
 
@@ -561,7 +561,7 @@ void lttng_enabler_link_bytecode(const struct lttng_event_desc *event_desc,
 		 * Check if the current enabler bytecode program is already
 		 * linked with the instance.
 		 */
-		cds_list_for_each_entry(runtime, instance_bytecode_head, node) {
+		lttng_ust_list_for_each_entry(runtime, instance_bytecode_head, node) {
 			if (runtime->bc == enabler_bc) {
 				found = 1;
 				break;
@@ -580,7 +580,7 @@ void lttng_enabler_link_bytecode(const struct lttng_event_desc *event_desc,
 		 * order. If there already is a bytecode of the same priority,
 		 * insert the new bytecode right after it.
 		 */
-		cds_list_for_each_entry_reverse(runtime,
+		lttng_ust_list_for_each_entry_reverse(runtime,
 				instance_bytecode_head, node) {
 			if (runtime->bc->bc.seqnum <= enabler_bc->bc.seqnum) {
 				/* insert here */
@@ -615,7 +615,7 @@ void free_filter_runtime(struct lttng_ust_list_head *bytecode_runtime_head)
 {
 	struct bytecode_runtime *runtime, *tmp;
 
-	cds_list_for_each_entry_safe(runtime, tmp, bytecode_runtime_head,
+	lttng_ust_list_for_each_entry_safe(runtime, tmp, bytecode_runtime_head,
 			p.node) {
 		free(runtime->data);
 		free(runtime);

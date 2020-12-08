@@ -205,7 +205,7 @@ void trace_statedump_event(tracepoint_cb tp_cb, void *owner, void *priv)
 	struct lttng_session *session;
 
 	sessionsp = _lttng_get_sessions();
-	cds_list_for_each_entry(session, sessionsp, node) {
+	lttng_ust_list_for_each_entry(session, sessionsp, node) {
 		if (session->owner != owner)
 			continue;
 		if (!session->statedump_pending)

@@ -222,7 +222,7 @@ static void wait_for_readers(struct lttng_ust_list_head *input_readers,
 		if (wait_loops < RCU_QS_ACTIVE_ATTEMPTS)
 			wait_loops++;
 
-		cds_list_for_each_entry_safe(index, tmp, input_readers, node) {
+		lttng_ust_list_for_each_entry_safe(index, tmp, input_readers, node) {
 			switch (lttng_ust_urcu_reader_state(&index->ctr)) {
 			case LTTNG_UST_URCU_READER_ACTIVE_CURRENT:
 				if (cur_snap_readers) {
@@ -435,7 +435,7 @@ struct lttng_ust_urcu_reader *arena_alloc(struct registry_arena *arena)
 	size_t len = sizeof(struct lttng_ust_urcu_reader);
 
 retry:
-	cds_list_for_each_entry(chunk, &arena->chunk_list, node) {
+	lttng_ust_list_for_each_entry(chunk, &arena->chunk_list, node) {
 		if (chunk->data_len - chunk->used < len)
 			continue;
 		/* Find spot */
@@ -501,7 +501,7 @@ struct registry_chunk *find_chunk(struct lttng_ust_urcu_reader *rcu_reader_reg)
 {
 	struct registry_chunk *chunk;
 
-	cds_list_for_each_entry(chunk, &registry_arena.chunk_list, node) {
+	lttng_ust_list_for_each_entry(chunk, &registry_arena.chunk_list, node) {
 		if (rcu_reader_reg < (struct lttng_ust_urcu_reader *) &chunk->data[0])
 			continue;
 		if (rcu_reader_reg >= (struct lttng_ust_urcu_reader *) &chunk->data[chunk->data_len])
@@ -651,7 +651,7 @@ void lttng_ust_urcu_exit(void)
 		struct registry_chunk *chunk, *tmp;
 		int ret;
 
-		cds_list_for_each_entry_safe(chunk, tmp,
+		lttng_ust_list_for_each_entry_safe(chunk, tmp,
 				&registry_arena.chunk_list, node) {
 			munmap((void *) chunk, chunk->data_len
 					+ sizeof(struct registry_chunk));
@@ -706,7 +706,7 @@ void lttng_ust_urcu_prune_registry(void)
 	struct registry_chunk *chunk;
 	struct lttng_ust_urcu_reader *rcu_reader_reg;
 
-	cds_list_for_each_entry(chunk, &registry_arena.chunk_list, node) {
+	lttng_ust_list_for_each_entry(chunk, &registry_arena.chunk_list, node) {
 		for (rcu_reader_reg = (struct lttng_ust_urcu_reader *) &chunk->data[0];
 				rcu_reader_reg < (struct lttng_ust_urcu_reader *) &chunk->data[chunk->data_len];
 				rcu_reader_reg++) {
