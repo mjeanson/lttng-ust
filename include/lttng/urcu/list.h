@@ -99,7 +99,7 @@ void lttng_ust_list_move(struct lttng_ust_list_head *elem, struct lttng_ust_list
 
 /* Replace an old entry. */
 static inline
-void cds_list_replace(struct lttng_ust_list_head *old, struct lttng_ust_list_head *_new)
+void lttng_ust_list_replace(struct lttng_ust_list_head *old, struct lttng_ust_list_head *_new)
 {
 	_new->next = old->next;
 	_new->prev = old->prev;
@@ -187,7 +187,7 @@ int cds_list_empty(struct lttng_ust_list_head *head)
 }
 
 static inline
-void cds_list_replace_init(struct lttng_ust_list_head *old,
+void lttng_ust_list_replace_init(struct lttng_ust_list_head *old,
 		struct lttng_ust_list_head *_new)
 {
 	struct lttng_ust_list_head *head = old->next;

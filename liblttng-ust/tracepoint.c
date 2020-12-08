@@ -826,7 +826,7 @@ void __tracepoint_probe_prune_release_queue(void)
 	if (!release_queue_need_update)
 		goto end;
 	if (!cds_list_empty(&release_queue))
-		cds_list_replace_init(&release_queue, &release_probes);
+		lttng_ust_list_replace_init(&release_queue, &release_probes);
 	release_queue_need_update = 0;
 
 	/* Wait for grace period between all sync_callsites and free. */
@@ -916,7 +916,7 @@ void tracepoint_probe_update_all(void)
 		goto end;
 	}
 	if (!cds_list_empty(&old_probes))
-		cds_list_replace_init(&old_probes, &release_probes);
+		lttng_ust_list_replace_init(&old_probes, &release_probes);
 	need_update = 0;
 
 	tracepoint_update_probes();

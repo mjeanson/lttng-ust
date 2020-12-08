@@ -56,7 +56,7 @@ void lttng_ust_list_add_tail_rcu(struct lttng_ust_list_head *newp,
  * though.
  */
 static inline
-void cds_list_replace_rcu(struct lttng_ust_list_head *old, struct lttng_ust_list_head *_new)
+void lttng_ust_list_replace_rcu(struct lttng_ust_list_head *old, struct lttng_ust_list_head *_new)
 {
 	_new->next = old->next;
 	_new->prev = old->prev;
