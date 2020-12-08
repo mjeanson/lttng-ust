@@ -520,9 +520,6 @@ void __uatomic_dec(void *addr, int len)
 
 #if ((CAA_BITS_PER_LONG != 64) && defined(URCU_ARCH_I386))
 
-/* For backwards compat */
-#define CONFIG_RCU_COMPAT_ARCH 1
-
 extern int __rcu_cas_avail;
 extern int __rcu_cas_init(void);
 

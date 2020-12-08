@@ -43,9 +43,6 @@ extern "C" {
  */
 #if (defined(URCU_ARCH_AMD64) && !defined(URCU_ARCH_K1OM))
 
-/* For backwards compat */
-#define CONFIG_RCU_HAVE_FENCE 1
-
 #define cmm_mb()    __asm__ __volatile__ ("mfence":::"memory")
 
 /*
