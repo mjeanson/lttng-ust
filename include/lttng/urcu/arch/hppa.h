@@ -40,17 +40,6 @@ extern "C" {
 #define __NR_membarrier		343
 #endif
 
-#define HAS_CAA_GET_CYCLES
-typedef unsigned long caa_cycles_t;
-
-static inline caa_cycles_t caa_get_cycles(void)
-{
-	caa_cycles_t cycles;
-
-	asm volatile("mfctl 16, %0" : "=r" (cycles));
-	return cycles;
-}
-
 #ifdef __cplusplus
 }
 #endif

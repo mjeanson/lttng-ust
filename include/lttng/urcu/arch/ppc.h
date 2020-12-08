@@ -83,31 +83,6 @@ extern "C" {
 		rval;					\
 	})
 
-#define HAS_CAA_GET_CYCLES
-
-typedef uint64_t caa_cycles_t;
-
-#ifdef __powerpc64__
-static inline caa_cycles_t caa_get_cycles(void)
-{
-	return (caa_cycles_t) mftb();
-}
-#else
-static inline caa_cycles_t caa_get_cycles(void)
-{
-	unsigned long h, l;
-
-	for (;;) {
-		h = mftbu();
-		cmm_barrier();
-		l = mftbl();
-		cmm_barrier();
-		if (mftbu() == h)
-			return (((caa_cycles_t) h) << 32) + l;
-	}
-}
-#endif
-
 /*
  * On Linux, define the membarrier system call number if not yet available in
  * the system headers.

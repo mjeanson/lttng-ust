@@ -81,26 +81,6 @@ extern "C" {
 
 #define caa_cpu_relax()	__asm__ __volatile__ ("rep; nop" : : : "memory")
 
-#define HAS_CAA_GET_CYCLES
-
-#define rdtscll(val)							  \
-	do {						  		  \
-	     unsigned int __a, __d;					  \
-	     __asm__ __volatile__ ("rdtsc" : "=a" (__a), "=d" (__d));	  \
-	     (val) = ((unsigned long long)__a)				  \
-			| (((unsigned long long)__d) << 32);		  \
-	} while(0)
-
-typedef uint64_t caa_cycles_t;
-
-static inline caa_cycles_t caa_get_cycles(void)
-{
-        caa_cycles_t ret = 0;
-
-        rdtscll(ret);
-        return ret;
-}
-
 /*
  * On Linux, define the membarrier system call number if not yet available in
  * the system headers.
