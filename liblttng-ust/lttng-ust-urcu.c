@@ -151,12 +151,12 @@ static CDS_LIST_HEAD(registry);
 struct registry_chunk {
 	size_t data_len;		/* data length */
 	size_t used;			/* amount of data used */
-	struct cds_list_head node;	/* chunk_list node */
+	struct lttng_ust_list_head node;	/* chunk_list node */
 	char data[];
 };
 
 struct registry_arena {
-	struct cds_list_head chunk_list;
+	struct lttng_ust_list_head chunk_list;
 };
 
 static struct registry_arena registry_arena = {
@@ -206,9 +206,9 @@ static void smp_mb_master(void)
  * Always called with rcu_registry lock held. Releases this lock between
  * iterations and grabs it again. Holds the lock when it returns.
  */
-static void wait_for_readers(struct cds_list_head *input_readers,
-			struct cds_list_head *cur_snap_readers,
-			struct cds_list_head *qsreaders)
+static void wait_for_readers(struct lttng_ust_list_head *input_readers,
+			struct lttng_ust_list_head *cur_snap_readers,
+			struct lttng_ust_list_head *qsreaders)
 {
 	unsigned int wait_loops = 0;
 	struct lttng_ust_urcu_reader *index, *tmp;

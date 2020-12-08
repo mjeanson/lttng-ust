@@ -32,13 +32,13 @@
  */
 
 /* Basic type for the double-link list. */
-struct cds_list_head {
-	struct cds_list_head *next, *prev;
+struct lttng_ust_list_head {
+	struct lttng_ust_list_head *next, *prev;
 };
 
 /* Define a variable with the head and tail of the list. */
 #define CDS_LIST_HEAD(name) \
-	struct cds_list_head name = { &(name), &(name) }
+	struct lttng_ust_list_head name = { &(name), &(name) }
 
 /* Initialize a new list head. */
 #define CDS_INIT_LIST_HEAD(ptr) \
@@ -48,7 +48,7 @@ struct cds_list_head {
 
 /* Add new element at the head of the list. */
 static inline
-void cds_list_add(struct cds_list_head *newp, struct cds_list_head *head)
+void cds_list_add(struct lttng_ust_list_head *newp, struct lttng_ust_list_head *head)
 {
 	head->next->prev = newp;
 	newp->next = head->next;
@@ -58,7 +58,7 @@ void cds_list_add(struct cds_list_head *newp, struct cds_list_head *head)
 
 /* Add new element at the tail of the list. */
 static inline
-void cds_list_add_tail(struct cds_list_head *newp, struct cds_list_head *head)
+void cds_list_add_tail(struct lttng_ust_list_head *newp, struct lttng_ust_list_head *head)
 {
 	head->prev->next = newp;
 	newp->next = head;
@@ -68,7 +68,7 @@ void cds_list_add_tail(struct cds_list_head *newp, struct cds_list_head *head)
 
 /* Remove element from list. */
 static inline
-void __cds_list_del(struct cds_list_head *prev, struct cds_list_head *next)
+void __cds_list_del(struct lttng_ust_list_head *prev, struct lttng_ust_list_head *next)
 {
 	next->prev = prev;
 	prev->next = next;
@@ -76,14 +76,14 @@ void __cds_list_del(struct cds_list_head *prev, struct cds_list_head *next)
 
 /* Remove element from list. */
 static inline
-void cds_list_del(struct cds_list_head *elem)
+void cds_list_del(struct lttng_ust_list_head *elem)
 {
 	__cds_list_del(elem->prev, elem->next);
 }
 
 /* Remove element from list, initializing the element's list pointers. */
 static inline
-void cds_list_del_init(struct cds_list_head *elem)
+void cds_list_del_init(struct lttng_ust_list_head *elem)
 {
 	cds_list_del(elem);
 	CDS_INIT_LIST_HEAD(elem);
@@ -91,7 +91,7 @@ void cds_list_del_init(struct cds_list_head *elem)
 
 /* Delete from list, add to another list as head. */
 static inline
-void cds_list_move(struct cds_list_head *elem, struct cds_list_head *head)
+void cds_list_move(struct lttng_ust_list_head *elem, struct lttng_ust_list_head *head)
 {
 	__cds_list_del(elem->prev, elem->next);
 	cds_list_add(elem, head);
@@ -99,7 +99,7 @@ void cds_list_move(struct cds_list_head *elem, struct cds_list_head *head)
 
 /* Replace an old entry. */
 static inline
-void cds_list_replace(struct cds_list_head *old, struct cds_list_head *_new)
+void cds_list_replace(struct lttng_ust_list_head *old, struct lttng_ust_list_head *_new)
 {
 	_new->next = old->next;
 	_new->prev = old->prev;
@@ -109,7 +109,7 @@ void cds_list_replace(struct cds_list_head *old, struct cds_list_head *_new)
 
 /* Join two lists. */
 static inline
-void cds_list_splice(struct cds_list_head *add, struct cds_list_head *head)
+void cds_list_splice(struct lttng_ust_list_head *add, struct lttng_ust_list_head *head)
 {
 	/* Do nothing if the list which gets added is empty. */
 	if (add != add->next) {
@@ -181,16 +181,16 @@ void cds_list_splice(struct cds_list_head *add, struct cds_list_head *head)
                 pos = p, p = cds_list_entry(pos->member.next, __typeof__(*pos), member))
 
 static inline
-int cds_list_empty(struct cds_list_head *head)
+int cds_list_empty(struct lttng_ust_list_head *head)
 {
 	return head == head->next;
 }
 
 static inline
-void cds_list_replace_init(struct cds_list_head *old,
-		struct cds_list_head *_new)
+void cds_list_replace_init(struct lttng_ust_list_head *old,
+		struct lttng_ust_list_head *_new)
 {
-	struct cds_list_head *head = old->next;
+	struct lttng_ust_list_head *head = old->next;
 
 	cds_list_del(old);
 	cds_list_add_tail(_new, head);

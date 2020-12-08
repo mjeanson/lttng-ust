@@ -79,7 +79,7 @@
 static CDS_LIST_HEAD(sessions);
 static CDS_LIST_HEAD(event_notifier_groups);
 
-struct cds_list_head *_lttng_get_sessions(void)
+struct lttng_ust_list_head *_lttng_get_sessions(void)
 {
 	return &sessions;
 }
@@ -1014,7 +1014,7 @@ int lttng_event_notifier_enabler_match_event_notifier(
 
 static
 struct lttng_enabler_ref *lttng_enabler_ref(
-		struct cds_list_head *enabler_ref_list,
+		struct lttng_ust_list_head *enabler_ref_list,
 		struct lttng_enabler *enabler)
 {
 	struct lttng_enabler_ref *enabler_ref;
@@ -1038,7 +1038,7 @@ void lttng_create_event_if_missing(struct lttng_event_enabler *event_enabler)
 	const struct lttng_event_desc *desc;
 	struct lttng_event *event;
 	int i;
-	struct cds_list_head *probe_list;
+	struct lttng_ust_list_head *probe_list;
 
 	probe_list = lttng_get_probe_list_head();
 	/*
@@ -1093,7 +1093,7 @@ void probe_provider_event_for_each(struct lttng_probe_desc *provider_desc,
 		void (*event_notifier_func)(struct lttng_event_notifier *event_notifier))
 {
 	struct lttng_ust_hlist_node *node, *tmp_node;
-	struct cds_list_head *sessionsp;
+	struct lttng_ust_list_head *sessionsp;
 	unsigned int i;
 
 	/* Get handle on list of sessions. */
@@ -1714,7 +1714,7 @@ void lttng_create_event_notifier_if_missing(
 {
 	struct lttng_event_notifier_group *event_notifier_group = event_notifier_enabler->group;
 	struct lttng_probe_desc *probe_desc;
-	struct cds_list_head *probe_list;
+	struct lttng_ust_list_head *probe_list;
 	int i;
 
 	probe_list = lttng_get_probe_list_head();

@@ -129,7 +129,7 @@ struct tracepoint_entry {
 
 struct tp_probes {
 	union {
-		struct cds_list_head list;
+		struct lttng_ust_list_head list;
 		/* Field below only used for call_rcu scheme */
 		/* struct rcu_head head; */
 	} u;
@@ -146,7 +146,7 @@ static struct lttng_ust_hlist_head callsite_table[CALLSITE_TABLE_SIZE];
 
 struct callsite_entry {
 	struct lttng_ust_hlist_node hlist;	/* hash table node */
-	struct cds_list_head node;	/* lib list of callsites node */
+	struct lttng_ust_list_head node;	/* lib list of callsites node */
 	struct lttng_ust_tracepoint *tp;
 	bool tp_entry_callsite_ref; /* Has a tp_entry took a ref on this callsite */
 };

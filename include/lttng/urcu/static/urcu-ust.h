@@ -91,7 +91,7 @@ struct lttng_ust_urcu_reader {
 	/* Data used by both reader and lttng_ust_urcu_synchronize_rcu() */
 	unsigned long ctr;
 	/* Data used for registry */
-	struct cds_list_head node __attribute__((aligned(CAA_CACHE_LINE_SIZE)));
+	struct lttng_ust_list_head node __attribute__((aligned(CAA_CACHE_LINE_SIZE)));
 	pthread_t tid;
 	int alloc;	/* registry entry allocated */
 };

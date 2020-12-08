@@ -57,18 +57,18 @@
 struct lttng_perf_counter_thread_field {
 	struct lttng_perf_counter_field *field;	/* Back reference */
 	struct perf_event_mmap_page *pc;
-	struct cds_list_head thread_field_node;	/* Per-field list of thread fields (node) */
-	struct cds_list_head rcu_field_node;	/* RCU per-thread list of fields (node) */
+	struct lttng_ust_list_head thread_field_node;	/* Per-field list of thread fields (node) */
+	struct lttng_ust_list_head rcu_field_node;	/* RCU per-thread list of fields (node) */
 	int fd;					/* Perf FD */
 };
 
 struct lttng_perf_counter_thread {
-	struct cds_list_head rcu_field_list;	/* RCU per-thread list of fields */
+	struct lttng_ust_list_head rcu_field_list;	/* RCU per-thread list of fields */
 };
 
 struct lttng_perf_counter_field {
 	struct perf_event_attr attr;
-	struct cds_list_head thread_field_list;	/* Per-field list of thread fields */
+	struct lttng_ust_list_head thread_field_list;	/* Per-field list of thread fields */
 };
 
 static pthread_key_t perf_counter_key;

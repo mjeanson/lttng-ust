@@ -201,7 +201,7 @@ void remove_dl_node(struct lttng_ust_dl_node *e)
 static
 void trace_statedump_event(tracepoint_cb tp_cb, void *owner, void *priv)
 {
-	struct cds_list_head *sessionsp;
+	struct lttng_ust_list_head *sessionsp;
 	struct lttng_session *session;
 
 	sessionsp = _lttng_get_sessions();

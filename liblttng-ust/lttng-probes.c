@@ -81,7 +81,7 @@ static
 void lttng_lazy_probe_register(struct lttng_probe_desc *desc)
 {
 	struct lttng_probe_desc *iter;
-	struct cds_list_head *probe_list;
+	struct lttng_ust_list_head *probe_list;
 
 	/*
 	 * Each provider enforce that every event name begins with the
@@ -141,7 +141,7 @@ void fixup_lazy_probes(void)
 /*
  * Called under ust lock.
  */
-struct cds_list_head *lttng_get_probe_list_head(void)
+struct lttng_ust_list_head *lttng_get_probe_list_head(void)
 {
 	if (!lazy_nesting && !cds_list_empty(&lazy_probe_init))
 		fixup_lazy_probes();
@@ -259,7 +259,7 @@ int lttng_probes_get_event_list(struct lttng_ust_tracepoint_list *list)
 {
 	struct lttng_probe_desc *probe_desc;
 	int i;
-	struct cds_list_head *probe_list;
+	struct lttng_ust_list_head *probe_list;
 
 	probe_list = lttng_get_probe_list_head();
 	CDS_INIT_LIST_HEAD(&list->head);
@@ -331,7 +331,7 @@ int lttng_probes_get_field_list(struct lttng_ust_field_list *list)
 {
 	struct lttng_probe_desc *probe_desc;
 	int i;
-	struct cds_list_head *probe_list;
+	struct lttng_ust_list_head *probe_list;
 
 	probe_list = lttng_get_probe_list_head();
 	CDS_INIT_LIST_HEAD(&list->head);

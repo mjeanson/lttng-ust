@@ -374,8 +374,8 @@ struct lttng_probe_desc {
 	const char *provider;
 	const struct lttng_event_desc **event_desc;
 	unsigned int nr_events;
-	struct cds_list_head head;		/* chain registered probes */
-	struct cds_list_head lazy_init_head;
+	struct lttng_ust_list_head head;		/* chain registered probes */
+	struct lttng_ust_list_head lazy_init_head;
 	int lazy;				/* lazy registration */
 	uint32_t major;
 	uint32_t minor;
@@ -397,9 +397,9 @@ struct lttng_enabler {
 	enum lttng_enabler_format_type format_type;
 
 	/* head list of struct lttng_ust_filter_bytecode_node */
-	struct cds_list_head filter_bytecode_head;
+	struct lttng_ust_list_head filter_bytecode_head;
 	/* head list of struct lttng_ust_excluder_node */
-	struct cds_list_head excluder_head;
+	struct lttng_ust_list_head excluder_head;
 
 	struct lttng_ust_event event_param;
 	unsigned int enabled:1;
@@ -407,22 +407,22 @@ struct lttng_enabler {
 
 struct tp_list_entry {
 	struct lttng_ust_tracepoint_iter tp;
-	struct cds_list_head head;
+	struct lttng_ust_list_head head;
 };
 
 struct lttng_ust_tracepoint_list {
 	struct tp_list_entry *iter;
-	struct cds_list_head head;
+	struct lttng_ust_list_head head;
 };
 
 struct tp_field_list_entry {
 	struct lttng_ust_field_iter field;
-	struct cds_list_head head;
+	struct lttng_ust_list_head head;
 };
 
 struct lttng_ust_field_list {
 	struct tp_field_list_entry *iter;
-	struct cds_list_head head;
+	struct lttng_ust_list_head head;
 };
 
 struct ust_pending_probe;
@@ -456,7 +456,7 @@ struct lttng_bytecode_runtime {
 				struct lttng_interpreter_output *interpreter_output);
 	} interpreter_funcs;
 	int link_failed;
-	struct cds_list_head node;	/* list of bytecode runtime in event */
+	struct lttng_ust_list_head node;	/* list of bytecode runtime in event */
 	/*
 	 * Pointer to a URCU-protected pointer owned by an `struct
 	 * lttng_session`or `struct lttng_event_notifier_group`.
@@ -474,7 +474,7 @@ struct lttng_bytecode_runtime {
  * event with the name "my_app:abc".
  */
 struct lttng_enabler_ref {
-	struct cds_list_head node;		/* enabler ref list */
+	struct lttng_ust_list_head node;		/* enabler ref list */
 	struct lttng_enabler *ref;		/* backward ref */
 };
 
@@ -495,17 +495,17 @@ struct lttng_event {
 	void *_deprecated1;
 	struct lttng_ctx *ctx;
 	enum lttng_ust_instrumentation instrumentation;
-	struct cds_list_head node;		/* Event list in session */
-	struct cds_list_head _deprecated2;
+	struct lttng_ust_list_head node;		/* Event list in session */
+	struct lttng_ust_list_head _deprecated2;
 	void *_deprecated3;
 	unsigned int _deprecated4:1;
 
 	/* LTTng-UST 2.1 starts here */
 	/* list of struct lttng_bytecode_runtime, sorted by seqnum */
-	struct cds_list_head filter_bytecode_runtime_head;
+	struct lttng_ust_list_head filter_bytecode_runtime_head;
 	int has_enablers_without_bytecode;
 	/* Backward references: list of lttng_enabler_ref (ref to enablers) */
-	struct cds_list_head enablers_ref_head;
+	struct lttng_ust_list_head enablers_ref_head;
 	struct lttng_ust_hlist_node hlist;	/* session ht of events */
 	int registered;			/* has reg'd tracepoint probe */
 };
@@ -518,20 +518,20 @@ struct lttng_event_notifier {
 	size_t num_captures;		/* Needed to allocate the msgpack array. */
 	void (*notification_send)(struct lttng_event_notifier *event_notifier,
 		const char *stack_data);
-	struct cds_list_head filter_bytecode_runtime_head;
-	struct cds_list_head capture_bytecode_runtime_head;
+	struct lttng_ust_list_head filter_bytecode_runtime_head;
+	struct lttng_ust_list_head capture_bytecode_runtime_head;
 	int has_enablers_without_bytecode;
-	struct cds_list_head enablers_ref_head;
+	struct lttng_ust_list_head enablers_ref_head;
 	const struct lttng_event_desc *desc;
 	struct lttng_ust_hlist_node hlist;	/* hashtable of event_notifiers */
-	struct cds_list_head node;	/* event_notifier list in session */
+	struct lttng_ust_list_head node;	/* event_notifier list in session */
 	struct lttng_event_notifier_group *group; /* weak ref */
 };
 
 struct lttng_enum {
 	const struct lttng_enum_desc *desc;
 	struct lttng_session *session;
-	struct cds_list_head node;	/* Enum list in session */
+	struct lttng_ust_list_head node;	/* Enum list in session */
 	struct lttng_ust_hlist_node hlist;	/* Session ht of enums */
 	uint64_t id;			/* Enumeration ID in sessiond */
 };
@@ -608,7 +608,7 @@ struct lttng_channel {
 	int objd;			/* Object associated to channel */
 	unsigned int _deprecated1;
 	unsigned int _deprecated2;
-	struct cds_list_head node;	/* Channel list in session */
+	struct lttng_ust_list_head node;	/* Channel list in session */
 	const struct lttng_channel_ops *ops;
 	int header_type;		/* 0: unset, 1: compact, 2: large */
 	struct lttng_ust_shm_handle *handle;	/* shared-memory handle */
@@ -689,16 +689,16 @@ struct lttng_session {
 	int been_active;			/* Been active ? */
 	int objd;				/* Object associated */
 	void *_deprecated1;
-	struct cds_list_head chan_head;		/* Channel list head */
-	struct cds_list_head events_head;	/* list of events */
-	struct cds_list_head _deprecated2;
-	struct cds_list_head node;		/* Session list */
+	struct lttng_ust_list_head chan_head;		/* Channel list head */
+	struct lttng_ust_list_head events_head;	/* list of events */
+	struct lttng_ust_list_head _deprecated2;
+	struct lttng_ust_list_head node;		/* Session list */
 	int _deprecated3;
 	unsigned int _deprecated4:1;
 
 	/* New UST 2.1 */
 	/* List of enablers */
-	struct cds_list_head enablers_head;
+	struct lttng_ust_list_head enablers_head;
 	struct lttng_ust_event_ht events_ht;	/* ht of events */
 	void *owner;				/* object owner */
 	int tstate:1;				/* Transient enable state */
@@ -708,7 +708,7 @@ struct lttng_session {
 
 	/* New UST 2.8 */
 	struct lttng_ust_enum_ht enums_ht;	/* ht of enumerations */
-	struct cds_list_head enums_head;
+	struct lttng_ust_list_head enums_head;
 	struct lttng_ctx *ctx;			/* contexts for filters. */
 };
 
@@ -724,9 +724,9 @@ struct lttng_event_notifier_group {
 	int objd;
 	void *owner;
 	int notification_fd;
-	struct cds_list_head node;		/* Event notifier group handle list */
-	struct cds_list_head enablers_head;
-	struct cds_list_head event_notifiers_head;	/* list of event_notifiers */
+	struct lttng_ust_list_head node;		/* Event notifier group handle list */
+	struct lttng_ust_list_head enablers_head;
+	struct lttng_ust_list_head event_notifiers_head;	/* list of event_notifiers */
 	struct lttng_ust_event_notifier_ht event_notifiers_ht; /* hashtable of event_notifiers */
 	struct lttng_ctx *ctx;			/* contexts for filters. */
 
@@ -736,14 +736,14 @@ struct lttng_event_notifier_group {
 
 struct lttng_transport {
 	char *name;
-	struct cds_list_head node;
+	struct lttng_ust_list_head node;
 	struct lttng_channel_ops ops;
 	const struct lttng_ust_lib_ring_buffer_config *client_config;
 };
 
 struct lttng_counter_transport {
 	char *name;
-	struct cds_list_head node;
+	struct lttng_ust_list_head node;
 	struct lttng_counter_ops ops;
 	const struct lib_counter_config *client_config;
 };
@@ -877,12 +877,12 @@ struct lttng_ust_field_iter *
 
 void lttng_free_event_filter_runtime(struct lttng_event *event);
 
-struct cds_list_head *lttng_get_probe_list_head(void);
+struct lttng_ust_list_head *lttng_get_probe_list_head(void);
 int lttng_session_active(void);
 
 typedef int (*t_statedump_func_ptr)(struct lttng_session *session);
 void lttng_handle_pending_statedump(void *owner);
-struct cds_list_head *_lttng_get_sessions(void);
+struct lttng_ust_list_head *_lttng_get_sessions(void);
 
 struct lttng_enum *lttng_ust_enum_get_from_desc(struct lttng_session *session,
 		const struct lttng_enum_desc *enum_desc);

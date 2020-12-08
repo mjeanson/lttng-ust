@@ -35,7 +35,7 @@
 
 struct lttng_event_enabler {
 	struct lttng_enabler base;
-	struct cds_list_head node;	/* per-session list of enablers */
+	struct lttng_ust_list_head node;	/* per-session list of enablers */
 	struct lttng_channel *chan;
 	/*
 	 * Unused, but kept around to make it explicit that the tracer can do
@@ -47,8 +47,8 @@ struct lttng_event_enabler {
 struct lttng_event_notifier_enabler {
 	struct lttng_enabler base;
 	uint64_t error_counter_index;
-	struct cds_list_head node;	/* per-app list of event_notifier enablers */
-	struct cds_list_head capture_bytecode_head;
+	struct lttng_ust_list_head node;	/* per-app list of event_notifier enablers */
+	struct lttng_ust_list_head capture_bytecode_head;
 	struct lttng_event_notifier_group *group; /* weak ref */
 	uint64_t user_token;		/* User-provided token */
 	uint64_t num_captures;
@@ -61,7 +61,7 @@ enum lttng_ust_bytecode_node_type {
 
 struct lttng_ust_bytecode_node {
 	enum lttng_ust_bytecode_node_type type;
-	struct cds_list_head node;
+	struct lttng_ust_list_head node;
 	struct lttng_enabler *enabler;
 	struct  {
 		uint32_t len;
@@ -72,7 +72,7 @@ struct lttng_ust_bytecode_node {
 };
 
 struct lttng_ust_excluder_node {
-	struct cds_list_head node;
+	struct lttng_ust_list_head node;
 	struct lttng_enabler *enabler;
 	/*
 	 * struct lttng_ust_event_exclusion had variable sized array,
@@ -163,8 +163,8 @@ int lttng_event_enabler_attach_exclusion(struct lttng_event_enabler *enabler,
 LTTNG_HIDDEN
 void lttng_enabler_link_bytecode(const struct lttng_event_desc *event_desc,
 		struct lttng_ctx **ctx,
-		struct cds_list_head *instance_bytecode_runtime_head,
-		struct cds_list_head *enabler_bytecode_runtime_head);
+		struct lttng_ust_list_head *instance_bytecode_runtime_head,
+		struct lttng_ust_list_head *enabler_bytecode_runtime_head);
 
 /*
  * Allocate and initialize a `struct lttng_event_notifier_group` object.

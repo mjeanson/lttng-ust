@@ -405,7 +405,7 @@ int apply_reloc(const struct lttng_event_desc *event_desc,
 
 static
 int bytecode_is_linked(struct lttng_ust_bytecode_node *bytecode,
-		struct cds_list_head *bytecode_runtime_head)
+		struct lttng_ust_list_head *bytecode_runtime_head)
 {
 	struct lttng_bytecode_runtime *bc_runtime;
 
@@ -424,7 +424,7 @@ static
 int link_bytecode(const struct lttng_event_desc *event_desc,
 		struct lttng_ctx **ctx,
 		struct lttng_ust_bytecode_node *bytecode,
-		struct cds_list_head *insert_loc)
+		struct lttng_ust_list_head *insert_loc)
 {
 	int ret, offset, next_offset;
 	struct bytecode_runtime *runtime = NULL;
@@ -544,8 +544,8 @@ void lttng_bytecode_capture_sync_state(struct lttng_bytecode_runtime *runtime)
  */
 void lttng_enabler_link_bytecode(const struct lttng_event_desc *event_desc,
 		struct lttng_ctx **ctx,
-		struct cds_list_head *instance_bytecode_head,
-		struct cds_list_head *enabler_bytecode_head)
+		struct lttng_ust_list_head *instance_bytecode_head,
+		struct lttng_ust_list_head *enabler_bytecode_head)
 {
 	struct lttng_ust_bytecode_node *enabler_bc;
 	struct lttng_bytecode_runtime *runtime;
@@ -555,7 +555,7 @@ void lttng_enabler_link_bytecode(const struct lttng_event_desc *event_desc,
 	/* Go over all the bytecode programs of the enabler. */
 	cds_list_for_each_entry(enabler_bc, enabler_bytecode_head, node) {
 		int found = 0, ret;
-		struct cds_list_head *insert_loc;
+		struct lttng_ust_list_head *insert_loc;
 
 		/*
 		 * Check if the current enabler bytecode program is already
@@ -611,7 +611,7 @@ int lttng_filter_enabler_attach_bytecode(struct lttng_enabler *enabler,
 }
 
 static
-void free_filter_runtime(struct cds_list_head *bytecode_runtime_head)
+void free_filter_runtime(struct lttng_ust_list_head *bytecode_runtime_head)
 {
 	struct bytecode_runtime *runtime, *tmp;
 
