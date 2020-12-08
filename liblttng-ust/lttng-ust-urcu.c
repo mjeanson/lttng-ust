@@ -393,7 +393,7 @@ void expand_arena(struct registry_arena *arena)
 	}
 
 	/* Try expanding last chunk. */
-	last_chunk = cds_list_entry(arena->chunk_list.prev,
+	last_chunk = lttng_ust_list_entry(arena->chunk_list.prev,
 		struct registry_chunk, node);
 	old_chunk_len =
 		last_chunk->data_len + sizeof(struct registry_chunk);

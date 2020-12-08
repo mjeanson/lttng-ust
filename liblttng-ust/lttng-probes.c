@@ -309,7 +309,7 @@ struct lttng_ust_tracepoint_iter *
 	if (entry->head.next == &list->head)
 		list->iter = NULL;
 	else
-		list->iter = cds_list_entry(entry->head.next,
+		list->iter = lttng_ust_list_entry(entry->head.next,
 				struct tp_list_entry, head);
 	return &entry->tp;
 }
@@ -462,7 +462,7 @@ struct lttng_ust_field_iter *
 	if (entry->head.next == &list->head)
 		list->iter = NULL;
 	else
-		list->iter = cds_list_entry(entry->head.next,
+		list->iter = lttng_ust_list_entry(entry->head.next,
 				struct tp_field_list_entry, head);
 	return &entry->field;
 }

@@ -36,9 +36,9 @@
 
 #undef tp_list_for_each_entry_rcu
 #define tp_list_for_each_entry_rcu(pos, head, member)	\
-	for (pos = cds_list_entry(tp_rcu_dereference((head)->next), __typeof__(*pos), member);	\
+	for (pos = lttng_ust_list_entry(tp_rcu_dereference((head)->next), __typeof__(*pos), member);	\
 	     &pos->member != (head);					\
-	     pos = cds_list_entry(tp_rcu_dereference(pos->member.next), __typeof__(*pos), member))
+	     pos = lttng_ust_list_entry(tp_rcu_dereference(pos->member.next), __typeof__(*pos), member))
 
 /*
  * TRACEPOINT_EVENT_CLASS declares a class of tracepoints receiving the
