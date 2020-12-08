@@ -226,13 +226,13 @@ static void wait_for_readers(struct lttng_ust_list_head *input_readers,
 			switch (lttng_ust_urcu_reader_state(&index->ctr)) {
 			case LTTNG_UST_URCU_READER_ACTIVE_CURRENT:
 				if (cur_snap_readers) {
-					cds_list_move(&index->node,
+					lttng_ust_list_move(&index->node,
 						cur_snap_readers);
 					break;
 				}
 				/* Fall-through */
 			case LTTNG_UST_URCU_READER_INACTIVE:
-				cds_list_move(&index->node, qsreaders);
+				lttng_ust_list_move(&index->node, qsreaders);
 				break;
 			case LTTNG_UST_URCU_READER_ACTIVE_OLD:
 				/*

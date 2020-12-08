@@ -102,7 +102,7 @@ cds_list_add_tail lttng_ust_list_add_tail
 __cds_list_del __lttng_ust_list_del
 cds_list_del lttng_ust_list_del
 cds_list_del_init lttng_ust_list_del_init
-cds_list_move lttng_ust_cds_list_move
+cds_list_move lttng_ust_list_move
 cds_list_replace lttng_ust_cds_list_replace
 cds_list_splice lttng_ust_cds_list_splice
 cds_list_entry lttng_ust_cds_list_entry

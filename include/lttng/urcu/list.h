@@ -91,7 +91,7 @@ void lttng_ust_list_del_init(struct lttng_ust_list_head *elem)
 
 /* Delete from list, add to another list as head. */
 static inline
-void cds_list_move(struct lttng_ust_list_head *elem, struct lttng_ust_list_head *head)
+void lttng_ust_list_move(struct lttng_ust_list_head *elem, struct lttng_ust_list_head *head)
 {
 	__lttng_ust_list_del(elem->prev, elem->next);
 	lttng_ust_list_add(elem, head);
