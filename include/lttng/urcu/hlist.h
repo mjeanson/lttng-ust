@@ -64,42 +64,42 @@ void lttng_ust_hlist_del(struct lttng_ust_hlist_node *elem)
 	elem->prev->next = elem->next;
 }
 
-#define cds_hlist_for_each(pos, head) \
+#define lttng_ust_hlist_for_each(pos, head) \
 	for (pos = (head)->next; pos != NULL; pos = pos->next)
 
-#define cds_hlist_for_each_safe(pos, p, head) \
+#define lttng_ust_hlist_for_each_safe(pos, p, head) \
 	for (pos = (head)->next; \
 		(pos != NULL) && (p = pos->next, 1); \
 		pos = p)
 
 /*
- * cds_hlist_for_each_entry and cds_hlist_for_each_entry_safe take
+ * lttng_ust_hlist_for_each_entry and cds_hlist_for_each_entry_safe take
  * respectively 4 and 5 arguments, while the Linux kernel APIs take 3,
- * and 4. We implement cds_hlist_for_each_entry_2() and
- * cds_hlist_for_each_entry_safe_2() to follow the Linux kernel APIs.
+ * and 4. We implement lttng_ust_hlist_for_each_entry_2() and
+ * lttng_ust_hlist_for_each_entry_safe_2() to follow the Linux kernel APIs.
  */
-#define cds_hlist_for_each_entry(entry, pos, head, member) \
+#define lttng_ust_hlist_for_each_entry(entry, pos, head, member) \
 	for (pos = (head)->next, \
 			entry = lttng_ust_hlist_entry(pos, __typeof__(*entry), member); \
 		pos != NULL; \
 		pos = pos->next, \
 			entry = lttng_ust_hlist_entry(pos, __typeof__(*entry), member))
 
-#define cds_hlist_for_each_entry_safe(entry, pos, p, head, member) \
+#define lttng_ust_hlist_for_each_entry_safe(entry, pos, p, head, member) \
 	for (pos = (head)->next, \
 			entry = lttng_ust_hlist_entry(pos, __typeof__(*entry), member); \
 		(pos != NULL) && (p = pos->next, 1); \
 		pos = p, \
 			entry = lttng_ust_hlist_entry(pos, __typeof__(*entry), member))
 
-#define cds_hlist_for_each_entry_2(entry, head, member) \
+#define lttng_ust_hlist_for_each_entry_2(entry, head, member) \
 	for (entry = ((head)->next == NULL ? NULL \
 			: lttng_ust_hlist_entry((head)->next, __typeof__(*entry), member)); \
 		entry != NULL; \
 		entry = (entry->member.next == NULL ? NULL \
 			: lttng_ust_hlist_entry(entry->member.next, __typeof__(*entry), member)))
 
-#define cds_hlist_for_each_entry_safe_2(entry, e, head, member) \
+#define lttng_ust_hlist_for_each_entry_safe_2(entry, e, head, member) \
 	for (entry = ((head)->next == NULL ? NULL \
 			: lttng_ust_hlist_entry((head)->next, __typeof__(*entry), member)); \
 		(entry != NULL) && (e = (entry->member.next == NULL ? NULL \

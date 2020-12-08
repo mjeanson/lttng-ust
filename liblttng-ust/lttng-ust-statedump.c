@@ -172,7 +172,7 @@ struct lttng_ust_dl_node *find_or_create_dl_node(struct bin_info_data *bin_data)
 	hash = jhash(&bin_data->base_addr_ptr,
 		sizeof(bin_data->base_addr_ptr), 0);
 	head = &dl_state_table[hash & (UST_DL_STATE_TABLE_SIZE - 1)];
-	cds_hlist_for_each_entry_2(e, head, node) {
+	lttng_ust_hlist_for_each_entry_2(e, head, node) {
 		if (compare_bin_data(&e->bin_data, bin_data) != 0)
 			continue;
 		found = true;
@@ -384,7 +384,7 @@ void iter_begin(struct dl_iterate_data *data)
 		struct lttng_ust_dl_node *e;
 
 		head = &dl_state_table[i];
-		cds_hlist_for_each_entry_2(e, head, node)
+		lttng_ust_hlist_for_each_entry_2(e, head, node)
 			assert(!e->marked);
 	}
 }
@@ -435,7 +435,7 @@ void iter_end(struct dl_iterate_data *data, void *ip)
 		struct lttng_ust_dl_node *e;
 
 		head = &dl_state_table[i];
-		cds_hlist_for_each_entry_2(e, head, node) {
+		lttng_ust_hlist_for_each_entry_2(e, head, node) {
 			if (e->marked) {
 				if (!e->traced) {
 					trace_lib_load(&e->bin_data, ip);
@@ -545,7 +545,7 @@ void ust_dl_table_statedump(void *owner)
 		struct lttng_ust_dl_node *e;
 
 		head = &dl_state_table[i];
-		cds_hlist_for_each_entry_2(e, head, node) {
+		lttng_ust_hlist_for_each_entry_2(e, head, node) {
 			if (e->traced)
 				trace_baddr(&e->bin_data, owner);
 		}
@@ -656,7 +656,7 @@ void ust_dl_state_destroy(void)
 		struct lttng_ust_dl_node *e, *tmp;
 
 		head = &dl_state_table[i];
-		cds_hlist_for_each_entry_safe_2(e, tmp, head, node)
+		lttng_ust_hlist_for_each_entry_safe_2(e, tmp, head, node)
 			free_dl_node(e);
 		LTTNG_UST_INIT_HLIST_HEAD(head);
 	}

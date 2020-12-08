@@ -59,7 +59,7 @@ static struct lttng_ust_context_provider *
 		len = strlen(name);
 	hash = jhash(name, len, 0);
 	head = &context_provider_ht.table[hash & (CONTEXT_PROVIDER_HT_SIZE - 1)];
-	cds_hlist_for_each_entry(provider, node, head, node) {
+	lttng_ust_hlist_for_each_entry(provider, node, head, node) {
 		if (!strncmp(provider->name, name, len))
 			return provider;
 	}

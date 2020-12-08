@@ -363,7 +363,7 @@ static struct tracepoint_entry *get_tracepoint(const char *name)
 	}
 	hash = jhash(name, name_len, 0);
 	head = &tracepoint_table[hash & (TRACEPOINT_TABLE_SIZE - 1)];
-	cds_hlist_for_each_entry(e, node, head, hlist) {
+	lttng_ust_hlist_for_each_entry(e, node, head, hlist) {
 		if (!strncmp(name, e->name, LTTNG_UST_SYM_NAME_LEN - 1))
 			return e;
 	}
@@ -391,7 +391,7 @@ static struct tracepoint_entry *add_tracepoint(const char *name,
 	}
 	hash = jhash(name, name_len, 0);
 	head = &tracepoint_table[hash & (TRACEPOINT_TABLE_SIZE - 1)];
-	cds_hlist_for_each_entry(e, node, head, hlist) {
+	lttng_ust_hlist_for_each_entry(e, node, head, hlist) {
 		if (!strncmp(name, e->name, LTTNG_UST_SYM_NAME_LEN - 1)) {
 			DBG("tracepoint %s busy", name);
 			return ERR_PTR(-EEXIST);	/* Already there */
@@ -558,7 +558,7 @@ static void tracepoint_sync_callsites(const char *name)
 	}
 	hash = jhash(name, name_len, 0);
 	head = &callsite_table[hash & (CALLSITE_TABLE_SIZE - 1)];
-	cds_hlist_for_each_entry(e, node, head, hlist) {
+	lttng_ust_hlist_for_each_entry(e, node, head, hlist) {
 		struct lttng_ust_tracepoint *tp = e->tp;
 
 		if (strncmp(name, tp->name, LTTNG_UST_SYM_NAME_LEN - 1))

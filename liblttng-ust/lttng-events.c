@@ -1062,7 +1062,7 @@ void lttng_create_event_if_missing(struct lttng_event_enabler *event_enabler)
 				session->events_ht.table,
 				LTTNG_UST_EVENT_HT_SIZE, desc);
 
-			cds_hlist_for_each_entry(event, node, head, hlist) {
+			lttng_ust_hlist_for_each_entry(event, node, head, hlist) {
 				if (event->desc == desc
 						&& event->chan == event_enabler->chan) {
 					found = true;
@@ -1126,7 +1126,7 @@ void probe_provider_event_for_each(struct lttng_probe_desc *provider_desc,
 				session->events_ht.table,
 				LTTNG_UST_EVENT_HT_SIZE, event_desc);
 
-			cds_hlist_for_each_entry_safe(event, node, tmp_node, head, hlist) {
+			lttng_ust_hlist_for_each_entry_safe(event, node, tmp_node, head, hlist) {
 				if (event_desc == event->desc) {
 					event_func(session, event);
 					break;
@@ -1148,7 +1148,7 @@ void probe_provider_event_for_each(struct lttng_probe_desc *provider_desc,
 				event_notifier_group->event_notifiers_ht.table,
 				LTTNG_UST_EVENT_NOTIFIER_HT_SIZE, event_desc);
 
-			cds_hlist_for_each_entry_safe(event_notifier, node, tmp_node, head, hlist) {
+			lttng_ust_hlist_for_each_entry_safe(event_notifier, node, tmp_node, head, hlist) {
 				if (event_desc == event_notifier->desc) {
 					event_notifier_func(event_notifier);
 					break;
@@ -1743,7 +1743,7 @@ void lttng_create_event_notifier_if_missing(
 				event_notifier_group->event_notifiers_ht.table,
 				LTTNG_UST_EVENT_NOTIFIER_HT_SIZE, desc);
 
-			cds_hlist_for_each_entry(event_notifier, node, head, hlist) {
+			lttng_ust_hlist_for_each_entry(event_notifier, node, head, hlist) {
 				/*
 				 * Check if event_notifier already exists by checking
 				 * if the event_notifier and enabler share the same

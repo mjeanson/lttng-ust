@@ -110,7 +110,7 @@ struct lttng_enum *lttng_ust_enum_get_from_desc(struct lttng_session *session,
 
 	hash = jhash(enum_desc->name, name_len, 0);
 	head = &session->enums_ht.table[hash & (LTTNG_UST_ENUM_HT_SIZE - 1)];
-	cds_hlist_for_each_entry(_enum, node, head, hlist) {
+	lttng_ust_hlist_for_each_entry(_enum, node, head, hlist) {
 		assert(_enum->desc);
 		if (_enum->desc == enum_desc)
 			return _enum;
