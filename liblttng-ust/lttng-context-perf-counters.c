@@ -359,7 +359,7 @@ struct lttng_perf_counter_thread *alloc_perf_counter_thread(void)
 	perf_thread = zmalloc(sizeof(*perf_thread));
 	if (!perf_thread)
 		abort();
-	CDS_INIT_LIST_HEAD(&perf_thread->rcu_field_list);
+	LTTNG_UST_INIT_LIST_HEAD(&perf_thread->rcu_field_list);
 	ret = pthread_setspecific(perf_counter_key, perf_thread);
 	if (ret)
 		abort();
@@ -583,7 +583,7 @@ int lttng_add_perf_counter_to_ctx(uint32_t type,
 	perf_field->attr.type = type;
 	perf_field->attr.config = config;
 	perf_field->attr.exclude_kernel = perf_get_exclude_kernel();
-	CDS_INIT_LIST_HEAD(&perf_field->thread_field_list);
+	LTTNG_UST_INIT_LIST_HEAD(&perf_field->thread_field_list);
 	field->u.perf_counter = perf_field;
 
 	/* Ensure that this perf counter can be used in this process. */

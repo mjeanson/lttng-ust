@@ -262,7 +262,7 @@ int lttng_probes_get_event_list(struct lttng_ust_tracepoint_list *list)
 	struct lttng_ust_list_head *probe_list;
 
 	probe_list = lttng_get_probe_list_head();
-	CDS_INIT_LIST_HEAD(&list->head);
+	LTTNG_UST_INIT_LIST_HEAD(&list->head);
 	cds_list_for_each_entry(probe_desc, probe_list, head) {
 		for (i = 0; i < probe_desc->nr_events; i++) {
 			struct tp_list_entry *list_entry;
@@ -334,7 +334,7 @@ int lttng_probes_get_field_list(struct lttng_ust_field_list *list)
 	struct lttng_ust_list_head *probe_list;
 
 	probe_list = lttng_get_probe_list_head();
-	CDS_INIT_LIST_HEAD(&list->head);
+	LTTNG_UST_INIT_LIST_HEAD(&list->head);
 	cds_list_for_each_entry(probe_desc, probe_list, head) {
 		for (i = 0; i < probe_desc->nr_events; i++) {
 			const struct lttng_event_desc *event_desc =

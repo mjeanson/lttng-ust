@@ -155,10 +155,10 @@ struct lttng_session *lttng_session_create(void)
 		free(session);
 		return NULL;
 	}
-	CDS_INIT_LIST_HEAD(&session->chan_head);
-	CDS_INIT_LIST_HEAD(&session->events_head);
-	CDS_INIT_LIST_HEAD(&session->enums_head);
-	CDS_INIT_LIST_HEAD(&session->enablers_head);
+	LTTNG_UST_INIT_LIST_HEAD(&session->chan_head);
+	LTTNG_UST_INIT_LIST_HEAD(&session->events_head);
+	LTTNG_UST_INIT_LIST_HEAD(&session->enums_head);
+	LTTNG_UST_INIT_LIST_HEAD(&session->enablers_head);
 	for (i = 0; i < LTTNG_UST_EVENT_HT_SIZE; i++)
 		LTTNG_UST_INIT_HLIST_HEAD(&session->events_ht.table[i]);
 	for (i = 0; i < LTTNG_UST_ENUM_HT_SIZE; i++)
@@ -222,8 +222,8 @@ struct lttng_event_notifier_group *lttng_event_notifier_group_create(void)
 		return NULL;
 	}
 
-	CDS_INIT_LIST_HEAD(&event_notifier_group->enablers_head);
-	CDS_INIT_LIST_HEAD(&event_notifier_group->event_notifiers_head);
+	LTTNG_UST_INIT_LIST_HEAD(&event_notifier_group->enablers_head);
+	LTTNG_UST_INIT_LIST_HEAD(&event_notifier_group->event_notifiers_head);
 	for (i = 0; i < LTTNG_UST_EVENT_NOTIFIER_HT_SIZE; i++)
 		LTTNG_UST_INIT_HLIST_HEAD(&event_notifier_group->event_notifiers_ht.table[i]);
 
@@ -792,8 +792,8 @@ int lttng_event_create(const struct lttng_event_desc *desc,
 	/* Event will be enabled by enabler sync. */
 	event->enabled = 0;
 	event->registered = 0;
-	CDS_INIT_LIST_HEAD(&event->filter_bytecode_runtime_head);
-	CDS_INIT_LIST_HEAD(&event->enablers_ref_head);
+	LTTNG_UST_INIT_LIST_HEAD(&event->filter_bytecode_runtime_head);
+	LTTNG_UST_INIT_LIST_HEAD(&event->enablers_ref_head);
 	event->desc = desc;
 
 	if (desc->loglevel)
@@ -865,9 +865,9 @@ int lttng_event_notifier_create(const struct lttng_event_desc *desc,
 	event_notifier->enabled = 0;
 	event_notifier->registered = 0;
 
-	CDS_INIT_LIST_HEAD(&event_notifier->filter_bytecode_runtime_head);
-	CDS_INIT_LIST_HEAD(&event_notifier->capture_bytecode_runtime_head);
-	CDS_INIT_LIST_HEAD(&event_notifier->enablers_ref_head);
+	LTTNG_UST_INIT_LIST_HEAD(&event_notifier->filter_bytecode_runtime_head);
+	LTTNG_UST_INIT_LIST_HEAD(&event_notifier->capture_bytecode_runtime_head);
+	LTTNG_UST_INIT_LIST_HEAD(&event_notifier->enablers_ref_head);
 	event_notifier->desc = desc;
 	event_notifier->notification_send = lttng_event_notifier_notification_send;
 
@@ -1385,8 +1385,8 @@ struct lttng_event_enabler *lttng_event_enabler_create(
 	if (!event_enabler)
 		return NULL;
 	event_enabler->base.format_type = format_type;
-	CDS_INIT_LIST_HEAD(&event_enabler->base.filter_bytecode_head);
-	CDS_INIT_LIST_HEAD(&event_enabler->base.excluder_head);
+	LTTNG_UST_INIT_LIST_HEAD(&event_enabler->base.filter_bytecode_head);
+	LTTNG_UST_INIT_LIST_HEAD(&event_enabler->base.excluder_head);
 	memcpy(&event_enabler->base.event_param, event_param,
 		sizeof(event_enabler->base.event_param));
 	event_enabler->chan = chan;
@@ -1409,9 +1409,9 @@ struct lttng_event_notifier_enabler *lttng_event_notifier_enabler_create(
 	if (!event_notifier_enabler)
 		return NULL;
 	event_notifier_enabler->base.format_type = format_type;
-	CDS_INIT_LIST_HEAD(&event_notifier_enabler->base.filter_bytecode_head);
-	CDS_INIT_LIST_HEAD(&event_notifier_enabler->capture_bytecode_head);
-	CDS_INIT_LIST_HEAD(&event_notifier_enabler->base.excluder_head);
+	LTTNG_UST_INIT_LIST_HEAD(&event_notifier_enabler->base.filter_bytecode_head);
+	LTTNG_UST_INIT_LIST_HEAD(&event_notifier_enabler->capture_bytecode_head);
+	LTTNG_UST_INIT_LIST_HEAD(&event_notifier_enabler->base.excluder_head);
 
 	event_notifier_enabler->user_token = event_notifier_param->event.token;
 	event_notifier_enabler->error_counter_index = event_notifier_param->error_counter_index;

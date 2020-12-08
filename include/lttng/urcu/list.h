@@ -41,7 +41,7 @@ struct lttng_ust_list_head {
 	struct lttng_ust_list_head name = { &(name), &(name) }
 
 /* Initialize a new list head. */
-#define CDS_INIT_LIST_HEAD(ptr) \
+#define LTTNG_UST_INIT_LIST_HEAD(ptr) \
 	(ptr)->next = (ptr)->prev = (ptr)
 
 #define LTTNG_UST_LIST_HEAD_INIT(name) { .prev = &(name), .next = &(name) }
@@ -86,7 +86,7 @@ static inline
 void cds_list_del_init(struct lttng_ust_list_head *elem)
 {
 	cds_list_del(elem);
-	CDS_INIT_LIST_HEAD(elem);
+	LTTNG_UST_INIT_LIST_HEAD(elem);
 }
 
 /* Delete from list, add to another list as head. */
@@ -194,7 +194,7 @@ void cds_list_replace_init(struct lttng_ust_list_head *old,
 
 	cds_list_del(old);
 	cds_list_add_tail(_new, head);
-	CDS_INIT_LIST_HEAD(old);
+	LTTNG_UST_INIT_LIST_HEAD(old);
 }
 
 #endif	/* _CDS_LIST_H */

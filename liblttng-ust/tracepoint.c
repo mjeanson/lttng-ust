@@ -974,7 +974,7 @@ int tracepoint_register_lib2(struct lttng_ust_tracepoint * const *tracepoints_st
 	}
 	pl->tracepoints_start = tracepoints_start;
 	pl->tracepoints_count = tracepoints_count;
-	CDS_INIT_LIST_HEAD(&pl->callsites);
+	LTTNG_UST_INIT_LIST_HEAD(&pl->callsites);
 
 	pthread_mutex_lock(&tracepoint_mutex);
 	/*

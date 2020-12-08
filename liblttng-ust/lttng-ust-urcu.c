@@ -656,7 +656,7 @@ void lttng_ust_urcu_exit(void)
 			munmap((void *) chunk, chunk->data_len
 					+ sizeof(struct registry_chunk));
 		}
-		CDS_INIT_LIST_HEAD(&registry_arena.chunk_list);
+		LTTNG_UST_INIT_LIST_HEAD(&registry_arena.chunk_list);
 		ret = pthread_key_delete(lttng_ust_urcu_key);
 		if (ret)
 			abort();
