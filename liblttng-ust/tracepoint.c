@@ -430,7 +430,7 @@ static struct tracepoint_entry *add_tracepoint(const char *name,
  */
 static void remove_tracepoint(struct tracepoint_entry *e)
 {
-	cds_hlist_del(&e->hlist);
+	lttng_ust_hlist_del(&e->hlist);
 	free(e);
 }
 
@@ -532,7 +532,7 @@ static void remove_callsite(struct callsite_entry *e)
 		if (tp_entry->callsite_refcount == 0)
 			disable_tracepoint(e->tp);
 	}
-	cds_hlist_del(&e->hlist);
+	lttng_ust_hlist_del(&e->hlist);
 	cds_list_del(&e->node);
 	free(e);
 }

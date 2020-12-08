@@ -57,7 +57,7 @@ void lttng_ust_hlist_add_head(struct lttng_ust_hlist_node *newp,
 
 /* Remove element from list. */
 static inline
-void cds_hlist_del(struct lttng_ust_hlist_node *elem)
+void lttng_ust_hlist_del(struct lttng_ust_hlist_node *elem)
 {
 	if (elem->next)
 		elem->next->prev = elem->prev;

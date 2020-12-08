@@ -119,7 +119,7 @@ void lttng_ust_context_provider_unregister(struct lttng_ust_context_provider *pr
 		lttng_ust_dummy_get_size, lttng_ust_dummy_record,
 		lttng_ust_dummy_get_value);
 
-	cds_hlist_del(&provider->node);
+	lttng_ust_hlist_del(&provider->node);
 end:
 	ust_unlock();
 }

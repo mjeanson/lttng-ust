@@ -191,7 +191,7 @@ struct lttng_ust_dl_node *find_or_create_dl_node(struct bin_info_data *bin_data)
 static
 void remove_dl_node(struct lttng_ust_dl_node *e)
 {
-	cds_hlist_del(&e->node);
+	lttng_ust_hlist_del(&e->node);
 }
 
 /*
