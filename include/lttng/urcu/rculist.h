@@ -31,7 +31,7 @@
 
 /* Add new element at the head of the list. */
 static inline
-void cds_list_add_rcu(struct lttng_ust_list_head *newp, struct lttng_ust_list_head *head)
+void lttng_ust_list_add_rcu(struct lttng_ust_list_head *newp, struct lttng_ust_list_head *head)
 {
 	newp->next = head->next;
 	newp->prev = head;
@@ -41,7 +41,7 @@ void cds_list_add_rcu(struct lttng_ust_list_head *newp, struct lttng_ust_list_he
 
 /* Add new element at the tail of the list. */
 static inline
-void cds_list_add_tail_rcu(struct lttng_ust_list_head *newp,
+void lttng_ust_list_add_tail_rcu(struct lttng_ust_list_head *newp,
 		struct lttng_ust_list_head *head)
 {
 	newp->next = head;

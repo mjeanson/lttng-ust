@@ -388,7 +388,7 @@ void expand_arena(struct registry_arena *arena)
 		memset(new_chunk, 0, new_chunk_len);
 		new_chunk->data_len =
 			new_chunk_len - sizeof(struct registry_chunk);
-		cds_list_add_tail(&new_chunk->node, &arena->chunk_list);
+		lttng_ust_list_add_tail(&new_chunk->node, &arena->chunk_list);
 		return;		/* We're done. */
 	}
 
@@ -423,7 +423,7 @@ void expand_arena(struct registry_arena *arena)
 	memset(new_chunk, 0, new_chunk_len);
 	new_chunk->data_len =
 		new_chunk_len - sizeof(struct registry_chunk);
-	cds_list_add_tail(&new_chunk->node, &arena->chunk_list);
+	lttng_ust_list_add_tail(&new_chunk->node, &arena->chunk_list);
 }
 
 static
@@ -476,7 +476,7 @@ void add_thread(void)
 	/* Add to registry */
 	rcu_reader_reg->tid = pthread_self();
 	assert(rcu_reader_reg->ctr == 0);
-	cds_list_add(&rcu_reader_reg->node, &registry);
+	lttng_ust_list_add(&rcu_reader_reg->node, &registry);
 	/*
 	 * Reader threads are pointing to the reader registry. This is
 	 * why its memory should never be relocated.

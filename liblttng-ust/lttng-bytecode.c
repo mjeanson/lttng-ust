@@ -491,7 +491,7 @@ int link_bytecode(const struct lttng_event_desc *event_desc,
 	}
 
 	runtime->p.link_failed = 0;
-	cds_list_add_rcu(&runtime->p.node, insert_loc);
+	lttng_ust_list_add_rcu(&runtime->p.node, insert_loc);
 	dbg_printf("Linking successful.\n");
 	return 0;
 
@@ -508,7 +508,7 @@ link_error:
 	}
 
 	runtime->p.link_failed = 1;
-	cds_list_add_rcu(&runtime->p.node, insert_loc);
+	lttng_ust_list_add_rcu(&runtime->p.node, insert_loc);
 alloc_error:
 	dbg_printf("Linking failed.\n");
 	return ret;
@@ -606,7 +606,7 @@ void lttng_enabler_link_bytecode(const struct lttng_event_desc *event_desc,
 int lttng_filter_enabler_attach_bytecode(struct lttng_enabler *enabler,
 		struct lttng_ust_bytecode_node *bytecode)
 {
-	cds_list_add(&bytecode->node, &enabler->filter_bytecode_head);
+	lttng_ust_list_add(&bytecode->node, &enabler->filter_bytecode_head);
 	return 0;
 }
 

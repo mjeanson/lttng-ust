@@ -48,7 +48,7 @@ struct lttng_ust_list_head {
 
 /* Add new element at the head of the list. */
 static inline
-void cds_list_add(struct lttng_ust_list_head *newp, struct lttng_ust_list_head *head)
+void lttng_ust_list_add(struct lttng_ust_list_head *newp, struct lttng_ust_list_head *head)
 {
 	head->next->prev = newp;
 	newp->next = head->next;
@@ -58,7 +58,7 @@ void cds_list_add(struct lttng_ust_list_head *newp, struct lttng_ust_list_head *
 
 /* Add new element at the tail of the list. */
 static inline
-void cds_list_add_tail(struct lttng_ust_list_head *newp, struct lttng_ust_list_head *head)
+void lttng_ust_list_add_tail(struct lttng_ust_list_head *newp, struct lttng_ust_list_head *head)
 {
 	head->prev->next = newp;
 	newp->next = head;
@@ -94,7 +94,7 @@ static inline
 void cds_list_move(struct lttng_ust_list_head *elem, struct lttng_ust_list_head *head)
 {
 	__cds_list_del(elem->prev, elem->next);
-	cds_list_add(elem, head);
+	lttng_ust_list_add(elem, head);
 }
 
 /* Replace an old entry. */
@@ -193,7 +193,7 @@ void cds_list_replace_init(struct lttng_ust_list_head *old,
 	struct lttng_ust_list_head *head = old->next;
 
 	cds_list_del(old);
-	cds_list_add_tail(_new, head);
+	lttng_ust_list_add_tail(_new, head);
 	LTTNG_UST_INIT_LIST_HEAD(old);
 }
 

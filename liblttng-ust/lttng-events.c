@@ -163,7 +163,7 @@ struct lttng_session *lttng_session_create(void)
 		LTTNG_UST_INIT_HLIST_HEAD(&session->events_ht.table[i]);
 	for (i = 0; i < LTTNG_UST_ENUM_HT_SIZE; i++)
 		LTTNG_UST_INIT_HLIST_HEAD(&session->enums_ht.table[i]);
-	cds_list_add(&session->node, &sessions);
+	lttng_ust_list_add(&session->node, &sessions);
 	return session;
 }
 
@@ -227,7 +227,7 @@ struct lttng_event_notifier_group *lttng_event_notifier_group_create(void)
 	for (i = 0; i < LTTNG_UST_EVENT_NOTIFIER_HT_SIZE; i++)
 		LTTNG_UST_INIT_HLIST_HEAD(&event_notifier_group->event_notifiers_ht.table[i]);
 
-	cds_list_add(&event_notifier_group->node, &event_notifier_groups);
+	lttng_ust_list_add(&event_notifier_group->node, &event_notifier_groups);
 
 	return event_notifier_group;
 }
@@ -491,7 +491,7 @@ int lttng_enum_create(const struct lttng_enum_desc *desc,
 		DBG("Error (%d) registering enumeration to sessiond", ret);
 		goto sessiond_register_error;
 	}
-	cds_list_add(&_enum->node, &session->enums_head);
+	lttng_ust_list_add(&_enum->node, &session->enums_head);
 	lttng_ust_hlist_add_head(&_enum->hlist, head);
 	return 0;
 
@@ -822,7 +822,7 @@ int lttng_event_create(const struct lttng_event_desc *desc,
 		goto sessiond_register_error;
 	}
 
-	cds_list_add(&event->node, &chan->session->events_head);
+	lttng_ust_list_add(&event->node, &chan->session->events_head);
 	lttng_ust_hlist_add_head(&event->hlist, head);
 	return 0;
 
@@ -871,7 +871,7 @@ int lttng_event_notifier_create(const struct lttng_event_desc *desc,
 	event_notifier->desc = desc;
 	event_notifier->notification_send = lttng_event_notifier_notification_send;
 
-	cds_list_add(&event_notifier->node,
+	lttng_ust_list_add(&event_notifier->node,
 			&event_notifier_group->event_notifiers_head);
 	lttng_ust_hlist_add_head(&event_notifier->hlist, head);
 
@@ -1262,7 +1262,7 @@ int lttng_event_enabler_ref_events(struct lttng_event_enabler *event_enabler)
 				return -ENOMEM;
 			enabler_ref->ref = lttng_event_enabler_as_enabler(
 				event_enabler);
-			cds_list_add(&enabler_ref->node,
+			lttng_ust_list_add(&enabler_ref->node,
 				&event->enablers_ref_head);
 		}
 
@@ -1392,7 +1392,7 @@ struct lttng_event_enabler *lttng_event_enabler_create(
 	event_enabler->chan = chan;
 	/* ctx left NULL */
 	event_enabler->base.enabled = 0;
-	cds_list_add(&event_enabler->node, &event_enabler->chan->session->enablers_head);
+	lttng_ust_list_add(&event_enabler->node, &event_enabler->chan->session->enablers_head);
 	lttng_session_lazy_sync_event_enablers(event_enabler->chan->session);
 
 	return event_enabler;
@@ -1430,7 +1430,7 @@ struct lttng_event_notifier_enabler *lttng_event_notifier_enabler_create(
 	event_notifier_enabler->base.enabled = 0;
 	event_notifier_enabler->group = event_notifier_group;
 
-	cds_list_add(&event_notifier_enabler->node,
+	lttng_ust_list_add(&event_notifier_enabler->node,
 			&event_notifier_group->enablers_head);
 
 	lttng_event_notifier_group_sync_enablers(event_notifier_group);
@@ -1459,7 +1459,7 @@ void _lttng_enabler_attach_filter_bytecode(struct lttng_enabler *enabler,
 		struct lttng_ust_bytecode_node *bytecode)
 {
 	bytecode->enabler = enabler;
-	cds_list_add_tail(&bytecode->node, &enabler->filter_bytecode_head);
+	lttng_ust_list_add_tail(&bytecode->node, &enabler->filter_bytecode_head);
 }
 
 int lttng_event_enabler_attach_filter_bytecode(struct lttng_event_enabler *event_enabler,
@@ -1477,7 +1477,7 @@ void _lttng_enabler_attach_exclusion(struct lttng_enabler *enabler,
 		struct lttng_ust_excluder_node *excluder)
 {
 	excluder->enabler = enabler;
-	cds_list_add_tail(&excluder->node, &enabler->excluder_head);
+	lttng_ust_list_add_tail(&excluder->node, &enabler->excluder_head);
 }
 
 int lttng_event_enabler_attach_exclusion(struct lttng_event_enabler *event_enabler,
@@ -1526,7 +1526,7 @@ int lttng_event_notifier_enabler_attach_capture_bytecode(
 {
 	bytecode->enabler = lttng_event_notifier_enabler_as_enabler(
 			event_notifier_enabler);
-	cds_list_add_tail(&bytecode->node,
+	lttng_ust_list_add_tail(&bytecode->node,
 			&event_notifier_enabler->capture_bytecode_head);
 	event_notifier_enabler->num_captures++;
 
@@ -1815,7 +1815,7 @@ int lttng_event_notifier_enabler_ref_event_notifiers(
 
 			enabler_ref->ref = lttng_event_notifier_enabler_as_enabler(
 				event_notifier_enabler);
-			cds_list_add(&enabler_ref->node,
+			lttng_ust_list_add(&enabler_ref->node,
 				&event_notifier->enablers_ref_head);
 		}
 

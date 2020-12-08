@@ -508,7 +508,7 @@ static void add_callsite(struct tracepoint_lib * lib, struct lttng_ust_tracepoin
 	}
 	lttng_ust_hlist_add_head(&e->hlist, head);
 	e->tp = tp;
-	cds_list_add(&e->node, &lib->callsites);
+	lttng_ust_list_add(&e->node, &lib->callsites);
 
 	tp_entry = get_tracepoint(name);
 	if (!tp_entry)
@@ -683,7 +683,7 @@ static void tracepoint_release_queue_add_old_probes(void *old)
 	if (old) {
 		struct tp_probes *tp_probes = lttng_ust_container_of(old,
 			struct tp_probes, probes[0]);
-		cds_list_add(&tp_probes->u.list, &release_queue);
+		lttng_ust_list_add(&tp_probes->u.list, &release_queue);
 	}
 }
 
@@ -846,7 +846,7 @@ static void tracepoint_add_old_probes(void *old)
 	if (old) {
 		struct tp_probes *tp_probes = lttng_ust_container_of(old,
 			struct tp_probes, probes[0]);
-		cds_list_add(&tp_probes->u.list, &old_probes);
+		lttng_ust_list_add(&tp_probes->u.list, &old_probes);
 	}
 }
 
@@ -984,12 +984,12 @@ int tracepoint_register_lib2(struct lttng_ust_tracepoint * const *tracepoints_st
 		BUG_ON(iter == pl);    /* Should never be in the list twice */
 		if (iter < pl) {
 			/* We belong to the location right after iter. */
-			cds_list_add(&pl->list, &iter->list);
+			lttng_ust_list_add(&pl->list, &iter->list);
 			goto lib_added;
 		}
 	}
 	/* We should be added at the head of the list */
-	cds_list_add(&pl->list, &libs);
+	lttng_ust_list_add(&pl->list, &libs);
 lib_added:
 	new_tracepoints(tracepoints_start, tracepoints_start + tracepoints_count);
 	lib_register_callsites(pl);

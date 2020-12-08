@@ -558,7 +558,7 @@ int lttng_abi_map_channel(int session_objd,
 	memcpy(&lttng_chan->chan->backend.config,
 		transport->client_config,
 		sizeof(lttng_chan->chan->backend.config));
-	cds_list_add(&lttng_chan->node, &session->chan_head);
+	lttng_ust_list_add(&lttng_chan->node, &session->chan_head);
 	lttng_chan->header_type = 0;
 	lttng_chan->handle = channel_handle;
 	lttng_chan->type = type;

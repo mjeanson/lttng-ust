@@ -106,12 +106,12 @@ void lttng_lazy_probe_register(struct lttng_probe_desc *desc)
 		BUG_ON(iter == desc); /* Should never be in the list twice */
 		if (iter < desc) {
 			/* We belong to the location right after iter. */
-			cds_list_add(&desc->head, &iter->head);
+			lttng_ust_list_add(&desc->head, &iter->head);
 			goto desc_added;
 		}
 	}
 	/* We should be added at the head of the list */
-	cds_list_add(&desc->head, probe_list);
+	lttng_ust_list_add(&desc->head, probe_list);
 desc_added:
 	DBG("just registered probe %s containing %u events",
 		desc->provider, desc->nr_events);
@@ -193,7 +193,7 @@ int lttng_probe_register(struct lttng_probe_desc *desc)
 
 	ust_lock_nocheck();
 
-	cds_list_add(&desc->lazy_init_head, &lazy_probe_init);
+	lttng_ust_list_add(&desc->lazy_init_head, &lazy_probe_init);
 	desc->lazy = 1;
 	DBG("adding probe %s containing %u events to lazy registration list",
 		desc->provider, desc->nr_events);
@@ -270,7 +270,7 @@ int lttng_probes_get_event_list(struct lttng_ust_tracepoint_list *list)
 			list_entry = zmalloc(sizeof(*list_entry));
 			if (!list_entry)
 				goto err_nomem;
-			cds_list_add(&list_entry->head, &list->head);
+			lttng_ust_list_add(&list_entry->head, &list->head);
 			strncpy(list_entry->tp.name,
 				probe_desc->event_desc[i]->name,
 				LTTNG_UST_SYM_NAME_LEN);
@@ -348,7 +348,7 @@ int lttng_probes_get_field_list(struct lttng_ust_field_list *list)
 				list_entry = zmalloc(sizeof(*list_entry));
 				if (!list_entry)
 					goto err_nomem;
-				cds_list_add(&list_entry->head, &list->head);
+				lttng_ust_list_add(&list_entry->head, &list->head);
 				strncpy(list_entry->field.event_name,
 					event_desc->name,
 					LTTNG_UST_SYM_NAME_LEN);
@@ -371,7 +371,7 @@ int lttng_probes_get_field_list(struct lttng_ust_field_list *list)
 				list_entry = zmalloc(sizeof(*list_entry));
 				if (!list_entry)
 					goto err_nomem;
-				cds_list_add(&list_entry->head, &list->head);
+				lttng_ust_list_add(&list_entry->head, &list->head);
 				strncpy(list_entry->field.event_name,
 					event_desc->name,
 					LTTNG_UST_SYM_NAME_LEN);

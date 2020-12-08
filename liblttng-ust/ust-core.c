@@ -61,7 +61,7 @@ struct lttng_counter_transport *lttng_counter_transport_find(const char *name)
  */
 void lttng_transport_register(struct lttng_transport *transport)
 {
-	cds_list_add_tail(&transport->node, &lttng_transport_list);
+	lttng_ust_list_add_tail(&transport->node, &lttng_transport_list);
 }
 
 /**
@@ -83,7 +83,7 @@ void lttng_transport_unregister(struct lttng_transport *transport)
  */
 void lttng_counter_transport_register(struct lttng_counter_transport *transport)
 {
-	cds_list_add_tail(&transport->node, &lttng_counter_transport_list);
+	lttng_ust_list_add_tail(&transport->node, &lttng_counter_transport_list);
 }
 
 /**

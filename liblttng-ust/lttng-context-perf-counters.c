@@ -403,9 +403,9 @@ struct lttng_perf_counter_thread_field *
 	 * Also, thread_field->fd can be -1 if open_perf_fd() fails.
 	 */
 	lttng_perf_lock();
-	cds_list_add_rcu(&thread_field->rcu_field_node,
+	lttng_ust_list_add_rcu(&thread_field->rcu_field_node,
 			&perf_thread->rcu_field_list);
-	cds_list_add(&thread_field->thread_field_node,
+	lttng_ust_list_add(&thread_field->thread_field_node,
 			&perf_field->thread_field_list);
 	lttng_perf_unlock();
 skip:
