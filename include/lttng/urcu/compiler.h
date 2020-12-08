@@ -62,14 +62,6 @@
 		(type *)((char *)__ptr - offsetof(type, member));	\
 	})
 
-/*
- * __rcu is an annotation that documents RCU pointer accesses that need
- * to be protected by a read-side critical section. Eventually, a static
- * checker will be able to use this annotation to detect incorrect RCU
- * usage.
- */
-#define __rcu
-
 #ifdef __cplusplus
 #define LTTNG_UST_URCU_FORCE_CAST(type, arg)	(reinterpret_cast<type>(arg))
 #else
