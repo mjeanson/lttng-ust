@@ -109,7 +109,7 @@ void lttng_ust_list_replace(struct lttng_ust_list_head *old, struct lttng_ust_li
 
 /* Join two lists. */
 static inline
-void cds_list_splice(struct lttng_ust_list_head *add, struct lttng_ust_list_head *head)
+void lttng_ust_list_splice(struct lttng_ust_list_head *add, struct lttng_ust_list_head *head)
 {
 	/* Do nothing if the list which gets added is empty. */
 	if (add != add->next) {

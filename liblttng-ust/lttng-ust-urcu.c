@@ -325,7 +325,7 @@ void lttng_ust_urcu_synchronize_rcu(void)
 	/*
 	 * Put quiescent reader list back into registry.
 	 */
-	cds_list_splice(&qsreaders, &registry);
+	lttng_ust_list_splice(&qsreaders, &registry);
 
 	/*
 	 * Finish waiting for reader threads before letting the old ptr being
