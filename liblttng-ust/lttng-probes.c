@@ -286,7 +286,7 @@ int lttng_probes_get_event_list(struct lttng_ust_tracepoint_list *list)
 		list->iter = NULL;
 	else
 		list->iter =
-			cds_list_first_entry(&list->head, struct tp_list_entry, head);
+			lttng_ust_list_first_entry(&list->head, struct tp_list_entry, head);
 	return 0;
 
 err_nomem:
@@ -438,7 +438,7 @@ int lttng_probes_get_field_list(struct lttng_ust_field_list *list)
 		list->iter = NULL;
 	else
 		list->iter =
-			cds_list_first_entry(&list->head,
+			lttng_ust_list_first_entry(&list->head,
 				struct tp_field_list_entry, head);
 	return 0;
 

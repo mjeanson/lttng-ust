@@ -126,7 +126,7 @@ void lttng_ust_list_splice(struct lttng_ust_list_head *add, struct lttng_ust_lis
 
 
 /* Get first entry from a list. */
-#define cds_list_first_entry(ptr, type, member) \
+#define lttng_ust_list_first_entry(ptr, type, member) \
 	lttng_ust_list_entry((ptr)->next, type, member)
 
 /* Iterate forward over the elements of the list. */
