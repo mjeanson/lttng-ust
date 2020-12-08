@@ -241,7 +241,7 @@ void _lttng_channel_unmap(struct lttng_channel *lttng_chan)
 	struct channel *chan;
 	struct lttng_ust_shm_handle *handle;
 
-	cds_list_del(&lttng_chan->node);
+	lttng_ust_list_del(&lttng_chan->node);
 	lttng_destroy_context(lttng_chan->ctx);
 	chan = lttng_chan->chan;
 	handle = lttng_chan->handle;
@@ -358,7 +358,7 @@ void lttng_session_destroy(struct lttng_session *session)
 		_lttng_enum_destroy(_enum);
 	cds_list_for_each_entry_safe(chan, tmpchan, &session->chan_head, node)
 		_lttng_channel_unmap(chan);
-	cds_list_del(&session->node);
+	lttng_ust_list_del(&session->node);
 	lttng_destroy_context(session->ctx);
 	free(session);
 }
@@ -404,7 +404,7 @@ void lttng_event_notifier_group_destroy(
 	}
 	lttng_ust_unlock_fd_tracker();
 
-	cds_list_del(&event_notifier_group->node);
+	lttng_ust_list_del(&event_notifier_group->node);
 
 	free(event_notifier_group);
 }
@@ -438,7 +438,7 @@ void lttng_enabler_destroy(struct lttng_enabler *enabler)
 		return;
 	}
 
-	cds_list_del(&event_notifier_enabler->node);
+	lttng_ust_list_del(&event_notifier_enabler->node);
 
 	lttng_enabler_destroy(lttng_event_notifier_enabler_as_enabler(event_notifier_enabler));
 
@@ -887,7 +887,7 @@ void _lttng_event_notifier_destroy(struct lttng_event_notifier *event_notifier)
 	struct lttng_enabler_ref *enabler_ref, *tmp_enabler_ref;
 
 	/* Remove from event_notifier list. */
-	cds_list_del(&event_notifier->node);
+	lttng_ust_list_del(&event_notifier->node);
 	/* Remove from event_notifier hash table. */
 	lttng_ust_hlist_del(&event_notifier->hlist);
 
@@ -1342,7 +1342,7 @@ void _lttng_event_destroy(struct lttng_event *event)
 	struct lttng_enabler_ref *enabler_ref, *tmp_enabler_ref;
 
 	/* Remove from event list. */
-	cds_list_del(&event->node);
+	lttng_ust_list_del(&event->node);
 	/* Remove from event hash table. */
 	lttng_ust_hlist_del(&event->hlist);
 
@@ -1358,7 +1358,7 @@ void _lttng_event_destroy(struct lttng_event *event)
 static
 void _lttng_enum_destroy(struct lttng_enum *_enum)
 {
-	cds_list_del(&_enum->node);
+	lttng_ust_list_del(&_enum->node);
 	lttng_ust_hlist_del(&_enum->hlist);
 	free(_enum);
 }
@@ -1629,7 +1629,7 @@ void lttng_event_enabler_destroy(struct lttng_event_enabler *event_enabler)
 	if (!event_enabler) {
 		return;
 	}
-	cds_list_del(&event_enabler->node);
+	lttng_ust_list_del(&event_enabler->node);
 
 	lttng_enabler_destroy(lttng_event_enabler_as_enabler(event_enabler));
 

@@ -71,7 +71,7 @@ void lttng_transport_register(struct lttng_transport *transport)
  */
 void lttng_transport_unregister(struct lttng_transport *transport)
 {
-	cds_list_del(&transport->node);
+	lttng_ust_list_del(&transport->node);
 }
 
 /**
@@ -93,7 +93,7 @@ void lttng_counter_transport_register(struct lttng_counter_transport *transport)
  */
 void lttng_counter_transport_unregister(struct lttng_counter_transport *transport)
 {
-	cds_list_del(&transport->node);
+	lttng_ust_list_del(&transport->node);
 }
 
 /*

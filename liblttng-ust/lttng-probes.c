@@ -131,7 +131,7 @@ void fixup_lazy_probes(void)
 			&lazy_probe_init, lazy_init_head) {
 		lttng_lazy_probe_register(iter);
 		iter->lazy = 0;
-		cds_list_del(&iter->lazy_init_head);
+		lttng_ust_list_del(&iter->lazy_init_head);
 	}
 	ret = lttng_fix_pending_events();
 	assert(!ret);
@@ -226,9 +226,9 @@ void lttng_probe_unregister(struct lttng_probe_desc *desc)
 
 	ust_lock_nocheck();
 	if (!desc->lazy)
-		cds_list_del(&desc->head);
+		lttng_ust_list_del(&desc->head);
 	else
-		cds_list_del(&desc->lazy_init_head);
+		lttng_ust_list_del(&desc->lazy_init_head);
 
 	lttng_probe_provider_unregister_events(desc);
 	DBG("just unregistered probes of provider %s", desc->provider);
@@ -247,7 +247,7 @@ void lttng_probes_prune_event_list(struct lttng_ust_tracepoint_list *list)
 	struct tp_list_entry *list_entry, *tmp;
 
 	cds_list_for_each_entry_safe(list_entry, tmp, &list->head, head) {
-		cds_list_del(&list_entry->head);
+		lttng_ust_list_del(&list_entry->head);
 		free(list_entry);
 	}
 }
@@ -319,7 +319,7 @@ void lttng_probes_prune_field_list(struct lttng_ust_field_list *list)
 	struct tp_field_list_entry *list_entry, *tmp;
 
 	cds_list_for_each_entry_safe(list_entry, tmp, &list->head, head) {
-		cds_list_del(&list_entry->head);
+		lttng_ust_list_del(&list_entry->head);
 		free(list_entry);
 	}
 }

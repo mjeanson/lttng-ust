@@ -471,8 +471,8 @@ void lttng_destroy_perf_thread_field(
 {
 	close_perf_fd(thread_field->fd);
 	unmap_perf_page(thread_field->pc);
-	cds_list_del_rcu(&thread_field->rcu_field_node);
-	cds_list_del(&thread_field->thread_field_node);
+	lttng_ust_list_del_rcu(&thread_field->rcu_field_node);
+	lttng_ust_list_del(&thread_field->thread_field_node);
 	free(thread_field);
 }
 

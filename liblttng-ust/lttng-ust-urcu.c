@@ -490,7 +490,7 @@ void cleanup_thread(struct registry_chunk *chunk,
 		struct lttng_ust_urcu_reader *rcu_reader_reg)
 {
 	rcu_reader_reg->ctr = 0;
-	cds_list_del(&rcu_reader_reg->node);
+	lttng_ust_list_del(&rcu_reader_reg->node);
 	rcu_reader_reg->tid = 0;
 	rcu_reader_reg->alloc = 0;
 	chunk->used -= sizeof(struct lttng_ust_urcu_reader);

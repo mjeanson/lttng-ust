@@ -76,16 +76,16 @@ void __lttng_ust_list_del(struct lttng_ust_list_head *prev, struct lttng_ust_lis
 
 /* Remove element from list. */
 static inline
-void cds_list_del(struct lttng_ust_list_head *elem)
+void lttng_ust_list_del(struct lttng_ust_list_head *elem)
 {
 	__lttng_ust_list_del(elem->prev, elem->next);
 }
 
 /* Remove element from list, initializing the element's list pointers. */
 static inline
-void cds_list_del_init(struct lttng_ust_list_head *elem)
+void lttng_ust_list_del_init(struct lttng_ust_list_head *elem)
 {
-	cds_list_del(elem);
+	lttng_ust_list_del(elem);
 	LTTNG_UST_INIT_LIST_HEAD(elem);
 }
 
@@ -192,7 +192,7 @@ void cds_list_replace_init(struct lttng_ust_list_head *old,
 {
 	struct lttng_ust_list_head *head = old->next;
 
-	cds_list_del(old);
+	lttng_ust_list_del(old);
 	lttng_ust_list_add_tail(_new, head);
 	LTTNG_UST_INIT_LIST_HEAD(old);
 }

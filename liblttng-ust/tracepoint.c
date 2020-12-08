@@ -533,7 +533,7 @@ static void remove_callsite(struct callsite_entry *e)
 			disable_tracepoint(e->tp);
 	}
 	lttng_ust_hlist_del(&e->hlist);
-	cds_list_del(&e->node);
+	lttng_ust_list_del(&e->node);
 	free(e);
 }
 
@@ -833,7 +833,7 @@ void __tracepoint_probe_prune_release_queue(void)
 	lttng_ust_synchronize_trace();
 
 	cds_list_for_each_entry_safe(pos, next, &release_probes, u.list) {
-		cds_list_del(&pos->u.list);
+		lttng_ust_list_del(&pos->u.list);
 		free(pos);
 	}
 end:
@@ -923,7 +923,7 @@ void tracepoint_probe_update_all(void)
 	/* Wait for grace period between update_probes and free. */
 	lttng_ust_synchronize_trace();
 	cds_list_for_each_entry_safe(pos, next, &release_probes, u.list) {
-		cds_list_del(&pos->u.list);
+		lttng_ust_list_del(&pos->u.list);
 		free(pos);
 	}
 end:
@@ -1026,7 +1026,7 @@ int tracepoint_unregister_lib2(struct lttng_ust_tracepoint * const *tracepoints_
 		if (lib->tracepoints_start != tracepoints_start)
 			continue;
 
-		cds_list_del(&lib->list);
+		lttng_ust_list_del(&lib->list);
 		/*
 		 * Unregistering a callsite also decreases the
 		 * callsite reference count of the corresponding
