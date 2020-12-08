@@ -68,7 +68,7 @@ void lttng_ust_list_add_tail(struct lttng_ust_list_head *newp, struct lttng_ust_
 
 /* Remove element from list. */
 static inline
-void __cds_list_del(struct lttng_ust_list_head *prev, struct lttng_ust_list_head *next)
+void __lttng_ust_list_del(struct lttng_ust_list_head *prev, struct lttng_ust_list_head *next)
 {
 	next->prev = prev;
 	prev->next = next;
@@ -78,7 +78,7 @@ void __cds_list_del(struct lttng_ust_list_head *prev, struct lttng_ust_list_head
 static inline
 void cds_list_del(struct lttng_ust_list_head *elem)
 {
-	__cds_list_del(elem->prev, elem->next);
+	__lttng_ust_list_del(elem->prev, elem->next);
 }
 
 /* Remove element from list, initializing the element's list pointers. */
@@ -93,7 +93,7 @@ void cds_list_del_init(struct lttng_ust_list_head *elem)
 static inline
 void cds_list_move(struct lttng_ust_list_head *elem, struct lttng_ust_list_head *head)
 {
-	__cds_list_del(elem->prev, elem->next);
+	__lttng_ust_list_del(elem->prev, elem->next);
 	lttng_ust_list_add(elem, head);
 }
 
