@@ -181,7 +181,7 @@ void lttng_ust_list_splice(struct lttng_ust_list_head *add, struct lttng_ust_lis
                 pos = p, p = lttng_ust_list_entry(pos->member.next, __typeof__(*pos), member))
 
 static inline
-int cds_list_empty(struct lttng_ust_list_head *head)
+int lttng_ust_list_empty(struct lttng_ust_list_head *head)
 {
 	return head == head->next;
 }

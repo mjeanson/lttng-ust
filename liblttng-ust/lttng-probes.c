@@ -143,7 +143,7 @@ void fixup_lazy_probes(void)
  */
 struct lttng_ust_list_head *lttng_get_probe_list_head(void)
 {
-	if (!lazy_nesting && !cds_list_empty(&lazy_probe_init))
+	if (!lazy_nesting && !lttng_ust_list_empty(&lazy_probe_init))
 		fixup_lazy_probes();
 	return &_probe_list;
 }
@@ -282,7 +282,7 @@ int lttng_probes_get_event_list(struct lttng_ust_tracepoint_list *list)
 			}
 		}
 	}
-	if (cds_list_empty(&list->head))
+	if (lttng_ust_list_empty(&list->head))
 		list->iter = NULL;
 	else
 		list->iter =
@@ -434,7 +434,7 @@ int lttng_probes_get_field_list(struct lttng_ust_field_list *list)
 			}
 		}
 	}
-	if (cds_list_empty(&list->head))
+	if (lttng_ust_list_empty(&list->head))
 		list->iter = NULL;
 	else
 		list->iter =

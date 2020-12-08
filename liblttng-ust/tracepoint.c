@@ -825,7 +825,7 @@ void __tracepoint_probe_prune_release_queue(void)
 	pthread_mutex_lock(&tracepoint_mutex);
 	if (!release_queue_need_update)
 		goto end;
-	if (!cds_list_empty(&release_queue))
+	if (!lttng_ust_list_empty(&release_queue))
 		lttng_ust_list_replace_init(&release_queue, &release_probes);
 	release_queue_need_update = 0;
 
@@ -915,7 +915,7 @@ void tracepoint_probe_update_all(void)
 	if (!need_update) {
 		goto end;
 	}
-	if (!cds_list_empty(&old_probes))
+	if (!lttng_ust_list_empty(&old_probes))
 		lttng_ust_list_replace_init(&old_probes, &release_probes);
 	need_update = 0;
 

@@ -1691,7 +1691,7 @@ void lttng_session_sync_event_enablers(struct lttng_session *session)
 		lttng_ust_list_for_each_entry(enabler_ref,
 				&event->enablers_ref_head, node) {
 			if (enabler_ref->ref->enabled
-					&& cds_list_empty(&enabler_ref->ref->filter_bytecode_head)) {
+					&& lttng_ust_list_empty(&enabler_ref->ref->filter_bytecode_head)) {
 				has_enablers_without_bytecode = 1;
 				break;
 			}
@@ -1884,7 +1884,7 @@ void lttng_event_notifier_group_sync_enablers(struct lttng_event_notifier_group 
 		lttng_ust_list_for_each_entry(enabler_ref,
 				&event_notifier->enablers_ref_head, node) {
 			if (enabler_ref->ref->enabled
-					&& cds_list_empty(&enabler_ref->ref->filter_bytecode_head)) {
+					&& lttng_ust_list_empty(&enabler_ref->ref->filter_bytecode_head)) {
 				has_enablers_without_bytecode = 1;
 				break;
 			}

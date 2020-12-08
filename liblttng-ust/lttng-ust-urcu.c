@@ -245,7 +245,7 @@ static void wait_for_readers(struct lttng_ust_list_head *input_readers,
 			}
 		}
 
-		if (cds_list_empty(input_readers)) {
+		if (lttng_ust_list_empty(input_readers)) {
 			break;
 		} else {
 			/* Temporarily unlock the registry lock. */
@@ -276,7 +276,7 @@ void lttng_ust_urcu_synchronize_rcu(void)
 
 	mutex_lock(&rcu_registry_lock);
 
-	if (cds_list_empty(&registry))
+	if (lttng_ust_list_empty(&registry))
 		goto out;
 
 	/* All threads should read qparity before accessing data structure
@@ -373,7 +373,7 @@ void expand_arena(struct registry_arena *arena)
 	size_t old_chunk_len, new_chunk_len;
 
 	/* No chunk. */
-	if (cds_list_empty(&arena->chunk_list)) {
+	if (lttng_ust_list_empty(&arena->chunk_list)) {
 		assert(ARENA_INIT_ALLOC >=
 			sizeof(struct registry_chunk)
 			+ sizeof(struct lttng_ust_urcu_reader));

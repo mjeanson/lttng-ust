@@ -879,7 +879,7 @@ void __event_probe__##_provider##___##_name(_TP_ARGS_DATA_PROTO(_args))	      \
 		return;							      \
 	if (lttng_ust_unlikely(!TP_RCU_LINK_TEST()))				      \
 		return;							      \
-	if (lttng_ust_unlikely(!cds_list_empty(&__event->filter_bytecode_runtime_head))) { \
+	if (lttng_ust_unlikely(!lttng_ust_list_empty(&__event->filter_bytecode_runtime_head))) { \
 		struct lttng_bytecode_runtime *__filter_bc_runtime;		      \
 		int __filter_record = __event->has_enablers_without_bytecode; \
 									      \
@@ -962,7 +962,7 @@ void __event_notifier_probe__##_provider##___##_name(_TP_ARGS_DATA_PROTO(_args))
 		return;							      \
 	if (lttng_ust_unlikely(!TP_RCU_LINK_TEST()))				      \
 		return;							      \
-	if (lttng_ust_unlikely(!cds_list_empty(&__event_notifier->filter_bytecode_runtime_head))) { \
+	if (lttng_ust_unlikely(!lttng_ust_list_empty(&__event_notifier->filter_bytecode_runtime_head))) { \
 		struct lttng_bytecode_runtime *__filter_bc_runtime;		       \
 		int __filter_record = __event_notifier->has_enablers_without_bytecode; \
 									      \
@@ -976,7 +976,7 @@ void __event_notifier_probe__##_provider##___##_name(_TP_ARGS_DATA_PROTO(_args))
 		if (lttng_ust_likely(!__filter_record))			      \
 			return;						      \
 	}								      \
-	if (lttng_ust_unlikely(!cds_list_empty(&__event_notifier->capture_bytecode_runtime_head))) \
+	if (lttng_ust_unlikely(!lttng_ust_list_empty(&__event_notifier->capture_bytecode_runtime_head))) \
 		__event_prepare_interpreter_stack__##_provider##___##_name(__stackvar.__interpreter_stack_data, \
 			_TP_ARGS_DATA_VAR(_args));			      \
 									      \
