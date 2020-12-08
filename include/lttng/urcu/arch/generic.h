@@ -34,7 +34,6 @@ extern "C" {
 #endif
 
 #if !defined(cmm_mc) && !defined(cmm_rmc) && !defined(cmm_wmc)
-#define CONFIG_HAVE_MEM_COHERENCY
 /*
  * Architectures with cache coherency must _not_ define cmm_mc/cmm_rmc/cmm_wmc.
  *
