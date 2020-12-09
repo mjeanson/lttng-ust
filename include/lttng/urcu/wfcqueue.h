@@ -148,7 +148,7 @@ struct lttng_ust_wfcq_tail {
 #define lttng_ust_wfcq_dequeue_with_state_blocking	\
 					_lttng_ust_wfcq_dequeue_with_state_blocking
 #define lttng_ust_wfcq_splice_blocking	_lttng_ust_wfcq_splice_blocking
-#define cds_wfcq_first_blocking		_cds_wfcq_first_blocking
+#define lttng_ust_wfcq_first_blocking		_lttng_ust_wfcq_first_blocking
 #define cds_wfcq_next_blocking		_cds_wfcq_next_blocking
 
 /* Locking ensured by caller by holding lttng_ust_wfcq_dequeue_lock() */
@@ -156,7 +156,7 @@ struct lttng_ust_wfcq_tail {
 #define __lttng_ust_wfcq_dequeue_with_state_blocking	\
 					___lttng_ust_wfcq_dequeue_with_state_blocking
 #define __lttng_ust_wfcq_splice_blocking	___lttng_ust_wfcq_splice_blocking
-#define __cds_wfcq_first_blocking	___cds_wfcq_first_blocking
+#define __lttng_ust_wfcq_first_blocking	___lttng_ust_wfcq_first_blocking
 #define __cds_wfcq_next_blocking	___cds_wfcq_next_blocking
 
 /*
@@ -384,7 +384,7 @@ extern enum lttng_ust_wfcq_ret __cds_wfcq_splice_nonblocking(
 		struct lttng_ust_wfcq_tail *src_q_tail);
 
 /*
- * __cds_wfcq_first_blocking: get first node of a queue, without dequeuing.
+ * __lttng_ust_wfcq_first_blocking: get first node of a queue, without dequeuing.
  *
  * Content written into the node before enqueue is guaranteed to be
  * consistent, but no other memory ordering is ensured.
@@ -397,14 +397,14 @@ extern enum lttng_ust_wfcq_ret __cds_wfcq_splice_nonblocking(
  *
  * Returns NULL if queue is empty, first node otherwise.
  */
-extern struct lttng_ust_wfcq_node *__cds_wfcq_first_blocking(
+extern struct lttng_ust_wfcq_node *__lttng_ust_wfcq_first_blocking(
 		lttng_ust_wfcq_head_ptr_t head,
 		struct lttng_ust_wfcq_tail *tail);
 
 /*
  * __cds_wfcq_first_nonblocking: get first node of a queue, without dequeuing.
  *
- * Same as __cds_wfcq_first_blocking, but returns LTTNG_UST_WFCQ_WOULDBLOCK if
+ * Same as __lttng_ust_wfcq_first_blocking, but returns LTTNG_UST_WFCQ_WOULDBLOCK if
  * it needs to block.
  */
 extern struct lttng_ust_wfcq_node *__cds_wfcq_first_nonblocking(
@@ -457,7 +457,7 @@ extern struct lttng_ust_wfcq_node *__cds_wfcq_next_nonblocking(
  * caller.
  */
 #define __cds_wfcq_for_each_blocking(head, tail, node)		\
-	for (node = __cds_wfcq_first_blocking(head, tail);	\
+	for (node = __lttng_ust_wfcq_first_blocking(head, tail);	\
 		node != NULL;					\
 		node = __cds_wfcq_next_blocking(head, tail, node))
 
@@ -476,7 +476,7 @@ extern struct lttng_ust_wfcq_node *__cds_wfcq_next_nonblocking(
  * caller.
  */
 #define __cds_wfcq_for_each_blocking_safe(head, tail, node, n)		       \
-	for (node = __cds_wfcq_first_blocking(head, tail),		       \
+	for (node = __lttng_ust_wfcq_first_blocking(head, tail),		       \
 			n = (node ? __cds_wfcq_next_blocking(head, tail, node) : NULL); \
 		node != NULL;						       \
 		node = n, n = (node ? __cds_wfcq_next_blocking(head, tail, node) : NULL))

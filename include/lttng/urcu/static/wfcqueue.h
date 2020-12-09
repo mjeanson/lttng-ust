@@ -296,7 +296,7 @@ ___cds_wfcq_first(lttng_ust_wfcq_head_ptr_t u_head,
 }
 
 /*
- * __cds_wfcq_first_blocking: get first node of a queue, without dequeuing.
+ * __lttng_ust_wfcq_first_blocking: get first node of a queue, without dequeuing.
  *
  * Content written into the node before enqueue is guaranteed to be
  * consistent, but no other memory ordering is ensured.
@@ -310,7 +310,7 @@ ___cds_wfcq_first(lttng_ust_wfcq_head_ptr_t u_head,
  * Returns NULL if queue is empty, first node otherwise.
  */
 static inline struct lttng_ust_wfcq_node *
-___cds_wfcq_first_blocking(lttng_ust_wfcq_head_ptr_t head,
+___lttng_ust_wfcq_first_blocking(lttng_ust_wfcq_head_ptr_t head,
 		struct lttng_ust_wfcq_tail *tail)
 {
 	return ___cds_wfcq_first(head, tail, 1);
@@ -320,7 +320,7 @@ ___cds_wfcq_first_blocking(lttng_ust_wfcq_head_ptr_t head,
 /*
  * __cds_wfcq_first_nonblocking: get first node of a queue, without dequeuing.
  *
- * Same as __cds_wfcq_first_blocking, but returns LTTNG_UST_WFCQ_WOULDBLOCK if
+ * Same as __lttng_ust_wfcq_first_blocking, but returns LTTNG_UST_WFCQ_WOULDBLOCK if
  * it needs to block.
  */
 static inline struct lttng_ust_wfcq_node *
