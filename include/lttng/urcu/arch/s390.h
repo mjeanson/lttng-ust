@@ -37,7 +37,7 @@
 extern "C" {
 #endif
 
-#define CAA_CACHE_LINE_SIZE	128
+#define LTTNG_UST_CACHE_LINE_SIZE	128
 
 #define cmm_mb()    __asm__ __volatile__("bcr 15,0" : : : "memory")
 

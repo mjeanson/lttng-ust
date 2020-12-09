@@ -29,8 +29,8 @@
 extern "C" {
 #endif
 
-#ifndef CAA_CACHE_LINE_SIZE
-#define CAA_CACHE_LINE_SIZE	64
+#ifndef LTTNG_UST_CACHE_LINE_SIZE
+#define LTTNG_UST_CACHE_LINE_SIZE	64
 #endif
 
 #if !defined(cmm_mc) && !defined(cmm_rmc) && !defined(cmm_wmc)

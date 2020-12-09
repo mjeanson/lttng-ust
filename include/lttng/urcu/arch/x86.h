@@ -31,7 +31,7 @@
 extern "C" {
 #endif
 
-#define CAA_CACHE_LINE_SIZE	128
+#define LTTNG_UST_CACHE_LINE_SIZE	128
 
 /*
  * For now, using lock; addl compatibility mode even for i686, because the

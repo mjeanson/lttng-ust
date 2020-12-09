@@ -32,7 +32,7 @@ extern "C" {
 #endif
 
 /* Include size of POWER5+ L3 cache lines: 256 bytes */
-#define CAA_CACHE_LINE_SIZE	256
+#define LTTNG_UST_CACHE_LINE_SIZE	256
 
 #ifdef __NO_LWSYNC__
 #define LWSYNC_OPCODE	"sync\n"

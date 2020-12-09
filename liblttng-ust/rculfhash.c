@@ -332,7 +332,7 @@
  */
 struct ht_items_count {
 	unsigned long add, del;
-} __attribute__((aligned(CAA_CACHE_LINE_SIZE)));
+} __attribute__((aligned(LTTNG_UST_CACHE_LINE_SIZE)));
 
 #ifdef CONFIG_LTTNG_UST_LFHT_ITER_DEBUG
 

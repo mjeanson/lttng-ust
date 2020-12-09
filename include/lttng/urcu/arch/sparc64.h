@@ -38,7 +38,7 @@ extern "C" {
 #define __NR_membarrier		351
 #endif
 
-#define CAA_CACHE_LINE_SIZE	256
+#define LTTNG_UST_CACHE_LINE_SIZE	256
 
 /*
  * Inspired from the Linux kernel. Workaround Spitfire bug #51.
