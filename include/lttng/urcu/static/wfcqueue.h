@@ -273,7 +273,7 @@ ___cds_wfcq_node_sync_next(struct cds_wfcq_node *node, int blocking)
 	 */
 	while ((next = LTTNG_UST_LOAD_SHARED(node->next)) == NULL) {
 		if (___cds_wfcq_busy_wait(&attempt, blocking))
-			return CDS_WFCQ_WOULDBLOCK;
+			return LTTNG_UST_WFCQ_WOULDBLOCK;
 	}
 
 	return next;
@@ -320,7 +320,7 @@ ___cds_wfcq_first_blocking(cds_wfcq_head_ptr_t head,
 /*
  * __cds_wfcq_first_nonblocking: get first node of a queue, without dequeuing.
  *
- * Same as __cds_wfcq_first_blocking, but returns CDS_WFCQ_WOULDBLOCK if
+ * Same as __cds_wfcq_first_blocking, but returns LTTNG_UST_WFCQ_WOULDBLOCK if
  * it needs to block.
  */
 static inline struct cds_wfcq_node *
@@ -382,7 +382,7 @@ ___cds_wfcq_next_blocking(cds_wfcq_head_ptr_t head,
 /*
  * __cds_wfcq_next_blocking: get next node of a queue, without dequeuing.
  *
- * Same as __cds_wfcq_next_blocking, but returns CDS_WFCQ_WOULDBLOCK if
+ * Same as __cds_wfcq_next_blocking, but returns LTTNG_UST_WFCQ_WOULDBLOCK if
  * it needs to block.
  */
 static inline struct cds_wfcq_node *
@@ -410,8 +410,8 @@ ___cds_wfcq_dequeue_with_state(cds_wfcq_head_ptr_t u_head,
 	}
 
 	node = ___cds_wfcq_node_sync_next(&head->node, blocking);
-	if (!blocking && node == CDS_WFCQ_WOULDBLOCK) {
-		return CDS_WFCQ_WOULDBLOCK;
+	if (!blocking && node == LTTNG_UST_WFCQ_WOULDBLOCK) {
+		return LTTNG_UST_WFCQ_WOULDBLOCK;
 	}
 
 	if ((next = LTTNG_UST_LOAD_SHARED(node->next)) == NULL) {
@@ -441,9 +441,9 @@ ___cds_wfcq_dequeue_with_state(cds_wfcq_head_ptr_t u_head,
 		 * get node's next, set the head next node pointer
 		 * (currently NULL) back to its original value.
 		 */
-		if (!blocking && next == CDS_WFCQ_WOULDBLOCK) {
+		if (!blocking && next == LTTNG_UST_WFCQ_WOULDBLOCK) {
 			head->node.next = node;
-			return CDS_WFCQ_WOULDBLOCK;
+			return LTTNG_UST_WFCQ_WOULDBLOCK;
 		}
 	}
 
@@ -489,7 +489,7 @@ ___cds_wfcq_dequeue_blocking(cds_wfcq_head_ptr_t head,
 /*
  * __cds_wfcq_dequeue_with_state_nonblocking: dequeue node, with state.
  *
- * Same as __cds_wfcq_dequeue_blocking, but returns CDS_WFCQ_WOULDBLOCK
+ * Same as __cds_wfcq_dequeue_blocking, but returns LTTNG_UST_WFCQ_WOULDBLOCK
  * if it needs to block.
  */
 static inline struct cds_wfcq_node *

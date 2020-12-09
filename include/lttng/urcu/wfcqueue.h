@@ -43,7 +43,7 @@ extern "C" {
  * McKenney.
  */
 
-#define CDS_WFCQ_WOULDBLOCK	((struct cds_wfcq_node *) -1UL)
+#define LTTNG_UST_WFCQ_WOULDBLOCK	((struct cds_wfcq_node *) -1UL)
 
 enum cds_wfcq_ret {
 	CDS_WFCQ_RET_WOULDBLOCK =	-1,
@@ -161,7 +161,7 @@ struct cds_wfcq_tail {
 
 /*
  * Locking ensured by caller by holding cds_wfcq_dequeue_lock().
- * Non-blocking: deque, first, next return CDS_WFCQ_WOULDBLOCK if they
+ * Non-blocking: deque, first, next return LTTNG_UST_WFCQ_WOULDBLOCK if they
  * need to block. splice returns nonzero if it needs to block.
  */
 #define __cds_wfcq_dequeue_nonblocking	___cds_wfcq_dequeue_nonblocking
@@ -337,7 +337,7 @@ extern struct cds_wfcq_node *__cds_wfcq_dequeue_with_state_blocking(
 /*
  * __cds_wfcq_dequeue_nonblocking: dequeue a node from a wait-free queue.
  *
- * Same as __cds_wfcq_dequeue_blocking, but returns CDS_WFCQ_WOULDBLOCK
+ * Same as __cds_wfcq_dequeue_blocking, but returns LTTNG_UST_WFCQ_WOULDBLOCK
  * if it needs to block.
  */
 extern struct cds_wfcq_node *__cds_wfcq_dequeue_nonblocking(
@@ -404,7 +404,7 @@ extern struct cds_wfcq_node *__cds_wfcq_first_blocking(
 /*
  * __cds_wfcq_first_nonblocking: get first node of a queue, without dequeuing.
  *
- * Same as __cds_wfcq_first_blocking, but returns CDS_WFCQ_WOULDBLOCK if
+ * Same as __cds_wfcq_first_blocking, but returns LTTNG_UST_WFCQ_WOULDBLOCK if
  * it needs to block.
  */
 extern struct cds_wfcq_node *__cds_wfcq_first_nonblocking(
@@ -434,7 +434,7 @@ extern struct cds_wfcq_node *__cds_wfcq_next_blocking(
 /*
  * __cds_wfcq_next_blocking: get next node of a queue, without dequeuing.
  *
- * Same as __cds_wfcq_next_blocking, but returns CDS_WFCQ_WOULDBLOCK if
+ * Same as __cds_wfcq_next_blocking, but returns LTTNG_UST_WFCQ_WOULDBLOCK if
  * it needs to block.
  */
 extern struct cds_wfcq_node *__cds_wfcq_next_nonblocking(
