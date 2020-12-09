@@ -394,7 +394,7 @@ ___lttng_ust_wfcq_next_nonblocking(lttng_ust_wfcq_head_ptr_t head,
 }
 
 static inline struct lttng_ust_wfcq_node *
-___cds_wfcq_dequeue_with_state(lttng_ust_wfcq_head_ptr_t u_head,
+___lttng_ust_wfcq_dequeue_with_state(lttng_ust_wfcq_head_ptr_t u_head,
 		struct lttng_ust_wfcq_tail *tail,
 		int *state,
 		int blocking)
@@ -470,7 +470,7 @@ static inline struct lttng_ust_wfcq_node *
 ___lttng_ust_wfcq_dequeue_with_state_blocking(lttng_ust_wfcq_head_ptr_t head,
 		struct lttng_ust_wfcq_tail *tail, int *state)
 {
-	return ___cds_wfcq_dequeue_with_state(head, tail, state, 1);
+	return ___lttng_ust_wfcq_dequeue_with_state(head, tail, state, 1);
 }
 
 /*
@@ -496,7 +496,7 @@ static inline struct lttng_ust_wfcq_node *
 ___lttng_ust_wfcq_dequeue_with_state_nonblocking(lttng_ust_wfcq_head_ptr_t head,
 		struct lttng_ust_wfcq_tail *tail, int *state)
 {
-	return ___cds_wfcq_dequeue_with_state(head, tail, state, 0);
+	return ___lttng_ust_wfcq_dequeue_with_state(head, tail, state, 0);
 }
 
 /*
