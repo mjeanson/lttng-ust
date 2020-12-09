@@ -122,7 +122,7 @@ static inline void _cds_wfcq_destroy(struct cds_wfcq_head *head,
  * __cds_wfcq_init: initialize wait-free queue (without lock). Don't
  * pair with any destroy function.
  */
-static inline void ___cds_wfcq_init(struct __cds_wfcq_head *head,
+static inline void ___cds_wfcq_init(struct __lttng_ust_wfcq_head *head,
 		struct cds_wfcq_tail *tail)
 {
 	/* Set queue head and tail */
@@ -145,7 +145,7 @@ static inline void ___cds_wfcq_init(struct __cds_wfcq_head *head,
 static inline bool _cds_wfcq_empty(cds_wfcq_head_ptr_t u_head,
 		struct cds_wfcq_tail *tail)
 {
-	struct __cds_wfcq_head *head = u_head._h;
+	struct __lttng_ust_wfcq_head *head = u_head._h;
 	/*
 	 * Queue is empty if no node is pointed by head->node.next nor
 	 * tail->p. Even though the tail->p check is sufficient to find
@@ -180,7 +180,7 @@ static inline bool ___cds_wfcq_append(cds_wfcq_head_ptr_t u_head,
 		struct lttng_ust_wfcq_node *new_head,
 		struct lttng_ust_wfcq_node *new_tail)
 {
-	struct __cds_wfcq_head *head = u_head._h;
+	struct __lttng_ust_wfcq_head *head = u_head._h;
 	struct lttng_ust_wfcq_node *old_tail;
 
 	/*
@@ -284,10 +284,10 @@ ___cds_wfcq_first(cds_wfcq_head_ptr_t u_head,
 		struct cds_wfcq_tail *tail,
 		int blocking)
 {
-	struct __cds_wfcq_head *head = u_head._h;
+	struct __lttng_ust_wfcq_head *head = u_head._h;
 	struct lttng_ust_wfcq_node *node;
 
-	if (_cds_wfcq_empty(__cds_wfcq_head_cast(head), tail))
+	if (_cds_wfcq_empty(__lttng_ust_wfcq_head_cast(head), tail))
 		return NULL;
 	node = ___lttng_ust_wfcq_node_sync_next(&head->node, blocking);
 	/* Load head->node.next before loading node's content */
@@ -399,13 +399,13 @@ ___cds_wfcq_dequeue_with_state(cds_wfcq_head_ptr_t u_head,
 		int *state,
 		int blocking)
 {
-	struct __cds_wfcq_head *head = u_head._h;
+	struct __lttng_ust_wfcq_head *head = u_head._h;
 	struct lttng_ust_wfcq_node *node, *next;
 
 	if (state)
 		*state = 0;
 
-	if (_cds_wfcq_empty(__cds_wfcq_head_cast(head), tail)) {
+	if (_cds_wfcq_empty(__lttng_ust_wfcq_head_cast(head), tail)) {
 		return NULL;
 	}
 
@@ -530,8 +530,8 @@ ___cds_wfcq_splice(
 		struct cds_wfcq_tail *src_q_tail,
 		int blocking)
 {
-	struct __cds_wfcq_head *dest_q_head = u_dest_q_head._h;
-	struct __cds_wfcq_head *src_q_head = u_src_q_head._h;
+	struct __lttng_ust_wfcq_head *dest_q_head = u_dest_q_head._h;
+	struct __lttng_ust_wfcq_head *src_q_head = u_src_q_head._h;
 	struct lttng_ust_wfcq_node *head, *tail;
 	int attempt = 0;
 
@@ -539,7 +539,7 @@ ___cds_wfcq_splice(
 	 * Initial emptiness check to speed up cases where queue is
 	 * empty: only require loads to check if queue is empty.
 	 */
-	if (_cds_wfcq_empty(__cds_wfcq_head_cast(src_q_head), src_q_tail))
+	if (_cds_wfcq_empty(__lttng_ust_wfcq_head_cast(src_q_head), src_q_tail))
 		return LTTNG_UST_WFCQ_RET_SRC_EMPTY;
 
 	for (;;) {
@@ -569,7 +569,7 @@ ___cds_wfcq_splice(
 	 * Append the spliced content of src_q into dest_q. Does not
 	 * require mutual exclusion on dest_q (wait-free).
 	 */
-	if (___cds_wfcq_append(__cds_wfcq_head_cast(dest_q_head), dest_q_tail,
+	if (___cds_wfcq_append(__lttng_ust_wfcq_head_cast(dest_q_head), dest_q_tail,
 			head, tail))
 		return LTTNG_UST_WFCQ_RET_DEST_NON_EMPTY;
 	else

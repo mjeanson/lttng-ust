@@ -65,7 +65,7 @@ struct lttng_ust_wfcq_node {
  * enqueue/dequeue are expected from many CPUs. This eliminates
  * false-sharing between enqueue and dequeue.
  */
-struct __cds_wfcq_head {
+struct __lttng_ust_wfcq_head {
 	struct lttng_ust_wfcq_node node;
 };
 
@@ -77,11 +77,11 @@ struct cds_wfcq_head {
 #ifndef __cplusplus
 /*
  * The transparent union allows calling functions that work on both
- * struct cds_wfcq_head and struct __cds_wfcq_head on any of those two
+ * struct cds_wfcq_head and struct __lttng_ust_wfcq_head on any of those two
  * types.
  */
 typedef union {
-	struct __cds_wfcq_head *_h;
+	struct __lttng_ust_wfcq_head *_h;
 	struct cds_wfcq_head *h;
 } __attribute__((__transparent_union__)) cds_wfcq_head_ptr_t;
 
@@ -89,7 +89,7 @@ typedef union {
  * This static inline is only present for compatibility with C++. It is
  * effect-less in C.
  */
-static inline struct __cds_wfcq_head *__cds_wfcq_head_cast(struct __cds_wfcq_head *head)
+static inline struct __lttng_ust_wfcq_head *__lttng_ust_wfcq_head_cast(struct __lttng_ust_wfcq_head *head)
 {
 	return head;
 }
@@ -106,12 +106,12 @@ static inline struct cds_wfcq_head *cds_wfcq_head_cast(struct cds_wfcq_head *hea
 
 /* C++ ignores transparent union. */
 typedef union {
-	struct __cds_wfcq_head *_h;
+	struct __lttng_ust_wfcq_head *_h;
 	struct cds_wfcq_head *h;
 } cds_wfcq_head_ptr_t;
 
 /* C++ ignores transparent union. Requires an explicit conversion. */
-static inline cds_wfcq_head_ptr_t __cds_wfcq_head_cast(struct __cds_wfcq_head *head)
+static inline cds_wfcq_head_ptr_t __lttng_ust_wfcq_head_cast(struct __lttng_ust_wfcq_head *head)
 {
 	cds_wfcq_head_ptr_t ret = { ._h = head };
 	return ret;
@@ -231,7 +231,7 @@ extern void cds_wfcq_destroy(struct cds_wfcq_head *head,
  * __cds_wfcq_init: initialize wait-free queue (without lock). Don't
  * pair with any destroy function.
  */
-extern void __cds_wfcq_init(struct __cds_wfcq_head *head,
+extern void __cds_wfcq_init(struct __lttng_ust_wfcq_head *head,
 		struct cds_wfcq_tail *tail);
 
 /*
@@ -447,7 +447,7 @@ extern struct lttng_ust_wfcq_node *__cds_wfcq_next_nonblocking(
 /*
  * __cds_wfcq_for_each_blocking: Iterate over all nodes in a queue,
  * without dequeuing them.
- * @head: head of the queue (struct cds_wfcq_head or __cds_wfcq_head pointer).
+ * @head: head of the queue (struct cds_wfcq_head or __lttng_ust_wfcq_head pointer).
  * @tail: tail of the queue (struct cds_wfcq_tail pointer).
  * @node: iterator on the queue (struct lttng_ust_wfcq_node pointer).
  *
@@ -464,7 +464,7 @@ extern struct lttng_ust_wfcq_node *__cds_wfcq_next_nonblocking(
 /*
  * __cds_wfcq_for_each_blocking_safe: Iterate over all nodes in a queue,
  * without dequeuing them. Safe against deletion.
- * @head: head of the queue (struct cds_wfcq_head or __cds_wfcq_head pointer).
+ * @head: head of the queue (struct cds_wfcq_head or __lttng_ust_wfcq_head pointer).
  * @tail: tail of the queue (struct cds_wfcq_tail pointer).
  * @node: iterator on the queue (struct lttng_ust_wfcq_node pointer).
  * @n: struct lttng_ust_wfcq_node pointer holding the next pointer (used
