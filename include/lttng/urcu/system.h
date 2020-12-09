@@ -26,7 +26,7 @@
  * Identify a shared load. A lttng_ust_smp_rmc() or lttng_ust_smp_mc() should come
  * before the load.
  */
-#define _CMM_LOAD_SHARED(p)	       LTTNG_UST_ACCESS_ONCE(p)
+#define _LTTNG_UST_LOAD_SHARED(p)	       LTTNG_UST_ACCESS_ONCE(p)
 
 /*
  * Load a data from shared memory, doing a cache flush if required.
@@ -35,7 +35,7 @@
 	__extension__			\
 	({				\
 		lttng_ust_smp_rmc();		\
-		_CMM_LOAD_SHARED(p);	\
+		_LTTNG_UST_LOAD_SHARED(p);	\
 	})
 
 /*
