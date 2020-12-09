@@ -65,7 +65,7 @@ uint64_t trace_clock_read64(void)
 	if (lttng_ust_likely(!ltc)) {
 		return trace_clock_read64_monotonic();
 	} else {
-		cmm_read_barrier_depends();	/* load ltc before content */
+		lttng_ust_read_barrier_depends();	/* load ltc before content */
 		return ltc->read64();
 	}
 }
