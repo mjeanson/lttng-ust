@@ -53,7 +53,7 @@ enum lttng_ust_wfcq_ret {
 };
 
 enum lttng_ust_wfcq_state {
-	CDS_WFCQ_STATE_LAST =		(1U << 0),
+	LTTNG_UST_WFCQ_STATE_LAST =		(1U << 0),
 };
 
 struct cds_wfcq_node {
@@ -284,7 +284,7 @@ extern struct cds_wfcq_node *cds_wfcq_dequeue_blocking(
  * cds_wfcq_dequeue_with_state_blocking: dequeue with state.
  *
  * Same as cds_wfcq_dequeue_blocking, but saves whether dequeueing the
- * last node of the queue into state (CDS_WFCQ_STATE_LAST).
+ * last node of the queue into state (LTTNG_UST_WFCQ_STATE_LAST).
  */
 extern struct cds_wfcq_node *cds_wfcq_dequeue_with_state_blocking(
 		struct cds_wfcq_head *head,
@@ -327,7 +327,7 @@ extern struct cds_wfcq_node *__cds_wfcq_dequeue_blocking(
  * __cds_wfcq_dequeue_with_state_blocking: dequeue with state.
  *
  * Same as __cds_wfcq_dequeue_blocking, but saves whether dequeueing the
- * last node of the queue into state (CDS_WFCQ_STATE_LAST).
+ * last node of the queue into state (LTTNG_UST_WFCQ_STATE_LAST).
  */
 extern struct cds_wfcq_node *__cds_wfcq_dequeue_with_state_blocking(
 		cds_wfcq_head_ptr_t head,
@@ -348,7 +348,7 @@ extern struct cds_wfcq_node *__cds_wfcq_dequeue_nonblocking(
  * __cds_wfcq_dequeue_with_state_blocking: dequeue with state.
  *
  * Same as __cds_wfcq_dequeue_nonblocking, but saves whether dequeueing
- * the last node of the queue into state (CDS_WFCQ_STATE_LAST).
+ * the last node of the queue into state (LTTNG_UST_WFCQ_STATE_LAST).
  */
 extern struct cds_wfcq_node *__cds_wfcq_dequeue_with_state_nonblocking(
 		cds_wfcq_head_ptr_t head,

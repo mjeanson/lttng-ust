@@ -432,7 +432,7 @@ ___cds_wfcq_dequeue_with_state(cds_wfcq_head_ptr_t u_head,
 		_cds_wfcq_node_init(&head->node);
 		if (uatomic_cmpxchg(&tail->p, node, &head->node) == node) {
 			if (state)
-				*state |= CDS_WFCQ_STATE_LAST;
+				*state |= LTTNG_UST_WFCQ_STATE_LAST;
 			return node;
 		}
 		next = ___cds_wfcq_node_sync_next(node, blocking);
