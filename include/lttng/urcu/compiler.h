@@ -75,7 +75,7 @@
  */
 #define lttng_ust_cast_long_keep_sign(v)	((unsigned long) (v))
 
-#define CAA_ARRAY_SIZE(x)	(sizeof(x) / sizeof((x)[0]))
+#define LTTNG_UST_ARRAY_SIZE(x)	(sizeof(x) / sizeof((x)[0]))
 
 #ifdef __GNUC__
 # define LTTNG_UST_GCC_VERSION	(__GNUC__ * 10000 \
