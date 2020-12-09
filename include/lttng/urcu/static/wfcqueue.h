@@ -523,7 +523,7 @@ ___lttng_ust_wfcq_dequeue_nonblocking(lttng_ust_wfcq_head_ptr_t head,
  * dest queue.
  */
 static inline enum lttng_ust_wfcq_ret
-___cds_wfcq_splice(
+___lttng_ust_wfcq_splice(
 		lttng_ust_wfcq_head_ptr_t u_dest_q_head,
 		struct lttng_ust_wfcq_tail *dest_q_tail,
 		lttng_ust_wfcq_head_ptr_t u_src_q_head,
@@ -593,7 +593,7 @@ ___lttng_ust_wfcq_splice_blocking(
 		lttng_ust_wfcq_head_ptr_t src_q_head,
 		struct lttng_ust_wfcq_tail *src_q_tail)
 {
-	return ___cds_wfcq_splice(dest_q_head, dest_q_tail,
+	return ___lttng_ust_wfcq_splice(dest_q_head, dest_q_tail,
 		src_q_head, src_q_tail, 1);
 }
 
@@ -610,7 +610,7 @@ ___lttng_ust_wfcq_splice_nonblocking(
 		lttng_ust_wfcq_head_ptr_t src_q_head,
 		struct lttng_ust_wfcq_tail *src_q_tail)
 {
-	return ___cds_wfcq_splice(dest_q_head, dest_q_tail,
+	return ___lttng_ust_wfcq_splice(dest_q_head, dest_q_tail,
 		src_q_head, src_q_tail, 0);
 }
 
