@@ -33,11 +33,11 @@ extern "C" {
 #define LTTNG_UST_CACHE_LINE_SIZE	64
 #endif
 
-#if !defined(lttng_ust_mc) && !defined(lttng_ust_rmc) && !defined(cmm_wmc)
+#if !defined(lttng_ust_mc) && !defined(lttng_ust_rmc) && !defined(lttng_ust_wmc)
 /*
- * Architectures with cache coherency must _not_ define lttng_ust_mc/lttng_ust_rmc/cmm_wmc.
+ * Architectures with cache coherency must _not_ define lttng_ust_mc/lttng_ust_rmc/lttng_ust_wmc.
  *
- * For them, lttng_ust_mc/lttng_ust_rmc/cmm_wmc are implemented with a simple
+ * For them, lttng_ust_mc/lttng_ust_rmc/lttng_ust_wmc are implemented with a simple
  * compiler barrier; in addition, we provide defaults for lttng_ust_mb (using
  * GCC builtins) as well as lttng_ust_rmb and lttng_ust_wmb (defaulting to lttng_ust_mb).
  */
@@ -56,21 +56,21 @@ extern "C" {
 
 #define lttng_ust_mc()	lttng_ust_barrier()
 #define lttng_ust_rmc()	lttng_ust_barrier()
-#define cmm_wmc()	lttng_ust_barrier()
+#define lttng_ust_wmc()	lttng_ust_barrier()
 #else
 /*
  * Architectures without cache coherency need something like the following:
  *
  * #define lttng_ust_mc()	arch_cache_flush()
  * #define lttng_ust_rmc()	arch_cache_flush_read()
- * #define cmm_wmc()	arch_cache_flush_write()
+ * #define lttng_ust_wmc()	arch_cache_flush_write()
  *
- * Of these, only lttng_ust_mc is mandatory. lttng_ust_rmc and cmm_wmc default to
+ * Of these, only lttng_ust_mc is mandatory. lttng_ust_rmc and lttng_ust_wmc default to
  * lttng_ust_mc. lttng_ust_mb/lttng_ust_rmb/lttng_ust_wmb use these definitions by default:
  *
  * #define lttng_ust_mb()	lttng_ust_mc()
  * #define lttng_ust_rmb()	lttng_ust_rmc()
- * #define lttng_ust_wmb()	cmm_wmc()
+ * #define lttng_ust_wmb()	lttng_ust_wmc()
  */
 
 #ifndef lttng_ust_mb
@@ -82,15 +82,15 @@ extern "C" {
 #endif
 
 #ifndef lttng_ust_wmb
-#define lttng_ust_wmb()	cmm_wmc()
+#define lttng_ust_wmb()	lttng_ust_wmc()
 #endif
 
 #ifndef lttng_ust_rmc
 #define lttng_ust_rmc()	lttng_ust_mc()
 #endif
 
-#ifndef cmm_wmc
-#define cmm_wmc()	lttng_ust_mc()
+#ifndef lttng_ust_wmc
+#define lttng_ust_wmc()	lttng_ust_mc()
 #endif
 #endif
 
@@ -115,7 +115,7 @@ extern "C" {
 #define cmm_smp_rmc()	lttng_ust_rmc()
 #endif
 #ifndef cmm_smp_wmc
-#define cmm_smp_wmc()	cmm_wmc()
+#define cmm_smp_wmc()	lttng_ust_wmc()
 #endif
 #ifndef cmm_smp_read_barrier_depends
 #define cmm_smp_read_barrier_depends()	cmm_read_barrier_depends()
