@@ -33,11 +33,11 @@ extern "C" {
 #define LTTNG_UST_CACHE_LINE_SIZE	64
 #endif
 
-#if !defined(cmm_mc) && !defined(cmm_rmc) && !defined(cmm_wmc)
+#if !defined(lttng_ust_mc) && !defined(cmm_rmc) && !defined(cmm_wmc)
 /*
- * Architectures with cache coherency must _not_ define cmm_mc/cmm_rmc/cmm_wmc.
+ * Architectures with cache coherency must _not_ define lttng_ust_mc/cmm_rmc/cmm_wmc.
  *
- * For them, cmm_mc/cmm_rmc/cmm_wmc are implemented with a simple
+ * For them, lttng_ust_mc/cmm_rmc/cmm_wmc are implemented with a simple
  * compiler barrier; in addition, we provide defaults for lttng_ust_mb (using
  * GCC builtins) as well as lttng_ust_rmb and lttng_ust_wmb (defaulting to lttng_ust_mb).
  */
@@ -54,27 +54,27 @@ extern "C" {
 #define lttng_ust_wmb()	lttng_ust_mb()
 #endif
 
-#define cmm_mc()	lttng_ust_barrier()
+#define lttng_ust_mc()	lttng_ust_barrier()
 #define cmm_rmc()	lttng_ust_barrier()
 #define cmm_wmc()	lttng_ust_barrier()
 #else
 /*
  * Architectures without cache coherency need something like the following:
  *
- * #define cmm_mc()	arch_cache_flush()
+ * #define lttng_ust_mc()	arch_cache_flush()
  * #define cmm_rmc()	arch_cache_flush_read()
  * #define cmm_wmc()	arch_cache_flush_write()
  *
- * Of these, only cmm_mc is mandatory. cmm_rmc and cmm_wmc default to
- * cmm_mc. lttng_ust_mb/lttng_ust_rmb/lttng_ust_wmb use these definitions by default:
+ * Of these, only lttng_ust_mc is mandatory. cmm_rmc and cmm_wmc default to
+ * lttng_ust_mc. lttng_ust_mb/lttng_ust_rmb/lttng_ust_wmb use these definitions by default:
  *
- * #define lttng_ust_mb()	cmm_mc()
+ * #define lttng_ust_mb()	lttng_ust_mc()
  * #define lttng_ust_rmb()	cmm_rmc()
  * #define lttng_ust_wmb()	cmm_wmc()
  */
 
 #ifndef lttng_ust_mb
-#define lttng_ust_mb()	cmm_mc()
+#define lttng_ust_mb()	lttng_ust_mc()
 #endif
 
 #ifndef lttng_ust_rmb
@@ -86,11 +86,11 @@ extern "C" {
 #endif
 
 #ifndef cmm_rmc
-#define cmm_rmc()	cmm_mc()
+#define cmm_rmc()	lttng_ust_mc()
 #endif
 
 #ifndef cmm_wmc
-#define cmm_wmc()	cmm_mc()
+#define cmm_wmc()	lttng_ust_mc()
 #endif
 #endif
 
@@ -109,7 +109,7 @@ extern "C" {
 #define cmm_smp_wmb()	lttng_ust_wmb()
 #endif
 #ifndef cmm_smp_mc
-#define cmm_smp_mc()	cmm_mc()
+#define cmm_smp_mc()	lttng_ust_mc()
 #endif
 #ifndef cmm_smp_rmc
 #define cmm_smp_rmc()	cmm_rmc()
