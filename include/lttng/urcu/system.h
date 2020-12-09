@@ -23,7 +23,7 @@
 #include <lttng/urcu/arch.h>
 
 /*
- * Identify a shared load. A cmm_smp_rmc() or lttng_ust_smp_mc() should come
+ * Identify a shared load. A lttng_ust_smp_rmc() or lttng_ust_smp_mc() should come
  * before the load.
  */
 #define _CMM_LOAD_SHARED(p)	       LTTNG_UST_ACCESS_ONCE(p)
@@ -34,7 +34,7 @@
 #define CMM_LOAD_SHARED(p)			\
 	__extension__			\
 	({				\
-		cmm_smp_rmc();		\
+		lttng_ust_smp_rmc();		\
 		_CMM_LOAD_SHARED(p);	\
 	})
 
