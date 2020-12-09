@@ -519,10 +519,10 @@ ___cds_wfcq_dequeue_nonblocking(cds_wfcq_head_ptr_t head,
  * dest_q must be already initialized.
  * Mutual exclusion for src_q should be ensured by the caller as
  * specified in the "Synchronisation table".
- * Returns enum cds_wfcq_ret which indicates the state of the src or
+ * Returns enum lttng_ust_wfcq_ret which indicates the state of the src or
  * dest queue.
  */
-static inline enum cds_wfcq_ret
+static inline enum lttng_ust_wfcq_ret
 ___cds_wfcq_splice(
 		cds_wfcq_head_ptr_t u_dest_q_head,
 		struct cds_wfcq_tail *dest_q_tail,
@@ -583,10 +583,10 @@ ___cds_wfcq_splice(
  * dest_q must be already initialized.
  * Mutual exclusion for src_q should be ensured by the caller as
  * specified in the "Synchronisation table".
- * Returns enum cds_wfcq_ret which indicates the state of the src or
+ * Returns enum lttng_ust_wfcq_ret which indicates the state of the src or
  * dest queue. Never returns CDS_WFCQ_RET_WOULDBLOCK.
  */
-static inline enum cds_wfcq_ret
+static inline enum lttng_ust_wfcq_ret
 ___cds_wfcq_splice_blocking(
 		cds_wfcq_head_ptr_t dest_q_head,
 		struct cds_wfcq_tail *dest_q_tail,
@@ -603,7 +603,7 @@ ___cds_wfcq_splice_blocking(
  * Same as __cds_wfcq_splice_blocking, but returns
  * CDS_WFCQ_RET_WOULDBLOCK if it needs to block.
  */
-static inline enum cds_wfcq_ret
+static inline enum lttng_ust_wfcq_ret
 ___cds_wfcq_splice_nonblocking(
 		cds_wfcq_head_ptr_t dest_q_head,
 		struct cds_wfcq_tail *dest_q_tail,
@@ -657,17 +657,17 @@ _cds_wfcq_dequeue_blocking(struct cds_wfcq_head *head,
  * consistent, but no other memory ordering is ensured.
  * Mutual exclusion with cds_wfcq_dequeue_blocking and dequeue lock is
  * ensured.
- * Returns enum cds_wfcq_ret which indicates the state of the src or
+ * Returns enum lttng_ust_wfcq_ret which indicates the state of the src or
  * dest queue. Never returns CDS_WFCQ_RET_WOULDBLOCK.
  */
-static inline enum cds_wfcq_ret
+static inline enum lttng_ust_wfcq_ret
 _cds_wfcq_splice_blocking(
 		struct cds_wfcq_head *dest_q_head,
 		struct cds_wfcq_tail *dest_q_tail,
 		struct cds_wfcq_head *src_q_head,
 		struct cds_wfcq_tail *src_q_tail)
 {
-	enum cds_wfcq_ret ret;
+	enum lttng_ust_wfcq_ret ret;
 
 	_cds_wfcq_dequeue_lock(src_q_head, src_q_tail);
 	ret = ___cds_wfcq_splice_blocking(cds_wfcq_head_cast(dest_q_head), dest_q_tail,
