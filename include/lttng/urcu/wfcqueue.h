@@ -52,7 +52,7 @@ enum lttng_ust_wfcq_ret {
 	LTTNG_UST_WFCQ_RET_SRC_EMPTY = 	2,
 };
 
-enum cds_wfcq_state {
+enum lttng_ust_wfcq_state {
 	CDS_WFCQ_STATE_LAST =		(1U << 0),
 };
 
