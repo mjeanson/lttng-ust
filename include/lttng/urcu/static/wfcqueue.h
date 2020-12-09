@@ -573,7 +573,7 @@ ___cds_wfcq_splice(
 			head, tail))
 		return CDS_WFCQ_RET_DEST_NON_EMPTY;
 	else
-		return CDS_WFCQ_RET_DEST_EMPTY;
+		return LTTNG_UST_WFCQ_RET_DEST_EMPTY;
 }
 
 /*
