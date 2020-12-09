@@ -114,8 +114,8 @@ extern "C" {
 #ifndef lttng_ust_smp_rmc
 #define lttng_ust_smp_rmc()	lttng_ust_rmc()
 #endif
-#ifndef cmm_smp_wmc
-#define cmm_smp_wmc()	lttng_ust_wmc()
+#ifndef lttng_ust_smp_wmc
+#define lttng_ust_smp_wmc()	lttng_ust_wmc()
 #endif
 #ifndef cmm_smp_read_barrier_depends
 #define cmm_smp_read_barrier_depends()	lttng_ust_read_barrier_depends()

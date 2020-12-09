@@ -39,7 +39,7 @@
 	})
 
 /*
- * Identify a shared store. A cmm_smp_wmc() or lttng_ust_smp_mc() should
+ * Identify a shared store. A lttng_ust_smp_wmc() or lttng_ust_smp_mc() should
  * follow the store.
  */
 #define _CMM_STORE_SHARED(x, v)	__extension__ ({ LTTNG_UST_ACCESS_ONCE(x) = (v); })
@@ -52,7 +52,7 @@
 	__extension__							\
 	({								\
 		__typeof__(x) _v = _CMM_STORE_SHARED(x, v);		\
-		cmm_smp_wmc();						\
+		lttng_ust_smp_wmc();						\
 		_v = _v;	/* Work around clang "unused result" */	\
 	})
 
