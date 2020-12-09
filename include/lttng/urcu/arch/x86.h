@@ -46,11 +46,11 @@ extern "C" {
 #define lttng_ust_mb()    __asm__ __volatile__ ("mfence":::"memory")
 
 /*
- * Define cmm_rmb/cmm_wmb to "strict" barriers that may be needed when
+ * Define lttng_ust_rmb/cmm_wmb to "strict" barriers that may be needed when
  * using SSE or working with I/O areas.  cmm_smp_rmb/cmm_smp_wmb are
  * only compiler barriers, which is enough for general use.
  */
-#define cmm_rmb()     __asm__ __volatile__ ("lfence":::"memory")
+#define lttng_ust_rmb()     __asm__ __volatile__ ("lfence":::"memory")
 #define cmm_wmb()     __asm__ __volatile__ ("sfence"::: "memory")
 #define cmm_smp_rmb() lttng_ust_barrier()
 #define cmm_smp_wmb() lttng_ust_barrier()
@@ -70,11 +70,11 @@ extern "C" {
  */
 #if (LTTNG_UST_BITS_PER_LONG == 32)
 #define lttng_ust_mb()    __asm__ __volatile__ ("lock; addl $0,0(%%esp)":::"memory")
-#define cmm_rmb()    __asm__ __volatile__ ("lock; addl $0,0(%%esp)":::"memory")
+#define lttng_ust_rmb()    __asm__ __volatile__ ("lock; addl $0,0(%%esp)":::"memory")
 #define cmm_wmb()    __asm__ __volatile__ ("lock; addl $0,0(%%esp)":::"memory")
 #else
 #define lttng_ust_mb()    __asm__ __volatile__ ("lock; addl $0,0(%%rsp)":::"memory")
-#define cmm_rmb()    __asm__ __volatile__ ("lock; addl $0,0(%%rsp)":::"memory")
+#define lttng_ust_rmb()    __asm__ __volatile__ ("lock; addl $0,0(%%rsp)":::"memory")
 #define cmm_wmb()    __asm__ __volatile__ ("lock; addl $0,0(%%rsp)":::"memory")
 #endif
 #endif

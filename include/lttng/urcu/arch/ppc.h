@@ -44,7 +44,7 @@ extern "C" {
  * Use sync for all lttng_ust_mb/rmb/wmb barriers because lwsync does not
  * preserve ordering of cacheable vs. non-cacheable accesses, so it
  * should not be used to order with respect to MMIO operations.  An
- * eieio+lwsync pair is also not enough for cmm_rmb, because it will
+ * eieio+lwsync pair is also not enough for lttng_ust_rmb, because it will
  * order cacheable and non-cacheable memory operations separately---i.e.
  * not the latter against the former.
  */
