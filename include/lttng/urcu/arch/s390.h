@@ -39,7 +39,7 @@ extern "C" {
 
 #define LTTNG_UST_CACHE_LINE_SIZE	128
 
-#define cmm_mb()    __asm__ __volatile__("bcr 15,0" : : : "memory")
+#define lttng_ust_mb()    __asm__ __volatile__("bcr 15,0" : : : "memory")
 
 /*
  * On Linux, define the membarrier system call number if not yet available in

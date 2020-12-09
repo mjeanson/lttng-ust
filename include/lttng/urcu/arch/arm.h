@@ -34,7 +34,7 @@ extern "C" {
 /*
  * Issues full system DMB operation.
  */
-#define cmm_mb()	__asm__ __volatile__ ("dmb sy":::"memory")
+#define lttng_ust_mb()	__asm__ __volatile__ ("dmb sy":::"memory")
 #define cmm_rmb()	__asm__ __volatile__ ("dmb sy":::"memory")
 #define cmm_wmb()	__asm__ __volatile__ ("dmb sy":::"memory")
 

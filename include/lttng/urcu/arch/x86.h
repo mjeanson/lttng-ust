@@ -43,7 +43,7 @@ extern "C" {
  */
 #if (defined(URCU_ARCH_AMD64) && !defined(URCU_ARCH_K1OM))
 
-#define cmm_mb()    __asm__ __volatile__ ("mfence":::"memory")
+#define lttng_ust_mb()    __asm__ __volatile__ ("mfence":::"memory")
 
 /*
  * Define cmm_rmb/cmm_wmb to "strict" barriers that may be needed when
@@ -69,11 +69,11 @@ extern "C" {
  * under our feet; cmm_smp_wmb() ceases to be a nop for these processors.
  */
 #if (LTTNG_UST_BITS_PER_LONG == 32)
-#define cmm_mb()    __asm__ __volatile__ ("lock; addl $0,0(%%esp)":::"memory")
+#define lttng_ust_mb()    __asm__ __volatile__ ("lock; addl $0,0(%%esp)":::"memory")
 #define cmm_rmb()    __asm__ __volatile__ ("lock; addl $0,0(%%esp)":::"memory")
 #define cmm_wmb()    __asm__ __volatile__ ("lock; addl $0,0(%%esp)":::"memory")
 #else
-#define cmm_mb()    __asm__ __volatile__ ("lock; addl $0,0(%%rsp)":::"memory")
+#define lttng_ust_mb()    __asm__ __volatile__ ("lock; addl $0,0(%%rsp)":::"memory")
 #define cmm_rmb()    __asm__ __volatile__ ("lock; addl $0,0(%%rsp)":::"memory")
 #define cmm_wmb()    __asm__ __volatile__ ("lock; addl $0,0(%%rsp)":::"memory")
 #endif

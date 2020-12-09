@@ -30,7 +30,7 @@
 extern "C" {
 #endif
 
-#define cmm_mb()			__asm__ __volatile__ (		    \
+#define lttng_ust_mb()			__asm__ __volatile__ (		    \
 					"	.set	mips2		\n" \
 					"	sync			\n" \
 					"	.set	mips0		\n" \

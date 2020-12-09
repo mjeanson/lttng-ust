@@ -22,8 +22,7 @@ URCU_ARCH_RISCV LTTNG_UST_URCU_ARCH_RISCV
 
 # include/lttng/arch/generic.h
 CAA_CACHE_LINE_SIZE LTTNG_UST_CACHE_LINE_SIZE
-CONFIG_HAVE_MEM_COHERENCY LTTNG_UST_CONFIG_HAVE_MEM_COHERENCY
-cmm_mb lttng_ust_cmm_mb
+cmm_mb lttng_ust_mb
 cmm_rmb lttng_ust_cmm_rmb
 cmm_wmb lttng_ust_cmm_wmb
 cmm_mc lttng_ust_cmm_mc

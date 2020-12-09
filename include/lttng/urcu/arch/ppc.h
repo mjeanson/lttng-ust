@@ -41,14 +41,14 @@ extern "C" {
 #endif
 
 /*
- * Use sync for all cmm_mb/rmb/wmb barriers because lwsync does not
+ * Use sync for all lttng_ust_mb/rmb/wmb barriers because lwsync does not
  * preserve ordering of cacheable vs. non-cacheable accesses, so it
  * should not be used to order with respect to MMIO operations.  An
  * eieio+lwsync pair is also not enough for cmm_rmb, because it will
  * order cacheable and non-cacheable memory operations separately---i.e.
  * not the latter against the former.
  */
-#define cmm_mb()         __asm__ __volatile__ ("sync":::"memory")
+#define lttng_ust_mb()         __asm__ __volatile__ ("sync":::"memory")
 
 /*
  * lwsync orders loads in cacheable memory with respect to other loads,
