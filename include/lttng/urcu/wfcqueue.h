@@ -69,7 +69,7 @@ struct __lttng_ust_wfcq_head {
 	struct lttng_ust_wfcq_node node;
 };
 
-struct cds_wfcq_head {
+struct lttng_ust_wfcq_head {
 	struct lttng_ust_wfcq_node node;
 	pthread_mutex_t lock;
 };
@@ -77,13 +77,13 @@ struct cds_wfcq_head {
 #ifndef __cplusplus
 /*
  * The transparent union allows calling functions that work on both
- * struct cds_wfcq_head and struct __lttng_ust_wfcq_head on any of those two
+ * struct lttng_ust_wfcq_head and struct __lttng_ust_wfcq_head on any of those two
  * types.
  */
 typedef union {
 	struct __lttng_ust_wfcq_head *_h;
-	struct cds_wfcq_head *h;
-} __attribute__((__transparent_union__)) cds_wfcq_head_ptr_t;
+	struct lttng_ust_wfcq_head *h;
+} __attribute__((__transparent_union__)) lttng_ust_wfcq_head_ptr_t;
 
 /*
  * This static inline is only present for compatibility with C++. It is
@@ -98,7 +98,7 @@ static inline struct __lttng_ust_wfcq_head *__lttng_ust_wfcq_head_cast(struct __
  * This static inline is only present for compatibility with C++. It is
  * effect-less in C.
  */
-static inline struct cds_wfcq_head *cds_wfcq_head_cast(struct cds_wfcq_head *head)
+static inline struct lttng_ust_wfcq_head *lttng_ust_wfcq_head_cast(struct lttng_ust_wfcq_head *head)
 {
 	return head;
 }
@@ -107,19 +107,19 @@ static inline struct cds_wfcq_head *cds_wfcq_head_cast(struct cds_wfcq_head *hea
 /* C++ ignores transparent union. */
 typedef union {
 	struct __lttng_ust_wfcq_head *_h;
-	struct cds_wfcq_head *h;
-} cds_wfcq_head_ptr_t;
+	struct lttng_ust_wfcq_head *h;
+} lttng_ust_wfcq_head_ptr_t;
 
 /* C++ ignores transparent union. Requires an explicit conversion. */
-static inline cds_wfcq_head_ptr_t __lttng_ust_wfcq_head_cast(struct __lttng_ust_wfcq_head *head)
+static inline lttng_ust_wfcq_head_ptr_t __lttng_ust_wfcq_head_cast(struct __lttng_ust_wfcq_head *head)
 {
-	cds_wfcq_head_ptr_t ret = { ._h = head };
+	lttng_ust_wfcq_head_ptr_t ret = { ._h = head };
 	return ret;
 }
 /* C++ ignores transparent union. Requires an explicit conversion. */
-static inline cds_wfcq_head_ptr_t cds_wfcq_head_cast(struct cds_wfcq_head *head)
+static inline lttng_ust_wfcq_head_ptr_t lttng_ust_wfcq_head_cast(struct lttng_ust_wfcq_head *head)
 {
-	cds_wfcq_head_ptr_t ret = { .h = head };
+	lttng_ust_wfcq_head_ptr_t ret = { .h = head };
 	return ret;
 }
 #endif /* #else #ifndef __cplusplus */
@@ -217,14 +217,14 @@ extern void lttng_ust_wfcq_node_init(struct lttng_ust_wfcq_node *node);
  * cds_wfcq_init: initialize wait-free queue. Pair with
  * cds_wfcq_destroy().
  */
-extern void cds_wfcq_init(struct cds_wfcq_head *head,
+extern void cds_wfcq_init(struct lttng_ust_wfcq_head *head,
 		struct cds_wfcq_tail *tail);
 
 /*
  * cds_wfcq_destroy: destroy wait-free queue. Pair with
  * cds_wfcq_init().
  */
-extern void cds_wfcq_destroy(struct cds_wfcq_head *head,
+extern void cds_wfcq_destroy(struct lttng_ust_wfcq_head *head,
 		struct cds_wfcq_tail *tail);
 
 /*
@@ -239,19 +239,19 @@ extern void __cds_wfcq_init(struct __lttng_ust_wfcq_head *head,
  *
  * No memory barrier is issued. No mutual exclusion is required.
  */
-extern bool cds_wfcq_empty(cds_wfcq_head_ptr_t head,
+extern bool cds_wfcq_empty(lttng_ust_wfcq_head_ptr_t head,
 		struct cds_wfcq_tail *tail);
 
 /*
  * cds_wfcq_dequeue_lock: take the dequeue mutual exclusion lock.
  */
-extern void cds_wfcq_dequeue_lock(struct cds_wfcq_head *head,
+extern void cds_wfcq_dequeue_lock(struct lttng_ust_wfcq_head *head,
 		struct cds_wfcq_tail *tail);
 
 /*
  * cds_wfcq_dequeue_unlock: release the dequeue mutual exclusion lock.
  */
-extern void cds_wfcq_dequeue_unlock(struct cds_wfcq_head *head,
+extern void cds_wfcq_dequeue_unlock(struct lttng_ust_wfcq_head *head,
 		struct cds_wfcq_tail *tail);
 
 /*
@@ -263,7 +263,7 @@ extern void cds_wfcq_dequeue_unlock(struct cds_wfcq_head *head,
  * Returns false if the queue was empty prior to adding the node.
  * Returns true otherwise.
  */
-extern bool cds_wfcq_enqueue(cds_wfcq_head_ptr_t head,
+extern bool cds_wfcq_enqueue(lttng_ust_wfcq_head_ptr_t head,
 		struct cds_wfcq_tail *tail,
 		struct lttng_ust_wfcq_node *node);
 
@@ -277,7 +277,7 @@ extern bool cds_wfcq_enqueue(cds_wfcq_head_ptr_t head,
  * ensured.
  */
 extern struct lttng_ust_wfcq_node *cds_wfcq_dequeue_blocking(
-		struct cds_wfcq_head *head,
+		struct lttng_ust_wfcq_head *head,
 		struct cds_wfcq_tail *tail);
 
 /*
@@ -287,7 +287,7 @@ extern struct lttng_ust_wfcq_node *cds_wfcq_dequeue_blocking(
  * last node of the queue into state (LTTNG_UST_WFCQ_STATE_LAST).
  */
 extern struct lttng_ust_wfcq_node *cds_wfcq_dequeue_with_state_blocking(
-		struct cds_wfcq_head *head,
+		struct lttng_ust_wfcq_head *head,
 		struct cds_wfcq_tail *tail,
 		int *state);
 
@@ -305,9 +305,9 @@ extern struct lttng_ust_wfcq_node *cds_wfcq_dequeue_with_state_blocking(
  * dest queue.
  */
 extern enum lttng_ust_wfcq_ret cds_wfcq_splice_blocking(
-		struct cds_wfcq_head *dest_q_head,
+		struct lttng_ust_wfcq_head *dest_q_head,
 		struct cds_wfcq_tail *dest_q_tail,
-		struct cds_wfcq_head *src_q_head,
+		struct lttng_ust_wfcq_head *src_q_head,
 		struct cds_wfcq_tail *src_q_tail);
 
 /*
@@ -320,7 +320,7 @@ extern enum lttng_ust_wfcq_ret cds_wfcq_splice_blocking(
  * caller.
  */
 extern struct lttng_ust_wfcq_node *__cds_wfcq_dequeue_blocking(
-		cds_wfcq_head_ptr_t head,
+		lttng_ust_wfcq_head_ptr_t head,
 		struct cds_wfcq_tail *tail);
 
 /*
@@ -330,7 +330,7 @@ extern struct lttng_ust_wfcq_node *__cds_wfcq_dequeue_blocking(
  * last node of the queue into state (LTTNG_UST_WFCQ_STATE_LAST).
  */
 extern struct lttng_ust_wfcq_node *__cds_wfcq_dequeue_with_state_blocking(
-		cds_wfcq_head_ptr_t head,
+		lttng_ust_wfcq_head_ptr_t head,
 		struct cds_wfcq_tail *tail,
 		int *state);
 
@@ -341,7 +341,7 @@ extern struct lttng_ust_wfcq_node *__cds_wfcq_dequeue_with_state_blocking(
  * if it needs to block.
  */
 extern struct lttng_ust_wfcq_node *__cds_wfcq_dequeue_nonblocking(
-		cds_wfcq_head_ptr_t head,
+		lttng_ust_wfcq_head_ptr_t head,
 		struct cds_wfcq_tail *tail);
 
 /*
@@ -351,7 +351,7 @@ extern struct lttng_ust_wfcq_node *__cds_wfcq_dequeue_nonblocking(
  * the last node of the queue into state (LTTNG_UST_WFCQ_STATE_LAST).
  */
 extern struct lttng_ust_wfcq_node *__cds_wfcq_dequeue_with_state_nonblocking(
-		cds_wfcq_head_ptr_t head,
+		lttng_ust_wfcq_head_ptr_t head,
 		struct cds_wfcq_tail *tail,
 		int *state);
 
@@ -366,9 +366,9 @@ extern struct lttng_ust_wfcq_node *__cds_wfcq_dequeue_with_state_nonblocking(
  * dest queue. Never returns LTTNG_UST_WFCQ_RET_WOULDBLOCK.
  */
 extern enum lttng_ust_wfcq_ret __cds_wfcq_splice_blocking(
-		cds_wfcq_head_ptr_t dest_q_head,
+		lttng_ust_wfcq_head_ptr_t dest_q_head,
 		struct cds_wfcq_tail *dest_q_tail,
-		cds_wfcq_head_ptr_t src_q_head,
+		lttng_ust_wfcq_head_ptr_t src_q_head,
 		struct cds_wfcq_tail *src_q_tail);
 
 /*
@@ -378,9 +378,9 @@ extern enum lttng_ust_wfcq_ret __cds_wfcq_splice_blocking(
  * LTTNG_UST_WFCQ_RET_WOULDBLOCK if it needs to block.
  */
 extern enum lttng_ust_wfcq_ret __cds_wfcq_splice_nonblocking(
-		cds_wfcq_head_ptr_t dest_q_head,
+		lttng_ust_wfcq_head_ptr_t dest_q_head,
 		struct cds_wfcq_tail *dest_q_tail,
-		cds_wfcq_head_ptr_t src_q_head,
+		lttng_ust_wfcq_head_ptr_t src_q_head,
 		struct cds_wfcq_tail *src_q_tail);
 
 /*
@@ -398,7 +398,7 @@ extern enum lttng_ust_wfcq_ret __cds_wfcq_splice_nonblocking(
  * Returns NULL if queue is empty, first node otherwise.
  */
 extern struct lttng_ust_wfcq_node *__cds_wfcq_first_blocking(
-		cds_wfcq_head_ptr_t head,
+		lttng_ust_wfcq_head_ptr_t head,
 		struct cds_wfcq_tail *tail);
 
 /*
@@ -408,7 +408,7 @@ extern struct lttng_ust_wfcq_node *__cds_wfcq_first_blocking(
  * it needs to block.
  */
 extern struct lttng_ust_wfcq_node *__cds_wfcq_first_nonblocking(
-		cds_wfcq_head_ptr_t head,
+		lttng_ust_wfcq_head_ptr_t head,
 		struct cds_wfcq_tail *tail);
 
 /*
@@ -427,7 +427,7 @@ extern struct lttng_ust_wfcq_node *__cds_wfcq_first_nonblocking(
  * otherwise.
  */
 extern struct lttng_ust_wfcq_node *__cds_wfcq_next_blocking(
-		cds_wfcq_head_ptr_t head,
+		lttng_ust_wfcq_head_ptr_t head,
 		struct cds_wfcq_tail *tail,
 		struct lttng_ust_wfcq_node *node);
 
@@ -438,7 +438,7 @@ extern struct lttng_ust_wfcq_node *__cds_wfcq_next_blocking(
  * it needs to block.
  */
 extern struct lttng_ust_wfcq_node *__cds_wfcq_next_nonblocking(
-		cds_wfcq_head_ptr_t head,
+		lttng_ust_wfcq_head_ptr_t head,
 		struct cds_wfcq_tail *tail,
 		struct lttng_ust_wfcq_node *node);
 
@@ -447,7 +447,7 @@ extern struct lttng_ust_wfcq_node *__cds_wfcq_next_nonblocking(
 /*
  * __cds_wfcq_for_each_blocking: Iterate over all nodes in a queue,
  * without dequeuing them.
- * @head: head of the queue (struct cds_wfcq_head or __lttng_ust_wfcq_head pointer).
+ * @head: head of the queue (struct lttng_ust_wfcq_head or __lttng_ust_wfcq_head pointer).
  * @tail: tail of the queue (struct cds_wfcq_tail pointer).
  * @node: iterator on the queue (struct lttng_ust_wfcq_node pointer).
  *
@@ -464,7 +464,7 @@ extern struct lttng_ust_wfcq_node *__cds_wfcq_next_nonblocking(
 /*
  * __cds_wfcq_for_each_blocking_safe: Iterate over all nodes in a queue,
  * without dequeuing them. Safe against deletion.
- * @head: head of the queue (struct cds_wfcq_head or __lttng_ust_wfcq_head pointer).
+ * @head: head of the queue (struct lttng_ust_wfcq_head or __lttng_ust_wfcq_head pointer).
  * @tail: tail of the queue (struct cds_wfcq_tail pointer).
  * @node: iterator on the queue (struct lttng_ust_wfcq_node pointer).
  * @n: struct lttng_ust_wfcq_node pointer holding the next pointer (used
