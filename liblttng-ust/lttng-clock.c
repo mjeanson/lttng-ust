@@ -91,7 +91,7 @@ int lttng_ust_enable_trace_clock_override(void)
 		return -EINVAL;
 	/* Use default uuid cb when NULL */
 	lttng_ust_smp_mb();	/* Store callbacks before trace clock */
-	CMM_STORE_SHARED(lttng_trace_clock, &user_tc);
+	LTTNG_UST_STORE_SHARED(lttng_trace_clock, &user_tc);
 	return 0;
 }
 

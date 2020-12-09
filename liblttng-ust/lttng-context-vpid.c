@@ -43,7 +43,7 @@ pid_t wrapper_getvpid(void)
 	vpid = LTTNG_UST_LOAD_SHARED(cached_vpid);
 	if (lttng_ust_unlikely(!vpid)) {
 		vpid = getpid();
-		CMM_STORE_SHARED(cached_vpid, vpid);
+		LTTNG_UST_STORE_SHARED(cached_vpid, vpid);
 	}
 	return vpid;
 }
@@ -54,7 +54,7 @@ pid_t wrapper_getvpid(void)
  */
 void lttng_context_vpid_reset(void)
 {
-	CMM_STORE_SHARED(cached_vpid, 0);
+	LTTNG_UST_STORE_SHARED(cached_vpid, 0);
 }
 
 static

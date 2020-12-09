@@ -48,7 +48,7 @@
  * Store v into x, where x is located in shared memory. Performs the
  * required cache flush after writing. Returns v.
  */
-#define CMM_STORE_SHARED(x, v)						\
+#define LTTNG_UST_STORE_SHARED(x, v)						\
 	__extension__							\
 	({								\
 		__typeof__(x) _v = _LTTNG_UST_STORE_SHARED(x, v);		\

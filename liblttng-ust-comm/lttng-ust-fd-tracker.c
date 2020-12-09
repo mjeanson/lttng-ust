@@ -132,7 +132,7 @@ void lttng_ust_init_fd_tracker(void)
 		abort();
 	for (i = 0; i < num_fd_sets; i++)
 		FD_ZERO((&lttng_fd_set[i]));
-	CMM_STORE_SHARED(init_done, 1);
+	LTTNG_UST_STORE_SHARED(init_done, 1);
 }
 
 void lttng_ust_lock_fd_tracker(void)

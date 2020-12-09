@@ -299,13 +299,13 @@ void lttng_ust_urcu_synchronize_rcu(void)
 	lttng_ust_smp_mb();
 
 	/* Switch parity: 0 -> 1, 1 -> 0 */
-	CMM_STORE_SHARED(lttng_ust_urcu_gp.ctr, lttng_ust_urcu_gp.ctr ^ LTTNG_UST_URCU_GP_CTR_PHASE);
+	LTTNG_UST_STORE_SHARED(lttng_ust_urcu_gp.ctr, lttng_ust_urcu_gp.ctr ^ LTTNG_UST_URCU_GP_CTR_PHASE);
 
 	/*
 	 * Must commit qparity update to memory before waiting for other parity
 	 * quiescent state. Failure to do so could result in the writer waiting
 	 * forever while new readers are always accessing data (no progress).
-	 * Ensured by CMM_STORE_SHARED and LTTNG_UST_LOAD_SHARED.
+	 * Ensured by LTTNG_UST_STORE_SHARED and LTTNG_UST_LOAD_SHARED.
 	 */
 
 	/*

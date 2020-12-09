@@ -69,7 +69,7 @@ ino_t get_pid_ns(void)
 	/*
 	 * And finally, store the inode number in the cache.
 	 */
-	CMM_STORE_SHARED(cached_pid_ns, pid_ns);
+	LTTNG_UST_STORE_SHARED(cached_pid_ns, pid_ns);
 
 	return pid_ns;
 }
@@ -85,7 +85,7 @@ ino_t get_pid_ns(void)
  */
 void lttng_context_pid_ns_reset(void)
 {
-	CMM_STORE_SHARED(cached_pid_ns, NS_INO_UNINITIALIZED);
+	LTTNG_UST_STORE_SHARED(cached_pid_ns, NS_INO_UNINITIALIZED);
 }
 
 static

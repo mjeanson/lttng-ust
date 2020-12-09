@@ -86,7 +86,7 @@ ino_t get_time_ns(void)
 	/*
 	 * And finally, store the inode number in the cache.
 	 */
-	CMM_STORE_SHARED(URCU_TLS(cached_time_ns), time_ns);
+	LTTNG_UST_STORE_SHARED(URCU_TLS(cached_time_ns), time_ns);
 
 	return time_ns;
 }
@@ -98,7 +98,7 @@ ino_t get_time_ns(void)
  */
 void lttng_context_time_ns_reset(void)
 {
-	CMM_STORE_SHARED(URCU_TLS(cached_time_ns), NS_INO_UNINITIALIZED);
+	LTTNG_UST_STORE_SHARED(URCU_TLS(cached_time_ns), NS_INO_UNINITIALIZED);
 }
 
 static

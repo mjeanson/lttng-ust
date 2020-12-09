@@ -59,7 +59,7 @@ uid_t get_vuid(void)
 
 	if (lttng_ust_unlikely(vuid == INVALID_UID)) {
 		vuid = getuid();
-		CMM_STORE_SHARED(cached_vuid, vuid);
+		LTTNG_UST_STORE_SHARED(cached_vuid, vuid);
 	}
 
 	return vuid;
@@ -70,7 +70,7 @@ uid_t get_vuid(void)
  */
 void lttng_context_vuid_reset(void)
 {
-	CMM_STORE_SHARED(cached_vuid, INVALID_UID);
+	LTTNG_UST_STORE_SHARED(cached_vuid, INVALID_UID);
 }
 
 static

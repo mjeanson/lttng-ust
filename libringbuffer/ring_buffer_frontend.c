@@ -681,7 +681,7 @@ void *sig_thread(void *arg)
 
 	/* Only self thread will receive signal mask. */
 	rb_setmask(&mask);
-	CMM_STORE_SHARED(timer_signal.tid, pthread_self());
+	LTTNG_UST_STORE_SHARED(timer_signal.tid, pthread_self());
 
 	for (;;) {
 		signr = sigwaitinfo(&mask, &info);
@@ -698,7 +698,7 @@ void *sig_thread(void *arg)
 					&info, NULL);
 		} else if (signr == LTTNG_UST_RB_SIG_TEARDOWN) {
 			lttng_ust_smp_mb();
-			CMM_STORE_SHARED(timer_signal.qs_done, 1);
+			LTTNG_UST_STORE_SHARED(timer_signal.qs_done, 1);
 			lttng_ust_smp_mb();
 		} else {
 			ERR("Unexptected signal %d\n", info.si_signo);
@@ -773,7 +773,7 @@ void lib_ring_buffer_wait_signal_thread_qs(unsigned int signr)
 	 * for any currently executing handler to complete.
 	 */
 	lttng_ust_smp_mb();
-	CMM_STORE_SHARED(timer_signal.qs_done, 0);
+	LTTNG_UST_STORE_SHARED(timer_signal.qs_done, 0);
 	lttng_ust_smp_mb();
 
 	/*

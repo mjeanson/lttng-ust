@@ -59,7 +59,7 @@ gid_t get_vgid(void)
 
 	if (lttng_ust_unlikely(cached_vgid == (gid_t) -1)) {
 		vgid = getgid();
-		CMM_STORE_SHARED(cached_vgid, vgid);
+		LTTNG_UST_STORE_SHARED(cached_vgid, vgid);
 	}
 
 	return vgid;
@@ -70,7 +70,7 @@ gid_t get_vgid(void)
  */
 void lttng_context_vgid_reset(void)
 {
-	CMM_STORE_SHARED(cached_vgid, INVALID_GID);
+	LTTNG_UST_STORE_SHARED(cached_vgid, INVALID_GID);
 }
 
 static

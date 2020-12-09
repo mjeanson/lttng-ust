@@ -855,7 +855,7 @@ int lttng_ust_event_notifier_group_create_error_counter(int event_notifier_group
 	 * turned into acquire-release barriers.
 	 */
 	lttng_ust_smp_mb();
-	CMM_STORE_SHARED(event_notifier_group->error_counter, counter);
+	LTTNG_UST_STORE_SHARED(event_notifier_group->error_counter, counter);
 
 	counter->objd = counter_objd;
 	counter->event_notifier_group = event_notifier_group;	/* owner */

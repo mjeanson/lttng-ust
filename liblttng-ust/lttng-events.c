@@ -1674,7 +1674,7 @@ void lttng_session_sync_event_enablers(struct lttng_session *session)
 		 */
 		enabled = enabled && session->tstate && event->chan->tstate;
 
-		CMM_STORE_SHARED(event->enabled, enabled);
+		LTTNG_UST_STORE_SHARED(event->enabled, enabled);
 		/*
 		 * Sync tracepoint registration with event enabled
 		 * state.
@@ -1867,7 +1867,7 @@ void lttng_event_notifier_group_sync_enablers(struct lttng_event_notifier_group 
 			}
 		}
 
-		CMM_STORE_SHARED(event_notifier->enabled, enabled);
+		LTTNG_UST_STORE_SHARED(event_notifier->enabled, enabled);
 		/*
 		 * Sync tracepoint registration with event_notifier enabled
 		 * state.

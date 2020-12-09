@@ -467,7 +467,7 @@ static void set_tracepoint(struct tracepoint_entry **entry,
 	 * is used.
 	 */
 	lttng_ust_rcu_assign_pointer(elem->probes, (*entry)->probes);
-	CMM_STORE_SHARED(elem->state, active);
+	LTTNG_UST_STORE_SHARED(elem->state, active);
 }
 
 /*
@@ -478,7 +478,7 @@ static void set_tracepoint(struct tracepoint_entry **entry,
  */
 static void disable_tracepoint(struct lttng_ust_tracepoint *elem)
 {
-	CMM_STORE_SHARED(elem->state, 0);
+	LTTNG_UST_STORE_SHARED(elem->state, 0);
 	lttng_ust_rcu_assign_pointer(elem->probes, NULL);
 }
 

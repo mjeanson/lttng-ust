@@ -69,7 +69,7 @@ ino_t get_user_ns(void)
 	/*
 	 * And finally, store the inode number in the cache.
 	 */
-	CMM_STORE_SHARED(cached_user_ns, user_ns);
+	LTTNG_UST_STORE_SHARED(cached_user_ns, user_ns);
 
 	return user_ns;
 }
@@ -82,7 +82,7 @@ ino_t get_user_ns(void)
  */
 void lttng_context_user_ns_reset(void)
 {
-	CMM_STORE_SHARED(cached_user_ns, NS_INO_UNINITIALIZED);
+	LTTNG_UST_STORE_SHARED(cached_user_ns, NS_INO_UNINITIALIZED);
 }
 
 static

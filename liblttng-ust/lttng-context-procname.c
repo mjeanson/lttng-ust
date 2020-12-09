@@ -56,14 +56,14 @@ char *wrapper_getprocname(void)
 	if (lttng_ust_unlikely(nesting >= PROCNAME_NESTING_MAX))
 		return "<unknown>";
 	if (lttng_ust_unlikely(!URCU_TLS(cached_procname)[nesting][0])) {
-		CMM_STORE_SHARED(URCU_TLS(procname_nesting), nesting + 1);
+		LTTNG_UST_STORE_SHARED(URCU_TLS(procname_nesting), nesting + 1);
 		/* Increment nesting before updating cache. */
 		lttng_ust_barrier();
 		lttng_pthread_getname_np(URCU_TLS(cached_procname)[nesting], LTTNG_UST_ABI_PROCNAME_LEN);
 		URCU_TLS(cached_procname)[nesting][LTTNG_UST_ABI_PROCNAME_LEN - 1] = '\0';
 		/* Decrement nesting after updating cache. */
 		lttng_ust_barrier();
-		CMM_STORE_SHARED(URCU_TLS(procname_nesting), nesting);
+		LTTNG_UST_STORE_SHARED(URCU_TLS(procname_nesting), nesting);
 	}
 	return URCU_TLS(cached_procname)[nesting];
 }
@@ -71,10 +71,10 @@ char *wrapper_getprocname(void)
 /* Reset should not be called from a signal handler. */
 void lttng_context_procname_reset(void)
 {
-	CMM_STORE_SHARED(URCU_TLS(cached_procname)[1][0], '\0');
-	CMM_STORE_SHARED(URCU_TLS(procname_nesting), 1);
-	CMM_STORE_SHARED(URCU_TLS(cached_procname)[0][0], '\0');
-	CMM_STORE_SHARED(URCU_TLS(procname_nesting), 0);
+	LTTNG_UST_STORE_SHARED(URCU_TLS(cached_procname)[1][0], '\0');
+	LTTNG_UST_STORE_SHARED(URCU_TLS(procname_nesting), 1);
+	LTTNG_UST_STORE_SHARED(URCU_TLS(cached_procname)[0][0], '\0');
+	LTTNG_UST_STORE_SHARED(URCU_TLS(procname_nesting), 0);
 }
 
 static

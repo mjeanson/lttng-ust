@@ -62,7 +62,7 @@ uid_t get_vsuid(void)
 
 		if (getresuid(&uid, &euid, &suid) == 0) {
 			vsuid = suid;
-			CMM_STORE_SHARED(cached_vsuid, vsuid);
+			LTTNG_UST_STORE_SHARED(cached_vsuid, vsuid);
 		}
 	}
 
@@ -74,7 +74,7 @@ uid_t get_vsuid(void)
  */
 void lttng_context_vsuid_reset(void)
 {
-	CMM_STORE_SHARED(cached_vsuid, INVALID_UID);
+	LTTNG_UST_STORE_SHARED(cached_vsuid, INVALID_UID);
 }
 
 static

@@ -62,7 +62,7 @@ gid_t get_vsgid(void)
 
 		if (getresgid(&gid, &egid, &sgid) == 0) {
 			vsgid = sgid;
-			CMM_STORE_SHARED(cached_vsgid, vsgid);
+			LTTNG_UST_STORE_SHARED(cached_vsgid, vsgid);
 		}
 	}
 
@@ -74,7 +74,7 @@ gid_t get_vsgid(void)
  */
 void lttng_context_vsgid_reset(void)
 {
-	CMM_STORE_SHARED(cached_vsgid, INVALID_GID);
+	LTTNG_UST_STORE_SHARED(cached_vsgid, INVALID_GID);
 }
 
 static

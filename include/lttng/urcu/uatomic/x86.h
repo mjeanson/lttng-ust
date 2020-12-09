@@ -41,7 +41,7 @@ struct __uatomic_dummy {
 };
 #define __hp(x)	((struct __uatomic_dummy *)(x))
 
-#define _uatomic_set(addr, v)	((void) CMM_STORE_SHARED(*(addr), (v)))
+#define _uatomic_set(addr, v)	((void) LTTNG_UST_STORE_SHARED(*(addr), (v)))
 
 /* cmpxchg */
 

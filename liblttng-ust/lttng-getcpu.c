@@ -35,7 +35,7 @@ void *getcpu_handle;
 
 int lttng_ust_getcpu_override(int (*getcpu)(void))
 {
-	CMM_STORE_SHARED(lttng_get_cpu, getcpu);
+	LTTNG_UST_STORE_SHARED(lttng_get_cpu, getcpu);
 	return 0;
 }
 

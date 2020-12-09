@@ -30,7 +30,7 @@ extern "C" {
 #endif
 
 #ifndef uatomic_set
-#define uatomic_set(addr, v)	((void) CMM_STORE_SHARED(*(addr), (v)))
+#define uatomic_set(addr, v)	((void) LTTNG_UST_STORE_SHARED(*(addr), (v)))
 #endif
 
 #ifndef uatomic_read

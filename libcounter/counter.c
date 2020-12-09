@@ -495,26 +495,26 @@ int lttng_counter_clear_cpu(const struct lib_counter_config *config,
 	case COUNTER_SIZE_8_BIT:
 	{
 		int8_t *int_p = (int8_t *) layout->counters + index;
-		CMM_STORE_SHARED(*int_p, 0);
+		LTTNG_UST_STORE_SHARED(*int_p, 0);
 		break;
 	}
 	case COUNTER_SIZE_16_BIT:
 	{
 		int16_t *int_p = (int16_t *) layout->counters + index;
-		CMM_STORE_SHARED(*int_p, 0);
+		LTTNG_UST_STORE_SHARED(*int_p, 0);
 		break;
 	}
 	case COUNTER_SIZE_32_BIT:
 	{
 		int32_t *int_p = (int32_t *) layout->counters + index;
-		CMM_STORE_SHARED(*int_p, 0);
+		LTTNG_UST_STORE_SHARED(*int_p, 0);
 		break;
 	}
 #if LTTNG_UST_BITS_PER_LONG == 64
 	case COUNTER_SIZE_64_BIT:
 	{
 		int64_t *int_p = (int64_t *) layout->counters + index;
-		CMM_STORE_SHARED(*int_p, 0);
+		LTTNG_UST_STORE_SHARED(*int_p, 0);
 		break;
 	}
 #endif

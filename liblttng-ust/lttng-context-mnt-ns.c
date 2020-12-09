@@ -69,7 +69,7 @@ ino_t get_mnt_ns(void)
 	/*
 	 * And finally, store the inode number in the cache.
 	 */
-	CMM_STORE_SHARED(cached_mnt_ns, mnt_ns);
+	LTTNG_UST_STORE_SHARED(cached_mnt_ns, mnt_ns);
 
 	return mnt_ns;
 }
@@ -82,7 +82,7 @@ ino_t get_mnt_ns(void)
  */
 void lttng_context_mnt_ns_reset(void)
 {
-	CMM_STORE_SHARED(cached_mnt_ns, NS_INO_UNINITIALIZED);
+	LTTNG_UST_STORE_SHARED(cached_mnt_ns, NS_INO_UNINITIALIZED);
 }
 
 static

@@ -199,7 +199,7 @@ static inline bool ___cds_wfcq_append(cds_wfcq_head_ptr_t u_head,
 	 * store will append "node" to the queue from a dequeuer
 	 * perspective.
 	 */
-	CMM_STORE_SHARED(old_tail->next, new_head);
+	LTTNG_UST_STORE_SHARED(old_tail->next, new_head);
 	/*
 	 * Return false if queue was empty prior to adding the node,
 	 * else return true.

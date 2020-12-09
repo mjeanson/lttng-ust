@@ -85,7 +85,7 @@ ino_t get_ipc_ns(void)
 	/*
 	 * And finally, store the inode number in the cache.
 	 */
-	CMM_STORE_SHARED(URCU_TLS(cached_ipc_ns), ipc_ns);
+	LTTNG_UST_STORE_SHARED(URCU_TLS(cached_ipc_ns), ipc_ns);
 
 	return ipc_ns;
 }
@@ -98,7 +98,7 @@ ino_t get_ipc_ns(void)
  */
 void lttng_context_ipc_ns_reset(void)
 {
-	CMM_STORE_SHARED(URCU_TLS(cached_ipc_ns), NS_INO_UNINITIALIZED);
+	LTTNG_UST_STORE_SHARED(URCU_TLS(cached_ipc_ns), NS_INO_UNINITIALIZED);
 }
 
 static

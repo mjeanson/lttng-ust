@@ -69,7 +69,7 @@ static inline
 void lttng_ust_list_del_rcu(struct lttng_ust_list_head *elem)
 {
 	elem->next->prev = elem->prev;
-	CMM_STORE_SHARED(elem->prev->next, elem->next);
+	LTTNG_UST_STORE_SHARED(elem->prev->next, elem->next);
 }
 
 /*

@@ -45,7 +45,7 @@ static DEFINE_URCU_TLS(pid_t, cached_vtid);
  */
 void lttng_context_vtid_reset(void)
 {
-	CMM_STORE_SHARED(URCU_TLS(cached_vtid), 0);
+	LTTNG_UST_STORE_SHARED(URCU_TLS(cached_vtid), 0);
 }
 
 static
@@ -66,7 +66,7 @@ pid_t wrapper_getvtid(void)
 	vtid = LTTNG_UST_LOAD_SHARED(URCU_TLS(cached_vtid));
 	if (lttng_ust_unlikely(!vtid)) {
 		vtid = lttng_gettid();
-		CMM_STORE_SHARED(URCU_TLS(cached_vtid), vtid);
+		LTTNG_UST_STORE_SHARED(URCU_TLS(cached_vtid), vtid);
 	}
 	return vtid;
 }
