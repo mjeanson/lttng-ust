@@ -253,7 +253,7 @@ static void wait_for_readers(struct lttng_ust_list_head *input_readers,
 			if (wait_loops >= RCU_QS_ACTIVE_ATTEMPTS)
 				(void) poll(NULL, 0, RCU_SLEEP_DELAY_MS);
 			else
-				caa_cpu_relax();
+				lttng_ust_cpu_relax();
 			/* Re-lock the registry lock before the next loop. */
 			mutex_lock(&rcu_registry_lock);
 		}

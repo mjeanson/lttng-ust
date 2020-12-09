@@ -79,7 +79,7 @@ extern "C" {
 #endif
 #endif
 
-#define caa_cpu_relax()	__asm__ __volatile__ ("rep; nop" : : : "memory")
+#define lttng_ust_cpu_relax()	__asm__ __volatile__ ("rep; nop" : : : "memory")
 
 /*
  * On Linux, define the membarrier system call number if not yet available in

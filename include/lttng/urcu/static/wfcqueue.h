@@ -254,7 +254,7 @@ ___cds_wfcq_busy_wait(int *attempt, int blocking)
 		CDS_WFCQ_WAIT_SLEEP(WFCQ_WAIT);		/* Wait for 10ms */
 		*attempt = 0;
 	} else {
-		caa_cpu_relax();
+		lttng_ust_cpu_relax();
 	}
 	return 0;
 }

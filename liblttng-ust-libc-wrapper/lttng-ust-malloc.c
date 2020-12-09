@@ -77,7 +77,7 @@ void ust_malloc_spin_lock(pthread_mutex_t *lock)
 	 * section.
 	 */
 	while (uatomic_cmpxchg(&ust_malloc_lock, 0, 1) != 0)
-		caa_cpu_relax();
+		lttng_ust_cpu_relax();
 }
 
 static __attribute__((unused))

@@ -764,7 +764,7 @@ void lib_ring_buffer_wait_signal_thread_qs(unsigned int signr)
 		}
 		if (!sigismember(&pending_set, signr))
 			break;
-		caa_cpu_relax();
+		lttng_ust_cpu_relax();
 	}
 
 	/*
@@ -783,7 +783,7 @@ void lib_ring_buffer_wait_signal_thread_qs(unsigned int signr)
 	kill(getpid(), LTTNG_UST_RB_SIG_TEARDOWN);
 
 	while (!CMM_LOAD_SHARED(timer_signal.qs_done))
-		caa_cpu_relax();
+		lttng_ust_cpu_relax();
 	lttng_ust_smp_mb();
 
 	pthread_mutex_unlock(&timer_signal.lock);

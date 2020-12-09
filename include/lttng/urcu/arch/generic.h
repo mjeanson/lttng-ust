@@ -121,8 +121,8 @@ extern "C" {
 #define lttng_ust_smp_read_barrier_depends()	lttng_ust_read_barrier_depends()
 #endif
 
-#ifndef caa_cpu_relax
-#define caa_cpu_relax()		lttng_ust_barrier()
+#ifndef lttng_ust_cpu_relax
+#define lttng_ust_cpu_relax()		lttng_ust_barrier()
 #endif
 
 #ifdef __cplusplus

@@ -36,7 +36,7 @@ cmm_smp_mc lttng_ust_smp_mc
 cmm_smp_rmc lttng_ust_smp_rmc
 cmm_smp_wmc lttng_ust_smp_wmc
 cmm_smp_read_barrier_depends lttng_ust_smp_read_barrier_depends
-caa_cpu_relax lttng_ust_caa_cpu_relax
+caa_cpu_relax lttng_ust_cpu_relax
 
 
 # include/lttng/arch/ppc.h
