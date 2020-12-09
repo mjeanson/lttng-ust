@@ -32,6 +32,10 @@
 extern "C" {
 #endif
 
+#if ((LTTNG_UST_BITS_PER_LONG != 64) && defined(URCU_ARCH_I386))
+#error "i386 lacks the cmpxchg instruction, build for i486 and up."
+#endif
+
 /*
  * Derived from AO_compare_and_swap() and AO_test_and_set_full().
  */
@@ -41,12 +45,12 @@ struct __lttng_ust_uatomic_dummy {
 };
 #define __lttng_ust_hp(x)	((struct __lttng_ust_uatomic_dummy *)(x))
 
-#define _uatomic_set(addr, v)	((void) LTTNG_UST_STORE_SHARED(*(addr), (v)))
+#define uatomic_set(addr, v)	((void) LTTNG_UST_STORE_SHARED(*(addr), (v)))
 
 /* cmpxchg */
 
 static inline __attribute__((always_inline))
-unsigned long __uatomic_cmpxchg(void *addr, unsigned long old,
+unsigned long __lttng_ust_cmpxchg(void *addr, unsigned long old,
 			      unsigned long _new, int len)
 {
 	switch (len) {
@@ -105,8 +109,8 @@ unsigned long __uatomic_cmpxchg(void *addr, unsigned long old,
 	return 0;
 }
 
-#define _uatomic_cmpxchg(addr, old, _new)				      \
-	((__typeof__(*(addr))) __uatomic_cmpxchg((addr),		      \
+#define uatomic_cmpxchg(addr, old, _new)				      \
+	((__typeof__(*(addr))) __lttng_ust_cmpxchg((addr),		      \
 						lttng_ust_cast_long_keep_sign(old), \
 						lttng_ust_cast_long_keep_sign(_new),\
 						sizeof(*(addr))))
@@ -114,7 +118,7 @@ unsigned long __uatomic_cmpxchg(void *addr, unsigned long old,
 /* xchg */
 
 static inline __attribute__((always_inline))
-unsigned long __uatomic_exchange(void *addr, unsigned long val, int len)
+unsigned long __lttng_ust_exchange(void *addr, unsigned long val, int len)
 {
 	/* Note: the "xchg" instruction does not need a "lock" prefix. */
 	switch (len) {
@@ -169,15 +173,15 @@ unsigned long __uatomic_exchange(void *addr, unsigned long val, int len)
 	return 0;
 }
 
-#define _uatomic_xchg(addr, v)						      \
-	((__typeof__(*(addr))) __uatomic_exchange((addr),		      \
+#define uatomic_xchg(addr, v)						      \
+	((__typeof__(*(addr))) __lttng_ust_exchange((addr),		      \
 						lttng_ust_cast_long_keep_sign(v),   \
 						sizeof(*(addr))))
 
 /* uatomic_add_return */
 
 static inline __attribute__((always_inline))
-unsigned long __uatomic_add_return(void *addr, unsigned long val,
+unsigned long __lttng_ust_add_return(void *addr, unsigned long val,
 				 int len)
 {
 	switch (len) {
@@ -236,15 +240,15 @@ unsigned long __uatomic_add_return(void *addr, unsigned long val,
 	return 0;
 }
 
-#define _uatomic_add_return(addr, v)					    \
-	((__typeof__(*(addr))) __uatomic_add_return((addr),		    \
+#define uatomic_add_return(addr, v)					    \
+	((__typeof__(*(addr))) __lttng_ust_add_return((addr),		    \
 						lttng_ust_cast_long_keep_sign(v), \
 						sizeof(*(addr))))
 
 /* uatomic_and */
 
 static inline __attribute__((always_inline))
-void __uatomic_and(void *addr, unsigned long val, int len)
+void __lttng_ust_and(void *addr, unsigned long val, int len)
 {
 	switch (len) {
 	case 1:
@@ -294,13 +298,13 @@ void __uatomic_and(void *addr, unsigned long val, int len)
 	return;
 }
 
-#define _uatomic_and(addr, v)						   \
-	(__uatomic_and((addr), lttng_ust_cast_long_keep_sign(v), sizeof(*(addr))))
+#define uatomic_and(addr, v)						   \
+	(__lttng_ust_and((addr), lttng_ust_cast_long_keep_sign(v), sizeof(*(addr))))
 
 /* uatomic_or */
 
 static inline __attribute__((always_inline))
-void __uatomic_or(void *addr, unsigned long val, int len)
+void __lttng_ust_or(void *addr, unsigned long val, int len)
 {
 	switch (len) {
 	case 1:
@@ -350,13 +354,13 @@ void __uatomic_or(void *addr, unsigned long val, int len)
 	return;
 }
 
-#define _uatomic_or(addr, v)						   \
-	(__uatomic_or((addr), lttng_ust_cast_long_keep_sign(v), sizeof(*(addr))))
+#define uatomic_or(addr, v)						   \
+	(__lttng_ust_or((addr), lttng_ust_cast_long_keep_sign(v), sizeof(*(addr))))
 
 /* uatomic_add */
 
 static inline __attribute__((always_inline))
-void __uatomic_add(void *addr, unsigned long val, int len)
+void __lttng_ust_add(void *addr, unsigned long val, int len)
 {
 	switch (len) {
 	case 1:
@@ -406,14 +410,14 @@ void __uatomic_add(void *addr, unsigned long val, int len)
 	return;
 }
 
-#define _uatomic_add(addr, v)						   \
-	(__uatomic_add((addr), lttng_ust_cast_long_keep_sign(v), sizeof(*(addr))))
+#define uatomic_add(addr, v)						   \
+	(__lttng_ust_add((addr), lttng_ust_cast_long_keep_sign(v), sizeof(*(addr))))
 
 
 /* uatomic_inc */
 
 static inline __attribute__((always_inline))
-void __uatomic_inc(void *addr, int len)
+void __lttng_ust_inc(void *addr, int len)
 {
 	switch (len) {
 	case 1:
@@ -461,12 +465,12 @@ void __uatomic_inc(void *addr, int len)
 	return;
 }
 
-#define _uatomic_inc(addr)	(__uatomic_inc((addr), sizeof(*(addr))))
+#define uatomic_inc(addr)	(__lttng_ust_inc((addr), sizeof(*(addr))))
 
 /* uatomic_dec */
 
 static inline __attribute__((always_inline))
-void __uatomic_dec(void *addr, int len)
+void __lttng_ust_dec(void *addr, int len)
 {
 	switch (len) {
 	case 1:
@@ -516,111 +520,21 @@ void __uatomic_dec(void *addr, int len)
 	return;
 }
 
-#define _uatomic_dec(addr)	(__uatomic_dec((addr), sizeof(*(addr))))
+#define uatomic_dec(addr)	(__lttng_ust_dec((addr), sizeof(*(addr))))
 
-#if ((LTTNG_UST_BITS_PER_LONG != 64) && defined(URCU_ARCH_I386))
-
-extern int __rcu_cas_avail;
-extern int __rcu_cas_init(void);
-
-#define UATOMIC_COMPAT(insn)							\
-	((lttng_ust_likely(__rcu_cas_avail > 0))						\
-	? (_uatomic_##insn)							\
-		: ((lttng_ust_unlikely(__rcu_cas_avail < 0)				\
-			? ((__rcu_cas_init() > 0)				\
-				? (_uatomic_##insn)				\
-				: (compat_uatomic_##insn))			\
-			: (compat_uatomic_##insn))))
-
-/*
- * We leave the return value so we don't break the ABI, but remove the
- * return value from the API.
- */
-extern unsigned long _compat_uatomic_set(void *addr,
-					 unsigned long _new, int len);
-#define compat_uatomic_set(addr, _new)				     	       \
-	((void) _compat_uatomic_set((addr),				       \
-				lttng_ust_cast_long_keep_sign(_new),		       \
-				sizeof(*(addr))))
-
-
-extern unsigned long _compat_uatomic_xchg(void *addr,
-					  unsigned long _new, int len);
-#define compat_uatomic_xchg(addr, _new)					       \
-	((__typeof__(*(addr))) _compat_uatomic_xchg((addr),		       \
-						lttng_ust_cast_long_keep_sign(_new), \
-						sizeof(*(addr))))
-
-extern unsigned long _compat_uatomic_cmpxchg(void *addr, unsigned long old,
-					     unsigned long _new, int len);
-#define compat_uatomic_cmpxchg(addr, old, _new)				       \
-	((__typeof__(*(addr))) _compat_uatomic_cmpxchg((addr),		       \
-						lttng_ust_cast_long_keep_sign(old),  \
-						lttng_ust_cast_long_keep_sign(_new), \
-						sizeof(*(addr))))
-
-extern void _compat_uatomic_and(void *addr, unsigned long _new, int len);
-#define compat_uatomic_and(addr, v)				       \
-	(_compat_uatomic_and((addr),				       \
-			lttng_ust_cast_long_keep_sign(v),		       \
-			sizeof(*(addr))))
-
-extern void _compat_uatomic_or(void *addr, unsigned long _new, int len);
-#define compat_uatomic_or(addr, v)				       \
-	(_compat_uatomic_or((addr),				       \
-			  lttng_ust_cast_long_keep_sign(v),		       \
-			  sizeof(*(addr))))
-
-extern unsigned long _compat_uatomic_add_return(void *addr,
-						unsigned long _new, int len);
-#define compat_uatomic_add_return(addr, v)			            \
-	((__typeof__(*(addr))) _compat_uatomic_add_return((addr),     	    \
-						lttng_ust_cast_long_keep_sign(v), \
-						sizeof(*(addr))))
-
-#define compat_uatomic_add(addr, v)					       \
-		((void)compat_uatomic_add_return((addr), (v)))
-#define compat_uatomic_inc(addr)					       \
-		(compat_uatomic_add((addr), 1))
-#define compat_uatomic_dec(addr)					       \
-		(compat_uatomic_add((addr), -1))
-
-#else
-#define UATOMIC_COMPAT(insn)	(_uatomic_##insn)
-#endif
-
-/* Read is atomic even in compat mode */
-#define uatomic_set(addr, v)			\
-		UATOMIC_COMPAT(set(addr, v))
-
-#define uatomic_cmpxchg(addr, old, _new)	\
-		UATOMIC_COMPAT(cmpxchg(addr, old, _new))
-#define uatomic_xchg(addr, v)			\
-		UATOMIC_COMPAT(xchg(addr, v))
-
-#define uatomic_and(addr, v)		\
-		UATOMIC_COMPAT(and(addr, v))
-#define lttng_ust_smp_mb__before_uatomic_and()	lttng_ust_barrier()
+#define lttng_ust_smp_mb__before_uatomic_and()		lttng_ust_barrier()
 #define lttng_ust_smp_mb__after_uatomic_and()		lttng_ust_barrier()
 
-#define uatomic_or(addr, v)		\
-		UATOMIC_COMPAT(or(addr, v))
 #define lttng_ust_smp_mb__before_uatomic_or()		lttng_ust_barrier()
 #define lttng_ust_smp_mb__after_uatomic_or()		lttng_ust_barrier()
 
-#define uatomic_add_return(addr, v)		\
-		UATOMIC_COMPAT(add_return(addr, v))
-
-#define uatomic_add(addr, v)	UATOMIC_COMPAT(add(addr, v))
-#define lttng_ust_smp_mb__before_uatomic_add()	lttng_ust_barrier()
+#define lttng_ust_smp_mb__before_uatomic_add()		lttng_ust_barrier()
 #define lttng_ust_smp_mb__after_uatomic_add()		lttng_ust_barrier()
 
-#define uatomic_inc(addr)	UATOMIC_COMPAT(inc(addr))
-#define lttng_ust_smp_mb__before_uatomic_inc()	lttng_ust_barrier()
+#define lttng_ust_smp_mb__before_uatomic_inc()		lttng_ust_barrier()
 #define lttng_ust_smp_mb__after_uatomic_inc()		lttng_ust_barrier()
 
-#define uatomic_dec(addr)	UATOMIC_COMPAT(dec(addr))
-#define lttng_ust_smp_mb__before_uatomic_dec()	lttng_ust_barrier()
+#define lttng_ust_smp_mb__before_uatomic_dec()		lttng_ust_barrier()
 #define lttng_ust_smp_mb__after_uatomic_dec()		lttng_ust_barrier()
 
 #ifdef __cplusplus
