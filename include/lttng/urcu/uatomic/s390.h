@@ -37,7 +37,7 @@ extern "C" {
 #endif
 
 #if __GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ > 2)
-#define COMPILER_HAVE_SHORT_MEM_OPERAND
+#define LTTNG_UST_COMPILER_HAVE_SHORT_MEM_OPERAND
 #endif
 
 /*
@@ -47,19 +47,19 @@ extern "C" {
  *   operand list only.
  */
 
-#ifdef COMPILER_HAVE_SHORT_MEM_OPERAND
+#ifdef LTTNG_UST_COMPILER_HAVE_SHORT_MEM_OPERAND
 
 #define MEMOP_OUT(addr)	"=Q" (*(addr))
 #define MEMOP_IN(addr)	"Q" (*(addr))
 #define MEMOP_REF(op)	#op		/* op refer to MEMOP_IN operand */
 
-#else /* !COMPILER_HAVE_SHORT_MEM_OPERAND */
+#else /* !LTTNG_UST_COMPILER_HAVE_SHORT_MEM_OPERAND */
 
 #define MEMOP_OUT(addr)	"=m" (*(addr))
 #define MEMOP_IN(addr)	"a" (addr), "m" (*(addr))
 #define MEMOP_REF(op)	"0(" #op ")"	/* op refer to MEMOP_IN operand */
 
-#endif /* !COMPILER_HAVE_SHORT_MEM_OPERAND */
+#endif /* !LTTNG_UST_COMPILER_HAVE_SHORT_MEM_OPERAND */
 
 struct __uatomic_dummy {
 	unsigned long v[10];
