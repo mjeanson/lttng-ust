@@ -30,7 +30,7 @@ cmm_rmc lttng_ust_rmc
 cmm_wmc lttng_ust_wmc
 cmm_read_barrier_depends lttng_ust_read_barrier_depends
 cmm_smp_mb lttng_ust_smp_mb
-cmm_smp_rmb lttng_ust_cmm_smp_rmb
+cmm_smp_rmb lttng_ust_smp_rmb
 cmm_smp_wmb lttng_ust_cmm_smp_wmb
 cmm_smp_mc lttng_ust_cmm_smp_mc
 cmm_smp_rmc lttng_ust_cmm_smp_rmc

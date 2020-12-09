@@ -1309,7 +1309,7 @@ int lib_ring_buffer_snapshot(struct lttng_ust_lib_ring_buffer *buf,
 	/*
 	 * Read finalized before counters.
 	 */
-	cmm_smp_rmb();
+	lttng_ust_smp_rmb();
 	consumed_cur = uatomic_read(&buf->consumed);
 	/*
 	 * No need to issue a memory barrier between consumed count read and
@@ -1368,7 +1368,7 @@ int lib_ring_buffer_snapshot_sample_positions(
 	if (!chan)
 		return -EPERM;
 	config = &chan->backend.config;
-	cmm_smp_rmb();
+	lttng_ust_smp_rmb();
 	*consumed = uatomic_read(&buf->consumed);
 	/*
 	 * No need to issue a memory barrier between consumed count read and
@@ -1438,7 +1438,7 @@ retry:
 	/*
 	 * Read finalized before counters.
 	 */
-	cmm_smp_rmb();
+	lttng_ust_smp_rmb();
 	consumed_cur = uatomic_read(&buf->consumed);
 	consumed_idx = subbuf_index(consumed, chan);
 	cc_cold = shmp_index(handle, buf->commit_cold, consumed_idx);
@@ -1455,7 +1455,7 @@ retry:
 	 * Local rmb to match the remote wmb to read the commit count
 	 * before the buffer data and the write offset.
 	 */
-	cmm_smp_rmb();
+	lttng_ust_smp_rmb();
 
 	write_offset = v_read(config, &buf->offset);
 
@@ -2189,13 +2189,13 @@ retry:
 		 * updates to ensure reserve and commit counter updates
 		 * are not seen reordered when updated by another CPU.
 		 */
-		cmm_smp_rmb();
+		lttng_ust_smp_rmb();
 		cc_cold = shmp_index(handle, buf->commit_cold, sb_index);
 		if (!cc_cold)
 			return -1;
 		commit_count = v_read(config, &cc_cold->cc_sb);
 		/* Read buf->commit_cold[sb_index].cc_sb before buf->offset. */
-		cmm_smp_rmb();
+		lttng_ust_smp_rmb();
 		if (lttng_ust_unlikely(offset_cmp != v_read(config, &buf->offset))) {
 			/*
 			 * The reserve counter have been concurrently updated

@@ -127,7 +127,7 @@ struct urcu_tls {
 			}					\
 			pthread_mutex_unlock(&__tls_ ## name.init_mutex); \
 		}						\
-		cmm_smp_rmb();	/* read init_done before getting key */ \
+		lttng_ust_smp_rmb();	/* read init_done before getting key */ \
 		__tls_p = pthread_getspecific(__tls_ ## name.key); \
 		if (lttng_ust_unlikely(__tls_p == NULL)) {		\
 			__tls_p = calloc(1, sizeof(type));	\

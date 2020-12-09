@@ -346,7 +346,7 @@ ___cds_wfcq_next(cds_wfcq_head_ptr_t head,
 	 */
 	if ((next = CMM_LOAD_SHARED(node->next)) == NULL) {
 		/* Load node->next before tail->p */
-		cmm_smp_rmb();
+		lttng_ust_smp_rmb();
 		if (CMM_LOAD_SHARED(tail->p) == node)
 			return NULL;
 		next = ___cds_wfcq_node_sync_next(node, blocking);
