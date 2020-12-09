@@ -131,7 +131,7 @@ static inline void ___lttng_ust_wfcq_init(struct __lttng_ust_wfcq_head *head,
 }
 
 /*
- * cds_wfcq_empty: return whether wait-free queue is empty.
+ * lttng_ust_wfcq_empty: return whether wait-free queue is empty.
  *
  * No memory barrier is issued. No mutual exclusion is required.
  *
@@ -142,7 +142,7 @@ static inline void ___lttng_ust_wfcq_init(struct __lttng_ust_wfcq_head *head,
  * make a queue appear empty if an enqueuer is preempted for a long time
  * between xchg() and setting the previous node's next pointer.
  */
-static inline bool _cds_wfcq_empty(lttng_ust_wfcq_head_ptr_t u_head,
+static inline bool _lttng_ust_wfcq_empty(lttng_ust_wfcq_head_ptr_t u_head,
 		struct lttng_ust_wfcq_tail *tail)
 {
 	struct __lttng_ust_wfcq_head *head = u_head._h;
@@ -287,7 +287,7 @@ ___cds_wfcq_first(lttng_ust_wfcq_head_ptr_t u_head,
 	struct __lttng_ust_wfcq_head *head = u_head._h;
 	struct lttng_ust_wfcq_node *node;
 
-	if (_cds_wfcq_empty(__lttng_ust_wfcq_head_cast(head), tail))
+	if (_lttng_ust_wfcq_empty(__lttng_ust_wfcq_head_cast(head), tail))
 		return NULL;
 	node = ___lttng_ust_wfcq_node_sync_next(&head->node, blocking);
 	/* Load head->node.next before loading node's content */
@@ -405,7 +405,7 @@ ___cds_wfcq_dequeue_with_state(lttng_ust_wfcq_head_ptr_t u_head,
 	if (state)
 		*state = 0;
 
-	if (_cds_wfcq_empty(__lttng_ust_wfcq_head_cast(head), tail)) {
+	if (_lttng_ust_wfcq_empty(__lttng_ust_wfcq_head_cast(head), tail)) {
 		return NULL;
 	}
 
@@ -539,12 +539,12 @@ ___cds_wfcq_splice(
 	 * Initial emptiness check to speed up cases where queue is
 	 * empty: only require loads to check if queue is empty.
 	 */
-	if (_cds_wfcq_empty(__lttng_ust_wfcq_head_cast(src_q_head), src_q_tail))
+	if (_lttng_ust_wfcq_empty(__lttng_ust_wfcq_head_cast(src_q_head), src_q_tail))
 		return LTTNG_UST_WFCQ_RET_SRC_EMPTY;
 
 	for (;;) {
 		/*
-		 * Open-coded _cds_wfcq_empty() by testing result of
+		 * Open-coded _lttng_ust_wfcq_empty() by testing result of
 		 * uatomic_xchg, as well as tail pointer vs head node
 		 * address.
 		 */

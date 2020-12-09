@@ -136,7 +136,7 @@ struct lttng_ust_wfcq_tail {
 #define lttng_ust_wfcq_init			_lttng_ust_wfcq_init
 #define __lttng_ust_wfcq_init			___lttng_ust_wfcq_init
 #define lttng_ust_wfcq_destroy		_lttng_ust_wfcq_destroy
-#define cds_wfcq_empty			_cds_wfcq_empty
+#define lttng_ust_wfcq_empty			_lttng_ust_wfcq_empty
 #define cds_wfcq_enqueue		_cds_wfcq_enqueue
 
 /* Dequeue locking */
@@ -235,11 +235,11 @@ extern void __lttng_ust_wfcq_init(struct __lttng_ust_wfcq_head *head,
 		struct lttng_ust_wfcq_tail *tail);
 
 /*
- * cds_wfcq_empty: return whether wait-free queue is empty.
+ * lttng_ust_wfcq_empty: return whether wait-free queue is empty.
  *
  * No memory barrier is issued. No mutual exclusion is required.
  */
-extern bool cds_wfcq_empty(lttng_ust_wfcq_head_ptr_t head,
+extern bool lttng_ust_wfcq_empty(lttng_ust_wfcq_head_ptr_t head,
 		struct lttng_ust_wfcq_tail *tail);
 
 /*
