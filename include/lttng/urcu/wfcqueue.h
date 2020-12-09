@@ -144,7 +144,7 @@ struct lttng_ust_wfcq_tail {
 #define lttng_ust_wfcq_dequeue_unlock		_lttng_ust_wfcq_dequeue_unlock
 
 /* Locking performed within cds_wfcq calls. */
-#define cds_wfcq_dequeue_blocking	_cds_wfcq_dequeue_blocking
+#define lttng_ust_wfcq_dequeue_blocking	_lttng_ust_wfcq_dequeue_blocking
 #define cds_wfcq_dequeue_with_state_blocking	\
 					_cds_wfcq_dequeue_with_state_blocking
 #define cds_wfcq_splice_blocking	_cds_wfcq_splice_blocking
@@ -152,7 +152,7 @@ struct lttng_ust_wfcq_tail {
 #define cds_wfcq_next_blocking		_cds_wfcq_next_blocking
 
 /* Locking ensured by caller by holding lttng_ust_wfcq_dequeue_lock() */
-#define __cds_wfcq_dequeue_blocking	___cds_wfcq_dequeue_blocking
+#define __lttng_ust_wfcq_dequeue_blocking	___lttng_ust_wfcq_dequeue_blocking
 #define __cds_wfcq_dequeue_with_state_blocking	\
 					___cds_wfcq_dequeue_with_state_blocking
 #define __cds_wfcq_splice_blocking	___cds_wfcq_splice_blocking
@@ -200,7 +200,7 @@ struct lttng_ust_wfcq_tail {
  *
  * Mutual exclusion can be ensured by holding lttng_ust_wfcq_dequeue_lock().
  *
- * For convenience, cds_wfcq_dequeue_blocking() and
+ * For convenience, lttng_ust_wfcq_dequeue_blocking() and
  * cds_wfcq_splice_blocking() hold the dequeue lock.
  *
  * Besides locking, mutual exclusion of dequeue, splice and iteration
@@ -268,22 +268,22 @@ extern bool lttng_ust_wfcq_enqueue(lttng_ust_wfcq_head_ptr_t head,
 		struct lttng_ust_wfcq_node *node);
 
 /*
- * cds_wfcq_dequeue_blocking: dequeue a node from a wait-free queue.
+ * lttng_ust_wfcq_dequeue_blocking: dequeue a node from a wait-free queue.
  *
  * Content written into the node before enqueue is guaranteed to be
  * consistent, but no other memory ordering is ensured.
  * It is valid to reuse and free a dequeued node immediately.
- * Mutual exclusion with cds_wfcq_dequeue_blocking and dequeue lock is
+ * Mutual exclusion with lttng_ust_wfcq_dequeue_blocking and dequeue lock is
  * ensured.
  */
-extern struct lttng_ust_wfcq_node *cds_wfcq_dequeue_blocking(
+extern struct lttng_ust_wfcq_node *lttng_ust_wfcq_dequeue_blocking(
 		struct lttng_ust_wfcq_head *head,
 		struct lttng_ust_wfcq_tail *tail);
 
 /*
  * cds_wfcq_dequeue_with_state_blocking: dequeue with state.
  *
- * Same as cds_wfcq_dequeue_blocking, but saves whether dequeueing the
+ * Same as lttng_ust_wfcq_dequeue_blocking, but saves whether dequeueing the
  * last node of the queue into state (LTTNG_UST_WFCQ_STATE_LAST).
  */
 extern struct lttng_ust_wfcq_node *cds_wfcq_dequeue_with_state_blocking(
@@ -298,7 +298,7 @@ extern struct lttng_ust_wfcq_node *cds_wfcq_dequeue_with_state_blocking(
  * dest_q must be already initialized.
  * Content written into the node before enqueue is guaranteed to be
  * consistent, but no other memory ordering is ensured.
- * Mutual exclusion with cds_wfcq_dequeue_blocking and dequeue lock is
+ * Mutual exclusion with lttng_ust_wfcq_dequeue_blocking and dequeue lock is
  * ensured.
  *
  * Returns enum lttng_ust_wfcq_ret which indicates the state of the src or
@@ -311,7 +311,7 @@ extern enum lttng_ust_wfcq_ret cds_wfcq_splice_blocking(
 		struct lttng_ust_wfcq_tail *src_q_tail);
 
 /*
- * __cds_wfcq_dequeue_blocking: dequeue a node from a wait-free queue.
+ * __lttng_ust_wfcq_dequeue_blocking: dequeue a node from a wait-free queue.
  *
  * Content written into the node before enqueue is guaranteed to be
  * consistent, but no other memory ordering is ensured.
@@ -319,14 +319,14 @@ extern enum lttng_ust_wfcq_ret cds_wfcq_splice_blocking(
  * Dequeue/splice/iteration mutual exclusion should be ensured by the
  * caller.
  */
-extern struct lttng_ust_wfcq_node *__cds_wfcq_dequeue_blocking(
+extern struct lttng_ust_wfcq_node *__lttng_ust_wfcq_dequeue_blocking(
 		lttng_ust_wfcq_head_ptr_t head,
 		struct lttng_ust_wfcq_tail *tail);
 
 /*
  * __cds_wfcq_dequeue_with_state_blocking: dequeue with state.
  *
- * Same as __cds_wfcq_dequeue_blocking, but saves whether dequeueing the
+ * Same as __lttng_ust_wfcq_dequeue_blocking, but saves whether dequeueing the
  * last node of the queue into state (LTTNG_UST_WFCQ_STATE_LAST).
  */
 extern struct lttng_ust_wfcq_node *__cds_wfcq_dequeue_with_state_blocking(
@@ -337,7 +337,7 @@ extern struct lttng_ust_wfcq_node *__cds_wfcq_dequeue_with_state_blocking(
 /*
  * __cds_wfcq_dequeue_nonblocking: dequeue a node from a wait-free queue.
  *
- * Same as __cds_wfcq_dequeue_blocking, but returns LTTNG_UST_WFCQ_WOULDBLOCK
+ * Same as __lttng_ust_wfcq_dequeue_blocking, but returns LTTNG_UST_WFCQ_WOULDBLOCK
  * if it needs to block.
  */
 extern struct lttng_ust_wfcq_node *__cds_wfcq_dequeue_nonblocking(

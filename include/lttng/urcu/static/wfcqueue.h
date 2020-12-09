@@ -72,7 +72,7 @@ extern "C" {
  *
  * Mutual exclusion can be ensured by holding lttng_ust_wfcq_dequeue_lock().
  *
- * For convenience, cds_wfcq_dequeue_blocking() and
+ * For convenience, lttng_ust_wfcq_dequeue_blocking() and
  * cds_wfcq_splice_blocking() hold the dequeue lock.
  *
  * Besides locking, mutual exclusion of dequeue, splice and iteration
@@ -474,13 +474,13 @@ ___cds_wfcq_dequeue_with_state_blocking(lttng_ust_wfcq_head_ptr_t head,
 }
 
 /*
- * ___cds_wfcq_dequeue_blocking: dequeue node from queue.
+ * ___lttng_ust_wfcq_dequeue_blocking: dequeue node from queue.
  *
  * Same as __cds_wfcq_dequeue_with_state_blocking, but without saving
  * state.
  */
 static inline struct lttng_ust_wfcq_node *
-___cds_wfcq_dequeue_blocking(lttng_ust_wfcq_head_ptr_t head,
+___lttng_ust_wfcq_dequeue_blocking(lttng_ust_wfcq_head_ptr_t head,
 		struct lttng_ust_wfcq_tail *tail)
 {
 	return ___cds_wfcq_dequeue_with_state_blocking(head, tail, NULL);
@@ -489,7 +489,7 @@ ___cds_wfcq_dequeue_blocking(lttng_ust_wfcq_head_ptr_t head,
 /*
  * __cds_wfcq_dequeue_with_state_nonblocking: dequeue node, with state.
  *
- * Same as __cds_wfcq_dequeue_blocking, but returns LTTNG_UST_WFCQ_WOULDBLOCK
+ * Same as __lttng_ust_wfcq_dequeue_blocking, but returns LTTNG_UST_WFCQ_WOULDBLOCK
  * if it needs to block.
  */
 static inline struct lttng_ust_wfcq_node *
@@ -637,12 +637,12 @@ _cds_wfcq_dequeue_with_state_blocking(struct lttng_ust_wfcq_head *head,
 }
 
 /*
- * cds_wfcq_dequeue_blocking: dequeue node from queue.
+ * lttng_ust_wfcq_dequeue_blocking: dequeue node from queue.
  *
- * Same as cds_wfcq_dequeue_blocking, but without saving state.
+ * Same as lttng_ust_wfcq_dequeue_blocking, but without saving state.
  */
 static inline struct lttng_ust_wfcq_node *
-_cds_wfcq_dequeue_blocking(struct lttng_ust_wfcq_head *head,
+_lttng_ust_wfcq_dequeue_blocking(struct lttng_ust_wfcq_head *head,
 		struct lttng_ust_wfcq_tail *tail)
 {
 	return _cds_wfcq_dequeue_with_state_blocking(head, tail, NULL);
@@ -655,7 +655,7 @@ _cds_wfcq_dequeue_blocking(struct lttng_ust_wfcq_head *head,
  * dest_q must be already initialized.
  * Content written into the node before enqueue is guaranteed to be
  * consistent, but no other memory ordering is ensured.
- * Mutual exclusion with cds_wfcq_dequeue_blocking and dequeue lock is
+ * Mutual exclusion with lttng_ust_wfcq_dequeue_blocking and dequeue lock is
  * ensured.
  * Returns enum lttng_ust_wfcq_ret which indicates the state of the src or
  * dest queue. Never returns LTTNG_UST_WFCQ_RET_WOULDBLOCK.
