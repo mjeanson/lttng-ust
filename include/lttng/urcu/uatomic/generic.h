@@ -69,7 +69,7 @@ unsigned long _uatomic_cmpxchg(void *addr, unsigned long old,
 		return __sync_val_compare_and_swap_1((uint8_t *) addr, old,
 				_new);
 #endif
-#ifdef UATOMIC_HAS_ATOMIC_SHORT
+#ifdef LTTNG_UST_HAS_ATOMIC_SHORT
 	case 2:
 		return __sync_val_compare_and_swap_2((uint16_t *) addr, old,
 				_new);
@@ -108,7 +108,7 @@ void _uatomic_and(void *addr, unsigned long val,
 		__sync_and_and_fetch_1((uint8_t *) addr, val);
 		return;
 #endif
-#ifdef UATOMIC_HAS_ATOMIC_SHORT
+#ifdef LTTNG_UST_HAS_ATOMIC_SHORT
 	case 2:
 		__sync_and_and_fetch_2((uint16_t *) addr, val);
 		return;
@@ -147,7 +147,7 @@ void _uatomic_or(void *addr, unsigned long val,
 		__sync_or_and_fetch_1((uint8_t *) addr, val);
 		return;
 #endif
-#ifdef UATOMIC_HAS_ATOMIC_SHORT
+#ifdef LTTNG_UST_HAS_ATOMIC_SHORT
 	case 2:
 		__sync_or_and_fetch_2((uint16_t *) addr, val);
 		return;
@@ -187,7 +187,7 @@ unsigned long _uatomic_add_return(void *addr, unsigned long val,
 	case 1:
 		return __sync_add_and_fetch_1((uint8_t *) addr, val);
 #endif
-#ifdef UATOMIC_HAS_ATOMIC_SHORT
+#ifdef LTTNG_UST_HAS_ATOMIC_SHORT
 	case 2:
 		return __sync_add_and_fetch_2((uint16_t *) addr, val);
 #endif
@@ -229,7 +229,7 @@ unsigned long _uatomic_exchange(void *addr, unsigned long val, int len)
 		return old;
 	}
 #endif
-#ifdef UATOMIC_HAS_ATOMIC_SHORT
+#ifdef LTTNG_UST_HAS_ATOMIC_SHORT
 	case 2:
 	{
 		uint16_t old;
@@ -300,7 +300,7 @@ void _uatomic_and(void *addr, unsigned long val, int len)
 		return;
 	}
 #endif
-#ifdef UATOMIC_HAS_ATOMIC_SHORT
+#ifdef LTTNG_UST_HAS_ATOMIC_SHORT
 	case 2:
 	{
 		uint16_t old, oldt;
@@ -372,7 +372,7 @@ void _uatomic_or(void *addr, unsigned long val, int len)
 		return;
 	}
 #endif
-#ifdef UATOMIC_HAS_ATOMIC_SHORT
+#ifdef LTTNG_UST_HAS_ATOMIC_SHORT
 	case 2:
 	{
 		uint16_t old, oldt;
@@ -447,7 +447,7 @@ unsigned long _uatomic_add_return(void *addr, unsigned long val, int len)
 		return old + val;
 	}
 #endif
-#ifdef UATOMIC_HAS_ATOMIC_SHORT
+#ifdef LTTNG_UST_HAS_ATOMIC_SHORT
 	case 2:
 	{
 		uint16_t old, oldt;
@@ -523,7 +523,7 @@ unsigned long _uatomic_exchange(void *addr, unsigned long val, int len)
 		return old;
 	}
 #endif
-#ifdef UATOMIC_HAS_ATOMIC_SHORT
+#ifdef LTTNG_UST_HAS_ATOMIC_SHORT
 	case 2:
 	{
 		uint16_t old, oldt;

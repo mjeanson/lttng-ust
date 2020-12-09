@@ -26,7 +26,7 @@
 #include <lttng/urcu/system.h>
 
 #define LTTNG_UST_HAS_ATOMIC_BYTE
-#define UATOMIC_HAS_ATOMIC_SHORT
+#define LTTNG_UST_HAS_ATOMIC_SHORT
 
 #ifdef __cplusplus
 extern "C" {

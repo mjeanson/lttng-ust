@@ -33,7 +33,7 @@ extern "C" {
 #endif
 
 #define LTTNG_UST_HAS_ATOMIC_BYTE
-#define UATOMIC_HAS_ATOMIC_SHORT
+#define LTTNG_UST_HAS_ATOMIC_SHORT
 
 #ifdef __cplusplus
 }
