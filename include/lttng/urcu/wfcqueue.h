@@ -165,8 +165,8 @@ struct lttng_ust_wfcq_tail {
  * need to block. splice returns nonzero if it needs to block.
  */
 #define __lttng_ust_wfcq_dequeue_nonblocking	___lttng_ust_wfcq_dequeue_nonblocking
-#define __cds_wfcq_dequeue_with_state_nonblocking	\
-				___cds_wfcq_dequeue_with_state_nonblocking
+#define __lttng_ust_wfcq_dequeue_with_state_nonblocking	\
+				___lttng_ust_wfcq_dequeue_with_state_nonblocking
 #define __cds_wfcq_splice_nonblocking	___cds_wfcq_splice_nonblocking
 #define __cds_wfcq_first_nonblocking	___cds_wfcq_first_nonblocking
 #define __cds_wfcq_next_nonblocking	___cds_wfcq_next_nonblocking
@@ -350,7 +350,7 @@ extern struct lttng_ust_wfcq_node *__lttng_ust_wfcq_dequeue_nonblocking(
  * Same as __lttng_ust_wfcq_dequeue_nonblocking, but saves whether dequeueing
  * the last node of the queue into state (LTTNG_UST_WFCQ_STATE_LAST).
  */
-extern struct lttng_ust_wfcq_node *__cds_wfcq_dequeue_with_state_nonblocking(
+extern struct lttng_ust_wfcq_node *__lttng_ust_wfcq_dequeue_with_state_nonblocking(
 		lttng_ust_wfcq_head_ptr_t head,
 		struct lttng_ust_wfcq_tail *tail,
 		int *state);
