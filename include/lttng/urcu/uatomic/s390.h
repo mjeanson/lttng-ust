@@ -64,7 +64,7 @@ extern "C" {
 struct __lttng_ust_uatomic_dummy {
 	unsigned long v[10];
 };
-#define __hp(x)	((struct __lttng_ust_uatomic_dummy *)(x))
+#define __lttng_ust_hp(x)	((struct __lttng_ust_uatomic_dummy *)(x))
 
 /* xchg */
 
@@ -79,8 +79,8 @@ unsigned long _uatomic_exchange(volatile void *addr, unsigned long val, int len)
 		__asm__ __volatile__(
 			"0:	cs %0,%2," LTTNG_UST_MEMOP_REF(%3) "\n"
 			"	brc 4,0b\n"
-			: "=&r" (old_val), LTTNG_UST_MEMOP_OUT (__hp(addr))
-			: "r" (val), LTTNG_UST_MEMOP_IN (__hp(addr))
+			: "=&r" (old_val), LTTNG_UST_MEMOP_OUT (__lttng_ust_hp(addr))
+			: "r" (val), LTTNG_UST_MEMOP_IN (__lttng_ust_hp(addr))
 			: "memory", "cc");
 		return old_val;
 	}
@@ -92,8 +92,8 @@ unsigned long _uatomic_exchange(volatile void *addr, unsigned long val, int len)
 		__asm__ __volatile__(
 			"0:	csg %0,%2," LTTNG_UST_MEMOP_REF(%3) "\n"
 			"	brc 4,0b\n"
-			: "=&r" (old_val), LTTNG_UST_MEMOP_OUT (__hp(addr))
-			: "r" (val), LTTNG_UST_MEMOP_IN (__hp(addr))
+			: "=&r" (old_val), LTTNG_UST_MEMOP_OUT (__lttng_ust_hp(addr))
+			: "r" (val), LTTNG_UST_MEMOP_IN (__lttng_ust_hp(addr))
 			: "memory", "cc");
 		return old_val;
 	}
@@ -123,8 +123,8 @@ unsigned long _uatomic_cmpxchg(void *addr, unsigned long old,
 
 		__asm__ __volatile__(
 			"	cs %0,%2," LTTNG_UST_MEMOP_REF(%3) "\n"
-			: "+r" (old_val), LTTNG_UST_MEMOP_OUT (__hp(addr))
-			: "r" (_new), LTTNG_UST_MEMOP_IN (__hp(addr))
+			: "+r" (old_val), LTTNG_UST_MEMOP_OUT (__lttng_ust_hp(addr))
+			: "r" (_new), LTTNG_UST_MEMOP_IN (__lttng_ust_hp(addr))
 			: "memory", "cc");
 		return old_val;
 	}
@@ -133,8 +133,8 @@ unsigned long _uatomic_cmpxchg(void *addr, unsigned long old,
 	{
 		__asm__ __volatile__(
 			"	csg %0,%2," LTTNG_UST_MEMOP_REF(%3) "\n"
-			: "+r" (old), LTTNG_UST_MEMOP_OUT (__hp(addr))
-			: "r" (_new), LTTNG_UST_MEMOP_IN (__hp(addr))
+			: "+r" (old), LTTNG_UST_MEMOP_OUT (__lttng_ust_hp(addr))
+			: "r" (_new), LTTNG_UST_MEMOP_IN (__lttng_ust_hp(addr))
 			: "memory", "cc");
 		return old;
 	}
