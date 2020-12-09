@@ -133,8 +133,8 @@ struct lttng_ust_wfcq_tail {
 #include <lttng/urcu/static/wfcqueue.h>
 
 #define lttng_ust_wfcq_node_init		_lttng_ust_wfcq_node_init
-#define cds_wfcq_init			_cds_wfcq_init
-#define __cds_wfcq_init			___cds_wfcq_init
+#define lttng_ust_wfcq_init			_lttng_ust_wfcq_init
+#define __lttng_ust_wfcq_init			___lttng_ust_wfcq_init
 #define cds_wfcq_destroy		_cds_wfcq_destroy
 #define cds_wfcq_empty			_cds_wfcq_empty
 #define cds_wfcq_enqueue		_cds_wfcq_enqueue
@@ -214,24 +214,24 @@ struct lttng_ust_wfcq_tail {
 extern void lttng_ust_wfcq_node_init(struct lttng_ust_wfcq_node *node);
 
 /*
- * cds_wfcq_init: initialize wait-free queue. Pair with
+ * lttng_ust_wfcq_init: initialize wait-free queue. Pair with
  * cds_wfcq_destroy().
  */
-extern void cds_wfcq_init(struct lttng_ust_wfcq_head *head,
+extern void lttng_ust_wfcq_init(struct lttng_ust_wfcq_head *head,
 		struct lttng_ust_wfcq_tail *tail);
 
 /*
  * cds_wfcq_destroy: destroy wait-free queue. Pair with
- * cds_wfcq_init().
+ * lttng_ust_wfcq_init().
  */
 extern void cds_wfcq_destroy(struct lttng_ust_wfcq_head *head,
 		struct lttng_ust_wfcq_tail *tail);
 
 /*
- * __cds_wfcq_init: initialize wait-free queue (without lock). Don't
+ * __lttng_ust_wfcq_init: initialize wait-free queue (without lock). Don't
  * pair with any destroy function.
  */
-extern void __cds_wfcq_init(struct __lttng_ust_wfcq_head *head,
+extern void __lttng_ust_wfcq_init(struct __lttng_ust_wfcq_head *head,
 		struct lttng_ust_wfcq_tail *tail);
 
 /*

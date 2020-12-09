@@ -92,10 +92,10 @@ static inline void _lttng_ust_wfcq_node_init(struct lttng_ust_wfcq_node *node)
 }
 
 /*
- * cds_wfcq_init: initialize wait-free queue (with lock). Pair with
+ * lttng_ust_wfcq_init: initialize wait-free queue (with lock). Pair with
  * cds_wfcq_destroy().
  */
-static inline void _cds_wfcq_init(struct lttng_ust_wfcq_head *head,
+static inline void _lttng_ust_wfcq_init(struct lttng_ust_wfcq_head *head,
 		struct lttng_ust_wfcq_tail *tail)
 {
 	int ret;
@@ -109,7 +109,7 @@ static inline void _cds_wfcq_init(struct lttng_ust_wfcq_head *head,
 
 /*
  * cds_wfcq_destroy: destroy wait-free queue (with lock). Pair with
- * cds_wfcq_init().
+ * lttng_ust_wfcq_init().
  */
 static inline void _cds_wfcq_destroy(struct lttng_ust_wfcq_head *head,
 		struct lttng_ust_wfcq_tail *tail)
@@ -119,10 +119,10 @@ static inline void _cds_wfcq_destroy(struct lttng_ust_wfcq_head *head,
 }
 
 /*
- * __cds_wfcq_init: initialize wait-free queue (without lock). Don't
+ * __lttng_ust_wfcq_init: initialize wait-free queue (without lock). Don't
  * pair with any destroy function.
  */
-static inline void ___cds_wfcq_init(struct __lttng_ust_wfcq_head *head,
+static inline void ___lttng_ust_wfcq_init(struct __lttng_ust_wfcq_head *head,
 		struct lttng_ust_wfcq_tail *tail)
 {
 	/* Set queue head and tail */
