@@ -93,7 +93,7 @@ static inline void _lttng_ust_wfcq_node_init(struct lttng_ust_wfcq_node *node)
 
 /*
  * lttng_ust_wfcq_init: initialize wait-free queue (with lock). Pair with
- * cds_wfcq_destroy().
+ * lttng_ust_wfcq_destroy().
  */
 static inline void _lttng_ust_wfcq_init(struct lttng_ust_wfcq_head *head,
 		struct lttng_ust_wfcq_tail *tail)
@@ -108,10 +108,10 @@ static inline void _lttng_ust_wfcq_init(struct lttng_ust_wfcq_head *head,
 }
 
 /*
- * cds_wfcq_destroy: destroy wait-free queue (with lock). Pair with
+ * lttng_ust_wfcq_destroy: destroy wait-free queue (with lock). Pair with
  * lttng_ust_wfcq_init().
  */
-static inline void _cds_wfcq_destroy(struct lttng_ust_wfcq_head *head,
+static inline void _lttng_ust_wfcq_destroy(struct lttng_ust_wfcq_head *head,
 		struct lttng_ust_wfcq_tail *tail)
 {
 	int ret = pthread_mutex_destroy(&head->lock);

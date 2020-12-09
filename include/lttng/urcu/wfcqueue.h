@@ -135,7 +135,7 @@ struct lttng_ust_wfcq_tail {
 #define lttng_ust_wfcq_node_init		_lttng_ust_wfcq_node_init
 #define lttng_ust_wfcq_init			_lttng_ust_wfcq_init
 #define __lttng_ust_wfcq_init			___lttng_ust_wfcq_init
-#define cds_wfcq_destroy		_cds_wfcq_destroy
+#define lttng_ust_wfcq_destroy		_lttng_ust_wfcq_destroy
 #define cds_wfcq_empty			_cds_wfcq_empty
 #define cds_wfcq_enqueue		_cds_wfcq_enqueue
 
@@ -215,16 +215,16 @@ extern void lttng_ust_wfcq_node_init(struct lttng_ust_wfcq_node *node);
 
 /*
  * lttng_ust_wfcq_init: initialize wait-free queue. Pair with
- * cds_wfcq_destroy().
+ * lttng_ust_wfcq_destroy().
  */
 extern void lttng_ust_wfcq_init(struct lttng_ust_wfcq_head *head,
 		struct lttng_ust_wfcq_tail *tail);
 
 /*
- * cds_wfcq_destroy: destroy wait-free queue. Pair with
+ * lttng_ust_wfcq_destroy: destroy wait-free queue. Pair with
  * lttng_ust_wfcq_init().
  */
-extern void cds_wfcq_destroy(struct lttng_ust_wfcq_head *head,
+extern void lttng_ust_wfcq_destroy(struct lttng_ust_wfcq_head *head,
 		struct lttng_ust_wfcq_tail *tail);
 
 /*
