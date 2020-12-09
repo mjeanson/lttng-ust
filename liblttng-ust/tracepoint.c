@@ -463,7 +463,7 @@ static void set_tracepoint(struct tracepoint_entry **entry,
 	 * rcu_assign_pointer has a lttng_ust_smp_wmb() which makes sure that the new
 	 * probe callbacks array is consistent before setting a pointer to it.
 	 * This array is referenced by __DO_TRACE from
-	 * include/linux/tracepoints.h. A matching cmm_smp_read_barrier_depends()
+	 * include/linux/tracepoints.h. A matching lttng_ust_smp_read_barrier_depends()
 	 * is used.
 	 */
 	lttng_ust_rcu_assign_pointer(elem->probes, (*entry)->probes);

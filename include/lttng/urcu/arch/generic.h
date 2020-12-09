@@ -117,8 +117,8 @@ extern "C" {
 #ifndef lttng_ust_smp_wmc
 #define lttng_ust_smp_wmc()	lttng_ust_wmc()
 #endif
-#ifndef cmm_smp_read_barrier_depends
-#define cmm_smp_read_barrier_depends()	lttng_ust_read_barrier_depends()
+#ifndef lttng_ust_smp_read_barrier_depends
+#define lttng_ust_smp_read_barrier_depends()	lttng_ust_read_barrier_depends()
 #endif
 
 #ifndef caa_cpu_relax

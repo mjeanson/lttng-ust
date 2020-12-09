@@ -291,7 +291,7 @@ ___cds_wfcq_first(cds_wfcq_head_ptr_t u_head,
 		return NULL;
 	node = ___cds_wfcq_node_sync_next(&head->node, blocking);
 	/* Load head->node.next before loading node's content */
-	cmm_smp_read_barrier_depends();
+	lttng_ust_smp_read_barrier_depends();
 	return node;
 }
 
@@ -352,7 +352,7 @@ ___cds_wfcq_next(cds_wfcq_head_ptr_t head,
 		next = ___cds_wfcq_node_sync_next(node, blocking);
 	}
 	/* Load node->next before loading next's content */
-	cmm_smp_read_barrier_depends();
+	lttng_ust_smp_read_barrier_depends();
 	return next;
 }
 
@@ -453,7 +453,7 @@ ___cds_wfcq_dequeue_with_state(cds_wfcq_head_ptr_t u_head,
 	head->node.next = next;
 
 	/* Load q->head.next before loading node's content */
-	cmm_smp_read_barrier_depends();
+	lttng_ust_smp_read_barrier_depends();
 	return node;
 }
 

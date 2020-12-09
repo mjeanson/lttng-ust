@@ -68,7 +68,7 @@ extern "C" {
 				__extension__				\
 				({					\
 				__typeof__(p) _________p1 = CMM_LOAD_SHARED(p); \
-				cmm_smp_read_barrier_depends();		\
+				lttng_ust_smp_read_barrier_depends();		\
 				(_________p1);				\
 				})
 
