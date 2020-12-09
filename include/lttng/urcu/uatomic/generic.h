@@ -64,7 +64,7 @@ unsigned long _uatomic_cmpxchg(void *addr, unsigned long old,
 			      unsigned long _new, int len)
 {
 	switch (len) {
-#ifdef UATOMIC_HAS_ATOMIC_BYTE
+#ifdef LTTNG_UST_HAS_ATOMIC_BYTE
 	case 1:
 		return __sync_val_compare_and_swap_1((uint8_t *) addr, old,
 				_new);
@@ -103,7 +103,7 @@ void _uatomic_and(void *addr, unsigned long val,
 		  int len)
 {
 	switch (len) {
-#ifdef UATOMIC_HAS_ATOMIC_BYTE
+#ifdef LTTNG_UST_HAS_ATOMIC_BYTE
 	case 1:
 		__sync_and_and_fetch_1((uint8_t *) addr, val);
 		return;
@@ -142,7 +142,7 @@ void _uatomic_or(void *addr, unsigned long val,
 		 int len)
 {
 	switch (len) {
-#ifdef UATOMIC_HAS_ATOMIC_BYTE
+#ifdef LTTNG_UST_HAS_ATOMIC_BYTE
 	case 1:
 		__sync_or_and_fetch_1((uint8_t *) addr, val);
 		return;
@@ -183,7 +183,7 @@ unsigned long _uatomic_add_return(void *addr, unsigned long val,
 				 int len)
 {
 	switch (len) {
-#ifdef UATOMIC_HAS_ATOMIC_BYTE
+#ifdef LTTNG_UST_HAS_ATOMIC_BYTE
 	case 1:
 		return __sync_add_and_fetch_1((uint8_t *) addr, val);
 #endif
@@ -216,7 +216,7 @@ static inline __attribute__((always_inline))
 unsigned long _uatomic_exchange(void *addr, unsigned long val, int len)
 {
 	switch (len) {
-#ifdef UATOMIC_HAS_ATOMIC_BYTE
+#ifdef LTTNG_UST_HAS_ATOMIC_BYTE
 	case 1:
 	{
 		uint8_t old;
@@ -286,7 +286,7 @@ static inline __attribute__((always_inline))
 void _uatomic_and(void *addr, unsigned long val, int len)
 {
 	switch (len) {
-#ifdef UATOMIC_HAS_ATOMIC_BYTE
+#ifdef LTTNG_UST_HAS_ATOMIC_BYTE
 	case 1:
 	{
 		uint8_t old, oldt;
@@ -358,7 +358,7 @@ static inline __attribute__((always_inline))
 void _uatomic_or(void *addr, unsigned long val, int len)
 {
 	switch (len) {
-#ifdef UATOMIC_HAS_ATOMIC_BYTE
+#ifdef LTTNG_UST_HAS_ATOMIC_BYTE
 	case 1:
 	{
 		uint8_t old, oldt;
@@ -432,7 +432,7 @@ static inline __attribute__((always_inline))
 unsigned long _uatomic_add_return(void *addr, unsigned long val, int len)
 {
 	switch (len) {
-#ifdef UATOMIC_HAS_ATOMIC_BYTE
+#ifdef LTTNG_UST_HAS_ATOMIC_BYTE
 	case 1:
 	{
 		uint8_t old, oldt;
@@ -508,7 +508,7 @@ static inline __attribute__((always_inline))
 unsigned long _uatomic_exchange(void *addr, unsigned long val, int len)
 {
 	switch (len) {
-#ifdef UATOMIC_HAS_ATOMIC_BYTE
+#ifdef LTTNG_UST_HAS_ATOMIC_BYTE
 	case 1:
 	{
 		uint8_t old, oldt;

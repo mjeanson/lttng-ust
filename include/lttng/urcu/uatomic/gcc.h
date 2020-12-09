@@ -34,7 +34,7 @@ extern "C" {
  * a separate uatomic_arch_*.h file for your architecture.  Otherwise,
  * just rely on the definitions in uatomic/generic.h.
  */
-#define UATOMIC_HAS_ATOMIC_BYTE
+#define LTTNG_UST_HAS_ATOMIC_BYTE
 #define UATOMIC_HAS_ATOMIC_SHORT
 
 #ifdef __cplusplus
