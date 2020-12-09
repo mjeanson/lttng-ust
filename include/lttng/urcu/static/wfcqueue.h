@@ -318,13 +318,13 @@ ___lttng_ust_wfcq_first_blocking(lttng_ust_wfcq_head_ptr_t head,
 
 
 /*
- * __cds_wfcq_first_nonblocking: get first node of a queue, without dequeuing.
+ * __lttng_ust_wfcq_first_nonblocking: get first node of a queue, without dequeuing.
  *
  * Same as __lttng_ust_wfcq_first_blocking, but returns LTTNG_UST_WFCQ_WOULDBLOCK if
  * it needs to block.
  */
 static inline struct lttng_ust_wfcq_node *
-___cds_wfcq_first_nonblocking(lttng_ust_wfcq_head_ptr_t head,
+___lttng_ust_wfcq_first_nonblocking(lttng_ust_wfcq_head_ptr_t head,
 		struct lttng_ust_wfcq_tail *tail)
 {
 	return ___cds_wfcq_first(head, tail, 0);
