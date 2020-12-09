@@ -23,7 +23,7 @@
 #include <lttng/urcu/arch.h>
 
 /*
- * Identify a shared load. A cmm_smp_rmc() or cmm_smp_mc() should come
+ * Identify a shared load. A cmm_smp_rmc() or lttng_ust_smp_mc() should come
  * before the load.
  */
 #define _CMM_LOAD_SHARED(p)	       LTTNG_UST_ACCESS_ONCE(p)
@@ -39,7 +39,7 @@
 	})
 
 /*
- * Identify a shared store. A cmm_smp_wmc() or cmm_smp_mc() should
+ * Identify a shared store. A cmm_smp_wmc() or lttng_ust_smp_mc() should
  * follow the store.
  */
 #define _CMM_STORE_SHARED(x, v)	__extension__ ({ LTTNG_UST_ACCESS_ONCE(x) = (v); })

@@ -108,8 +108,8 @@ extern "C" {
 #ifndef lttng_ust_smp_wmb
 #define lttng_ust_smp_wmb()	lttng_ust_wmb()
 #endif
-#ifndef cmm_smp_mc
-#define cmm_smp_mc()	lttng_ust_mc()
+#ifndef lttng_ust_smp_mc
+#define lttng_ust_smp_mc()	lttng_ust_mc()
 #endif
 #ifndef cmm_smp_rmc
 #define cmm_smp_rmc()	lttng_ust_rmc()
