@@ -145,16 +145,16 @@ struct lttng_ust_wfcq_tail {
 
 /* Locking performed within cds_wfcq calls. */
 #define lttng_ust_wfcq_dequeue_blocking	_lttng_ust_wfcq_dequeue_blocking
-#define cds_wfcq_dequeue_with_state_blocking	\
-					_cds_wfcq_dequeue_with_state_blocking
+#define lttng_ust_wfcq_dequeue_with_state_blocking	\
+					_lttng_ust_wfcq_dequeue_with_state_blocking
 #define cds_wfcq_splice_blocking	_cds_wfcq_splice_blocking
 #define cds_wfcq_first_blocking		_cds_wfcq_first_blocking
 #define cds_wfcq_next_blocking		_cds_wfcq_next_blocking
 
 /* Locking ensured by caller by holding lttng_ust_wfcq_dequeue_lock() */
 #define __lttng_ust_wfcq_dequeue_blocking	___lttng_ust_wfcq_dequeue_blocking
-#define __cds_wfcq_dequeue_with_state_blocking	\
-					___cds_wfcq_dequeue_with_state_blocking
+#define __lttng_ust_wfcq_dequeue_with_state_blocking	\
+					___lttng_ust_wfcq_dequeue_with_state_blocking
 #define __cds_wfcq_splice_blocking	___cds_wfcq_splice_blocking
 #define __cds_wfcq_first_blocking	___cds_wfcq_first_blocking
 #define __cds_wfcq_next_blocking	___cds_wfcq_next_blocking
@@ -281,12 +281,12 @@ extern struct lttng_ust_wfcq_node *lttng_ust_wfcq_dequeue_blocking(
 		struct lttng_ust_wfcq_tail *tail);
 
 /*
- * cds_wfcq_dequeue_with_state_blocking: dequeue with state.
+ * lttng_ust_wfcq_dequeue_with_state_blocking: dequeue with state.
  *
  * Same as lttng_ust_wfcq_dequeue_blocking, but saves whether dequeueing the
  * last node of the queue into state (LTTNG_UST_WFCQ_STATE_LAST).
  */
-extern struct lttng_ust_wfcq_node *cds_wfcq_dequeue_with_state_blocking(
+extern struct lttng_ust_wfcq_node *lttng_ust_wfcq_dequeue_with_state_blocking(
 		struct lttng_ust_wfcq_head *head,
 		struct lttng_ust_wfcq_tail *tail,
 		int *state);
@@ -324,12 +324,12 @@ extern struct lttng_ust_wfcq_node *__lttng_ust_wfcq_dequeue_blocking(
 		struct lttng_ust_wfcq_tail *tail);
 
 /*
- * __cds_wfcq_dequeue_with_state_blocking: dequeue with state.
+ * __lttng_ust_wfcq_dequeue_with_state_blocking: dequeue with state.
  *
  * Same as __lttng_ust_wfcq_dequeue_blocking, but saves whether dequeueing the
  * last node of the queue into state (LTTNG_UST_WFCQ_STATE_LAST).
  */
-extern struct lttng_ust_wfcq_node *__cds_wfcq_dequeue_with_state_blocking(
+extern struct lttng_ust_wfcq_node *__lttng_ust_wfcq_dequeue_with_state_blocking(
 		lttng_ust_wfcq_head_ptr_t head,
 		struct lttng_ust_wfcq_tail *tail,
 		int *state);
@@ -345,7 +345,7 @@ extern struct lttng_ust_wfcq_node *__cds_wfcq_dequeue_nonblocking(
 		struct lttng_ust_wfcq_tail *tail);
 
 /*
- * __cds_wfcq_dequeue_with_state_blocking: dequeue with state.
+ * __lttng_ust_wfcq_dequeue_with_state_blocking: dequeue with state.
  *
  * Same as __cds_wfcq_dequeue_nonblocking, but saves whether dequeueing
  * the last node of the queue into state (LTTNG_UST_WFCQ_STATE_LAST).

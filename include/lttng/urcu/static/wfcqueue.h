@@ -458,7 +458,7 @@ ___cds_wfcq_dequeue_with_state(lttng_ust_wfcq_head_ptr_t u_head,
 }
 
 /*
- * __cds_wfcq_dequeue_with_state_blocking: dequeue node from queue, with state.
+ * __lttng_ust_wfcq_dequeue_with_state_blocking: dequeue node from queue, with state.
  *
  * Content written into the node before enqueue is guaranteed to be
  * consistent, but no other memory ordering is ensured.
@@ -467,7 +467,7 @@ ___cds_wfcq_dequeue_with_state(lttng_ust_wfcq_head_ptr_t u_head,
  * caller.
  */
 static inline struct lttng_ust_wfcq_node *
-___cds_wfcq_dequeue_with_state_blocking(lttng_ust_wfcq_head_ptr_t head,
+___lttng_ust_wfcq_dequeue_with_state_blocking(lttng_ust_wfcq_head_ptr_t head,
 		struct lttng_ust_wfcq_tail *tail, int *state)
 {
 	return ___cds_wfcq_dequeue_with_state(head, tail, state, 1);
@@ -476,14 +476,14 @@ ___cds_wfcq_dequeue_with_state_blocking(lttng_ust_wfcq_head_ptr_t head,
 /*
  * ___lttng_ust_wfcq_dequeue_blocking: dequeue node from queue.
  *
- * Same as __cds_wfcq_dequeue_with_state_blocking, but without saving
+ * Same as __lttng_ust_wfcq_dequeue_with_state_blocking, but without saving
  * state.
  */
 static inline struct lttng_ust_wfcq_node *
 ___lttng_ust_wfcq_dequeue_blocking(lttng_ust_wfcq_head_ptr_t head,
 		struct lttng_ust_wfcq_tail *tail)
 {
-	return ___cds_wfcq_dequeue_with_state_blocking(head, tail, NULL);
+	return ___lttng_ust_wfcq_dequeue_with_state_blocking(head, tail, NULL);
 }
 
 /*
@@ -615,7 +615,7 @@ ___cds_wfcq_splice_nonblocking(
 }
 
 /*
- * cds_wfcq_dequeue_with_state_blocking: dequeue a node from a wait-free queue.
+ * lttng_ust_wfcq_dequeue_with_state_blocking: dequeue a node from a wait-free queue.
  *
  * Content written into the node before enqueue is guaranteed to be
  * consistent, but no other memory ordering is ensured.
@@ -624,13 +624,13 @@ ___cds_wfcq_splice_nonblocking(
  * It is valid to reuse and free a dequeued node immediately.
  */
 static inline struct lttng_ust_wfcq_node *
-_cds_wfcq_dequeue_with_state_blocking(struct lttng_ust_wfcq_head *head,
+_lttng_ust_wfcq_dequeue_with_state_blocking(struct lttng_ust_wfcq_head *head,
 		struct lttng_ust_wfcq_tail *tail, int *state)
 {
 	struct lttng_ust_wfcq_node *retval;
 
 	_lttng_ust_wfcq_dequeue_lock(head, tail);
-	retval = ___cds_wfcq_dequeue_with_state_blocking(lttng_ust_wfcq_head_cast(head),
+	retval = ___lttng_ust_wfcq_dequeue_with_state_blocking(lttng_ust_wfcq_head_cast(head),
 			tail, state);
 	_lttng_ust_wfcq_dequeue_unlock(head, tail);
 	return retval;
@@ -645,7 +645,7 @@ static inline struct lttng_ust_wfcq_node *
 _lttng_ust_wfcq_dequeue_blocking(struct lttng_ust_wfcq_head *head,
 		struct lttng_ust_wfcq_tail *tail)
 {
-	return _cds_wfcq_dequeue_with_state_blocking(head, tail, NULL);
+	return _lttng_ust_wfcq_dequeue_with_state_blocking(head, tail, NULL);
 }
 
 /*
