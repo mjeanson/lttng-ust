@@ -141,7 +141,7 @@ struct lttng_ust_wfcq_tail {
 
 /* Dequeue locking */
 #define lttng_ust_wfcq_dequeue_lock		_lttng_ust_wfcq_dequeue_lock
-#define cds_wfcq_dequeue_unlock		_cds_wfcq_dequeue_unlock
+#define lttng_ust_wfcq_dequeue_unlock		_lttng_ust_wfcq_dequeue_unlock
 
 /* Locking performed within cds_wfcq calls. */
 #define cds_wfcq_dequeue_blocking	_cds_wfcq_dequeue_blocking
@@ -249,9 +249,9 @@ extern void lttng_ust_wfcq_dequeue_lock(struct lttng_ust_wfcq_head *head,
 		struct lttng_ust_wfcq_tail *tail);
 
 /*
- * cds_wfcq_dequeue_unlock: release the dequeue mutual exclusion lock.
+ * lttng_ust_wfcq_dequeue_unlock: release the dequeue mutual exclusion lock.
  */
-extern void cds_wfcq_dequeue_unlock(struct lttng_ust_wfcq_head *head,
+extern void lttng_ust_wfcq_dequeue_unlock(struct lttng_ust_wfcq_head *head,
 		struct lttng_ust_wfcq_tail *tail);
 
 /*
