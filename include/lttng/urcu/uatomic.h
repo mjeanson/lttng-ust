@@ -23,33 +23,33 @@
 
 #include <lttng/urcu/arch.h>
 
-#if defined(URCU_ARCH_X86)
+#if defined(LTTNG_UST_ARCH_X86)
 #include <lttng/urcu/uatomic/x86.h>
-#elif defined(URCU_ARCH_PPC)
+#elif defined(LTTNG_UST_ARCH_PPC)
 #include <lttng/urcu/uatomic/ppc.h>
-#elif defined(URCU_ARCH_S390)
+#elif defined(LTTNG_UST_ARCH_S390)
 #include <lttng/urcu/uatomic/s390.h>
-#elif defined(URCU_ARCH_SPARC64)
+#elif defined(LTTNG_UST_ARCH_SPARC64)
 #include <lttng/urcu/uatomic/sparc64.h>
-#elif defined(URCU_ARCH_ALPHA)
+#elif defined(LTTNG_UST_ARCH_ALPHA)
 #include <lttng/urcu/uatomic/alpha.h>
-#elif defined(URCU_ARCH_IA64)
+#elif defined(LTTNG_UST_ARCH_IA64)
 #include <lttng/urcu/uatomic/ia64.h>
-#elif defined(URCU_ARCH_ARM)
+#elif defined(LTTNG_UST_ARCH_ARM)
 #include <lttng/urcu/uatomic/arm.h>
-#elif defined(URCU_ARCH_AARCH64)
+#elif defined(LTTNG_UST_ARCH_AARCH64)
 #include <lttng/urcu/uatomic/aarch64.h>
-#elif defined(URCU_ARCH_MIPS)
+#elif defined(LTTNG_UST_ARCH_MIPS)
 #include <lttng/urcu/uatomic/mips.h>
-#elif defined(URCU_ARCH_NIOS2)
+#elif defined(LTTNG_UST_ARCH_NIOS2)
 #include <lttng/urcu/uatomic/nios2.h>
-#elif defined(URCU_ARCH_TILE)
+#elif defined(LTTNG_UST_ARCH_TILE)
 #include <lttng/urcu/uatomic/tile.h>
-#elif defined(URCU_ARCH_HPPA)
+#elif defined(LTTNG_UST_ARCH_HPPA)
 #include <lttng/urcu/uatomic/hppa.h>
-#elif defined(URCU_ARCH_M68K)
+#elif defined(LTTNG_UST_ARCH_M68K)
 #include <lttng/urcu/uatomic/m68k.h>
-#elif defined(URCU_ARCH_RISCV)
+#elif defined(LTTNG_UST_ARCH_RISCV)
 #include <lttng/urcu/uatomic/riscv.h>
 #else
 #error "Cannot build: unrecognized architecture, see <lttng/urcu/arch.h>."

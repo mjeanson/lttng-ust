@@ -1,5 +1,5 @@
-#ifndef _URCU_ARCH_UATOMIC_GCC_H
-#define _URCU_ARCH_UATOMIC_GCC_H
+#ifndef _LTTNG_UST_ARCH_UATOMIC_GCC_H
+#define _LTTNG_UST_ARCH_UATOMIC_GCC_H
 
 /*
  * Copyright (c) 1991-1994 by Xerox Corporation.  All rights reserved.
@@ -43,4 +43,4 @@ extern "C" {
 
 #include <lttng/urcu/uatomic/generic.h>
 
-#endif /* _URCU_ARCH_UATOMIC_GCC_H */
+#endif /* _LTTNG_UST_ARCH_UATOMIC_GCC_H */

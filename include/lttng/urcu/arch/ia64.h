@@ -1,5 +1,5 @@
-#ifndef _URCU_ARCH_IA64_H
-#define _URCU_ARCH_IA64_H
+#ifndef _LTTNG_UST_ARCH_IA64_H
+#define _LTTNG_UST_ARCH_IA64_H
 
 /*
  * arch/ia64.h: definitions for ia64 architecture
@@ -47,4 +47,4 @@ extern "C" {
 
 #include <lttng/urcu/arch/generic.h>
 
-#endif /* _URCU_ARCH_IA64_H */
+#endif /* _LTTNG_UST_ARCH_IA64_H */

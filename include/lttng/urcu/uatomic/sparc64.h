@@ -1,5 +1,5 @@
-#ifndef _URCU_ARCH_UATOMIC_SPARC64_H
-#define _URCU_ARCH_UATOMIC_SPARC64_H
+#ifndef _LTTNG_UST_ARCH_UATOMIC_SPARC64_H
+#define _LTTNG_UST_ARCH_UATOMIC_SPARC64_H
 
 /*
  * Copyright (c) 1991-1994 by Xerox Corporation.  All rights reserved.
@@ -78,4 +78,4 @@ unsigned long _uatomic_cmpxchg(void *addr, unsigned long old,
 
 #include <lttng/urcu/uatomic/generic.h>
 
-#endif /* _URCU_ARCH_UATOMIC_PPC_H */
+#endif /* _LTTNG_UST_ARCH_UATOMIC_PPC_H */

@@ -1,5 +1,5 @@
-#ifndef _URCU_ARCH_UATOMIC_PPC_H
-#define _URCU_ARCH_UATOMIC_PPC_H
+#ifndef _LTTNG_UST_ARCH_UATOMIC_PPC_H
+#define _LTTNG_UST_ARCH_UATOMIC_PPC_H
 
 /*
  * Copyright (c) 1991-1994 by Xerox Corporation.  All rights reserved.
@@ -234,4 +234,4 @@ unsigned long _uatomic_add_return(void *addr, unsigned long val,
 
 #include <lttng/urcu/uatomic/generic.h>
 
-#endif /* _URCU_ARCH_UATOMIC_PPC_H */
+#endif /* _LTTNG_UST_ARCH_UATOMIC_PPC_H */

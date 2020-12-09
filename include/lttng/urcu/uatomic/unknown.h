@@ -1,5 +1,5 @@
-#ifndef _URCU_ARCH_UATOMIC_UNKNOWN_H
-#define _URCU_ARCH_UATOMIC_UNKNOWN_H
+#ifndef _LTTNG_UST_ARCH_UATOMIC_UNKNOWN_H
+#define _LTTNG_UST_ARCH_UATOMIC_UNKNOWN_H
 
 /*
  * Copyright (c) 1991-1994 by Xerox Corporation.  All rights reserved.
@@ -22,4 +22,4 @@
 /* See configure.ac for the list of recognized architectures.  */
 #error "Cannot build: unrecognized architecture detected."
 
-#endif /* _URCU_ARCH_UATOMIC_UNKNOWN_H */
+#endif /* _LTTNG_UST_ARCH_UATOMIC_UNKNOWN_H */

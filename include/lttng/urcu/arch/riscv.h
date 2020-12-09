@@ -1,5 +1,5 @@
-#ifndef _URCU_ARCH_RISCV_H
-#define _URCU_ARCH_RISCV_H
+#ifndef _LTTNG_UST_ARCH_RISCV_H
+#define _LTTNG_UST_ARCH_RISCV_H
 
 /*
  * arch/riscv.h: definitions for the RISC-V architecture
@@ -46,4 +46,4 @@ extern "C" {
 
 #include <lttng/urcu/arch/generic.h>
 
-#endif /* _URCU_ARCH_RISCV_H */
+#endif /* _LTTNG_UST_ARCH_RISCV_H */

@@ -1,5 +1,5 @@
-#ifndef _URCU_ARCH_UATOMIC_ARM_H
-#define _URCU_ARCH_UATOMIC_ARM_H
+#ifndef _LTTNG_UST_ARCH_UATOMIC_ARM_H
+#define _LTTNG_UST_ARCH_UATOMIC_ARM_H
 
 /*
  * Atomics for ARM.  This approach is usable on kernels back to 2.6.15.
@@ -54,4 +54,4 @@ extern "C" {
 
 #include <lttng/urcu/uatomic/generic.h>
 
-#endif /* _URCU_ARCH_UATOMIC_ARM_H */
+#endif /* _LTTNG_UST_ARCH_UATOMIC_ARM_H */

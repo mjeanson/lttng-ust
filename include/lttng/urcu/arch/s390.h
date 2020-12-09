@@ -1,5 +1,5 @@
-#ifndef _URCU_ARCH_S390_H
-#define _URCU_ARCH_S390_H
+#ifndef _LTTNG_UST_ARCH_S390_H
+#define _LTTNG_UST_ARCH_S390_H
 
 /*
  * Trivial definitions for the S390 architecture based on information from the
@@ -55,4 +55,4 @@ extern "C" {
 
 #include <lttng/urcu/arch/generic.h>
 
-#endif /* _URCU_ARCH_S390_H */
+#endif /* _LTTNG_UST_ARCH_S390_H */

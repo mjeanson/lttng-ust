@@ -1,5 +1,5 @@
-#ifndef _URCU_ARCH_GCC_H
-#define _URCU_ARCH_GCC_H
+#ifndef _LTTNG_UST_ARCH_GCC_H
+#define _LTTNG_UST_ARCH_GCC_H
 
 /*
  * arch_gcc.h: trivial definitions for architectures using gcc __sync_
@@ -39,4 +39,4 @@ extern "C" {
 
 #include <lttng/urcu/arch/generic.h>
 
-#endif /* _URCU_ARCH_GCC_H */
+#endif /* _LTTNG_UST_ARCH_GCC_H */

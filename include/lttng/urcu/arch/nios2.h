@@ -1,5 +1,5 @@
-#ifndef _URCU_ARCH_NIOS2_H
-#define _URCU_ARCH_NIOS2_H
+#ifndef _LTTNG_UST_ARCH_NIOS2_H
+#define _LTTNG_UST_ARCH_NIOS2_H
 
 /*
  * arch_nios2.h: trivial definitions for the NIOS2 architecture.
@@ -37,4 +37,4 @@ extern "C" {
 
 #include <lttng/urcu/arch/generic.h>
 
-#endif /* _URCU_ARCH_NIOS2_H */
+#endif /* _LTTNG_UST_ARCH_NIOS2_H */

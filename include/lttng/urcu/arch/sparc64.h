@@ -1,5 +1,5 @@
-#ifndef _URCU_ARCH_SPARC64_H
-#define _URCU_ARCH_SPARC64_H
+#ifndef _LTTNG_UST_ARCH_SPARC64_H
+#define _LTTNG_UST_ARCH_SPARC64_H
 
 /*
  * arch_sparc64.h: trivial definitions for the Sparc64 architecture.
@@ -59,4 +59,4 @@ __asm__ __volatile__("ba,pt %%xcc, 1f\n\t"	\
 
 #include <lttng/urcu/arch/generic.h>
 
-#endif /* _URCU_ARCH_SPARC64_H */
+#endif /* _LTTNG_UST_ARCH_SPARC64_H */

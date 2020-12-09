@@ -22,8 +22,8 @@
  * IN THE SOFTWARE.
  */
 
-#ifndef _URCU_ARCH_UATOMIC_RISCV_H
-#define _URCU_ARCH_UATOMIC_RISCV_H
+#ifndef _LTTNG_UST_ARCH_UATOMIC_RISCV_H
+#define _LTTNG_UST_ARCH_UATOMIC_RISCV_H
 
 #include <lttng/urcu/compiler.h>
 #include <lttng/urcu/system.h>
@@ -41,4 +41,4 @@ extern "C" {
 
 #include <lttng/urcu/uatomic/generic.h>
 
-#endif /* _URCU_ARCH_UATOMIC_RISCV_H */
+#endif /* _LTTNG_UST_ARCH_UATOMIC_RISCV_H */

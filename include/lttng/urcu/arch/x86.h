@@ -1,5 +1,5 @@
-#ifndef _URCU_ARCH_X86_H
-#define _URCU_ARCH_X86_H
+#ifndef _LTTNG_UST_ARCH_X86_H
+#define _LTTNG_UST_ARCH_X86_H
 
 /*
  * arch_x86.h: trivial definitions for the x86 architecture.
@@ -41,7 +41,7 @@ extern "C" {
  * k1om (__MIC__) is the name for the Intel MIC family (Xeon Phi). It is an
  * x86_64 variant but lacks fence instructions.
  */
-#if (defined(URCU_ARCH_AMD64) && !defined(URCU_ARCH_K1OM))
+#if (defined(LTTNG_UST_ARCH_AMD64) && !defined(LTTNG_UST_ARCH_K1OM))
 
 #define lttng_ust_mb()    __asm__ __volatile__ ("mfence":::"memory")
 
@@ -99,4 +99,4 @@ extern "C" {
 
 #include <lttng/urcu/arch/generic.h>
 
-#endif /* _URCU_ARCH_X86_H */
+#endif /* _LTTNG_UST_ARCH_X86_H */

@@ -1,5 +1,5 @@
-#ifndef _URCU_ARCH_ARM_H
-#define _URCU_ARCH_ARM_H
+#ifndef _LTTNG_UST_ARCH_ARM_H
+#define _LTTNG_UST_ARCH_ARM_H
 
 /*
  * arch_arm.h: trivial definitions for the ARM architecture.
@@ -76,4 +76,4 @@ extern "C" {
 
 #include <lttng/urcu/arch/generic.h>
 
-#endif /* _URCU_ARCH_ARM_H */
+#endif /* _LTTNG_UST_ARCH_ARM_H */

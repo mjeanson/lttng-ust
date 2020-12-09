@@ -1,5 +1,5 @@
-#ifndef _URCU_ARCH_UATOMIC_X86_H
-#define _URCU_ARCH_UATOMIC_X86_H
+#ifndef _LTTNG_UST_ARCH_UATOMIC_X86_H
+#define _LTTNG_UST_ARCH_UATOMIC_X86_H
 
 /*
  * Copyright (c) 1991-1994 by Xerox Corporation.  All rights reserved.
@@ -32,7 +32,7 @@
 extern "C" {
 #endif
 
-#if ((LTTNG_UST_BITS_PER_LONG != 64) && defined(URCU_ARCH_I386))
+#if ((LTTNG_UST_BITS_PER_LONG != 64) && defined(LTTNG_UST_ARCH_I386))
 #error "i386 lacks the cmpxchg instruction, build for i486 and up."
 #endif
 
@@ -543,4 +543,4 @@ void __lttng_ust_dec(void *addr, int len)
 
 #include <lttng/urcu/uatomic/generic.h>
 
-#endif /* _URCU_ARCH_UATOMIC_X86_H */
+#endif /* _LTTNG_UST_ARCH_UATOMIC_X86_H */

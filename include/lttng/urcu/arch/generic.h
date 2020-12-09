@@ -1,5 +1,5 @@
-#ifndef _URCU_ARCH_GENERIC_H
-#define _URCU_ARCH_GENERIC_H
+#ifndef _LTTNG_UST_ARCH_GENERIC_H
+#define _LTTNG_UST_ARCH_GENERIC_H
 
 /*
  * arch_generic.h: common definitions for multiple architectures.
@@ -129,4 +129,4 @@ extern "C" {
 }
 #endif
 
-#endif /* _URCU_ARCH_GENERIC_H */
+#endif /* _LTTNG_UST_ARCH_GENERIC_H */

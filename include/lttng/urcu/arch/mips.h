@@ -1,5 +1,5 @@
-#ifndef _URCU_ARCH_MIPS_H
-#define _URCU_ARCH_MIPS_H
+#ifndef _LTTNG_UST_ARCH_MIPS_H
+#define _LTTNG_UST_ARCH_MIPS_H
 
 /*
  * arch_mips.h: trivial definitions for the MIPS architecture.
@@ -42,4 +42,4 @@ extern "C" {
 
 #include <lttng/urcu/arch/generic.h>
 
-#endif /* _URCU_ARCH_MIPS_H */
+#endif /* _LTTNG_UST_ARCH_MIPS_H */
