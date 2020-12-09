@@ -232,10 +232,10 @@ static inline bool _lttng_ust_wfcq_enqueue(lttng_ust_wfcq_head_ptr_t head,
  * to log a warning or perform other background work).
  */
 #ifndef LTTNG_UST_WFCQ_WAIT_SLEEP
-#define LTTNG_UST_WFCQ_WAIT_SLEEP(msec) ___cds_wfcq_wait_sleep(msec)
+#define LTTNG_UST_WFCQ_WAIT_SLEEP(msec) ___lttng_ust_wfcq_wait_sleep(msec)
 #endif
 
-static inline void ___cds_wfcq_wait_sleep(int msec)
+static inline void ___lttng_ust_wfcq_wait_sleep(int msec)
 {
 	(void) poll(NULL, 0, msec);
 }
