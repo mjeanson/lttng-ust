@@ -55,7 +55,7 @@ extern "C" {
  * required between pairs marked with "-".
  *
  * Legend:
- * [1] cds_wfcq_enqueue
+ * [1] lttng_ust_wfcq_enqueue
  * [2] __cds_wfcq_splice (destination queue)
  * [3] __cds_wfcq_dequeue
  * [4] __cds_wfcq_splice (source queue)
@@ -208,7 +208,7 @@ static inline bool ___cds_wfcq_append(lttng_ust_wfcq_head_ptr_t u_head,
 }
 
 /*
- * cds_wfcq_enqueue: enqueue a node into a wait-free queue.
+ * lttng_ust_wfcq_enqueue: enqueue a node into a wait-free queue.
  *
  * Issues a full memory barrier before enqueue. No mutual exclusion is
  * required.
@@ -216,7 +216,7 @@ static inline bool ___cds_wfcq_append(lttng_ust_wfcq_head_ptr_t u_head,
  * Returns false if the queue was empty prior to adding the node.
  * Returns true otherwise.
  */
-static inline bool _cds_wfcq_enqueue(lttng_ust_wfcq_head_ptr_t head,
+static inline bool _lttng_ust_wfcq_enqueue(lttng_ust_wfcq_head_ptr_t head,
 		struct lttng_ust_wfcq_tail *tail,
 		struct lttng_ust_wfcq_node *new_tail)
 {

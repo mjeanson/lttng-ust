@@ -137,7 +137,7 @@ struct lttng_ust_wfcq_tail {
 #define __lttng_ust_wfcq_init			___lttng_ust_wfcq_init
 #define lttng_ust_wfcq_destroy		_lttng_ust_wfcq_destroy
 #define lttng_ust_wfcq_empty			_lttng_ust_wfcq_empty
-#define cds_wfcq_enqueue		_cds_wfcq_enqueue
+#define lttng_ust_wfcq_enqueue		_lttng_ust_wfcq_enqueue
 
 /* Dequeue locking */
 #define cds_wfcq_dequeue_lock		_cds_wfcq_dequeue_lock
@@ -183,7 +183,7 @@ struct lttng_ust_wfcq_tail {
  * required between pairs marked with "-".
  *
  * Legend:
- * [1] cds_wfcq_enqueue
+ * [1] lttng_ust_wfcq_enqueue
  * [2] __cds_wfcq_splice (destination queue)
  * [3] __cds_wfcq_dequeue
  * [4] __cds_wfcq_splice (source queue)
@@ -255,7 +255,7 @@ extern void cds_wfcq_dequeue_unlock(struct lttng_ust_wfcq_head *head,
 		struct lttng_ust_wfcq_tail *tail);
 
 /*
- * cds_wfcq_enqueue: enqueue a node into a wait-free queue.
+ * lttng_ust_wfcq_enqueue: enqueue a node into a wait-free queue.
  *
  * Issues a full memory barrier before enqueue. No mutual exclusion is
  * required.
@@ -263,7 +263,7 @@ extern void cds_wfcq_dequeue_unlock(struct lttng_ust_wfcq_head *head,
  * Returns false if the queue was empty prior to adding the node.
  * Returns true otherwise.
  */
-extern bool cds_wfcq_enqueue(lttng_ust_wfcq_head_ptr_t head,
+extern bool lttng_ust_wfcq_enqueue(lttng_ust_wfcq_head_ptr_t head,
 		struct lttng_ust_wfcq_tail *tail,
 		struct lttng_ust_wfcq_node *node);
 
