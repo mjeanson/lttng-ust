@@ -51,13 +51,13 @@ extern "C" {
 
 #define LTTNG_UST_MEMOP_OUT(addr)	"=Q" (*(addr))
 #define LTTNG_UST_MEMOP_IN(addr)	"Q" (*(addr))
-#define MEMOP_REF(op)	#op		/* op refer to LTTNG_UST_MEMOP_IN operand */
+#define LTTNG_UST_MEMOP_REF(op)	#op		/* op refer to LTTNG_UST_MEMOP_IN operand */
 
 #else /* !LTTNG_UST_COMPILER_HAVE_SHORT_MEM_OPERAND */
 
 #define LTTNG_UST_MEMOP_OUT(addr)	"=m" (*(addr))
 #define LTTNG_UST_MEMOP_IN(addr)	"a" (addr), "m" (*(addr))
-#define MEMOP_REF(op)	"0(" #op ")"	/* op refer to LTTNG_UST_MEMOP_IN operand */
+#define LTTNG_UST_MEMOP_REF(op)	"0(" #op ")"	/* op refer to LTTNG_UST_MEMOP_IN operand */
 
 #endif /* !LTTNG_UST_COMPILER_HAVE_SHORT_MEM_OPERAND */
 
@@ -77,7 +77,7 @@ unsigned long _uatomic_exchange(volatile void *addr, unsigned long val, int len)
 		unsigned int old_val;
 
 		__asm__ __volatile__(
-			"0:	cs %0,%2," MEMOP_REF(%3) "\n"
+			"0:	cs %0,%2," LTTNG_UST_MEMOP_REF(%3) "\n"
 			"	brc 4,0b\n"
 			: "=&r" (old_val), LTTNG_UST_MEMOP_OUT (__hp(addr))
 			: "r" (val), LTTNG_UST_MEMOP_IN (__hp(addr))
@@ -90,7 +90,7 @@ unsigned long _uatomic_exchange(volatile void *addr, unsigned long val, int len)
 		unsigned long old_val;
 
 		__asm__ __volatile__(
-			"0:	csg %0,%2," MEMOP_REF(%3) "\n"
+			"0:	csg %0,%2," LTTNG_UST_MEMOP_REF(%3) "\n"
 			"	brc 4,0b\n"
 			: "=&r" (old_val), LTTNG_UST_MEMOP_OUT (__hp(addr))
 			: "r" (val), LTTNG_UST_MEMOP_IN (__hp(addr))
@@ -122,7 +122,7 @@ unsigned long _uatomic_cmpxchg(void *addr, unsigned long old,
 		unsigned int old_val = (unsigned int)old;
 
 		__asm__ __volatile__(
-			"	cs %0,%2," MEMOP_REF(%3) "\n"
+			"	cs %0,%2," LTTNG_UST_MEMOP_REF(%3) "\n"
 			: "+r" (old_val), LTTNG_UST_MEMOP_OUT (__hp(addr))
 			: "r" (_new), LTTNG_UST_MEMOP_IN (__hp(addr))
 			: "memory", "cc");
@@ -132,7 +132,7 @@ unsigned long _uatomic_cmpxchg(void *addr, unsigned long old,
 	case 8:
 	{
 		__asm__ __volatile__(
-			"	csg %0,%2," MEMOP_REF(%3) "\n"
+			"	csg %0,%2," LTTNG_UST_MEMOP_REF(%3) "\n"
 			: "+r" (old), LTTNG_UST_MEMOP_OUT (__hp(addr))
 			: "r" (_new), LTTNG_UST_MEMOP_IN (__hp(addr))
 			: "memory", "cc");
