@@ -70,7 +70,7 @@ extern "C" {
  * [5]  -   -   X   X   -   -
  * [6]  -   -   X   X   -   -
  *
- * Mutual exclusion can be ensured by holding cds_wfcq_dequeue_lock().
+ * Mutual exclusion can be ensured by holding lttng_ust_wfcq_dequeue_lock().
  *
  * For convenience, cds_wfcq_dequeue_blocking() and
  * cds_wfcq_splice_blocking() hold the dequeue lock.
@@ -157,7 +157,7 @@ static inline bool _lttng_ust_wfcq_empty(lttng_ust_wfcq_head_ptr_t u_head,
 		&& LTTNG_UST_LOAD_SHARED(tail->p) == &head->node;
 }
 
-static inline void _cds_wfcq_dequeue_lock(struct lttng_ust_wfcq_head *head,
+static inline void _lttng_ust_wfcq_dequeue_lock(struct lttng_ust_wfcq_head *head,
 		struct lttng_ust_wfcq_tail *tail)
 {
 	int ret;
@@ -629,7 +629,7 @@ _cds_wfcq_dequeue_with_state_blocking(struct lttng_ust_wfcq_head *head,
 {
 	struct lttng_ust_wfcq_node *retval;
 
-	_cds_wfcq_dequeue_lock(head, tail);
+	_lttng_ust_wfcq_dequeue_lock(head, tail);
 	retval = ___cds_wfcq_dequeue_with_state_blocking(lttng_ust_wfcq_head_cast(head),
 			tail, state);
 	_cds_wfcq_dequeue_unlock(head, tail);
@@ -669,7 +669,7 @@ _cds_wfcq_splice_blocking(
 {
 	enum lttng_ust_wfcq_ret ret;
 
-	_cds_wfcq_dequeue_lock(src_q_head, src_q_tail);
+	_lttng_ust_wfcq_dequeue_lock(src_q_head, src_q_tail);
 	ret = ___cds_wfcq_splice_blocking(lttng_ust_wfcq_head_cast(dest_q_head), dest_q_tail,
 			lttng_ust_wfcq_head_cast(src_q_head), src_q_tail);
 	_cds_wfcq_dequeue_unlock(src_q_head, src_q_tail);

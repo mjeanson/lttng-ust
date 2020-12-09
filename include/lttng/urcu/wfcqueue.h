@@ -140,7 +140,7 @@ struct lttng_ust_wfcq_tail {
 #define lttng_ust_wfcq_enqueue		_lttng_ust_wfcq_enqueue
 
 /* Dequeue locking */
-#define cds_wfcq_dequeue_lock		_cds_wfcq_dequeue_lock
+#define lttng_ust_wfcq_dequeue_lock		_lttng_ust_wfcq_dequeue_lock
 #define cds_wfcq_dequeue_unlock		_cds_wfcq_dequeue_unlock
 
 /* Locking performed within cds_wfcq calls. */
@@ -151,7 +151,7 @@ struct lttng_ust_wfcq_tail {
 #define cds_wfcq_first_blocking		_cds_wfcq_first_blocking
 #define cds_wfcq_next_blocking		_cds_wfcq_next_blocking
 
-/* Locking ensured by caller by holding cds_wfcq_dequeue_lock() */
+/* Locking ensured by caller by holding lttng_ust_wfcq_dequeue_lock() */
 #define __cds_wfcq_dequeue_blocking	___cds_wfcq_dequeue_blocking
 #define __cds_wfcq_dequeue_with_state_blocking	\
 					___cds_wfcq_dequeue_with_state_blocking
@@ -160,7 +160,7 @@ struct lttng_ust_wfcq_tail {
 #define __cds_wfcq_next_blocking	___cds_wfcq_next_blocking
 
 /*
- * Locking ensured by caller by holding cds_wfcq_dequeue_lock().
+ * Locking ensured by caller by holding lttng_ust_wfcq_dequeue_lock().
  * Non-blocking: deque, first, next return LTTNG_UST_WFCQ_WOULDBLOCK if they
  * need to block. splice returns nonzero if it needs to block.
  */
@@ -198,7 +198,7 @@ struct lttng_ust_wfcq_tail {
  * [5]  -   -   X   X   -   -
  * [6]  -   -   X   X   -   -
  *
- * Mutual exclusion can be ensured by holding cds_wfcq_dequeue_lock().
+ * Mutual exclusion can be ensured by holding lttng_ust_wfcq_dequeue_lock().
  *
  * For convenience, cds_wfcq_dequeue_blocking() and
  * cds_wfcq_splice_blocking() hold the dequeue lock.
@@ -243,9 +243,9 @@ extern bool lttng_ust_wfcq_empty(lttng_ust_wfcq_head_ptr_t head,
 		struct lttng_ust_wfcq_tail *tail);
 
 /*
- * cds_wfcq_dequeue_lock: take the dequeue mutual exclusion lock.
+ * lttng_ust_wfcq_dequeue_lock: take the dequeue mutual exclusion lock.
  */
-extern void cds_wfcq_dequeue_lock(struct lttng_ust_wfcq_head *head,
+extern void lttng_ust_wfcq_dequeue_lock(struct lttng_ust_wfcq_head *head,
 		struct lttng_ust_wfcq_tail *tail);
 
 /*
