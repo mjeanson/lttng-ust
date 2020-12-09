@@ -81,7 +81,7 @@ extern "C" {
  */
 
 #define LTTNG_UST_WFCQ_ADAPT_ATTEMPTS		10	/* Retry if being set */
-#define WFCQ_WAIT			10	/* Wait 10 ms if being set */
+#define LTTNG_UST_WFCQ_WAIT			10	/* Wait 10 ms if being set */
 
 /*
  * lttng_ust_wfcq_node_init: initialize wait-free queue node.
@@ -251,7 +251,7 @@ ___cds_wfcq_busy_wait(int *attempt, int blocking)
 	if (!blocking)
 		return 1;
 	if (++(*attempt) >= LTTNG_UST_WFCQ_ADAPT_ATTEMPTS) {
-		LTTNG_UST_WFCQ_WAIT_SLEEP(WFCQ_WAIT);		/* Wait for 10ms */
+		LTTNG_UST_WFCQ_WAIT_SLEEP(LTTNG_UST_WFCQ_WAIT);		/* Wait for 10ms */
 		*attempt = 0;
 	} else {
 		lttng_ust_cpu_relax();
