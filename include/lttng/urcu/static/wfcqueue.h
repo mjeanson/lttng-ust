@@ -554,7 +554,7 @@ ___cds_wfcq_splice(
 		if (LTTNG_UST_LOAD_SHARED(src_q_tail->p) == &src_q_head->node)
 			return CDS_WFCQ_RET_SRC_EMPTY;
 		if (___cds_wfcq_busy_wait(&attempt, blocking))
-			return CDS_WFCQ_RET_WOULDBLOCK;
+			return LTTNG_UST_WFCQ_RET_WOULDBLOCK;
 	}
 
 	/*
@@ -584,7 +584,7 @@ ___cds_wfcq_splice(
  * Mutual exclusion for src_q should be ensured by the caller as
  * specified in the "Synchronisation table".
  * Returns enum lttng_ust_wfcq_ret which indicates the state of the src or
- * dest queue. Never returns CDS_WFCQ_RET_WOULDBLOCK.
+ * dest queue. Never returns LTTNG_UST_WFCQ_RET_WOULDBLOCK.
  */
 static inline enum lttng_ust_wfcq_ret
 ___cds_wfcq_splice_blocking(
@@ -601,7 +601,7 @@ ___cds_wfcq_splice_blocking(
  * __cds_wfcq_splice_nonblocking: enqueue all src_q nodes at the end of dest_q.
  *
  * Same as __cds_wfcq_splice_blocking, but returns
- * CDS_WFCQ_RET_WOULDBLOCK if it needs to block.
+ * LTTNG_UST_WFCQ_RET_WOULDBLOCK if it needs to block.
  */
 static inline enum lttng_ust_wfcq_ret
 ___cds_wfcq_splice_nonblocking(
@@ -658,7 +658,7 @@ _cds_wfcq_dequeue_blocking(struct cds_wfcq_head *head,
  * Mutual exclusion with cds_wfcq_dequeue_blocking and dequeue lock is
  * ensured.
  * Returns enum lttng_ust_wfcq_ret which indicates the state of the src or
- * dest queue. Never returns CDS_WFCQ_RET_WOULDBLOCK.
+ * dest queue. Never returns LTTNG_UST_WFCQ_RET_WOULDBLOCK.
  */
 static inline enum lttng_ust_wfcq_ret
 _cds_wfcq_splice_blocking(

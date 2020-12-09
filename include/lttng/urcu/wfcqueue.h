@@ -46,7 +46,7 @@ extern "C" {
 #define LTTNG_UST_WFCQ_WOULDBLOCK	((struct cds_wfcq_node *) -1UL)
 
 enum lttng_ust_wfcq_ret {
-	CDS_WFCQ_RET_WOULDBLOCK =	-1,
+	LTTNG_UST_WFCQ_RET_WOULDBLOCK =	-1,
 	CDS_WFCQ_RET_DEST_EMPTY =	0,
 	CDS_WFCQ_RET_DEST_NON_EMPTY =	1,
 	CDS_WFCQ_RET_SRC_EMPTY = 	2,
@@ -363,7 +363,7 @@ extern struct cds_wfcq_node *__cds_wfcq_dequeue_with_state_nonblocking(
  * Mutual exclusion for src_q should be ensured by the caller as
  * specified in the "Synchronisation table".
  * Returns enum lttng_ust_wfcq_ret which indicates the state of the src or
- * dest queue. Never returns CDS_WFCQ_RET_WOULDBLOCK.
+ * dest queue. Never returns LTTNG_UST_WFCQ_RET_WOULDBLOCK.
  */
 extern enum lttng_ust_wfcq_ret __cds_wfcq_splice_blocking(
 		cds_wfcq_head_ptr_t dest_q_head,
@@ -375,7 +375,7 @@ extern enum lttng_ust_wfcq_ret __cds_wfcq_splice_blocking(
  * __cds_wfcq_splice_nonblocking: enqueue all src_q nodes at the end of dest_q.
  *
  * Same as __cds_wfcq_splice_blocking, but returns
- * CDS_WFCQ_RET_WOULDBLOCK if it needs to block.
+ * LTTNG_UST_WFCQ_RET_WOULDBLOCK if it needs to block.
  */
 extern enum lttng_ust_wfcq_ret __cds_wfcq_splice_nonblocking(
 		cds_wfcq_head_ptr_t dest_q_head,
