@@ -540,7 +540,7 @@ ___cds_wfcq_splice(
 	 * empty: only require loads to check if queue is empty.
 	 */
 	if (_cds_wfcq_empty(__cds_wfcq_head_cast(src_q_head), src_q_tail))
-		return CDS_WFCQ_RET_SRC_EMPTY;
+		return LTTNG_UST_WFCQ_RET_SRC_EMPTY;
 
 	for (;;) {
 		/*
@@ -552,7 +552,7 @@ ___cds_wfcq_splice(
 		if (head)
 			break;	/* non-empty */
 		if (LTTNG_UST_LOAD_SHARED(src_q_tail->p) == &src_q_head->node)
-			return CDS_WFCQ_RET_SRC_EMPTY;
+			return LTTNG_UST_WFCQ_RET_SRC_EMPTY;
 		if (___cds_wfcq_busy_wait(&attempt, blocking))
 			return LTTNG_UST_WFCQ_RET_WOULDBLOCK;
 	}

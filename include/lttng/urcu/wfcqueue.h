@@ -49,7 +49,7 @@ enum lttng_ust_wfcq_ret {
 	LTTNG_UST_WFCQ_RET_WOULDBLOCK =	-1,
 	LTTNG_UST_WFCQ_RET_DEST_EMPTY =	0,
 	LTTNG_UST_WFCQ_RET_DEST_NON_EMPTY =	1,
-	CDS_WFCQ_RET_SRC_EMPTY = 	2,
+	LTTNG_UST_WFCQ_RET_SRC_EMPTY = 	2,
 };
 
 enum cds_wfcq_state {
