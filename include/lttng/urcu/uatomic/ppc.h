@@ -63,7 +63,7 @@ unsigned long _uatomic_exchange(void *addr, unsigned long val, int len)
 		unsigned int result;
 
 		__asm__ __volatile__(
-			LWSYNC_OPCODE
+			LTTNG_UST_LWSYNC_OPCODE
 		"1:\t"	"lwarx %0,0,%1\n"	/* load and reserve */
 			"stwcx. %2,0,%1\n"	/* else store conditional */
 			"bne- 1b\n"	 	/* retry if lost reservation */
@@ -80,7 +80,7 @@ unsigned long _uatomic_exchange(void *addr, unsigned long val, int len)
 		unsigned long result;
 
 		__asm__ __volatile__(
-			LWSYNC_OPCODE
+			LTTNG_UST_LWSYNC_OPCODE
 		"1:\t"	"ldarx %0,0,%1\n"	/* load and reserve */
 			"stdcx. %2,0,%1\n"	/* else store conditional */
 			"bne- 1b\n"	 	/* retry if lost reservation */
@@ -117,7 +117,7 @@ unsigned long _uatomic_cmpxchg(void *addr, unsigned long old,
 		unsigned int old_val;
 
 		__asm__ __volatile__(
-			LWSYNC_OPCODE
+			LTTNG_UST_LWSYNC_OPCODE
 		"1:\t"	"lwarx %0,0,%1\n"	/* load and reserve */
 			"cmpw %0,%3\n"		/* if load is not equal to */
 			"bne 2f\n"		/* old, fail */
@@ -138,7 +138,7 @@ unsigned long _uatomic_cmpxchg(void *addr, unsigned long old,
 		unsigned long old_val;
 
 		__asm__ __volatile__(
-			LWSYNC_OPCODE
+			LTTNG_UST_LWSYNC_OPCODE
 		"1:\t"	"ldarx %0,0,%1\n"	/* load and reserve */
 			"cmpd %0,%3\n"		/* if load is not equal to */
 			"bne 2f\n"		/* old, fail */
@@ -182,7 +182,7 @@ unsigned long _uatomic_add_return(void *addr, unsigned long val,
 		unsigned int result;
 
 		__asm__ __volatile__(
-			LWSYNC_OPCODE
+			LTTNG_UST_LWSYNC_OPCODE
 		"1:\t"	"lwarx %0,0,%1\n"	/* load and reserve */
 			"add %0,%2,%0\n"	/* add val to value loaded */
 			"stwcx. %0,0,%1\n"	/* store conditional */
@@ -200,7 +200,7 @@ unsigned long _uatomic_add_return(void *addr, unsigned long val,
 		unsigned long result;
 
 		__asm__ __volatile__(
-			LWSYNC_OPCODE
+			LTTNG_UST_LWSYNC_OPCODE
 		"1:\t"	"ldarx %0,0,%1\n"	/* load and reserve */
 			"add %0,%2,%0\n"	/* add val to value loaded */
 			"stdcx. %0,0,%1\n"	/* store conditional */

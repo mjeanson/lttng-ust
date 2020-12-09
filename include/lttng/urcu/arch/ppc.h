@@ -35,9 +35,9 @@ extern "C" {
 #define LTTNG_UST_CACHE_LINE_SIZE	256
 
 #ifdef __NO_LWSYNC__
-#define LWSYNC_OPCODE	"sync\n"
+#define LTTNG_UST_LWSYNC_OPCODE	"sync\n"
 #else
-#define LWSYNC_OPCODE	"lwsync\n"
+#define LTTNG_UST_LWSYNC_OPCODE	"lwsync\n"
 #endif
 
 /*
@@ -56,8 +56,8 @@ extern "C" {
  * Therefore, use it for barriers ordering accesses to cacheable memory
  * only.
  */
-#define lttng_ust_smp_rmb()    __asm__ __volatile__ (LWSYNC_OPCODE:::"memory")
-#define lttng_ust_smp_wmb()    __asm__ __volatile__ (LWSYNC_OPCODE:::"memory")
+#define lttng_ust_smp_rmb()    __asm__ __volatile__ (LTTNG_UST_LWSYNC_OPCODE:::"memory")
+#define lttng_ust_smp_wmb()    __asm__ __volatile__ (LTTNG_UST_LWSYNC_OPCODE:::"memory")
 
 #define mftbl()						\
 	__extension__					\
