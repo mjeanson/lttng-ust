@@ -167,7 +167,7 @@ struct lttng_ust_wfcq_tail {
 #define __lttng_ust_wfcq_dequeue_nonblocking	___lttng_ust_wfcq_dequeue_nonblocking
 #define __lttng_ust_wfcq_dequeue_with_state_nonblocking	\
 				___lttng_ust_wfcq_dequeue_with_state_nonblocking
-#define __cds_wfcq_splice_nonblocking	___cds_wfcq_splice_nonblocking
+#define __lttng_ust_wfcq_splice_nonblocking	___lttng_ust_wfcq_splice_nonblocking
 #define __cds_wfcq_first_nonblocking	___cds_wfcq_first_nonblocking
 #define __cds_wfcq_next_nonblocking	___cds_wfcq_next_nonblocking
 
@@ -372,12 +372,12 @@ extern enum lttng_ust_wfcq_ret __lttng_ust_wfcq_splice_blocking(
 		struct lttng_ust_wfcq_tail *src_q_tail);
 
 /*
- * __cds_wfcq_splice_nonblocking: enqueue all src_q nodes at the end of dest_q.
+ * __lttng_ust_wfcq_splice_nonblocking: enqueue all src_q nodes at the end of dest_q.
  *
  * Same as __lttng_ust_wfcq_splice_blocking, but returns
  * LTTNG_UST_WFCQ_RET_WOULDBLOCK if it needs to block.
  */
-extern enum lttng_ust_wfcq_ret __cds_wfcq_splice_nonblocking(
+extern enum lttng_ust_wfcq_ret __lttng_ust_wfcq_splice_nonblocking(
 		lttng_ust_wfcq_head_ptr_t dest_q_head,
 		struct lttng_ust_wfcq_tail *dest_q_tail,
 		lttng_ust_wfcq_head_ptr_t src_q_head,

@@ -598,13 +598,13 @@ ___lttng_ust_wfcq_splice_blocking(
 }
 
 /*
- * __cds_wfcq_splice_nonblocking: enqueue all src_q nodes at the end of dest_q.
+ * __lttng_ust_wfcq_splice_nonblocking: enqueue all src_q nodes at the end of dest_q.
  *
  * Same as __lttng_ust_wfcq_splice_blocking, but returns
  * LTTNG_UST_WFCQ_RET_WOULDBLOCK if it needs to block.
  */
 static inline enum lttng_ust_wfcq_ret
-___cds_wfcq_splice_nonblocking(
+___lttng_ust_wfcq_splice_nonblocking(
 		lttng_ust_wfcq_head_ptr_t dest_q_head,
 		struct lttng_ust_wfcq_tail *dest_q_tail,
 		lttng_ust_wfcq_head_ptr_t src_q_head,
