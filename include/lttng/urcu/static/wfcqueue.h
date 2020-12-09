@@ -386,7 +386,7 @@ ___lttng_ust_wfcq_next_blocking(lttng_ust_wfcq_head_ptr_t head,
  * it needs to block.
  */
 static inline struct lttng_ust_wfcq_node *
-___cds_wfcq_next_nonblocking(lttng_ust_wfcq_head_ptr_t head,
+___lttng_ust_wfcq_next_nonblocking(lttng_ust_wfcq_head_ptr_t head,
 		struct lttng_ust_wfcq_tail *tail,
 		struct lttng_ust_wfcq_node *node)
 {

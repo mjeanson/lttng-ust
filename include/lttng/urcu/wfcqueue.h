@@ -169,7 +169,7 @@ struct lttng_ust_wfcq_tail {
 				___lttng_ust_wfcq_dequeue_with_state_nonblocking
 #define __lttng_ust_wfcq_splice_nonblocking	___lttng_ust_wfcq_splice_nonblocking
 #define __lttng_ust_wfcq_first_nonblocking	___lttng_ust_wfcq_first_nonblocking
-#define __cds_wfcq_next_nonblocking	___cds_wfcq_next_nonblocking
+#define __lttng_ust_wfcq_next_nonblocking	___lttng_ust_wfcq_next_nonblocking
 
 #else /* !_LGPL_SOURCE */
 
@@ -437,7 +437,7 @@ extern struct lttng_ust_wfcq_node *__lttng_ust_wfcq_next_blocking(
  * Same as __lttng_ust_wfcq_next_blocking, but returns LTTNG_UST_WFCQ_WOULDBLOCK if
  * it needs to block.
  */
-extern struct lttng_ust_wfcq_node *__cds_wfcq_next_nonblocking(
+extern struct lttng_ust_wfcq_node *__lttng_ust_wfcq_next_nonblocking(
 		lttng_ust_wfcq_head_ptr_t head,
 		struct lttng_ust_wfcq_tail *tail,
 		struct lttng_ust_wfcq_node *node);
