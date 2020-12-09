@@ -43,15 +43,15 @@ extern "C" {
 /*
  * Inspired from the Linux kernel. Workaround Spitfire bug #51.
  */
-#define membar_safe(type)			\
+#define lttng_ust_membar_safe(type)			\
 __asm__ __volatile__("ba,pt %%xcc, 1f\n\t"	\
 		     "membar " type "\n"	\
 		     "1:\n"			\
 		     : : : "memory")
 
-#define lttng_ust_mb()	membar_safe("#LoadLoad | #LoadStore | #StoreStore | #StoreLoad")
-#define lttng_ust_rmb()	membar_safe("#LoadLoad")
-#define lttng_ust_wmb()	membar_safe("#StoreStore")
+#define lttng_ust_mb()	lttng_ust_membar_safe("#LoadLoad | #LoadStore | #StoreStore | #StoreLoad")
+#define lttng_ust_rmb()	lttng_ust_membar_safe("#LoadLoad")
+#define lttng_ust_wmb()	lttng_ust_membar_safe("#StoreStore")
 
 #ifdef __cplusplus
 }
