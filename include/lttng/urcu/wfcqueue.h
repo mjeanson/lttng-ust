@@ -149,7 +149,7 @@ struct lttng_ust_wfcq_tail {
 					_lttng_ust_wfcq_dequeue_with_state_blocking
 #define lttng_ust_wfcq_splice_blocking	_lttng_ust_wfcq_splice_blocking
 #define lttng_ust_wfcq_first_blocking		_lttng_ust_wfcq_first_blocking
-#define cds_wfcq_next_blocking		_cds_wfcq_next_blocking
+#define lttng_ust_wfcq_next_blocking		_lttng_ust_wfcq_next_blocking
 
 /* Locking ensured by caller by holding lttng_ust_wfcq_dequeue_lock() */
 #define __lttng_ust_wfcq_dequeue_blocking	___lttng_ust_wfcq_dequeue_blocking
@@ -157,7 +157,7 @@ struct lttng_ust_wfcq_tail {
 					___lttng_ust_wfcq_dequeue_with_state_blocking
 #define __lttng_ust_wfcq_splice_blocking	___lttng_ust_wfcq_splice_blocking
 #define __lttng_ust_wfcq_first_blocking	___lttng_ust_wfcq_first_blocking
-#define __cds_wfcq_next_blocking	___cds_wfcq_next_blocking
+#define __lttng_ust_wfcq_next_blocking	___lttng_ust_wfcq_next_blocking
 
 /*
  * Locking ensured by caller by holding lttng_ust_wfcq_dequeue_lock().
@@ -412,7 +412,7 @@ extern struct lttng_ust_wfcq_node *__cds_wfcq_first_nonblocking(
 		struct lttng_ust_wfcq_tail *tail);
 
 /*
- * __cds_wfcq_next_blocking: get next node of a queue, without dequeuing.
+ * __lttng_ust_wfcq_next_blocking: get next node of a queue, without dequeuing.
  *
  * Content written into the node before enqueue is guaranteed to be
  * consistent, but no other memory ordering is ensured.
@@ -426,15 +426,15 @@ extern struct lttng_ust_wfcq_node *__cds_wfcq_first_nonblocking(
  * Returns NULL if reached end of queue, non-NULL next queue node
  * otherwise.
  */
-extern struct lttng_ust_wfcq_node *__cds_wfcq_next_blocking(
+extern struct lttng_ust_wfcq_node *__lttng_ust_wfcq_next_blocking(
 		lttng_ust_wfcq_head_ptr_t head,
 		struct lttng_ust_wfcq_tail *tail,
 		struct lttng_ust_wfcq_node *node);
 
 /*
- * __cds_wfcq_next_blocking: get next node of a queue, without dequeuing.
+ * __lttng_ust_wfcq_next_blocking: get next node of a queue, without dequeuing.
  *
- * Same as __cds_wfcq_next_blocking, but returns LTTNG_UST_WFCQ_WOULDBLOCK if
+ * Same as __lttng_ust_wfcq_next_blocking, but returns LTTNG_UST_WFCQ_WOULDBLOCK if
  * it needs to block.
  */
 extern struct lttng_ust_wfcq_node *__cds_wfcq_next_nonblocking(
@@ -459,7 +459,7 @@ extern struct lttng_ust_wfcq_node *__cds_wfcq_next_nonblocking(
 #define __cds_wfcq_for_each_blocking(head, tail, node)		\
 	for (node = __lttng_ust_wfcq_first_blocking(head, tail);	\
 		node != NULL;					\
-		node = __cds_wfcq_next_blocking(head, tail, node))
+		node = __lttng_ust_wfcq_next_blocking(head, tail, node))
 
 /*
  * __cds_wfcq_for_each_blocking_safe: Iterate over all nodes in a queue,
@@ -477,9 +477,9 @@ extern struct lttng_ust_wfcq_node *__cds_wfcq_next_nonblocking(
  */
 #define __cds_wfcq_for_each_blocking_safe(head, tail, node, n)		       \
 	for (node = __lttng_ust_wfcq_first_blocking(head, tail),		       \
-			n = (node ? __cds_wfcq_next_blocking(head, tail, node) : NULL); \
+			n = (node ? __lttng_ust_wfcq_next_blocking(head, tail, node) : NULL); \
 		node != NULL;						       \
-		node = n, n = (node ? __cds_wfcq_next_blocking(head, tail, node) : NULL))
+		node = n, n = (node ? __lttng_ust_wfcq_next_blocking(head, tail, node) : NULL))
 
 #ifdef __cplusplus
 }

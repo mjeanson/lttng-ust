@@ -357,7 +357,7 @@ ___cds_wfcq_next(lttng_ust_wfcq_head_ptr_t head,
 }
 
 /*
- * __cds_wfcq_next_blocking: get next node of a queue, without dequeuing.
+ * __lttng_ust_wfcq_next_blocking: get next node of a queue, without dequeuing.
  *
  * Content written into the node before enqueue is guaranteed to be
  * consistent, but no other memory ordering is ensured.
@@ -372,7 +372,7 @@ ___cds_wfcq_next(lttng_ust_wfcq_head_ptr_t head,
  * otherwise.
  */
 static inline struct lttng_ust_wfcq_node *
-___cds_wfcq_next_blocking(lttng_ust_wfcq_head_ptr_t head,
+___lttng_ust_wfcq_next_blocking(lttng_ust_wfcq_head_ptr_t head,
 		struct lttng_ust_wfcq_tail *tail,
 		struct lttng_ust_wfcq_node *node)
 {
@@ -380,9 +380,9 @@ ___cds_wfcq_next_blocking(lttng_ust_wfcq_head_ptr_t head,
 }
 
 /*
- * __cds_wfcq_next_blocking: get next node of a queue, without dequeuing.
+ * __lttng_ust_wfcq_next_blocking: get next node of a queue, without dequeuing.
  *
- * Same as __cds_wfcq_next_blocking, but returns LTTNG_UST_WFCQ_WOULDBLOCK if
+ * Same as __lttng_ust_wfcq_next_blocking, but returns LTTNG_UST_WFCQ_WOULDBLOCK if
  * it needs to block.
  */
 static inline struct lttng_ust_wfcq_node *
