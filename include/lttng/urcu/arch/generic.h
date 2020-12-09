@@ -99,8 +99,8 @@ extern "C" {
 #define lttng_ust_read_barrier_depends()
 #endif
 
-#ifndef cmm_smp_mb
-#define cmm_smp_mb()	lttng_ust_mb()
+#ifndef lttng_ust_smp_mb
+#define lttng_ust_smp_mb()	lttng_ust_mb()
 #endif
 #ifndef cmm_smp_rmb
 #define cmm_smp_rmb()	lttng_ust_rmb()

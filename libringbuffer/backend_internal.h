@@ -532,7 +532,7 @@ void lib_ring_buffer_set_noref_offset(const struct lttng_ust_lib_ring_buffer_con
 	 * Memory barrier that ensures counter stores are ordered before set
 	 * noref and offset.
 	 */
-	cmm_smp_mb();
+	lttng_ust_smp_mb();
 	subbuffer_id_set_noref_offset(config, &wsb->id, offset);
 }
 

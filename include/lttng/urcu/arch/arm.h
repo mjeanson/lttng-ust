@@ -41,7 +41,7 @@ extern "C" {
 /*
  * Issues DMB operation only to the inner shareable domain.
  */
-#define cmm_smp_mb()	__asm__ __volatile__ ("dmb ish":::"memory")
+#define lttng_ust_smp_mb()	__asm__ __volatile__ ("dmb ish":::"memory")
 #define cmm_smp_rmb()	__asm__ __volatile__ ("dmb ish":::"memory")
 #define cmm_smp_wmb()	__asm__ __volatile__ ("dmb ish":::"memory")
 #endif /* CONFIG_RCU_ARM_HAVE_DMB */

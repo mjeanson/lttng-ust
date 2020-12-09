@@ -600,28 +600,28 @@ extern unsigned long _compat_uatomic_add_return(void *addr,
 
 #define uatomic_and(addr, v)		\
 		UATOMIC_COMPAT(and(addr, v))
-#define cmm_smp_mb__before_uatomic_and()	lttng_ust_barrier()
-#define cmm_smp_mb__after_uatomic_and()		lttng_ust_barrier()
+#define lttng_ust_smp_mb__before_uatomic_and()	lttng_ust_barrier()
+#define lttng_ust_smp_mb__after_uatomic_and()		lttng_ust_barrier()
 
 #define uatomic_or(addr, v)		\
 		UATOMIC_COMPAT(or(addr, v))
-#define cmm_smp_mb__before_uatomic_or()		lttng_ust_barrier()
-#define cmm_smp_mb__after_uatomic_or()		lttng_ust_barrier()
+#define lttng_ust_smp_mb__before_uatomic_or()		lttng_ust_barrier()
+#define lttng_ust_smp_mb__after_uatomic_or()		lttng_ust_barrier()
 
 #define uatomic_add_return(addr, v)		\
 		UATOMIC_COMPAT(add_return(addr, v))
 
 #define uatomic_add(addr, v)	UATOMIC_COMPAT(add(addr, v))
-#define cmm_smp_mb__before_uatomic_add()	lttng_ust_barrier()
-#define cmm_smp_mb__after_uatomic_add()		lttng_ust_barrier()
+#define lttng_ust_smp_mb__before_uatomic_add()	lttng_ust_barrier()
+#define lttng_ust_smp_mb__after_uatomic_add()		lttng_ust_barrier()
 
 #define uatomic_inc(addr)	UATOMIC_COMPAT(inc(addr))
-#define cmm_smp_mb__before_uatomic_inc()	lttng_ust_barrier()
-#define cmm_smp_mb__after_uatomic_inc()		lttng_ust_barrier()
+#define lttng_ust_smp_mb__before_uatomic_inc()	lttng_ust_barrier()
+#define lttng_ust_smp_mb__after_uatomic_inc()		lttng_ust_barrier()
 
 #define uatomic_dec(addr)	UATOMIC_COMPAT(dec(addr))
-#define cmm_smp_mb__before_uatomic_dec()	lttng_ust_barrier()
-#define cmm_smp_mb__after_uatomic_dec()		lttng_ust_barrier()
+#define lttng_ust_smp_mb__before_uatomic_dec()	lttng_ust_barrier()
+#define lttng_ust_smp_mb__after_uatomic_dec()		lttng_ust_barrier()
 
 #ifdef __cplusplus
 }

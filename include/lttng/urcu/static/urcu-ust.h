@@ -114,7 +114,7 @@ static inline void lttng_ust_urcu_smp_mb_slave(void)
 	if (lttng_ust_likely(lttng_ust_urcu_has_sys_membarrier))
 		lttng_ust_barrier();
 	else
-		cmm_smp_mb();
+		lttng_ust_smp_mb();
 }
 
 static inline enum lttng_ust_urcu_state lttng_ust_urcu_reader_state(unsigned long *ctr)

@@ -697,9 +697,9 @@ void *sig_thread(void *arg)
 			lib_ring_buffer_channel_read_timer(info.si_signo,
 					&info, NULL);
 		} else if (signr == LTTNG_UST_RB_SIG_TEARDOWN) {
-			cmm_smp_mb();
+			lttng_ust_smp_mb();
 			CMM_STORE_SHARED(timer_signal.qs_done, 1);
-			cmm_smp_mb();
+			lttng_ust_smp_mb();
 		} else {
 			ERR("Unexptected signal %d\n", info.si_signo);
 		}
@@ -772,9 +772,9 @@ void lib_ring_buffer_wait_signal_thread_qs(unsigned int signr)
 	 * would try to access "chan". However, we still need to wait
 	 * for any currently executing handler to complete.
 	 */
-	cmm_smp_mb();
+	lttng_ust_smp_mb();
 	CMM_STORE_SHARED(timer_signal.qs_done, 0);
-	cmm_smp_mb();
+	lttng_ust_smp_mb();
 
 	/*
 	 * Kill with LTTNG_UST_RB_SIG_TEARDOWN, so signal management
@@ -784,7 +784,7 @@ void lib_ring_buffer_wait_signal_thread_qs(unsigned int signr)
 
 	while (!CMM_LOAD_SHARED(timer_signal.qs_done))
 		caa_cpu_relax();
-	cmm_smp_mb();
+	lttng_ust_smp_mb();
 
 	pthread_mutex_unlock(&timer_signal.lock);
 }
@@ -1266,7 +1266,7 @@ int lib_ring_buffer_open_read(struct lttng_ust_lib_ring_buffer *buf,
 {
 	if (uatomic_cmpxchg(&buf->active_readers, 0, 1) != 0)
 		return -EBUSY;
-	cmm_smp_mb();
+	lttng_ust_smp_mb();
 	return 0;
 }
 
@@ -1278,7 +1278,7 @@ void lib_ring_buffer_release_read(struct lttng_ust_lib_ring_buffer *buf,
 	if (!chan)
 		return;
 	CHAN_WARN_ON(chan, uatomic_read(&buf->active_readers) != 1);
-	cmm_smp_mb();
+	lttng_ust_smp_mb();
 	uatomic_dec(&buf->active_readers);
 }
 
@@ -2502,7 +2502,7 @@ void lib_ring_buffer_check_deliver_slow(const struct lttng_ust_lib_ring_buffer_c
 		 *
 		 * Order increment of commit counter before reading ts_end.
 		 */
-		cmm_smp_mb();
+		lttng_ust_smp_mb();
 		ts_end = shmp_index(handle, buf->ts_end, idx);
 		if (!ts_end)
 			return;
@@ -2534,7 +2534,7 @@ void lib_ring_buffer_check_deliver_slow(const struct lttng_ust_lib_ring_buffer_c
 		 * respect to writers coming into the subbuffer after
 		 * wrap around, and also order wrt concurrent readers.
 		 */
-		cmm_smp_mb();
+		lttng_ust_smp_mb();
 		/* End of exclusive subbuffer access */
 		v_set(config, &cc_cold->cc_sb, commit_count);
 		/*

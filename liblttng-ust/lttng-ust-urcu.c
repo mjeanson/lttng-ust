@@ -198,7 +198,7 @@ static void smp_mb_master(void)
 		if (membarrier(MEMBARRIER_CMD_PRIVATE_EXPEDITED, 0))
 			abort();
 	} else {
-		cmm_smp_mb();
+		lttng_ust_smp_mb();
 	}
 }
 
@@ -292,11 +292,11 @@ void lttng_ust_urcu_synchronize_rcu(void)
 	wait_for_readers(&registry, &cur_snap_readers, &qsreaders);
 
 	/*
-	 * Adding a cmm_smp_mb() which is _not_ formally required, but makes the
+	 * Adding a lttng_ust_smp_mb() which is _not_ formally required, but makes the
 	 * model easier to understand. It does not have a big performance impact
 	 * anyway, given this is the write-side.
 	 */
-	cmm_smp_mb();
+	lttng_ust_smp_mb();
 
 	/* Switch parity: 0 -> 1, 1 -> 0 */
 	CMM_STORE_SHARED(lttng_ust_urcu_gp.ctr, lttng_ust_urcu_gp.ctr ^ LTTNG_UST_URCU_GP_CTR_PHASE);
@@ -309,11 +309,11 @@ void lttng_ust_urcu_synchronize_rcu(void)
 	 */
 
 	/*
-	 * Adding a cmm_smp_mb() which is _not_ formally required, but makes the
+	 * Adding a lttng_ust_smp_mb() which is _not_ formally required, but makes the
 	 * model easier to understand. It does not have a big performance impact
 	 * anyway, given this is the write-side.
 	 */
-	cmm_smp_mb();
+	lttng_ust_smp_mb();
 
 	/*
 	 * Wait for readers to observe new parity or be quiescent.

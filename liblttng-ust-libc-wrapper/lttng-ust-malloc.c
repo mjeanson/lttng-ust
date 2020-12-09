@@ -87,7 +87,7 @@ void ust_malloc_spin_unlock(pthread_mutex_t *lock)
 	 * Ensure memory accesses within the critical section do not
 	 * leak outside.
 	 */
-	cmm_smp_mb();
+	lttng_ust_smp_mb();
 	uatomic_set(&ust_malloc_lock, 0);
 }
 

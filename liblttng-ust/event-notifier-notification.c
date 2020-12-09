@@ -297,7 +297,7 @@ static void record_error(struct lttng_event_notifier *event_notifier)
 	 * Currently a full memory barrier is used, which could be
 	 * turned into acquire-release barriers.
 	 */
-	cmm_smp_mb();
+	lttng_ust_smp_mb();
 	/* This group may not have an error counter attached to it. */
 	if (!error_counter)
 		return;

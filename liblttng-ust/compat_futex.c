@@ -67,7 +67,7 @@ int lttng_ust_compat_futex_noasync(int32_t *uaddr, int op, int32_t val,
 	/*
 	 * memory barriers to serialize with the previous uaddr modification.
 	 */
-	cmm_smp_mb();
+	lttng_ust_smp_mb();
 
 	lockret = pthread_mutex_lock(&__lttng_ust_compat_futex_lock);
 	if (lockret) {
@@ -131,7 +131,7 @@ int lttng_ust_compat_futex_async(int32_t *uaddr, int op, int32_t val,
 	/*
 	 * Ensure previous memory operations on uaddr have completed.
 	 */
-	cmm_smp_mb();
+	lttng_ust_smp_mb();
 
 	switch (op) {
 	case FUTEX_WAIT:

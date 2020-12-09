@@ -903,7 +903,7 @@ int _lttng_ust_lfht_del(struct lttng_ust_lfht *ht, unsigned long size,
 	 * The del operation semantic guarantees a full memory barrier
 	 * before the uatomic_or atomic commit of the deletion flag.
 	 */
-	cmm_smp_mb__before_uatomic_or();
+	lttng_ust_smp_mb__before_uatomic_or();
 	/*
 	 * We set the REMOVED_FLAG unconditionally. Note that there may
 	 * be more than one concurrent thread setting this flag.

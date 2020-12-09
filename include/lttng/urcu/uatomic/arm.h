@@ -44,7 +44,7 @@ extern "C" {
  */
 #define uatomic_xchg(addr, v)				\
 	({						\
-		cmm_smp_mb();				\
+		lttng_ust_smp_mb();				\
 		__sync_lock_test_and_set(addr, v);	\
 	})
 
