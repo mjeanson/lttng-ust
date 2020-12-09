@@ -175,7 +175,7 @@ static inline void _lttng_ust_wfcq_dequeue_unlock(struct lttng_ust_wfcq_head *he
 	assert(!ret);
 }
 
-static inline bool ___cds_wfcq_append(lttng_ust_wfcq_head_ptr_t u_head,
+static inline bool ___lttng_ust_wfcq_append(lttng_ust_wfcq_head_ptr_t u_head,
 		struct lttng_ust_wfcq_tail *tail,
 		struct lttng_ust_wfcq_node *new_head,
 		struct lttng_ust_wfcq_node *new_tail)
@@ -220,7 +220,7 @@ static inline bool _lttng_ust_wfcq_enqueue(lttng_ust_wfcq_head_ptr_t head,
 		struct lttng_ust_wfcq_tail *tail,
 		struct lttng_ust_wfcq_node *new_tail)
 {
-	return ___cds_wfcq_append(head, tail, new_tail, new_tail);
+	return ___lttng_ust_wfcq_append(head, tail, new_tail, new_tail);
 }
 
 /*
@@ -569,7 +569,7 @@ ___cds_wfcq_splice(
 	 * Append the spliced content of src_q into dest_q. Does not
 	 * require mutual exclusion on dest_q (wait-free).
 	 */
-	if (___cds_wfcq_append(__lttng_ust_wfcq_head_cast(dest_q_head), dest_q_tail,
+	if (___lttng_ust_wfcq_append(__lttng_ust_wfcq_head_cast(dest_q_head), dest_q_tail,
 			head, tail))
 		return LTTNG_UST_WFCQ_RET_DEST_NON_EMPTY;
 	else
