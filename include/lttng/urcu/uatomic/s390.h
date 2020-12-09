@@ -61,10 +61,10 @@ extern "C" {
 
 #endif /* !LTTNG_UST_COMPILER_HAVE_SHORT_MEM_OPERAND */
 
-struct __uatomic_dummy {
+struct __lttng_ust_uatomic_dummy {
 	unsigned long v[10];
 };
-#define __hp(x)	((struct __uatomic_dummy *)(x))
+#define __hp(x)	((struct __lttng_ust_uatomic_dummy *)(x))
 
 /* xchg */
 
