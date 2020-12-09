@@ -36,7 +36,7 @@ extern "C" {
  */
 #define lttng_ust_mb()	__asm__ __volatile__ ("dmb sy":::"memory")
 #define lttng_ust_rmb()	__asm__ __volatile__ ("dmb sy":::"memory")
-#define cmm_wmb()	__asm__ __volatile__ ("dmb sy":::"memory")
+#define lttng_ust_wmb()	__asm__ __volatile__ ("dmb sy":::"memory")
 
 /*
  * Issues DMB operation only to the inner shareable domain.

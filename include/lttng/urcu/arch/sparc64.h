@@ -51,7 +51,7 @@ __asm__ __volatile__("ba,pt %%xcc, 1f\n\t"	\
 
 #define lttng_ust_mb()	membar_safe("#LoadLoad | #LoadStore | #StoreStore | #StoreLoad")
 #define lttng_ust_rmb()	membar_safe("#LoadLoad")
-#define cmm_wmb()	membar_safe("#StoreStore")
+#define lttng_ust_wmb()	membar_safe("#StoreStore")
 
 #ifdef __cplusplus
 }

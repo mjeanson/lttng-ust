@@ -24,7 +24,7 @@ URCU_ARCH_RISCV LTTNG_UST_URCU_ARCH_RISCV
 CAA_CACHE_LINE_SIZE LTTNG_UST_CACHE_LINE_SIZE
 cmm_mb lttng_ust_mb
 cmm_rmb lttng_ust_rmb
-cmm_wmb lttng_ust_cmm_wmb
+cmm_wmb lttng_ust_wmb
 cmm_mc lttng_ust_cmm_mc
 cmm_rmc lttng_ust_cmm_rmc
 cmm_wmc lttng_ust_cmm_wmc

@@ -36,19 +36,19 @@ void *lttng_ust_rcu_dereference_sym(void *p)
 
 void *lttng_ust_rcu_set_pointer_sym(void **p, void *v)
 {
-	cmm_wmb();
+	lttng_ust_wmb();
 	uatomic_set(p, v);
 	return v;
 }
 
 void *lttng_ust_rcu_xchg_pointer_sym(void **p, void *v)
 {
-	cmm_wmb();
+	lttng_ust_wmb();
 	return uatomic_xchg(p, v);
 }
 
 void *lttng_ust_rcu_cmpxchg_pointer_sym(void **p, void *old, void *_new)
 {
-	cmm_wmb();
+	lttng_ust_wmb();
 	return uatomic_cmpxchg(p, old, _new);
 }

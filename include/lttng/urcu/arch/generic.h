@@ -39,7 +39,7 @@ extern "C" {
  *
  * For them, cmm_mc/cmm_rmc/cmm_wmc are implemented with a simple
  * compiler barrier; in addition, we provide defaults for lttng_ust_mb (using
- * GCC builtins) as well as lttng_ust_rmb and cmm_wmb (defaulting to lttng_ust_mb).
+ * GCC builtins) as well as lttng_ust_rmb and lttng_ust_wmb (defaulting to lttng_ust_mb).
  */
 
 #ifndef lttng_ust_mb
@@ -50,8 +50,8 @@ extern "C" {
 #define lttng_ust_rmb()	lttng_ust_mb()
 #endif
 
-#ifndef cmm_wmb
-#define cmm_wmb()	lttng_ust_mb()
+#ifndef lttng_ust_wmb
+#define lttng_ust_wmb()	lttng_ust_mb()
 #endif
 
 #define cmm_mc()	lttng_ust_barrier()
@@ -66,11 +66,11 @@ extern "C" {
  * #define cmm_wmc()	arch_cache_flush_write()
  *
  * Of these, only cmm_mc is mandatory. cmm_rmc and cmm_wmc default to
- * cmm_mc. lttng_ust_mb/lttng_ust_rmb/cmm_wmb use these definitions by default:
+ * cmm_mc. lttng_ust_mb/lttng_ust_rmb/lttng_ust_wmb use these definitions by default:
  *
  * #define lttng_ust_mb()	cmm_mc()
  * #define lttng_ust_rmb()	cmm_rmc()
- * #define cmm_wmb()	cmm_wmc()
+ * #define lttng_ust_wmb()	cmm_wmc()
  */
 
 #ifndef lttng_ust_mb
@@ -81,8 +81,8 @@ extern "C" {
 #define lttng_ust_rmb()	cmm_rmc()
 #endif
 
-#ifndef cmm_wmb
-#define cmm_wmb()	cmm_wmc()
+#ifndef lttng_ust_wmb
+#define lttng_ust_wmb()	cmm_wmc()
 #endif
 
 #ifndef cmm_rmc
@@ -106,7 +106,7 @@ extern "C" {
 #define cmm_smp_rmb()	lttng_ust_rmb()
 #endif
 #ifndef cmm_smp_wmb
-#define cmm_smp_wmb()	cmm_wmb()
+#define cmm_smp_wmb()	lttng_ust_wmb()
 #endif
 #ifndef cmm_smp_mc
 #define cmm_smp_mc()	cmm_mc()

@@ -30,7 +30,7 @@ extern "C" {
 #endif
 
 #define lttng_ust_mb()			__asm__ __volatile__ ("mb":::"memory")
-#define cmm_wmb()			__asm__ __volatile__ ("wmb":::"memory")
+#define lttng_ust_wmb()			__asm__ __volatile__ ("wmb":::"memory")
 #define cmm_read_barrier_depends()	__asm__ __volatile__ ("mb":::"memory")
 
 #ifdef __cplusplus

@@ -117,7 +117,7 @@ extern "C" {
 		__typeof__(*p) _________pv = (v);	\
 		if (!__builtin_constant_p(v) || 	\
 		    ((v) != NULL))			\
-			cmm_wmb();			\
+			lttng_ust_wmb();			\
 		uatomic_set(p, _________pv);		\
 	} while (0)
 
