@@ -84,9 +84,9 @@ extern "C" {
 #define WFCQ_WAIT			10	/* Wait 10 ms if being set */
 
 /*
- * cds_wfcq_node_init: initialize wait-free queue node.
+ * lttng_ust_wfcq_node_init: initialize wait-free queue node.
  */
-static inline void _cds_wfcq_node_init(struct cds_wfcq_node *node)
+static inline void _lttng_ust_wfcq_node_init(struct lttng_ust_wfcq_node *node)
 {
 	node->next = NULL;
 }
@@ -101,7 +101,7 @@ static inline void _cds_wfcq_init(struct cds_wfcq_head *head,
 	int ret;
 
 	/* Set queue head and tail */
-	_cds_wfcq_node_init(&head->node);
+	_lttng_ust_wfcq_node_init(&head->node);
 	tail->p = &head->node;
 	ret = pthread_mutex_init(&head->lock, NULL);
 	assert(!ret);
@@ -126,7 +126,7 @@ static inline void ___cds_wfcq_init(struct __cds_wfcq_head *head,
 		struct cds_wfcq_tail *tail)
 {
 	/* Set queue head and tail */
-	_cds_wfcq_node_init(&head->node);
+	_lttng_ust_wfcq_node_init(&head->node);
 	tail->p = &head->node;
 }
 
@@ -177,11 +177,11 @@ static inline void _cds_wfcq_dequeue_unlock(struct cds_wfcq_head *head,
 
 static inline bool ___cds_wfcq_append(cds_wfcq_head_ptr_t u_head,
 		struct cds_wfcq_tail *tail,
-		struct cds_wfcq_node *new_head,
-		struct cds_wfcq_node *new_tail)
+		struct lttng_ust_wfcq_node *new_head,
+		struct lttng_ust_wfcq_node *new_tail)
 {
 	struct __cds_wfcq_head *head = u_head._h;
-	struct cds_wfcq_node *old_tail;
+	struct lttng_ust_wfcq_node *old_tail;
 
 	/*
 	 * Implicit memory barrier before uatomic_xchg() orders earlier
@@ -218,7 +218,7 @@ static inline bool ___cds_wfcq_append(cds_wfcq_head_ptr_t u_head,
  */
 static inline bool _cds_wfcq_enqueue(cds_wfcq_head_ptr_t head,
 		struct cds_wfcq_tail *tail,
-		struct cds_wfcq_node *new_tail)
+		struct lttng_ust_wfcq_node *new_tail)
 {
 	return ___cds_wfcq_append(head, tail, new_tail, new_tail);
 }
@@ -262,10 +262,10 @@ ___cds_wfcq_busy_wait(int *attempt, int blocking)
 /*
  * Waiting for enqueuer to complete enqueue and return the next node.
  */
-static inline struct cds_wfcq_node *
-___cds_wfcq_node_sync_next(struct cds_wfcq_node *node, int blocking)
+static inline struct lttng_ust_wfcq_node *
+___lttng_ust_wfcq_node_sync_next(struct lttng_ust_wfcq_node *node, int blocking)
 {
-	struct cds_wfcq_node *next;
+	struct lttng_ust_wfcq_node *next;
 	int attempt = 0;
 
 	/*
@@ -279,17 +279,17 @@ ___cds_wfcq_node_sync_next(struct cds_wfcq_node *node, int blocking)
 	return next;
 }
 
-static inline struct cds_wfcq_node *
+static inline struct lttng_ust_wfcq_node *
 ___cds_wfcq_first(cds_wfcq_head_ptr_t u_head,
 		struct cds_wfcq_tail *tail,
 		int blocking)
 {
 	struct __cds_wfcq_head *head = u_head._h;
-	struct cds_wfcq_node *node;
+	struct lttng_ust_wfcq_node *node;
 
 	if (_cds_wfcq_empty(__cds_wfcq_head_cast(head), tail))
 		return NULL;
-	node = ___cds_wfcq_node_sync_next(&head->node, blocking);
+	node = ___lttng_ust_wfcq_node_sync_next(&head->node, blocking);
 	/* Load head->node.next before loading node's content */
 	lttng_ust_smp_read_barrier_depends();
 	return node;
@@ -309,7 +309,7 @@ ___cds_wfcq_first(cds_wfcq_head_ptr_t u_head,
  *
  * Returns NULL if queue is empty, first node otherwise.
  */
-static inline struct cds_wfcq_node *
+static inline struct lttng_ust_wfcq_node *
 ___cds_wfcq_first_blocking(cds_wfcq_head_ptr_t head,
 		struct cds_wfcq_tail *tail)
 {
@@ -323,20 +323,20 @@ ___cds_wfcq_first_blocking(cds_wfcq_head_ptr_t head,
  * Same as __cds_wfcq_first_blocking, but returns LTTNG_UST_WFCQ_WOULDBLOCK if
  * it needs to block.
  */
-static inline struct cds_wfcq_node *
+static inline struct lttng_ust_wfcq_node *
 ___cds_wfcq_first_nonblocking(cds_wfcq_head_ptr_t head,
 		struct cds_wfcq_tail *tail)
 {
 	return ___cds_wfcq_first(head, tail, 0);
 }
 
-static inline struct cds_wfcq_node *
+static inline struct lttng_ust_wfcq_node *
 ___cds_wfcq_next(cds_wfcq_head_ptr_t head,
 		struct cds_wfcq_tail *tail,
-		struct cds_wfcq_node *node,
+		struct lttng_ust_wfcq_node *node,
 		int blocking)
 {
-	struct cds_wfcq_node *next;
+	struct lttng_ust_wfcq_node *next;
 
 	/*
 	 * Even though the following tail->p check is sufficient to find
@@ -349,7 +349,7 @@ ___cds_wfcq_next(cds_wfcq_head_ptr_t head,
 		lttng_ust_smp_rmb();
 		if (LTTNG_UST_LOAD_SHARED(tail->p) == node)
 			return NULL;
-		next = ___cds_wfcq_node_sync_next(node, blocking);
+		next = ___lttng_ust_wfcq_node_sync_next(node, blocking);
 	}
 	/* Load node->next before loading next's content */
 	lttng_ust_smp_read_barrier_depends();
@@ -371,10 +371,10 @@ ___cds_wfcq_next(cds_wfcq_head_ptr_t head,
  * Returns NULL if reached end of queue, non-NULL next queue node
  * otherwise.
  */
-static inline struct cds_wfcq_node *
+static inline struct lttng_ust_wfcq_node *
 ___cds_wfcq_next_blocking(cds_wfcq_head_ptr_t head,
 		struct cds_wfcq_tail *tail,
-		struct cds_wfcq_node *node)
+		struct lttng_ust_wfcq_node *node)
 {
 	return ___cds_wfcq_next(head, tail, node, 1);
 }
@@ -385,22 +385,22 @@ ___cds_wfcq_next_blocking(cds_wfcq_head_ptr_t head,
  * Same as __cds_wfcq_next_blocking, but returns LTTNG_UST_WFCQ_WOULDBLOCK if
  * it needs to block.
  */
-static inline struct cds_wfcq_node *
+static inline struct lttng_ust_wfcq_node *
 ___cds_wfcq_next_nonblocking(cds_wfcq_head_ptr_t head,
 		struct cds_wfcq_tail *tail,
-		struct cds_wfcq_node *node)
+		struct lttng_ust_wfcq_node *node)
 {
 	return ___cds_wfcq_next(head, tail, node, 0);
 }
 
-static inline struct cds_wfcq_node *
+static inline struct lttng_ust_wfcq_node *
 ___cds_wfcq_dequeue_with_state(cds_wfcq_head_ptr_t u_head,
 		struct cds_wfcq_tail *tail,
 		int *state,
 		int blocking)
 {
 	struct __cds_wfcq_head *head = u_head._h;
-	struct cds_wfcq_node *node, *next;
+	struct lttng_ust_wfcq_node *node, *next;
 
 	if (state)
 		*state = 0;
@@ -409,7 +409,7 @@ ___cds_wfcq_dequeue_with_state(cds_wfcq_head_ptr_t u_head,
 		return NULL;
 	}
 
-	node = ___cds_wfcq_node_sync_next(&head->node, blocking);
+	node = ___lttng_ust_wfcq_node_sync_next(&head->node, blocking);
 	if (!blocking && node == LTTNG_UST_WFCQ_WOULDBLOCK) {
 		return LTTNG_UST_WFCQ_WOULDBLOCK;
 	}
@@ -429,13 +429,13 @@ ___cds_wfcq_dequeue_with_state(cds_wfcq_head_ptr_t u_head,
 		 * orders load q->head.next before loading node's
 		 * content.
 		 */
-		_cds_wfcq_node_init(&head->node);
+		_lttng_ust_wfcq_node_init(&head->node);
 		if (uatomic_cmpxchg(&tail->p, node, &head->node) == node) {
 			if (state)
 				*state |= LTTNG_UST_WFCQ_STATE_LAST;
 			return node;
 		}
-		next = ___cds_wfcq_node_sync_next(node, blocking);
+		next = ___lttng_ust_wfcq_node_sync_next(node, blocking);
 		/*
 		 * In nonblocking mode, if we would need to block to
 		 * get node's next, set the head next node pointer
@@ -466,7 +466,7 @@ ___cds_wfcq_dequeue_with_state(cds_wfcq_head_ptr_t u_head,
  * Dequeue/splice/iteration mutual exclusion should be ensured by the
  * caller.
  */
-static inline struct cds_wfcq_node *
+static inline struct lttng_ust_wfcq_node *
 ___cds_wfcq_dequeue_with_state_blocking(cds_wfcq_head_ptr_t head,
 		struct cds_wfcq_tail *tail, int *state)
 {
@@ -479,7 +479,7 @@ ___cds_wfcq_dequeue_with_state_blocking(cds_wfcq_head_ptr_t head,
  * Same as __cds_wfcq_dequeue_with_state_blocking, but without saving
  * state.
  */
-static inline struct cds_wfcq_node *
+static inline struct lttng_ust_wfcq_node *
 ___cds_wfcq_dequeue_blocking(cds_wfcq_head_ptr_t head,
 		struct cds_wfcq_tail *tail)
 {
@@ -492,7 +492,7 @@ ___cds_wfcq_dequeue_blocking(cds_wfcq_head_ptr_t head,
  * Same as __cds_wfcq_dequeue_blocking, but returns LTTNG_UST_WFCQ_WOULDBLOCK
  * if it needs to block.
  */
-static inline struct cds_wfcq_node *
+static inline struct lttng_ust_wfcq_node *
 ___cds_wfcq_dequeue_with_state_nonblocking(cds_wfcq_head_ptr_t head,
 		struct cds_wfcq_tail *tail, int *state)
 {
@@ -505,7 +505,7 @@ ___cds_wfcq_dequeue_with_state_nonblocking(cds_wfcq_head_ptr_t head,
  * Same as __cds_wfcq_dequeue_with_state_nonblocking, but without saving
  * state.
  */
-static inline struct cds_wfcq_node *
+static inline struct lttng_ust_wfcq_node *
 ___cds_wfcq_dequeue_nonblocking(cds_wfcq_head_ptr_t head,
 		struct cds_wfcq_tail *tail)
 {
@@ -532,7 +532,7 @@ ___cds_wfcq_splice(
 {
 	struct __cds_wfcq_head *dest_q_head = u_dest_q_head._h;
 	struct __cds_wfcq_head *src_q_head = u_src_q_head._h;
-	struct cds_wfcq_node *head, *tail;
+	struct lttng_ust_wfcq_node *head, *tail;
 	int attempt = 0;
 
 	/*
@@ -623,11 +623,11 @@ ___cds_wfcq_splice_nonblocking(
  * ensured.
  * It is valid to reuse and free a dequeued node immediately.
  */
-static inline struct cds_wfcq_node *
+static inline struct lttng_ust_wfcq_node *
 _cds_wfcq_dequeue_with_state_blocking(struct cds_wfcq_head *head,
 		struct cds_wfcq_tail *tail, int *state)
 {
-	struct cds_wfcq_node *retval;
+	struct lttng_ust_wfcq_node *retval;
 
 	_cds_wfcq_dequeue_lock(head, tail);
 	retval = ___cds_wfcq_dequeue_with_state_blocking(cds_wfcq_head_cast(head),
@@ -641,7 +641,7 @@ _cds_wfcq_dequeue_with_state_blocking(struct cds_wfcq_head *head,
  *
  * Same as cds_wfcq_dequeue_blocking, but without saving state.
  */
-static inline struct cds_wfcq_node *
+static inline struct lttng_ust_wfcq_node *
 _cds_wfcq_dequeue_blocking(struct cds_wfcq_head *head,
 		struct cds_wfcq_tail *tail)
 {

@@ -43,7 +43,7 @@ extern "C" {
  * McKenney.
  */
 
-#define LTTNG_UST_WFCQ_WOULDBLOCK	((struct cds_wfcq_node *) -1UL)
+#define LTTNG_UST_WFCQ_WOULDBLOCK	((struct lttng_ust_wfcq_node *) -1UL)
 
 enum lttng_ust_wfcq_ret {
 	LTTNG_UST_WFCQ_RET_WOULDBLOCK =	-1,
@@ -56,8 +56,8 @@ enum lttng_ust_wfcq_state {
 	LTTNG_UST_WFCQ_STATE_LAST =		(1U << 0),
 };
 
-struct cds_wfcq_node {
-	struct cds_wfcq_node *next;
+struct lttng_ust_wfcq_node {
+	struct lttng_ust_wfcq_node *next;
 };
 
 /*
@@ -66,11 +66,11 @@ struct cds_wfcq_node {
  * false-sharing between enqueue and dequeue.
  */
 struct __cds_wfcq_head {
-	struct cds_wfcq_node node;
+	struct lttng_ust_wfcq_node node;
 };
 
 struct cds_wfcq_head {
-	struct cds_wfcq_node node;
+	struct lttng_ust_wfcq_node node;
 	pthread_mutex_t lock;
 };
 
@@ -125,14 +125,14 @@ static inline cds_wfcq_head_ptr_t cds_wfcq_head_cast(struct cds_wfcq_head *head)
 #endif /* #else #ifndef __cplusplus */
 
 struct cds_wfcq_tail {
-	struct cds_wfcq_node *p;
+	struct lttng_ust_wfcq_node *p;
 };
 
 #ifdef _LGPL_SOURCE
 
 #include <lttng/urcu/static/wfcqueue.h>
 
-#define cds_wfcq_node_init		_cds_wfcq_node_init
+#define lttng_ust_wfcq_node_init		_lttng_ust_wfcq_node_init
 #define cds_wfcq_init			_cds_wfcq_init
 #define __cds_wfcq_init			___cds_wfcq_init
 #define cds_wfcq_destroy		_cds_wfcq_destroy
@@ -209,9 +209,9 @@ struct cds_wfcq_tail {
  */
 
 /*
- * cds_wfcq_node_init: initialize wait-free queue node.
+ * lttng_ust_wfcq_node_init: initialize wait-free queue node.
  */
-extern void cds_wfcq_node_init(struct cds_wfcq_node *node);
+extern void lttng_ust_wfcq_node_init(struct lttng_ust_wfcq_node *node);
 
 /*
  * cds_wfcq_init: initialize wait-free queue. Pair with
@@ -265,7 +265,7 @@ extern void cds_wfcq_dequeue_unlock(struct cds_wfcq_head *head,
  */
 extern bool cds_wfcq_enqueue(cds_wfcq_head_ptr_t head,
 		struct cds_wfcq_tail *tail,
-		struct cds_wfcq_node *node);
+		struct lttng_ust_wfcq_node *node);
 
 /*
  * cds_wfcq_dequeue_blocking: dequeue a node from a wait-free queue.
@@ -276,7 +276,7 @@ extern bool cds_wfcq_enqueue(cds_wfcq_head_ptr_t head,
  * Mutual exclusion with cds_wfcq_dequeue_blocking and dequeue lock is
  * ensured.
  */
-extern struct cds_wfcq_node *cds_wfcq_dequeue_blocking(
+extern struct lttng_ust_wfcq_node *cds_wfcq_dequeue_blocking(
 		struct cds_wfcq_head *head,
 		struct cds_wfcq_tail *tail);
 
@@ -286,7 +286,7 @@ extern struct cds_wfcq_node *cds_wfcq_dequeue_blocking(
  * Same as cds_wfcq_dequeue_blocking, but saves whether dequeueing the
  * last node of the queue into state (LTTNG_UST_WFCQ_STATE_LAST).
  */
-extern struct cds_wfcq_node *cds_wfcq_dequeue_with_state_blocking(
+extern struct lttng_ust_wfcq_node *cds_wfcq_dequeue_with_state_blocking(
 		struct cds_wfcq_head *head,
 		struct cds_wfcq_tail *tail,
 		int *state);
@@ -319,7 +319,7 @@ extern enum lttng_ust_wfcq_ret cds_wfcq_splice_blocking(
  * Dequeue/splice/iteration mutual exclusion should be ensured by the
  * caller.
  */
-extern struct cds_wfcq_node *__cds_wfcq_dequeue_blocking(
+extern struct lttng_ust_wfcq_node *__cds_wfcq_dequeue_blocking(
 		cds_wfcq_head_ptr_t head,
 		struct cds_wfcq_tail *tail);
 
@@ -329,7 +329,7 @@ extern struct cds_wfcq_node *__cds_wfcq_dequeue_blocking(
  * Same as __cds_wfcq_dequeue_blocking, but saves whether dequeueing the
  * last node of the queue into state (LTTNG_UST_WFCQ_STATE_LAST).
  */
-extern struct cds_wfcq_node *__cds_wfcq_dequeue_with_state_blocking(
+extern struct lttng_ust_wfcq_node *__cds_wfcq_dequeue_with_state_blocking(
 		cds_wfcq_head_ptr_t head,
 		struct cds_wfcq_tail *tail,
 		int *state);
@@ -340,7 +340,7 @@ extern struct cds_wfcq_node *__cds_wfcq_dequeue_with_state_blocking(
  * Same as __cds_wfcq_dequeue_blocking, but returns LTTNG_UST_WFCQ_WOULDBLOCK
  * if it needs to block.
  */
-extern struct cds_wfcq_node *__cds_wfcq_dequeue_nonblocking(
+extern struct lttng_ust_wfcq_node *__cds_wfcq_dequeue_nonblocking(
 		cds_wfcq_head_ptr_t head,
 		struct cds_wfcq_tail *tail);
 
@@ -350,7 +350,7 @@ extern struct cds_wfcq_node *__cds_wfcq_dequeue_nonblocking(
  * Same as __cds_wfcq_dequeue_nonblocking, but saves whether dequeueing
  * the last node of the queue into state (LTTNG_UST_WFCQ_STATE_LAST).
  */
-extern struct cds_wfcq_node *__cds_wfcq_dequeue_with_state_nonblocking(
+extern struct lttng_ust_wfcq_node *__cds_wfcq_dequeue_with_state_nonblocking(
 		cds_wfcq_head_ptr_t head,
 		struct cds_wfcq_tail *tail,
 		int *state);
@@ -397,7 +397,7 @@ extern enum lttng_ust_wfcq_ret __cds_wfcq_splice_nonblocking(
  *
  * Returns NULL if queue is empty, first node otherwise.
  */
-extern struct cds_wfcq_node *__cds_wfcq_first_blocking(
+extern struct lttng_ust_wfcq_node *__cds_wfcq_first_blocking(
 		cds_wfcq_head_ptr_t head,
 		struct cds_wfcq_tail *tail);
 
@@ -407,7 +407,7 @@ extern struct cds_wfcq_node *__cds_wfcq_first_blocking(
  * Same as __cds_wfcq_first_blocking, but returns LTTNG_UST_WFCQ_WOULDBLOCK if
  * it needs to block.
  */
-extern struct cds_wfcq_node *__cds_wfcq_first_nonblocking(
+extern struct lttng_ust_wfcq_node *__cds_wfcq_first_nonblocking(
 		cds_wfcq_head_ptr_t head,
 		struct cds_wfcq_tail *tail);
 
@@ -426,10 +426,10 @@ extern struct cds_wfcq_node *__cds_wfcq_first_nonblocking(
  * Returns NULL if reached end of queue, non-NULL next queue node
  * otherwise.
  */
-extern struct cds_wfcq_node *__cds_wfcq_next_blocking(
+extern struct lttng_ust_wfcq_node *__cds_wfcq_next_blocking(
 		cds_wfcq_head_ptr_t head,
 		struct cds_wfcq_tail *tail,
-		struct cds_wfcq_node *node);
+		struct lttng_ust_wfcq_node *node);
 
 /*
  * __cds_wfcq_next_blocking: get next node of a queue, without dequeuing.
@@ -437,10 +437,10 @@ extern struct cds_wfcq_node *__cds_wfcq_next_blocking(
  * Same as __cds_wfcq_next_blocking, but returns LTTNG_UST_WFCQ_WOULDBLOCK if
  * it needs to block.
  */
-extern struct cds_wfcq_node *__cds_wfcq_next_nonblocking(
+extern struct lttng_ust_wfcq_node *__cds_wfcq_next_nonblocking(
 		cds_wfcq_head_ptr_t head,
 		struct cds_wfcq_tail *tail,
-		struct cds_wfcq_node *node);
+		struct lttng_ust_wfcq_node *node);
 
 #endif /* !_LGPL_SOURCE */
 
@@ -449,7 +449,7 @@ extern struct cds_wfcq_node *__cds_wfcq_next_nonblocking(
  * without dequeuing them.
  * @head: head of the queue (struct cds_wfcq_head or __cds_wfcq_head pointer).
  * @tail: tail of the queue (struct cds_wfcq_tail pointer).
- * @node: iterator on the queue (struct cds_wfcq_node pointer).
+ * @node: iterator on the queue (struct lttng_ust_wfcq_node pointer).
  *
  * Content written into each node before enqueue is guaranteed to be
  * consistent, but no other memory ordering is ensured.
@@ -466,8 +466,8 @@ extern struct cds_wfcq_node *__cds_wfcq_next_nonblocking(
  * without dequeuing them. Safe against deletion.
  * @head: head of the queue (struct cds_wfcq_head or __cds_wfcq_head pointer).
  * @tail: tail of the queue (struct cds_wfcq_tail pointer).
- * @node: iterator on the queue (struct cds_wfcq_node pointer).
- * @n: struct cds_wfcq_node pointer holding the next pointer (used
+ * @node: iterator on the queue (struct lttng_ust_wfcq_node pointer).
+ * @n: struct lttng_ust_wfcq_node pointer holding the next pointer (used
  *     internally).
  *
  * Content written into each node before enqueue is guaranteed to be
