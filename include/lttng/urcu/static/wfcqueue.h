@@ -80,7 +80,7 @@ extern "C" {
  * thread, without requiring any lock.
  */
 
-#define WFCQ_ADAPT_ATTEMPTS		10	/* Retry if being set */
+#define LTTNG_UST_WFCQ_ADAPT_ATTEMPTS		10	/* Retry if being set */
 #define WFCQ_WAIT			10	/* Wait 10 ms if being set */
 
 /*
@@ -250,7 +250,7 @@ ___cds_wfcq_busy_wait(int *attempt, int blocking)
 {
 	if (!blocking)
 		return 1;
-	if (++(*attempt) >= WFCQ_ADAPT_ATTEMPTS) {
+	if (++(*attempt) >= LTTNG_UST_WFCQ_ADAPT_ATTEMPTS) {
 		CDS_WFCQ_WAIT_SLEEP(WFCQ_WAIT);		/* Wait for 10ms */
 		*attempt = 0;
 	} else {

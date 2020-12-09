@@ -318,8 +318,8 @@ __cds_wfcq_for_each_blocking_safe __lttng_ust_wfcq_for_each_blocking_safe
 
 # include/lttng/static/wfcqueue.h
 
-WFCQ_ADAPT_ATTEMPTS
-WFCQ_WAIT
+WFCQ_ADAPT_ATTEMPTS LTTNG_UST_WFCQ_ADAPT_ATTEMPTS
+WFCQ_WAIT LTTNG_UST_WFCQ_WAIT
 _cds_wfcq_node_init
 _cds_wfcq_init
 _cds_wfcq_destroy
