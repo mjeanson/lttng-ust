@@ -145,10 +145,10 @@ static inline enum lttng_ust_urcu_state lttng_ust_urcu_reader_state(unsigned lon
 static inline void _lttng_ust_urcu_read_lock_update(unsigned long tmp)
 {
 	if (lttng_ust_likely(!(tmp & LTTNG_UST_URCU_GP_CTR_NEST_MASK))) {
-		_CMM_STORE_SHARED(URCU_TLS(lttng_ust_urcu_reader)->ctr, _LTTNG_UST_LOAD_SHARED(lttng_ust_urcu_gp.ctr));
+		_LTTNG_UST_STORE_SHARED(URCU_TLS(lttng_ust_urcu_reader)->ctr, _LTTNG_UST_LOAD_SHARED(lttng_ust_urcu_gp.ctr));
 		lttng_ust_urcu_smp_mb_slave();
 	} else
-		_CMM_STORE_SHARED(URCU_TLS(lttng_ust_urcu_reader)->ctr, tmp + LTTNG_UST_URCU_GP_COUNT);
+		_LTTNG_UST_STORE_SHARED(URCU_TLS(lttng_ust_urcu_reader)->ctr, tmp + LTTNG_UST_URCU_GP_COUNT);
 }
 
 /*
@@ -186,7 +186,7 @@ static inline void _lttng_ust_urcu_read_unlock(void)
 	lttng_ust_urcu_assert(tmp & LTTNG_UST_URCU_GP_CTR_NEST_MASK);
 	/* Finish using rcu before decrementing the pointer. */
 	lttng_ust_urcu_smp_mb_slave();
-	_CMM_STORE_SHARED(URCU_TLS(lttng_ust_urcu_reader)->ctr, tmp - LTTNG_UST_URCU_GP_COUNT);
+	_LTTNG_UST_STORE_SHARED(URCU_TLS(lttng_ust_urcu_reader)->ctr, tmp - LTTNG_UST_URCU_GP_COUNT);
 	lttng_ust_barrier();	/* Ensure the compiler does not reorder us with mutex */
 }
 

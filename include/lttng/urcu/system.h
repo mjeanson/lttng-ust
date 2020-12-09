@@ -42,7 +42,7 @@
  * Identify a shared store. A lttng_ust_smp_wmc() or lttng_ust_smp_mc() should
  * follow the store.
  */
-#define _CMM_STORE_SHARED(x, v)	__extension__ ({ LTTNG_UST_ACCESS_ONCE(x) = (v); })
+#define _LTTNG_UST_STORE_SHARED(x, v)	__extension__ ({ LTTNG_UST_ACCESS_ONCE(x) = (v); })
 
 /*
  * Store v into x, where x is located in shared memory. Performs the
@@ -51,7 +51,7 @@
 #define CMM_STORE_SHARED(x, v)						\
 	__extension__							\
 	({								\
-		__typeof__(x) _v = _CMM_STORE_SHARED(x, v);		\
+		__typeof__(x) _v = _LTTNG_UST_STORE_SHARED(x, v);		\
 		lttng_ust_smp_wmc();						\
 		_v = _v;	/* Work around clang "unused result" */	\
 	})
