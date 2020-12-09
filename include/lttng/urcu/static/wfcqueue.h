@@ -73,7 +73,7 @@ extern "C" {
  * Mutual exclusion can be ensured by holding lttng_ust_wfcq_dequeue_lock().
  *
  * For convenience, lttng_ust_wfcq_dequeue_blocking() and
- * cds_wfcq_splice_blocking() hold the dequeue lock.
+ * lttng_ust_wfcq_splice_blocking() hold the dequeue lock.
  *
  * Besides locking, mutual exclusion of dequeue, splice and iteration
  * can be ensured by performing all of those operations from a single
@@ -577,7 +577,7 @@ ___cds_wfcq_splice(
 }
 
 /*
- * __cds_wfcq_splice_blocking: enqueue all src_q nodes at the end of dest_q.
+ * __lttng_ust_wfcq_splice_blocking: enqueue all src_q nodes at the end of dest_q.
  *
  * Dequeue all nodes from src_q.
  * dest_q must be already initialized.
@@ -587,7 +587,7 @@ ___cds_wfcq_splice(
  * dest queue. Never returns LTTNG_UST_WFCQ_RET_WOULDBLOCK.
  */
 static inline enum lttng_ust_wfcq_ret
-___cds_wfcq_splice_blocking(
+___lttng_ust_wfcq_splice_blocking(
 		lttng_ust_wfcq_head_ptr_t dest_q_head,
 		struct lttng_ust_wfcq_tail *dest_q_tail,
 		lttng_ust_wfcq_head_ptr_t src_q_head,
@@ -600,7 +600,7 @@ ___cds_wfcq_splice_blocking(
 /*
  * __cds_wfcq_splice_nonblocking: enqueue all src_q nodes at the end of dest_q.
  *
- * Same as __cds_wfcq_splice_blocking, but returns
+ * Same as __lttng_ust_wfcq_splice_blocking, but returns
  * LTTNG_UST_WFCQ_RET_WOULDBLOCK if it needs to block.
  */
 static inline enum lttng_ust_wfcq_ret
@@ -619,7 +619,7 @@ ___cds_wfcq_splice_nonblocking(
  *
  * Content written into the node before enqueue is guaranteed to be
  * consistent, but no other memory ordering is ensured.
- * Mutual exclusion with cds_wfcq_splice_blocking and dequeue lock is
+ * Mutual exclusion with lttng_ust_wfcq_splice_blocking and dequeue lock is
  * ensured.
  * It is valid to reuse and free a dequeued node immediately.
  */
@@ -649,7 +649,7 @@ _lttng_ust_wfcq_dequeue_blocking(struct lttng_ust_wfcq_head *head,
 }
 
 /*
- * cds_wfcq_splice_blocking: enqueue all src_q nodes at the end of dest_q.
+ * lttng_ust_wfcq_splice_blocking: enqueue all src_q nodes at the end of dest_q.
  *
  * Dequeue all nodes from src_q.
  * dest_q must be already initialized.
@@ -661,7 +661,7 @@ _lttng_ust_wfcq_dequeue_blocking(struct lttng_ust_wfcq_head *head,
  * dest queue. Never returns LTTNG_UST_WFCQ_RET_WOULDBLOCK.
  */
 static inline enum lttng_ust_wfcq_ret
-_cds_wfcq_splice_blocking(
+_lttng_ust_wfcq_splice_blocking(
 		struct lttng_ust_wfcq_head *dest_q_head,
 		struct lttng_ust_wfcq_tail *dest_q_tail,
 		struct lttng_ust_wfcq_head *src_q_head,
@@ -670,7 +670,7 @@ _cds_wfcq_splice_blocking(
 	enum lttng_ust_wfcq_ret ret;
 
 	_lttng_ust_wfcq_dequeue_lock(src_q_head, src_q_tail);
-	ret = ___cds_wfcq_splice_blocking(lttng_ust_wfcq_head_cast(dest_q_head), dest_q_tail,
+	ret = ___lttng_ust_wfcq_splice_blocking(lttng_ust_wfcq_head_cast(dest_q_head), dest_q_tail,
 			lttng_ust_wfcq_head_cast(src_q_head), src_q_tail);
 	_lttng_ust_wfcq_dequeue_unlock(src_q_head, src_q_tail);
 	return ret;
