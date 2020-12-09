@@ -280,7 +280,7 @@ ___lttng_ust_wfcq_node_sync_next(struct lttng_ust_wfcq_node *node, int blocking)
 }
 
 static inline struct lttng_ust_wfcq_node *
-___cds_wfcq_first(lttng_ust_wfcq_head_ptr_t u_head,
+___lttng_ust_wfcq_first(lttng_ust_wfcq_head_ptr_t u_head,
 		struct lttng_ust_wfcq_tail *tail,
 		int blocking)
 {
@@ -313,7 +313,7 @@ static inline struct lttng_ust_wfcq_node *
 ___lttng_ust_wfcq_first_blocking(lttng_ust_wfcq_head_ptr_t head,
 		struct lttng_ust_wfcq_tail *tail)
 {
-	return ___cds_wfcq_first(head, tail, 1);
+	return ___lttng_ust_wfcq_first(head, tail, 1);
 }
 
 
@@ -327,7 +327,7 @@ static inline struct lttng_ust_wfcq_node *
 ___lttng_ust_wfcq_first_nonblocking(lttng_ust_wfcq_head_ptr_t head,
 		struct lttng_ust_wfcq_tail *tail)
 {
-	return ___cds_wfcq_first(head, tail, 0);
+	return ___lttng_ust_wfcq_first(head, tail, 0);
 }
 
 static inline struct lttng_ust_wfcq_node *
