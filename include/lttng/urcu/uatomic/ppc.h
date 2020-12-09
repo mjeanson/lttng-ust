@@ -27,7 +27,7 @@
 extern "C" {
 #endif
 
-#define ILLEGAL_INSTR	".long	0xd00d00"
+#define LTTNG_UST_ILLEGAL_INSTR	".long	0xd00d00"
 
 /*
  * Providing sequential consistency semantic with respect to other
@@ -97,7 +97,7 @@ unsigned long _uatomic_exchange(void *addr, unsigned long val, int len)
 	 * generate an illegal instruction. Cannot catch this with
 	 * linker tricks when optimizations are disabled.
 	 */
-	__asm__ __volatile__(ILLEGAL_INSTR);
+	__asm__ __volatile__(LTTNG_UST_ILLEGAL_INSTR);
 	return 0;
 }
 
@@ -159,7 +159,7 @@ unsigned long _uatomic_cmpxchg(void *addr, unsigned long old,
 	 * generate an illegal instruction. Cannot catch this with
 	 * linker tricks when optimizations are disabled.
 	 */
-	__asm__ __volatile__(ILLEGAL_INSTR);
+	__asm__ __volatile__(LTTNG_UST_ILLEGAL_INSTR);
 	return 0;
 }
 
@@ -218,7 +218,7 @@ unsigned long _uatomic_add_return(void *addr, unsigned long val,
 	 * generate an illegal instruction. Cannot catch this with
 	 * linker tricks when optimizations are disabled.
 	 */
-	__asm__ __volatile__(ILLEGAL_INSTR);
+	__asm__ __volatile__(LTTNG_UST_ILLEGAL_INSTR);
 	return 0;
 }
 
