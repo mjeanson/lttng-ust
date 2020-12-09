@@ -500,13 +500,13 @@ ___cds_wfcq_dequeue_with_state_nonblocking(lttng_ust_wfcq_head_ptr_t head,
 }
 
 /*
- * ___cds_wfcq_dequeue_nonblocking: dequeue node from queue.
+ * ___lttng_ust_wfcq_dequeue_nonblocking: dequeue node from queue.
  *
  * Same as __cds_wfcq_dequeue_with_state_nonblocking, but without saving
  * state.
  */
 static inline struct lttng_ust_wfcq_node *
-___cds_wfcq_dequeue_nonblocking(lttng_ust_wfcq_head_ptr_t head,
+___lttng_ust_wfcq_dequeue_nonblocking(lttng_ust_wfcq_head_ptr_t head,
 		struct lttng_ust_wfcq_tail *tail)
 {
 	return ___cds_wfcq_dequeue_with_state_nonblocking(head, tail, NULL);
