@@ -57,7 +57,7 @@ extern "C" {
  * only.
  */
 #define lttng_ust_smp_rmb()    __asm__ __volatile__ (LWSYNC_OPCODE:::"memory")
-#define cmm_smp_wmb()    __asm__ __volatile__ (LWSYNC_OPCODE:::"memory")
+#define lttng_ust_smp_wmb()    __asm__ __volatile__ (LWSYNC_OPCODE:::"memory")
 
 #define mftbl()						\
 	__extension__					\

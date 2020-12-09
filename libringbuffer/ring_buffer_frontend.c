@@ -1777,7 +1777,7 @@ void lib_ring_buffer_switch_old_start(struct lttng_ust_lib_ring_buffer *buf,
 	 * Order all writes to buffer before the commit count update that will
 	 * determine that the subbuffer is full.
 	 */
-	cmm_smp_wmb();
+	lttng_ust_smp_wmb();
 	cc_hot = shmp_index(handle, buf->commit_hot, oldidx);
 	if (!cc_hot)
 		return;
@@ -1835,7 +1835,7 @@ void lib_ring_buffer_switch_old_end(struct lttng_ust_lib_ring_buffer *buf,
 	 * Order all writes to buffer and store to ts_end before the commit
 	 * count update that will determine that the subbuffer is full.
 	 */
-	cmm_smp_wmb();
+	lttng_ust_smp_wmb();
 	cc_hot = shmp_index(handle, buf->commit_hot, oldidx);
 	if (!cc_hot)
 		return;
@@ -1873,7 +1873,7 @@ void lib_ring_buffer_switch_new_start(struct lttng_ust_lib_ring_buffer *buf,
 	 * Order all writes to buffer before the commit count update that will
 	 * determine that the subbuffer is full.
 	 */
-	cmm_smp_wmb();
+	lttng_ust_smp_wmb();
 	cc_hot = shmp_index(handle, buf->commit_hot, beginidx);
 	if (!cc_hot)
 		return;
@@ -2481,7 +2481,7 @@ void lib_ring_buffer_check_deliver_slow(const struct lttng_ust_lib_ring_buffer_c
 	 * Order prior updates to reserve count prior to the
 	 * commit_cold cc_sb update.
 	 */
-	cmm_smp_wmb();
+	lttng_ust_smp_wmb();
 	cc_cold = shmp_index(handle, buf->commit_cold, idx);
 	if (!cc_cold)
 		return;
@@ -2541,7 +2541,7 @@ void lib_ring_buffer_check_deliver_slow(const struct lttng_ust_lib_ring_buffer_c
 		 * Order later updates to reserve count after
 		 * the commit cold cc_sb update.
 		 */
-		cmm_smp_wmb();
+		lttng_ust_smp_wmb();
 		lib_ring_buffer_vmcore_check_deliver(config, buf,
 					 commit_count, idx, handle);
 

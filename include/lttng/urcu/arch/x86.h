@@ -47,13 +47,13 @@ extern "C" {
 
 /*
  * Define lttng_ust_rmb/lttng_ust_wmb to "strict" barriers that may be needed when
- * using SSE or working with I/O areas.  lttng_ust_smp_rmb/cmm_smp_wmb are
+ * using SSE or working with I/O areas.  lttng_ust_smp_rmb/lttng_ust_smp_wmb are
  * only compiler barriers, which is enough for general use.
  */
 #define lttng_ust_rmb()     __asm__ __volatile__ ("lfence":::"memory")
 #define lttng_ust_wmb()     __asm__ __volatile__ ("sfence"::: "memory")
 #define lttng_ust_smp_rmb() lttng_ust_barrier()
-#define cmm_smp_wmb() lttng_ust_barrier()
+#define lttng_ust_smp_wmb() lttng_ust_barrier()
 
 #else
 
@@ -66,7 +66,7 @@ extern "C" {
  * kernels should think twice before enabling this", but for now let's
  * be conservative and leave the full barrier on 32-bit processors.  Also,
  * IDT WinChip supports weak store ordering, and the kernel may enable it
- * under our feet; cmm_smp_wmb() ceases to be a nop for these processors.
+ * under our feet; lttng_ust_smp_wmb() ceases to be a nop for these processors.
  */
 #if (LTTNG_UST_BITS_PER_LONG == 32)
 #define lttng_ust_mb()    __asm__ __volatile__ ("lock; addl $0,0(%%esp)":::"memory")

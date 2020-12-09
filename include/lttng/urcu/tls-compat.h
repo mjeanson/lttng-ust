@@ -122,7 +122,7 @@ struct urcu_tls {
 			if (!__tls_ ## name.init_done) {	\
 				(void) pthread_key_create(&__tls_ ## name.key, \
 					free);			\
-				cmm_smp_wmb();	/* create key before write init_done */ \
+				lttng_ust_smp_wmb();	/* create key before write init_done */ \
 				__tls_ ## name.init_done = 1;	\
 			}					\
 			pthread_mutex_unlock(&__tls_ ## name.init_mutex); \

@@ -271,7 +271,7 @@ void lib_ring_buffer_commit(const struct lttng_ust_lib_ring_buffer_config *confi
 	 * Order all writes to buffer before the commit count update that will
 	 * determine that the subbuffer is full.
 	 */
-	cmm_smp_wmb();
+	lttng_ust_smp_wmb();
 
 	v_add(config, ctx->slot_size, &cc_hot->cc);
 
