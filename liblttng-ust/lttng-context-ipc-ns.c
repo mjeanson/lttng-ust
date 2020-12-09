@@ -47,7 +47,7 @@ ino_t get_ipc_ns(void)
 	struct stat sb;
 	ino_t ipc_ns;
 
-	ipc_ns = CMM_LOAD_SHARED(URCU_TLS(cached_ipc_ns));
+	ipc_ns = LTTNG_UST_LOAD_SHARED(URCU_TLS(cached_ipc_ns));
 
 	/*
 	 * If the cache is populated, do nothing and return the

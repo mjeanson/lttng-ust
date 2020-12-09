@@ -55,7 +55,7 @@ uid_t get_vsuid(void)
 {
 	uid_t vsuid;
 
-	vsuid = CMM_LOAD_SHARED(cached_vsuid);
+	vsuid = LTTNG_UST_LOAD_SHARED(cached_vsuid);
 
 	if (lttng_ust_unlikely(vsuid == INVALID_UID)) {
 		uid_t uid, euid, suid;

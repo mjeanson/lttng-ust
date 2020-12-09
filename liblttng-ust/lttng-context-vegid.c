@@ -55,7 +55,7 @@ gid_t get_vegid(void)
 {
 	gid_t vegid;
 
-	vegid = CMM_LOAD_SHARED(cached_vegid);
+	vegid = LTTNG_UST_LOAD_SHARED(cached_vegid);
 
 	if (lttng_ust_unlikely(vegid == INVALID_GID)) {
 		vegid = getegid();

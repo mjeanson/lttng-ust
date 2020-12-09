@@ -224,7 +224,7 @@ uint64_t arch_read_perf_counter(
 		return 0;
 
 	do {
-		seq = CMM_LOAD_SHARED(pc->lock);
+		seq = LTTNG_UST_LOAD_SHARED(pc->lock);
 		lttng_ust_barrier();
 
 		idx = pc->index;
@@ -241,7 +241,7 @@ uint64_t arch_read_perf_counter(
 			return read_perf_counter_syscall(thread_field);
 		}
 		lttng_ust_barrier();
-	} while (CMM_LOAD_SHARED(pc->lock) != seq);
+	} while (LTTNG_UST_LOAD_SHARED(pc->lock) != seq);
 
 	return count;
 }

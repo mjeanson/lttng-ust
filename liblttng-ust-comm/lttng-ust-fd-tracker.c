@@ -106,7 +106,7 @@ void lttng_ust_init_fd_tracker(void)
 	struct rlimit rlim;
 	int i;
 
-	if (CMM_LOAD_SHARED(init_done))
+	if (LTTNG_UST_LOAD_SHARED(init_done))
 		return;
 
 	memset(&rlim, 0, sizeof(rlim));

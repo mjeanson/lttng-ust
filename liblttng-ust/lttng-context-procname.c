@@ -51,7 +51,7 @@ static DEFINE_URCU_TLS(int, procname_nesting);
 static inline
 char *wrapper_getprocname(void)
 {
-	int nesting = CMM_LOAD_SHARED(URCU_TLS(procname_nesting));
+	int nesting = LTTNG_UST_LOAD_SHARED(URCU_TLS(procname_nesting));
 
 	if (lttng_ust_unlikely(nesting >= PROCNAME_NESTING_MAX))
 		return "<unknown>";

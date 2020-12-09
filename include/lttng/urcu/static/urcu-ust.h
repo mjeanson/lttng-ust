@@ -127,7 +127,7 @@ static inline enum lttng_ust_urcu_state lttng_ust_urcu_reader_state(unsigned lon
 	 * Make sure both tests below are done on the same version of *value
 	 * to insure consistency.
 	 */
-	v = CMM_LOAD_SHARED(*ctr);
+	v = LTTNG_UST_LOAD_SHARED(*ctr);
 	if (!(v & LTTNG_UST_URCU_GP_CTR_NEST_MASK))
 		return LTTNG_UST_URCU_READER_INACTIVE;
 	if (!((v ^ lttng_ust_urcu_gp.ctr) & LTTNG_UST_URCU_GP_CTR_PHASE))

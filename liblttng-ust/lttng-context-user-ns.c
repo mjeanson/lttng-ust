@@ -45,7 +45,7 @@ ino_t get_user_ns(void)
 	struct stat sb;
 	ino_t user_ns;
 
-	user_ns = CMM_LOAD_SHARED(cached_user_ns);
+	user_ns = LTTNG_UST_LOAD_SHARED(cached_user_ns);
 
 	/*
 	 * If the cache is populated, do nothing and return the

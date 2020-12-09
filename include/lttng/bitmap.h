@@ -64,7 +64,7 @@ static inline bool lttng_bitmap_test_bit(unsigned int index, unsigned long *p)
 	unsigned int word, bit;
 
 	lttng_bitmap_index(index, &word, &bit);
-	return (CMM_LOAD_SHARED(p[word]) >> bit) & 0x1;
+	return (LTTNG_UST_LOAD_SHARED(p[word]) >> bit) & 0x1;
 }
 
 #endif /* _LTTNG_BITMAP_H */

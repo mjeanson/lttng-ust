@@ -62,7 +62,7 @@ extern "C" {
 #endif
 
 #define tracepoint_enabled(provider, name) \
-	lttng_ust_unlikely(CMM_LOAD_SHARED(__tracepoint_##provider##___##name.state))
+	lttng_ust_unlikely(LTTNG_UST_LOAD_SHARED(__tracepoint_##provider##___##name.state))
 
 #define do_tracepoint(provider, name, ...) \
 	__tracepoint_cb_##provider##___##name(__VA_ARGS__)

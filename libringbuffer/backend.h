@@ -120,7 +120,7 @@ size_t lib_ring_buffer_do_strcpy(const struct lttng_ust_lib_ring_buffer_config *
 		 * Only read source character once, in case it is
 		 * modified concurrently.
 		 */
-		c = CMM_LOAD_SHARED(src[count]);
+		c = LTTNG_UST_LOAD_SHARED(src[count]);
 		if (!c)
 			break;
 		lib_ring_buffer_do_copy(config, &dest[count], &c, 1);

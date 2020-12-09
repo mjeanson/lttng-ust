@@ -118,7 +118,7 @@ void *static_calloc_aligned(size_t nmemb, size_t size, size_t alignment)
 	 * dependency on pthread. This will minimize the risk of bad
 	 * interaction between mutex and malloc instrumentation.
 	 */
-	res_offset = CMM_LOAD_SHARED(static_calloc_buf_offset);
+	res_offset = LTTNG_UST_LOAD_SHARED(static_calloc_buf_offset);
 	do {
 		prev_offset = res_offset;
 		aligned_offset = LTTNG_UST_ALIGN(prev_offset + sizeof(size_t), alignment);

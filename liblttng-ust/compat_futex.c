@@ -82,7 +82,7 @@ int lttng_ust_compat_futex_noasync(int32_t *uaddr, int op, int32_t val,
 		 * Comparing *uaddr content against val figures out which
 		 * thread has been awakened.
 		 */
-		while (CMM_LOAD_SHARED(*uaddr) == val)
+		while (LTTNG_UST_LOAD_SHARED(*uaddr) == val)
 			pthread_cond_wait(&__lttng_ust_compat_futex_cond,
 				&__lttng_ust_compat_futex_lock);
 		break;
@@ -135,7 +135,7 @@ int lttng_ust_compat_futex_async(int32_t *uaddr, int op, int32_t val,
 
 	switch (op) {
 	case FUTEX_WAIT:
-		while (CMM_LOAD_SHARED(*uaddr) == val) {
+		while (LTTNG_UST_LOAD_SHARED(*uaddr) == val) {
 			if (poll(NULL, 0, 10) < 0) {
 				ret = -1;
 				/* Keep poll errno. Caller handles EINTR. */

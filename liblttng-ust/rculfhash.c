@@ -753,7 +753,7 @@ int _lttng_ust_lfht_replace(struct lttng_ust_lfht *ht, unsigned long size,
 	bucket = lookup_bucket(ht, size, bit_reverse_ulong(old_node->reverse_hash));
 	_lttng_ust_lfht_gc_bucket(bucket, new_node);
 
-	assert(is_removed(CMM_LOAD_SHARED(old_node->next)));
+	assert(is_removed(LTTNG_UST_LOAD_SHARED(old_node->next)));
 	return 0;
 }
 
@@ -895,7 +895,7 @@ int _lttng_ust_lfht_del(struct lttng_ust_lfht *ht, unsigned long size,
 	 * logical removal flag). Return -ENOENT if the node had
 	 * previously been removed.
 	 */
-	next = CMM_LOAD_SHARED(node->next);	/* next is not dereferenced */
+	next = LTTNG_UST_LOAD_SHARED(node->next);	/* next is not dereferenced */
 	if (lttng_ust_unlikely(is_removed(next)))
 		return -ENOENT;
 	assert(!is_bucket(next));
@@ -921,7 +921,7 @@ int _lttng_ust_lfht_del(struct lttng_ust_lfht *ht, unsigned long size,
 	bucket = lookup_bucket(ht, size, bit_reverse_ulong(node->reverse_hash));
 	_lttng_ust_lfht_gc_bucket(bucket, node);
 
-	assert(is_removed(CMM_LOAD_SHARED(node->next)));
+	assert(is_removed(LTTNG_UST_LOAD_SHARED(node->next)));
 	/*
 	 * Last phase: atomically exchange node->next with a version
 	 * having "REMOVAL_OWNER_FLAG" set. If the returned node->next
@@ -1107,7 +1107,7 @@ void lttng_ust_lfht_lookup(struct lttng_ust_lfht *ht, unsigned long hash,
 		}
 		node = clear_flag(next);
 	}
-	assert(!node || !is_bucket(CMM_LOAD_SHARED(node->next)));
+	assert(!node || !is_bucket(LTTNG_UST_LOAD_SHARED(node->next)));
 	iter->node = node;
 	iter->next = next;
 }
@@ -1141,7 +1141,7 @@ void lttng_ust_lfht_next_duplicate(struct lttng_ust_lfht *ht, lttng_ust_lfht_mat
 		}
 		node = clear_flag(next);
 	}
-	assert(!node || !is_bucket(CMM_LOAD_SHARED(node->next)));
+	assert(!node || !is_bucket(LTTNG_UST_LOAD_SHARED(node->next)));
 	iter->node = node;
 	iter->next = next;
 }
@@ -1164,7 +1164,7 @@ void lttng_ust_lfht_next(struct lttng_ust_lfht *ht, struct lttng_ust_lfht_iter *
 		}
 		node = clear_flag(next);
 	}
-	assert(!node || !is_bucket(CMM_LOAD_SHARED(node->next)));
+	assert(!node || !is_bucket(LTTNG_UST_LOAD_SHARED(node->next)));
 	iter->node = node;
 	iter->next = next;
 }
@@ -1258,7 +1258,7 @@ int lttng_ust_lfht_del(struct lttng_ust_lfht *ht, struct lttng_ust_lfht_node *no
 
 int lttng_ust_lfht_is_node_deleted(const struct lttng_ust_lfht_node *node)
 {
-	return is_removed(CMM_LOAD_SHARED(node->next));
+	return is_removed(LTTNG_UST_LOAD_SHARED(node->next));
 }
 
 static

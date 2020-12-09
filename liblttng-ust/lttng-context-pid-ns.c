@@ -45,7 +45,7 @@ ino_t get_pid_ns(void)
 	struct stat sb;
 	ino_t pid_ns;
 
-	pid_ns = CMM_LOAD_SHARED(cached_pid_ns);
+	pid_ns = LTTNG_UST_LOAD_SHARED(cached_pid_ns);
 
 	/*
 	 * If the cache is populated, do nothing and return the

@@ -60,7 +60,7 @@ uint64_t trace_clock_read64_monotonic(void)
 static __inline__
 uint64_t trace_clock_read64(void)
 {
-	struct lttng_trace_clock *ltc = CMM_LOAD_SHARED(lttng_trace_clock);
+	struct lttng_trace_clock *ltc = LTTNG_UST_LOAD_SHARED(lttng_trace_clock);
 
 	if (lttng_ust_likely(!ltc)) {
 		return trace_clock_read64_monotonic();

@@ -361,26 +361,26 @@ int lttng_counter_read(const struct lib_counter_config *config,
 	case COUNTER_SIZE_8_BIT:
 	{
 		int8_t *int_p = (int8_t *) layout->counters + index;
-		*value = (int64_t) CMM_LOAD_SHARED(*int_p);
+		*value = (int64_t) LTTNG_UST_LOAD_SHARED(*int_p);
 		break;
 	}
 	case COUNTER_SIZE_16_BIT:
 	{
 		int16_t *int_p = (int16_t *) layout->counters + index;
-		*value = (int64_t) CMM_LOAD_SHARED(*int_p);
+		*value = (int64_t) LTTNG_UST_LOAD_SHARED(*int_p);
 		break;
 	}
 	case COUNTER_SIZE_32_BIT:
 	{
 		int32_t *int_p = (int32_t *) layout->counters + index;
-		*value = (int64_t) CMM_LOAD_SHARED(*int_p);
+		*value = (int64_t) LTTNG_UST_LOAD_SHARED(*int_p);
 		break;
 	}
 #if LTTNG_UST_BITS_PER_LONG == 64
 	case COUNTER_SIZE_64_BIT:
 	{
 		int64_t *int_p = (int64_t *) layout->counters + index;
-		*value = CMM_LOAD_SHARED(*int_p);
+		*value = LTTNG_UST_LOAD_SHARED(*int_p);
 		break;
 	}
 #endif

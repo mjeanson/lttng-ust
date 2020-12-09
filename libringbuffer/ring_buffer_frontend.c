@@ -445,7 +445,7 @@ void lib_ring_buffer_channel_switch_timer(int sig, siginfo_t *si, void *uc)
 	struct channel *chan;
 	int cpu;
 
-	assert(CMM_LOAD_SHARED(timer_signal.tid) == pthread_self());
+	assert(LTTNG_UST_LOAD_SHARED(timer_signal.tid) == pthread_self());
 
 	chan = si->si_value.sival_ptr;
 	handle = chan->handle;
@@ -642,7 +642,7 @@ void lib_ring_buffer_channel_read_timer(int sig, siginfo_t *si, void *uc)
 {
 	struct channel *chan;
 
-	assert(CMM_LOAD_SHARED(timer_signal.tid) == pthread_self());
+	assert(LTTNG_UST_LOAD_SHARED(timer_signal.tid) == pthread_self());
 	chan = si->si_value.sival_ptr;
 	DBG("Read timer for channel %p\n", chan);
 	lib_ring_buffer_channel_do_read(chan);
@@ -782,7 +782,7 @@ void lib_ring_buffer_wait_signal_thread_qs(unsigned int signr)
 	 */
 	kill(getpid(), LTTNG_UST_RB_SIG_TEARDOWN);
 
-	while (!CMM_LOAD_SHARED(timer_signal.qs_done))
+	while (!LTTNG_UST_LOAD_SHARED(timer_signal.qs_done))
 		lttng_ust_cpu_relax();
 	lttng_ust_smp_mb();
 

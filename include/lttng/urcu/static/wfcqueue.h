@@ -153,8 +153,8 @@ static inline bool _cds_wfcq_empty(cds_wfcq_head_ptr_t u_head,
 	 * common case to ensure that dequeuers do not frequently access
 	 * enqueuer's tail->p cache line.
 	 */
-	return CMM_LOAD_SHARED(head->node.next) == NULL
-		&& CMM_LOAD_SHARED(tail->p) == &head->node;
+	return LTTNG_UST_LOAD_SHARED(head->node.next) == NULL
+		&& LTTNG_UST_LOAD_SHARED(tail->p) == &head->node;
 }
 
 static inline void _cds_wfcq_dequeue_lock(struct cds_wfcq_head *head,
@@ -271,7 +271,7 @@ ___cds_wfcq_node_sync_next(struct cds_wfcq_node *node, int blocking)
 	/*
 	 * Adaptative busy-looping waiting for enqueuer to complete enqueue.
 	 */
-	while ((next = CMM_LOAD_SHARED(node->next)) == NULL) {
+	while ((next = LTTNG_UST_LOAD_SHARED(node->next)) == NULL) {
 		if (___cds_wfcq_busy_wait(&attempt, blocking))
 			return CDS_WFCQ_WOULDBLOCK;
 	}
@@ -344,10 +344,10 @@ ___cds_wfcq_next(cds_wfcq_head_ptr_t head,
 	 * node->next as a common case to ensure that iteration on nodes
 	 * do not frequently access enqueuer's tail->p cache line.
 	 */
-	if ((next = CMM_LOAD_SHARED(node->next)) == NULL) {
+	if ((next = LTTNG_UST_LOAD_SHARED(node->next)) == NULL) {
 		/* Load node->next before tail->p */
 		lttng_ust_smp_rmb();
-		if (CMM_LOAD_SHARED(tail->p) == node)
+		if (LTTNG_UST_LOAD_SHARED(tail->p) == node)
 			return NULL;
 		next = ___cds_wfcq_node_sync_next(node, blocking);
 	}
@@ -414,7 +414,7 @@ ___cds_wfcq_dequeue_with_state(cds_wfcq_head_ptr_t u_head,
 		return CDS_WFCQ_WOULDBLOCK;
 	}
 
-	if ((next = CMM_LOAD_SHARED(node->next)) == NULL) {
+	if ((next = LTTNG_UST_LOAD_SHARED(node->next)) == NULL) {
 		/*
 		 * @node is probably the only node in the queue.
 		 * Try to move the tail to &q->head.
@@ -551,7 +551,7 @@ ___cds_wfcq_splice(
 		head = uatomic_xchg(&src_q_head->node.next, NULL);
 		if (head)
 			break;	/* non-empty */
-		if (CMM_LOAD_SHARED(src_q_tail->p) == &src_q_head->node)
+		if (LTTNG_UST_LOAD_SHARED(src_q_tail->p) == &src_q_head->node)
 			return CDS_WFCQ_RET_SRC_EMPTY;
 		if (___cds_wfcq_busy_wait(&attempt, blocking))
 			return CDS_WFCQ_RET_WOULDBLOCK;

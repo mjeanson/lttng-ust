@@ -289,7 +289,7 @@ static void record_error(struct lttng_event_notifier *event_notifier)
 	size_t dimension_index[1];
 	int ret;
 
-	error_counter = CMM_LOAD_SHARED(event_notifier_group->error_counter);
+	error_counter = LTTNG_UST_LOAD_SHARED(event_notifier_group->error_counter);
 	/*
 	 * load-acquire paired with store-release orders creation of the
 	 * error counter and setting error_counter_len before the

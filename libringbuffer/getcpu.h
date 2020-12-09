@@ -102,7 +102,7 @@ int lttng_ust_get_cpu_internal(void)
 static inline
 int lttng_ust_get_cpu(void)
 {
-	int (*getcpu)(void) = CMM_LOAD_SHARED(lttng_get_cpu);
+	int (*getcpu)(void) = LTTNG_UST_LOAD_SHARED(lttng_get_cpu);
 
 	if (lttng_ust_likely(!getcpu)) {
 		return lttng_ust_get_cpu_internal();

@@ -34,7 +34,7 @@ extern "C" {
 #endif
 
 #ifndef uatomic_read
-#define uatomic_read(addr)	CMM_LOAD_SHARED(*(addr))
+#define uatomic_read(addr)	LTTNG_UST_LOAD_SHARED(*(addr))
 #endif
 
 #if !defined __OPTIMIZE__  || defined UATOMIC_NO_LINK_ERROR

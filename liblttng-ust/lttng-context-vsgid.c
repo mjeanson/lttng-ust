@@ -55,7 +55,7 @@ gid_t get_vsgid(void)
 {
 	gid_t vsgid;
 
-	vsgid = CMM_LOAD_SHARED(cached_vsgid);
+	vsgid = LTTNG_UST_LOAD_SHARED(cached_vsgid);
 
 	if (lttng_ust_unlikely(vsgid == INVALID_GID)) {
 		gid_t gid, egid, sgid;

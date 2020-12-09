@@ -31,7 +31,7 @@
 /*
  * Load a data from shared memory, doing a cache flush if required.
  */
-#define CMM_LOAD_SHARED(p)			\
+#define LTTNG_UST_LOAD_SHARED(p)			\
 	__extension__			\
 	({				\
 		lttng_ust_smp_rmc();		\

@@ -305,7 +305,7 @@ void lttng_ust_urcu_synchronize_rcu(void)
 	 * Must commit qparity update to memory before waiting for other parity
 	 * quiescent state. Failure to do so could result in the writer waiting
 	 * forever while new readers are always accessing data (no progress).
-	 * Ensured by CMM_STORE_SHARED and CMM_LOAD_SHARED.
+	 * Ensured by CMM_STORE_SHARED and LTTNG_UST_LOAD_SHARED.
 	 */
 
 	/*

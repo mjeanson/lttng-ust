@@ -48,7 +48,7 @@ ino_t get_cgroup_ns(void)
 	struct stat sb;
 	ino_t cgroup_ns;
 
-	cgroup_ns = CMM_LOAD_SHARED(URCU_TLS(cached_cgroup_ns));
+	cgroup_ns = LTTNG_UST_LOAD_SHARED(URCU_TLS(cached_cgroup_ns));
 
 	/*
 	 * If the cache is populated, do nothing and return the

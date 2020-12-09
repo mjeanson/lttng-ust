@@ -49,7 +49,7 @@ extern "C" {
  * Inserts memory barriers on architectures that require them (currently only
  * Alpha) and documents which pointers are protected by RCU.
  *
- * The compiler memory barrier in CMM_LOAD_SHARED() ensures that value-speculative
+ * The compiler memory barrier in LTTNG_UST_LOAD_SHARED() ensures that value-speculative
  * optimizations (e.g. VSS: Value Speculation Scheduling) does not perform the
  * data read before the pointer read by speculating the value of the pointer.
  * Correct ordering is ensured because the pointer is read as a volatile access.
@@ -67,7 +67,7 @@ extern "C" {
 #define _lttng_ust_rcu_dereference(p)					\
 				__extension__				\
 				({					\
-				__typeof__(p) _________p1 = CMM_LOAD_SHARED(p); \
+				__typeof__(p) _________p1 = LTTNG_UST_LOAD_SHARED(p); \
 				lttng_ust_smp_read_barrier_depends();		\
 				(_________p1);				\
 				})

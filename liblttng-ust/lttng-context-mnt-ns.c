@@ -45,7 +45,7 @@ ino_t get_mnt_ns(void)
 	struct stat sb;
 	ino_t mnt_ns;
 
-	mnt_ns = CMM_LOAD_SHARED(cached_mnt_ns);
+	mnt_ns = LTTNG_UST_LOAD_SHARED(cached_mnt_ns);
 
 	/*
 	 * If the cache is populated, do nothing and return the

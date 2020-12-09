@@ -48,7 +48,7 @@ ino_t get_uts_ns(void)
 	struct stat sb;
 	ino_t uts_ns;
 
-	uts_ns = CMM_LOAD_SHARED(URCU_TLS(cached_uts_ns));
+	uts_ns = LTTNG_UST_LOAD_SHARED(URCU_TLS(cached_uts_ns));
 
 	/*
 	 * If the cache is populated, do nothing and return the

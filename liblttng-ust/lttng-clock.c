@@ -39,7 +39,7 @@ void *clock_handle;
 
 int lttng_ust_trace_clock_set_read64_cb(uint64_t (*read64)(void))
 {
-	if (CMM_LOAD_SHARED(lttng_trace_clock))
+	if (LTTNG_UST_LOAD_SHARED(lttng_trace_clock))
 		return -EBUSY;
 	user_tc.read64 = read64;
 	return 0;
@@ -47,7 +47,7 @@ int lttng_ust_trace_clock_set_read64_cb(uint64_t (*read64)(void))
 
 int lttng_ust_trace_clock_set_freq_cb(uint64_t (*freq)(void))
 {
-	if (CMM_LOAD_SHARED(lttng_trace_clock))
+	if (LTTNG_UST_LOAD_SHARED(lttng_trace_clock))
 		return -EBUSY;
 	user_tc.freq = freq;
 	return 0;
@@ -55,7 +55,7 @@ int lttng_ust_trace_clock_set_freq_cb(uint64_t (*freq)(void))
 
 int lttng_ust_trace_clock_set_uuid_cb(int (*uuid)(char *uuid))
 {
-	if (CMM_LOAD_SHARED(lttng_trace_clock))
+	if (LTTNG_UST_LOAD_SHARED(lttng_trace_clock))
 		return -EBUSY;
 	user_tc.uuid = uuid;
 	return 0;
@@ -63,7 +63,7 @@ int lttng_ust_trace_clock_set_uuid_cb(int (*uuid)(char *uuid))
 
 int lttng_ust_trace_clock_set_name_cb(const char *(*name)(void))
 {
-	if (CMM_LOAD_SHARED(lttng_trace_clock))
+	if (LTTNG_UST_LOAD_SHARED(lttng_trace_clock))
 		return -EBUSY;
 	user_tc.name = name;
 	return 0;
@@ -71,7 +71,7 @@ int lttng_ust_trace_clock_set_name_cb(const char *(*name)(void))
 
 int lttng_ust_trace_clock_set_description_cb(const char *(*description)(void))
 {
-	if (CMM_LOAD_SHARED(lttng_trace_clock))
+	if (LTTNG_UST_LOAD_SHARED(lttng_trace_clock))
 		return -EBUSY;
 	user_tc.description = description;
 	return 0;
@@ -79,7 +79,7 @@ int lttng_ust_trace_clock_set_description_cb(const char *(*description)(void))
 
 int lttng_ust_enable_trace_clock_override(void)
 {
-	if (CMM_LOAD_SHARED(lttng_trace_clock))
+	if (LTTNG_UST_LOAD_SHARED(lttng_trace_clock))
 		return -EBUSY;
 	if (!user_tc.read64)
 		return -EINVAL;
