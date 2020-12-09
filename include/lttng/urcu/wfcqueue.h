@@ -392,8 +392,8 @@ extern enum lttng_ust_wfcq_ret __lttng_ust_wfcq_splice_nonblocking(
  * caller.
  *
  * Used by for-like iteration macros:
- * __cds_wfcq_for_each_blocking()
- * __cds_wfcq_for_each_blocking_safe()
+ * __lttng_ust_wfcq_for_each_blocking()
+ * __lttng_ust_wfcq_for_each_blocking_safe()
  *
  * Returns NULL if queue is empty, first node otherwise.
  */
@@ -420,8 +420,8 @@ extern struct lttng_ust_wfcq_node *__lttng_ust_wfcq_first_nonblocking(
  * caller.
  *
  * Used by for-like iteration macros:
- * __cds_wfcq_for_each_blocking()
- * __cds_wfcq_for_each_blocking_safe()
+ * __lttng_ust_wfcq_for_each_blocking()
+ * __lttng_ust_wfcq_for_each_blocking_safe()
  *
  * Returns NULL if reached end of queue, non-NULL next queue node
  * otherwise.
@@ -445,7 +445,7 @@ extern struct lttng_ust_wfcq_node *__lttng_ust_wfcq_next_nonblocking(
 #endif /* !_LGPL_SOURCE */
 
 /*
- * __cds_wfcq_for_each_blocking: Iterate over all nodes in a queue,
+ * __lttng_ust_wfcq_for_each_blocking: Iterate over all nodes in a queue,
  * without dequeuing them.
  * @head: head of the queue (struct lttng_ust_wfcq_head or __lttng_ust_wfcq_head pointer).
  * @tail: tail of the queue (struct lttng_ust_wfcq_tail pointer).
@@ -456,13 +456,13 @@ extern struct lttng_ust_wfcq_node *__lttng_ust_wfcq_next_nonblocking(
  * Dequeue/splice/iteration mutual exclusion should be ensured by the
  * caller.
  */
-#define __cds_wfcq_for_each_blocking(head, tail, node)		\
+#define __lttng_ust_wfcq_for_each_blocking(head, tail, node)		\
 	for (node = __lttng_ust_wfcq_first_blocking(head, tail);	\
 		node != NULL;					\
 		node = __lttng_ust_wfcq_next_blocking(head, tail, node))
 
 /*
- * __cds_wfcq_for_each_blocking_safe: Iterate over all nodes in a queue,
+ * __lttng_ust_wfcq_for_each_blocking_safe: Iterate over all nodes in a queue,
  * without dequeuing them. Safe against deletion.
  * @head: head of the queue (struct lttng_ust_wfcq_head or __lttng_ust_wfcq_head pointer).
  * @tail: tail of the queue (struct lttng_ust_wfcq_tail pointer).
@@ -475,7 +475,7 @@ extern struct lttng_ust_wfcq_node *__lttng_ust_wfcq_next_nonblocking(
  * Dequeue/splice/iteration mutual exclusion should be ensured by the
  * caller.
  */
-#define __cds_wfcq_for_each_blocking_safe(head, tail, node, n)		       \
+#define __lttng_ust_wfcq_for_each_blocking_safe(head, tail, node, n)		       \
 	for (node = __lttng_ust_wfcq_first_blocking(head, tail),		       \
 			n = (node ? __lttng_ust_wfcq_next_blocking(head, tail, node) : NULL); \
 		node != NULL;						       \

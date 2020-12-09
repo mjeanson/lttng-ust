@@ -304,8 +304,8 @@ ___cds_wfcq_first(lttng_ust_wfcq_head_ptr_t u_head,
  * caller.
  *
  * Used by for-like iteration macros in urcu/wfqueue.h:
- * __cds_wfcq_for_each_blocking()
- * __cds_wfcq_for_each_blocking_safe()
+ * __lttng_ust_wfcq_for_each_blocking()
+ * __lttng_ust_wfcq_for_each_blocking_safe()
  *
  * Returns NULL if queue is empty, first node otherwise.
  */
@@ -365,8 +365,8 @@ ___cds_wfcq_next(lttng_ust_wfcq_head_ptr_t head,
  * caller.
  *
  * Used by for-like iteration macros in urcu/wfqueue.h:
- * __cds_wfcq_for_each_blocking()
- * __cds_wfcq_for_each_blocking_safe()
+ * __lttng_ust_wfcq_for_each_blocking()
+ * __lttng_ust_wfcq_for_each_blocking_safe()
  *
  * Returns NULL if reached end of queue, non-NULL next queue node
  * otherwise.
