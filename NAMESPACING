@@ -329,7 +329,7 @@ _cds_wfcq_dequeue_lock
 _cds_wfcq_dequeue_unlock
 ___cds_wfcq_append
 _cds_wfcq_enqueue
-CDS_WFCQ_WAIT_SLEEP
+CDS_WFCQ_WAIT_SLEEP LTTNG_UST_WFCQ_WAIT_SLEEP
 ___cds_wfcq_wait_sleep
 ___cds_wfcq_busy_wait
 ___cds_wfcq_node_sync_next

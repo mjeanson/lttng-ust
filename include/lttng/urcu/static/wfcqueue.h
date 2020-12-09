@@ -224,15 +224,15 @@ static inline bool _lttng_ust_wfcq_enqueue(lttng_ust_wfcq_head_ptr_t head,
 }
 
 /*
- * CDS_WFCQ_WAIT_SLEEP:
+ * LTTNG_UST_WFCQ_WAIT_SLEEP:
  *
  * By default, this sleeps for the given @msec milliseconds.
  * This is a macro which LGPL users may #define themselves before
  * including wfcqueue.h to override the default behavior (e.g.
  * to log a warning or perform other background work).
  */
-#ifndef CDS_WFCQ_WAIT_SLEEP
-#define CDS_WFCQ_WAIT_SLEEP(msec) ___cds_wfcq_wait_sleep(msec)
+#ifndef LTTNG_UST_WFCQ_WAIT_SLEEP
+#define LTTNG_UST_WFCQ_WAIT_SLEEP(msec) ___cds_wfcq_wait_sleep(msec)
 #endif
 
 static inline void ___cds_wfcq_wait_sleep(int msec)
@@ -251,7 +251,7 @@ ___cds_wfcq_busy_wait(int *attempt, int blocking)
 	if (!blocking)
 		return 1;
 	if (++(*attempt) >= LTTNG_UST_WFCQ_ADAPT_ATTEMPTS) {
-		CDS_WFCQ_WAIT_SLEEP(WFCQ_WAIT);		/* Wait for 10ms */
+		LTTNG_UST_WFCQ_WAIT_SLEEP(WFCQ_WAIT);		/* Wait for 10ms */
 		*attempt = 0;
 	} else {
 		lttng_ust_cpu_relax();
