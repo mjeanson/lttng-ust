@@ -241,12 +241,12 @@ static inline void ___lttng_ust_wfcq_wait_sleep(int msec)
 }
 
 /*
- * ___cds_wfcq_busy_wait: adaptative busy-wait.
+ * ___lttng_ust_wfcq_busy_wait: adaptative busy-wait.
  *
  * Returns 1 if nonblocking and needs to block, 0 otherwise.
  */
 static inline bool
-___cds_wfcq_busy_wait(int *attempt, int blocking)
+___lttng_ust_wfcq_busy_wait(int *attempt, int blocking)
 {
 	if (!blocking)
 		return 1;
@@ -272,7 +272,7 @@ ___lttng_ust_wfcq_node_sync_next(struct lttng_ust_wfcq_node *node, int blocking)
 	 * Adaptative busy-looping waiting for enqueuer to complete enqueue.
 	 */
 	while ((next = LTTNG_UST_LOAD_SHARED(node->next)) == NULL) {
-		if (___cds_wfcq_busy_wait(&attempt, blocking))
+		if (___lttng_ust_wfcq_busy_wait(&attempt, blocking))
 			return LTTNG_UST_WFCQ_WOULDBLOCK;
 	}
 
@@ -553,7 +553,7 @@ ___cds_wfcq_splice(
 			break;	/* non-empty */
 		if (LTTNG_UST_LOAD_SHARED(src_q_tail->p) == &src_q_head->node)
 			return LTTNG_UST_WFCQ_RET_SRC_EMPTY;
-		if (___cds_wfcq_busy_wait(&attempt, blocking))
+		if (___lttng_ust_wfcq_busy_wait(&attempt, blocking))
 			return LTTNG_UST_WFCQ_RET_WOULDBLOCK;
 	}
 
