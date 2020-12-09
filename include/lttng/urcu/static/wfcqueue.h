@@ -571,7 +571,7 @@ ___cds_wfcq_splice(
 	 */
 	if (___cds_wfcq_append(__cds_wfcq_head_cast(dest_q_head), dest_q_tail,
 			head, tail))
-		return CDS_WFCQ_RET_DEST_NON_EMPTY;
+		return LTTNG_UST_WFCQ_RET_DEST_NON_EMPTY;
 	else
 		return LTTNG_UST_WFCQ_RET_DEST_EMPTY;
 }
