@@ -331,7 +331,7 @@ ___lttng_ust_wfcq_first_nonblocking(lttng_ust_wfcq_head_ptr_t head,
 }
 
 static inline struct lttng_ust_wfcq_node *
-___cds_wfcq_next(lttng_ust_wfcq_head_ptr_t head,
+___lttng_ust_wfcq_next(lttng_ust_wfcq_head_ptr_t head,
 		struct lttng_ust_wfcq_tail *tail,
 		struct lttng_ust_wfcq_node *node,
 		int blocking)
@@ -376,7 +376,7 @@ ___lttng_ust_wfcq_next_blocking(lttng_ust_wfcq_head_ptr_t head,
 		struct lttng_ust_wfcq_tail *tail,
 		struct lttng_ust_wfcq_node *node)
 {
-	return ___cds_wfcq_next(head, tail, node, 1);
+	return ___lttng_ust_wfcq_next(head, tail, node, 1);
 }
 
 /*
@@ -390,7 +390,7 @@ ___lttng_ust_wfcq_next_nonblocking(lttng_ust_wfcq_head_ptr_t head,
 		struct lttng_ust_wfcq_tail *tail,
 		struct lttng_ust_wfcq_node *node)
 {
-	return ___cds_wfcq_next(head, tail, node, 0);
+	return ___lttng_ust_wfcq_next(head, tail, node, 0);
 }
 
 static inline struct lttng_ust_wfcq_node *
