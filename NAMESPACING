@@ -41,9 +41,9 @@ caa_cpu_relax lttng_ust_cpu_relax
 
 # include/lttng/arch/ppc.h
 LWSYNC_OPCODE LTTNG_UST_LWSYNC_OPCODE
-mftbl lttng_ust_mftbl
-mftbu lttng_ust_mftbu
-mftb lttng_ust_mftb
+d mftbl
+d mftbu
+d mftb
 
 
 # include/lttng/arch/sparc64.h

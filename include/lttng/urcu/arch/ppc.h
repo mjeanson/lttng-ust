@@ -59,30 +59,6 @@ extern "C" {
 #define lttng_ust_smp_rmb()    __asm__ __volatile__ (LTTNG_UST_LWSYNC_OPCODE:::"memory")
 #define lttng_ust_smp_wmb()    __asm__ __volatile__ (LTTNG_UST_LWSYNC_OPCODE:::"memory")
 
-#define mftbl()						\
-	__extension__					\
-	({ 						\
-		unsigned long rval;			\
-		__asm__ __volatile__ ("mftbl %0" : "=r" (rval));	\
-		rval;					\
-	})
-
-#define mftbu()						\
-	__extension__					\
-	({						\
-		unsigned long rval;			\
-		__asm__ __volatile__ ("mftbu %0" : "=r" (rval));	\
-		rval;					\
-	})
-
-#define mftb()						\
-	__extension__					\
-	({						\
-		unsigned long long rval;		\
-		__asm__ __volatile__ ("mftb %0" : "=r" (rval));		\
-		rval;					\
-	})
-
 /*
  * On Linux, define the membarrier system call number if not yet available in
  * the system headers.
