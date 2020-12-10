@@ -108,7 +108,7 @@ unsigned long _uatomic_exchange(void *addr, unsigned long val, int len)
 /* cmpxchg */
 
 static inline __attribute__((always_inline))
-unsigned long _uatomic_cmpxchg(void *addr, unsigned long old,
+unsigned long _lttng_ust_uatomic_cmpxchg(void *addr, unsigned long old,
 			      unsigned long _new, int len)
 {
 	switch (len) {
@@ -165,7 +165,7 @@ unsigned long _uatomic_cmpxchg(void *addr, unsigned long old,
 
 
 #define uatomic_cmpxchg(addr, old, _new)				      \
-	((__typeof__(*(addr))) _uatomic_cmpxchg((addr),			      \
+	((__typeof__(*(addr))) _lttng_ust_uatomic_cmpxchg((addr),			      \
 						lttng_ust_cast_long_keep_sign(old), \
 						lttng_ust_cast_long_keep_sign(_new),\
 						sizeof(*(addr))))
