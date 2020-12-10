@@ -209,7 +209,7 @@ unsigned long _lttng_ust_uatomic_add_return(void *addr, unsigned long val,
 						sizeof(*(addr))))
 #endif /* #ifndef lttng_ust_uatomic_add_return */
 
-#ifndef uatomic_xchg
+#ifndef lttng_ust_uatomic_xchg
 /* xchg */
 
 static inline __attribute__((always_inline))
@@ -271,11 +271,11 @@ unsigned long _lttng_ust_uatomic_exchange(void *addr, unsigned long val, int len
 	return 0;
 }
 
-#define uatomic_xchg(addr, v)						    \
+#define lttng_ust_uatomic_xchg(addr, v)						    \
 	((__typeof__(*(addr))) _lttng_ust_uatomic_exchange((addr),		    \
 						lttng_ust_cast_long_keep_sign(v), \
 						sizeof(*(addr))))
-#endif /* #ifndef uatomic_xchg */
+#endif /* #ifndef lttng_ust_uatomic_xchg */
 
 #else /* #ifndef lttng_ust_uatomic_cmpxchg */
 
@@ -501,7 +501,7 @@ unsigned long _lttng_ust_uatomic_add_return(void *addr, unsigned long val, int l
 						sizeof(*(addr))))
 #endif /* #ifndef lttng_ust_uatomic_add_return */
 
-#ifndef uatomic_xchg
+#ifndef lttng_ust_uatomic_xchg
 /* xchg */
 
 static inline __attribute__((always_inline))
@@ -571,11 +571,11 @@ unsigned long _lttng_ust_uatomic_exchange(void *addr, unsigned long val, int len
 	return 0;
 }
 
-#define uatomic_xchg(addr, v)						    \
+#define lttng_ust_uatomic_xchg(addr, v)						    \
 	((__typeof__(*(addr))) _lttng_ust_uatomic_exchange((addr),		    \
 						lttng_ust_cast_long_keep_sign(v), \
 						sizeof(*(addr))))
-#endif /* #ifndef uatomic_xchg */
+#endif /* #ifndef lttng_ust_uatomic_xchg */
 
 #endif /* #else #ifndef lttng_ust_uatomic_cmpxchg */
 

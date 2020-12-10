@@ -1074,7 +1074,7 @@ static void check_weak_hidden(void)
 
 void init_tracepoint(void)
 {
-	if (uatomic_xchg(&initialized, 1) == 1)
+	if (lttng_ust_uatomic_xchg(&initialized, 1) == 1)
 		return;
 	init_usterr();
 	check_weak_hidden();

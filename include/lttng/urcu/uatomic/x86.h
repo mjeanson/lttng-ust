@@ -173,7 +173,7 @@ unsigned long __lttng_ust_exchange(void *addr, unsigned long val, int len)
 	return 0;
 }
 
-#define uatomic_xchg(addr, v)						      \
+#define lttng_ust_uatomic_xchg(addr, v)						      \
 	((__typeof__(*(addr))) __lttng_ust_exchange((addr),		      \
 						lttng_ust_cast_long_keep_sign(v),   \
 						sizeof(*(addr))))

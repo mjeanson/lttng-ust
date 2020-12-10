@@ -934,7 +934,7 @@ int _lttng_ust_lfht_del(struct lttng_ust_lfht *ht, unsigned long size,
 	 * set the "REMOVAL_OWNER_FLAG" (or change nothing if the flag
 	 * was already set).
 	 */
-	if (!is_removal_owner(uatomic_xchg(&node->next,
+	if (!is_removal_owner(lttng_ust_uatomic_xchg(&node->next,
 			flag_removal_owner(node->next))))
 		return 0;
 	else

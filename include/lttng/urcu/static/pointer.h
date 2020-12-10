@@ -98,7 +98,7 @@ extern "C" {
  * pointer to the data structure, which can be safely freed after waiting for a
  * quiescent state using synchronize_rcu().
  *
- * uatomic_xchg() acts as both release and acquire barriers.
+ * lttng_ust_uatomic_xchg() acts as both release and acquire barriers.
  *
  * This macro is less than 10 lines long.  The intent is that this macro
  * meets the 10-line criterion in LGPL, allowing this function to be
@@ -108,7 +108,7 @@ extern "C" {
 	__extension__					\
 	({						\
 		__typeof__(*p) _________pv = (v);	\
-		uatomic_xchg(p, _________pv);		\
+		lttng_ust_uatomic_xchg(p, _________pv);		\
 	})
 
 

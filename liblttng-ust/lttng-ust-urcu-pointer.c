@@ -44,7 +44,7 @@ void *lttng_ust_rcu_set_pointer_sym(void **p, void *v)
 void *lttng_ust_rcu_xchg_pointer_sym(void **p, void *v)
 {
 	lttng_ust_wmb();
-	return uatomic_xchg(p, v);
+	return lttng_ust_uatomic_xchg(p, v);
 }
 
 void *lttng_ust_rcu_cmpxchg_pointer_sym(void **p, void *old, void *_new)

@@ -184,14 +184,14 @@ static inline bool ___lttng_ust_wfcq_append(lttng_ust_wfcq_head_ptr_t u_head,
 	struct lttng_ust_wfcq_node *old_tail;
 
 	/*
-	 * Implicit memory barrier before uatomic_xchg() orders earlier
+	 * Implicit memory barrier before lttng_ust_uatomic_xchg() orders earlier
 	 * stores to data structure containing node and setting
 	 * node->next to NULL before publication.
 	 */
-	old_tail = uatomic_xchg(&tail->p, new_tail);
+	old_tail = lttng_ust_uatomic_xchg(&tail->p, new_tail);
 
 	/*
-	 * Implicit memory barrier after uatomic_xchg() orders store to
+	 * Implicit memory barrier after lttng_ust_uatomic_xchg() orders store to
 	 * q->tail before store to old_tail->next.
 	 *
 	 * At this point, dequeuers see a NULL tail->p->next, which
@@ -545,10 +545,10 @@ ___lttng_ust_wfcq_splice(
 	for (;;) {
 		/*
 		 * Open-coded _lttng_ust_wfcq_empty() by testing result of
-		 * uatomic_xchg, as well as tail pointer vs head node
+		 * lttng_ust_uatomic_xchg, as well as tail pointer vs head node
 		 * address.
 		 */
-		head = uatomic_xchg(&src_q_head->node.next, NULL);
+		head = lttng_ust_uatomic_xchg(&src_q_head->node.next, NULL);
 		if (head)
 			break;	/* non-empty */
 		if (LTTNG_UST_LOAD_SHARED(src_q_tail->p) == &src_q_head->node)
@@ -558,12 +558,12 @@ ___lttng_ust_wfcq_splice(
 	}
 
 	/*
-	 * Memory barrier implied before uatomic_xchg() orders store to
+	 * Memory barrier implied before lttng_ust_uatomic_xchg() orders store to
 	 * src_q->head before store to src_q->tail. This is required by
 	 * concurrent enqueue on src_q, which exchanges the tail before
 	 * updating the previous tail's next pointer.
 	 */
-	tail = uatomic_xchg(&src_q_tail->p, &src_q_head->node);
+	tail = lttng_ust_uatomic_xchg(&src_q_tail->p, &src_q_head->node);
 
 	/*
 	 * Append the spliced content of src_q into dest_q. Does not

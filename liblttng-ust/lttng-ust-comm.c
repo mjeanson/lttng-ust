@@ -1992,7 +1992,7 @@ void __attribute__((constructor)) lttng_ust_init(void)
 	int ret;
 	void *handle;
 
-	if (uatomic_xchg(&initialized, 1) == 1)
+	if (lttng_ust_uatomic_xchg(&initialized, 1) == 1)
 		return;
 
 	/*
