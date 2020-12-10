@@ -69,7 +69,7 @@ struct __lttng_ust_uatomic_dummy {
 /* xchg */
 
 static inline __attribute__((always_inline))
-unsigned long _uatomic_exchange(volatile void *addr, unsigned long val, int len)
+unsigned long _lttng_ust_uatomic_exchange(volatile void *addr, unsigned long val, int len)
 {
 	switch (len) {
 	case 4:
@@ -106,7 +106,7 @@ unsigned long _uatomic_exchange(volatile void *addr, unsigned long val, int len)
 }
 
 #define uatomic_xchg(addr, v)						    \
-	(__typeof__(*(addr))) _uatomic_exchange((addr),			    \
+	(__typeof__(*(addr))) _lttng_ust_uatomic_exchange((addr),			    \
 						lttng_ust_cast_long_keep_sign(v), \
 						sizeof(*(addr)))
 

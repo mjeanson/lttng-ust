@@ -213,7 +213,7 @@ unsigned long _lttng_ust_uatomic_add_return(void *addr, unsigned long val,
 /* xchg */
 
 static inline __attribute__((always_inline))
-unsigned long _uatomic_exchange(void *addr, unsigned long val, int len)
+unsigned long _lttng_ust_uatomic_exchange(void *addr, unsigned long val, int len)
 {
 	switch (len) {
 #ifdef LTTNG_UST_HAS_ATOMIC_BYTE
@@ -272,7 +272,7 @@ unsigned long _uatomic_exchange(void *addr, unsigned long val, int len)
 }
 
 #define uatomic_xchg(addr, v)						    \
-	((__typeof__(*(addr))) _uatomic_exchange((addr),		    \
+	((__typeof__(*(addr))) _lttng_ust_uatomic_exchange((addr),		    \
 						lttng_ust_cast_long_keep_sign(v), \
 						sizeof(*(addr))))
 #endif /* #ifndef uatomic_xchg */
@@ -505,7 +505,7 @@ unsigned long _lttng_ust_uatomic_add_return(void *addr, unsigned long val, int l
 /* xchg */
 
 static inline __attribute__((always_inline))
-unsigned long _uatomic_exchange(void *addr, unsigned long val, int len)
+unsigned long _lttng_ust_uatomic_exchange(void *addr, unsigned long val, int len)
 {
 	switch (len) {
 #ifdef LTTNG_UST_HAS_ATOMIC_BYTE
@@ -572,7 +572,7 @@ unsigned long _uatomic_exchange(void *addr, unsigned long val, int len)
 }
 
 #define uatomic_xchg(addr, v)						    \
-	((__typeof__(*(addr))) _uatomic_exchange((addr),		    \
+	((__typeof__(*(addr))) _lttng_ust_uatomic_exchange((addr),		    \
 						lttng_ust_cast_long_keep_sign(v), \
 						sizeof(*(addr))))
 #endif /* #ifndef uatomic_xchg */
