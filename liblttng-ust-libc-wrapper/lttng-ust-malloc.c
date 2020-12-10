@@ -88,7 +88,7 @@ void ust_malloc_spin_unlock(pthread_mutex_t *lock)
 	 * leak outside.
 	 */
 	lttng_ust_smp_mb();
-	uatomic_set(&ust_malloc_lock, 0);
+	lttng_ust_uatomic_set(&ust_malloc_lock, 0);
 }
 
 #define calloc static_calloc

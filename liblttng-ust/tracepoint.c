@@ -227,7 +227,7 @@ static void lttng_ust_tracepoint_set_v1_used(void)
 		lttng_ust_liburcu_bp_rcu_read_lock();
 		lttng_ust_liburcu_bp_rcu_read_unlock();
 
-		uatomic_set(&tracepoint_v1_api_used, 1);
+		lttng_ust_uatomic_set(&tracepoint_v1_api_used, 1);
 	}
 }
 
@@ -1120,7 +1120,7 @@ void *tp_rcu_dereference_sym(void *p)
  */
 void tp_disable_destructors(void)
 {
-	uatomic_set(&tracepoint_destructors_state, 0);
+	lttng_ust_uatomic_set(&tracepoint_destructors_state, 0);
 }
 
 /*

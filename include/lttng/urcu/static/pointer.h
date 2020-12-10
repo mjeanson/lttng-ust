@@ -118,7 +118,7 @@ extern "C" {
 		if (!__builtin_constant_p(v) || 	\
 		    ((v) != NULL))			\
 			lttng_ust_wmb();			\
-		uatomic_set(p, _________pv);		\
+		lttng_ust_uatomic_set(p, _________pv);		\
 	} while (0)
 
 /**

@@ -37,7 +37,7 @@ void *lttng_ust_rcu_dereference_sym(void *p)
 void *lttng_ust_rcu_set_pointer_sym(void **p, void *v)
 {
 	lttng_ust_wmb();
-	uatomic_set(p, v);
+	lttng_ust_uatomic_set(p, v);
 	return v;
 }
 

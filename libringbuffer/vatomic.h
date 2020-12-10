@@ -53,7 +53,7 @@ void v_set(const struct lttng_ust_lib_ring_buffer_config *config, union v_atomic
 	   long v)
 {
 	assert(config->sync != RING_BUFFER_SYNC_PER_CPU);
-	uatomic_set(&v_a->a, v);
+	lttng_ust_uatomic_set(&v_a->a, v);
 }
 
 static inline

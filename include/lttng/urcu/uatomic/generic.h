@@ -29,8 +29,8 @@
 extern "C" {
 #endif
 
-#ifndef uatomic_set
-#define uatomic_set(addr, v)	((void) LTTNG_UST_STORE_SHARED(*(addr), (v)))
+#ifndef lttng_ust_uatomic_set
+#define lttng_ust_uatomic_set(addr, v)	((void) LTTNG_UST_STORE_SHARED(*(addr), (v)))
 #endif
 
 #ifndef uatomic_read

@@ -209,8 +209,8 @@ void lib_ring_buffer_reset(struct lttng_ust_lib_ring_buffer *buf,
 		v_set(config, &cc_cold->cc_sb, 0);
 		*ts_end = 0;
 	}
-	uatomic_set(&buf->consumed, 0);
-	uatomic_set(&buf->record_disabled, 0);
+	lttng_ust_uatomic_set(&buf->consumed, 0);
+	lttng_ust_uatomic_set(&buf->record_disabled, 0);
 	v_set(config, &buf->last_tsc, 0);
 	lib_ring_buffer_backend_reset(&buf->backend, handle);
 	/* Don't reset number of active readers */
@@ -236,7 +236,7 @@ void channel_reset(struct channel *chan)
 	/*
 	 * Reset iterators first. Will put the subbuffer if held for reading.
 	 */
-	uatomic_set(&chan->record_disabled, 0);
+	lttng_ust_uatomic_set(&chan->record_disabled, 0);
 	/* Don't reset commit_count_mask, still valid */
 	channel_backend_reset(&chan->backend);
 	/* Don't reset switch/read timer interval */
