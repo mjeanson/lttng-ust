@@ -1,5 +1,5 @@
-#ifndef _URCU_WFCQUEUE_H
-#define _URCU_WFCQUEUE_H
+#ifndef _LTTNG_UST_URCU_WFCQUEUE_H
+#define _LTTNG_UST_URCU_WFCQUEUE_H
 
 /*
  * urcu/wfcqueue.h
@@ -485,4 +485,4 @@ extern struct lttng_ust_wfcq_node *__lttng_ust_wfcq_next_nonblocking(
 }
 #endif
 
-#endif /* _URCU_WFCQUEUE_H */
+#endif /* _LTTNG_UST_URCU_WFCQUEUE_H */

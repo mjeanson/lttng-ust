@@ -22,8 +22,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-#ifndef _CDS_LIST_H
-#define _CDS_LIST_H	1
+#ifndef _LTTNG_UST_URCU_LIST_H
+#define _LTTNG_UST_URCU_LIST_H	1
 
 /*
  * The definitions of this file are adopted from those which can be
@@ -197,4 +197,4 @@ void lttng_ust_list_replace_init(struct lttng_ust_list_head *old,
 	LTTNG_UST_INIT_LIST_HEAD(old);
 }
 
-#endif	/* _CDS_LIST_H */
+#endif	/* _LTTNG_UST_URCU_LIST_H */

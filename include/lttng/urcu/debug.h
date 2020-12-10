@@ -1,5 +1,5 @@
-#ifndef _URCU_DEBUG_H
-#define _URCU_DEBUG_H
+#ifndef _LTTNG_UST_URCU_DEBUG_H
+#define _LTTNG_UST_URCU_DEBUG_H
 
 /*
  * urcu/debug.h
@@ -29,4 +29,4 @@
 #define lttng_ust_urcu_assert(...)
 #endif
 
-#endif /* _URCU_DEBUG_H */
+#endif /* _LTTNG_UST_URCU_DEBUG_H */

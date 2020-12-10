@@ -22,8 +22,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-#ifndef _URCU_RCULIST_H
-#define _URCU_RCULIST_H
+#ifndef _LTTNG_UST_URCU_RCULIST_H
+#define _LTTNG_UST_URCU_RCULIST_H
 
 #include <lttng/urcu/list.h>
 #include <lttng/urcu/arch.h>
@@ -89,4 +89,4 @@ void lttng_ust_list_del_rcu(struct lttng_ust_list_head *elem)
 		&pos->member != (head); \
 		pos = lttng_ust_list_entry(lttng_ust_rcu_dereference(pos->member.next), __typeof__(*pos), member))
 
-#endif	/* _URCU_RCULIST_H */
+#endif	/* _LTTNG_UST_URCU_RCULIST_H */

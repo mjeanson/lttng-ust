@@ -1,5 +1,5 @@
-#ifndef _KCOMPAT_HLIST_H
-#define _KCOMPAT_HLIST_H
+#ifndef _LTTNG_UST_URCU_HLIST_H
+#define _LTTNG_UST_URCU_HLIST_H
 
 /*
  * Kernel sourcecode compatible lightweight single pointer list head useful
@@ -107,4 +107,4 @@ void lttng_ust_hlist_del(struct lttng_ust_hlist_node *elem)
 						__typeof__(*entry), member)), 1); \
 		entry = e)
 
-#endif	/* _KCOMPAT_HLIST_H */
+#endif	/* _LTTNG_UST_URCU_HLIST_H */

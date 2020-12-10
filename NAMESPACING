@@ -65,14 +65,14 @@ CAA_ARRAY_SIZE LTTNG_UST_ARRAY_SIZE
 URCU_GCC_VERSION LTTNG_UST_URCU_GCC_VERSION
 
 
-# lttng/urcu/debug.h
+# include/lttng/urcu/debug.h
 
 DEBUG_RCU LTTNG_UST_DEBUG
 CONFIG_RCU_DEBUG LTTNG_UST_CONFIG_DEBUG
 urcu_assert lttng_ust_urcu_assert
 
 
-# lttng/urcu/hlist.h
+# include/lttng/urcu/hlist.h
 
 cds_hlist_head lttng_ust_hlist_head
 cds_hlist_node lttng_ust_hlist_node
@@ -90,7 +90,7 @@ cds_hlist_for_each_entry_2 lttng_ust_hlist_for_each_entry_2
 cds_hlist_for_each_entry_safe_2 lttng_cds_hlist_for_each_entry_safe_2
 
 
-# lttng/urcu/list.h
+# include/lttng/urcu/list.h
 
 cds_list_head lttng_ust_list_head
 CDS_LIST_HEAD LTTNG_UST_LIST_HEAD
@@ -118,7 +118,7 @@ cds_list_empty lttng_ust_list_empty
 cds_list_replace_init lttng_ust_list_replace_init
 
 
-# lttng/urcu/pointer.h
+# include/lttng/urcu/pointer.h
 
  LTTNG_UST_URCU_INLINE_SMALL_FUNCTIONS
  lttng_ust_rcu_dereference
@@ -136,7 +136,7 @@ cds_list_replace_init lttng_ust_list_replace_init
  lttng_ust_rcu_assign_pointer
 
 
-# lttng/urcu/static/pointer.h
+# include/lttng/urcu/static/pointer.h
 
  _lttng_ust_rcu_dereference
  _lttng_ust_rcu_cmpxchg_pointer
@@ -145,7 +145,7 @@ cds_list_replace_init lttng_ust_list_replace_init
  _lttng_ust_rcu_assign_pointer
 
 
-# lttng/urcu/rculist.h
+# include/lttng/urcu/rculist.h
 
 cds_list_add_rcu lttng_ust_list_add_rcu
 cds_list_add_tail_rcu lttng_ust_list_add_tail_rcu
@@ -155,7 +155,7 @@ cds_list_for_each_rcu lttng_ust_list_for_each_rcu
 cds_list_for_each_entry_rcu lttng_ust_list_for_each_entry_rcu
 
 
-# lttng/urcu/system.h
+# include/lttng/urcu/system.h
 
 _CMM_LOAD_SHARED _LTTNG_UST_LOAD_SHARED
 CMM_LOAD_SHARED LTTNG_UST_LOAD_SHARED
@@ -163,13 +163,13 @@ _CMM_STORE_SHARED _LTTNG_UST_STORE_SHARED
 CMM_STORE_SHARED LTTNG_UST_STORE_SHARED
 
 
-# lttng/urcu/uatomic.h
+# include/lttng/urcu/uatomic.h
 
 UATOMIC_HAS_ATOMIC_BYTE LTTNG_UST_HAS_ATOMIC_BYTE
 UATOMIC_HAS_ATOMIC_SHORT LTTNG_UST_HAS_ATOMIC_SHORT
 ILLEGAL_INSTR LTTNG_UST_ILLEGAL_INSTR
 
-# include/lttng/uatomic/s390.h
+# include/lttng/urcu/uatomic/s390.h
 COMPILER_HAVE_SHORT_MEM_OPERAND LTTNG_UST_COMPILER_HAVE_SHORT_MEM_OPERAND
 MEMOP_OUT LTTNG_UST_MEMOP_OUT
 MEMOP_IN LTTNG_UST_MEMOP_IN
@@ -177,7 +177,7 @@ MEMOP_REF LTTNG_UST_MEMOP_REF
 __uatomic_dummy __lttng_ust_uatomic_dummy
 __hp __lttng_ust_hp
 
-# include/lttng/uatomic/x86.h
+# include/lttng/urcu/uatomic/x86.h
 d __uatomic_cmpxchg
 d __uatomic_exchange
 d __uatomic_add_return
@@ -242,7 +242,7 @@ cmm_smp_mb__before_uatomic_dec lttng_ust_cmm_smp_mb__before_uatomic_dec
 cmm_smp_mb__after_uatomic_dec lttng_ust_cmm_smp_mb__after_uatomic_dec
 
 
-# include/lttng/urcu-ust.h
+# include/lttng/urcu/urcu-ust.h
 
  lttng_ust_urcu_read_lock
  lttng_ust_urcu_read_unlock
@@ -253,7 +253,7 @@ cmm_smp_mb__after_uatomic_dec lttng_ust_cmm_smp_mb__after_uatomic_dec
  lttng_ust_urcu_after_fork_child
  lttng_ust_urcu_register_thread
 
-# include/lttng/static/urcu-ust.h
+# include/lttng/urcu/static/urcu-ust.h
 
  lttng_ust_urcu_state
  LTTNG_UST_URCU_READER_ACTIVE_CURRENT
@@ -273,7 +273,7 @@ cmm_smp_mb__after_uatomic_dec lttng_ust_cmm_smp_mb__after_uatomic_dec
  _lttng_ust_urcu_read_unlock
  _lttng_ust_urcu_read_ongoing
 
-# include/lttng/wfcqueue.h
+# include/lttng/urcu/wfcqueue.h
 
 CDS_WFCQ_WOULDBLOCK LTTNG_UST_WFCQ_WOULDBLOCK
 cds_wfcq_ret lttng_ust_wfcq_ret
@@ -316,7 +316,7 @@ __cds_wfcq_next_nonblocking __lttng_ust_wfcq_next_nonblocking
 __cds_wfcq_for_each_blocking __lttng_ust_wfcq_for_each_blocking
 __cds_wfcq_for_each_blocking_safe __lttng_ust_wfcq_for_each_blocking_safe
 
-# include/lttng/static/wfcqueue.h
+# include/lttng/urcu/static/wfcqueue.h
 
 WFCQ_ADAPT_ATTEMPTS LTTNG_UST_WFCQ_ADAPT_ATTEMPTS
 WFCQ_WAIT LTTNG_UST_WFCQ_WAIT

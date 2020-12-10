@@ -1,5 +1,5 @@
-#ifndef _URCU_SYSTEM_H
-#define _URCU_SYSTEM_H
+#ifndef _LTTNG_USTURCU_SYSTEM_H
+#define _LTTNG_USTURCU_SYSTEM_H
 
 /*
  * system.h
@@ -56,4 +56,4 @@
 		_v = _v;	/* Work around clang "unused result" */	\
 	})
 
-#endif /* _URCU_SYSTEM_H */
+#endif /* _LTTNG_USTURCU_SYSTEM_H */

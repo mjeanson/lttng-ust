@@ -1,5 +1,5 @@
-#ifndef _URCU_WFCQUEUE_STATIC_H
-#define _URCU_WFCQUEUE_STATIC_H
+#ifndef _LTTNG_UST_URCU_WFCQUEUE_STATIC_H
+#define _LTTNG_UST_URCU_WFCQUEUE_STATIC_H
 
 /*
  * urcu/static/wfcqueue.h
@@ -680,4 +680,4 @@ _lttng_ust_wfcq_splice_blocking(
 }
 #endif
 
-#endif /* _URCU_WFCQUEUE_STATIC_H */
+#endif /* _LTTNG_UST_URCU_WFCQUEUE_STATIC_H */

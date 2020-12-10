@@ -1,5 +1,5 @@
-#ifndef _URCU_COMPILER_H
-#define _URCU_COMPILER_H
+#ifndef _LTTNG_UST_URCU_COMPILER_H
+#define _LTTNG_UST_URCU_COMPILER_H
 
 /*
  * compiler.h
@@ -83,4 +83,4 @@
 				+ __GNUC_PATCHLEVEL__)
 #endif
 
-#endif /* _URCU_COMPILER_H */
+#endif /* _LTTNG_UST_URCU_COMPILER_H */

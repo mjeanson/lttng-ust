@@ -18,8 +18,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-#ifndef _URCU_UATOMIC_H
-#define _URCU_UATOMIC_H
+#ifndef _LTTNG_UST_URCU_UATOMIC_H
+#define _LTTNG_UST_URCU_UATOMIC_H
 
 #include <lttng/urcu/arch.h>
 
@@ -55,4 +55,4 @@
 #error "Cannot build: unrecognized architecture, see <lttng/urcu/arch.h>."
 #endif
 
-#endif /* _URCU_UATOMIC_H */
+#endif /* _LTTNG_UST_URCU_UATOMIC_H */
