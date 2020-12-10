@@ -164,7 +164,7 @@ int lib_ring_buffer_reserve(const struct lttng_ust_lib_ring_buffer_config *confi
 	unsigned long o_begin, o_end, o_old;
 	size_t before_hdr_pad = 0;
 
-	if (lttng_ust_unlikely(uatomic_read(&chan->record_disabled)))
+	if (lttng_ust_unlikely(lttng_ust_uatomic_read(&chan->record_disabled)))
 		return -EAGAIN;
 
 	if (config->alloc == RING_BUFFER_ALLOC_PER_CPU)
@@ -173,7 +173,7 @@ int lib_ring_buffer_reserve(const struct lttng_ust_lib_ring_buffer_config *confi
 		buf = shmp(handle, chan->backend.buf[0].shmp);
 	if (lttng_ust_unlikely(!buf))
 		return -EIO;
-	if (lttng_ust_unlikely(uatomic_read(&buf->record_disabled)))
+	if (lttng_ust_unlikely(lttng_ust_uatomic_read(&buf->record_disabled)))
 		return -EAGAIN;
 	ctx->buf = buf;
 

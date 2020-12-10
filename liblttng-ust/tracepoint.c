@@ -161,7 +161,7 @@ void (*lttng_ust_liburcu_bp_after_fork_child)(void);
 
 static bool lttng_ust_tracepoint_v1_used(void)
 {
-	return uatomic_read(&tracepoint_v1_api_used);
+	return lttng_ust_uatomic_read(&tracepoint_v1_api_used);
 }
 
 static void lttng_ust_tracepoint_set_v1_used(void)
@@ -1129,7 +1129,7 @@ void tp_disable_destructors(void)
  */
 int tp_get_destructors_state(void)
 {
-	return uatomic_read(&tracepoint_destructors_state);
+	return lttng_ust_uatomic_read(&tracepoint_destructors_state);
 }
 
 void lttng_ust_synchronize_trace(void)

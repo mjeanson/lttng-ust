@@ -186,7 +186,7 @@ void lib_ring_buffer_reserve_push_reader(struct lttng_ust_lib_ring_buffer *buf,
 	unsigned long consumed_old, consumed_new;
 
 	do {
-		consumed_old = uatomic_read(&buf->consumed);
+		consumed_old = lttng_ust_uatomic_read(&buf->consumed);
 		/*
 		 * If buffer is in overwrite mode, push the reader consumed
 		 * count if the write position has reached it and we are not
@@ -230,7 +230,7 @@ void lib_ring_buffer_clear_reader(struct lttng_ust_lib_ring_buffer *buf,
 
 	do {
 		offset = v_read(config, &buf->offset);
-		consumed_old = uatomic_read(&buf->consumed);
+		consumed_old = lttng_ust_uatomic_read(&buf->consumed);
 		CHAN_WARN_ON(chan, (long) (subbuf_trunc(offset, chan)
 				- subbuf_trunc(consumed_old, chan))
 				< 0);

@@ -45,7 +45,7 @@ static inline
 long v_read(const struct lttng_ust_lib_ring_buffer_config *config, union v_atomic *v_a)
 {
 	assert(config->sync != RING_BUFFER_SYNC_PER_CPU);
-	return uatomic_read(&v_a->a);
+	return lttng_ust_uatomic_read(&v_a->a);
 }
 
 static inline

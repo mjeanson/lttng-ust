@@ -677,9 +677,9 @@ void decrement_sem_count(unsigned int count)
 {
 	int ret;
 
-	assert(uatomic_read(&sem_count) >= count);
+	assert(lttng_ust_uatomic_read(&sem_count) >= count);
 
-	if (uatomic_read(&sem_count) <= 0) {
+	if (lttng_ust_uatomic_read(&sem_count) <= 0) {
 		return;
 	}
 
@@ -1621,7 +1621,7 @@ void wait_for_sessiond(struct sock_info *sock_info)
 
 	DBG("Waiting for %s apps sessiond", sock_info->name);
 	/* Wait for futex wakeup */
-	if (uatomic_read((int32_t *) sock_info->wait_shm_mmap))
+	if (lttng_ust_uatomic_read((int32_t *) sock_info->wait_shm_mmap))
 		goto end_wait;
 
 	while (lttng_ust_futex_async((int32_t *) sock_info->wait_shm_mmap,

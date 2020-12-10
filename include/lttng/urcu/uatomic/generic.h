@@ -33,8 +33,8 @@ extern "C" {
 #define lttng_ust_uatomic_set(addr, v)	((void) LTTNG_UST_STORE_SHARED(*(addr), (v)))
 #endif
 
-#ifndef uatomic_read
-#define uatomic_read(addr)	LTTNG_UST_LOAD_SHARED(*(addr))
+#ifndef lttng_ust_uatomic_read
+#define lttng_ust_uatomic_read(addr)	LTTNG_UST_LOAD_SHARED(*(addr))
 #endif
 
 #if !defined __OPTIMIZE__  || defined UATOMIC_NO_LINK_ERROR
@@ -222,7 +222,7 @@ unsigned long _uatomic_exchange(void *addr, unsigned long val, int len)
 		uint8_t old;
 
 		do {
-			old = uatomic_read((uint8_t *) addr);
+			old = lttng_ust_uatomic_read((uint8_t *) addr);
 		} while (!__sync_bool_compare_and_swap_1((uint8_t *) addr,
 				old, val));
 
@@ -235,7 +235,7 @@ unsigned long _uatomic_exchange(void *addr, unsigned long val, int len)
 		uint16_t old;
 
 		do {
-			old = uatomic_read((uint16_t *) addr);
+			old = lttng_ust_uatomic_read((uint16_t *) addr);
 		} while (!__sync_bool_compare_and_swap_2((uint16_t *) addr,
 				old, val));
 
@@ -247,7 +247,7 @@ unsigned long _uatomic_exchange(void *addr, unsigned long val, int len)
 		uint32_t old;
 
 		do {
-			old = uatomic_read((uint32_t *) addr);
+			old = lttng_ust_uatomic_read((uint32_t *) addr);
 		} while (!__sync_bool_compare_and_swap_4((uint32_t *) addr,
 				old, val));
 
@@ -259,7 +259,7 @@ unsigned long _uatomic_exchange(void *addr, unsigned long val, int len)
 		uint64_t old;
 
 		do {
-			old = uatomic_read((uint64_t *) addr);
+			old = lttng_ust_uatomic_read((uint64_t *) addr);
 		} while (!__sync_bool_compare_and_swap_8((uint64_t *) addr,
 				old, val));
 
@@ -291,7 +291,7 @@ void _uatomic_and(void *addr, unsigned long val, int len)
 	{
 		uint8_t old, oldt;
 
-		oldt = uatomic_read((uint8_t *) addr);
+		oldt = lttng_ust_uatomic_read((uint8_t *) addr);
 		do {
 			old = oldt;
 			oldt = _uatomic_cmpxchg(addr, old, old & val, 1);
@@ -305,7 +305,7 @@ void _uatomic_and(void *addr, unsigned long val, int len)
 	{
 		uint16_t old, oldt;
 
-		oldt = uatomic_read((uint16_t *) addr);
+		oldt = lttng_ust_uatomic_read((uint16_t *) addr);
 		do {
 			old = oldt;
 			oldt = _uatomic_cmpxchg(addr, old, old & val, 2);
@@ -316,7 +316,7 @@ void _uatomic_and(void *addr, unsigned long val, int len)
 	{
 		uint32_t old, oldt;
 
-		oldt = uatomic_read((uint32_t *) addr);
+		oldt = lttng_ust_uatomic_read((uint32_t *) addr);
 		do {
 			old = oldt;
 			oldt = _uatomic_cmpxchg(addr, old, old & val, 4);
@@ -329,7 +329,7 @@ void _uatomic_and(void *addr, unsigned long val, int len)
 	{
 		uint64_t old, oldt;
 
-		oldt = uatomic_read((uint64_t *) addr);
+		oldt = lttng_ust_uatomic_read((uint64_t *) addr);
 		do {
 			old = oldt;
 			oldt = _uatomic_cmpxchg(addr, old, old & val, 8);
@@ -363,7 +363,7 @@ void _uatomic_or(void *addr, unsigned long val, int len)
 	{
 		uint8_t old, oldt;
 
-		oldt = uatomic_read((uint8_t *) addr);
+		oldt = lttng_ust_uatomic_read((uint8_t *) addr);
 		do {
 			old = oldt;
 			oldt = _uatomic_cmpxchg(addr, old, old | val, 1);
@@ -377,7 +377,7 @@ void _uatomic_or(void *addr, unsigned long val, int len)
 	{
 		uint16_t old, oldt;
 
-		oldt = uatomic_read((uint16_t *) addr);
+		oldt = lttng_ust_uatomic_read((uint16_t *) addr);
 		do {
 			old = oldt;
 			oldt = _uatomic_cmpxchg(addr, old, old | val, 2);
@@ -390,7 +390,7 @@ void _uatomic_or(void *addr, unsigned long val, int len)
 	{
 		uint32_t old, oldt;
 
-		oldt = uatomic_read((uint32_t *) addr);
+		oldt = lttng_ust_uatomic_read((uint32_t *) addr);
 		do {
 			old = oldt;
 			oldt = _uatomic_cmpxchg(addr, old, old | val, 4);
@@ -403,7 +403,7 @@ void _uatomic_or(void *addr, unsigned long val, int len)
 	{
 		uint64_t old, oldt;
 
-		oldt = uatomic_read((uint64_t *) addr);
+		oldt = lttng_ust_uatomic_read((uint64_t *) addr);
 		do {
 			old = oldt;
 			oldt = _uatomic_cmpxchg(addr, old, old | val, 8);
@@ -437,7 +437,7 @@ unsigned long _uatomic_add_return(void *addr, unsigned long val, int len)
 	{
 		uint8_t old, oldt;
 
-		oldt = uatomic_read((uint8_t *) addr);
+		oldt = lttng_ust_uatomic_read((uint8_t *) addr);
 		do {
 			old = oldt;
 			oldt = uatomic_cmpxchg((uint8_t *) addr,
@@ -452,7 +452,7 @@ unsigned long _uatomic_add_return(void *addr, unsigned long val, int len)
 	{
 		uint16_t old, oldt;
 
-		oldt = uatomic_read((uint16_t *) addr);
+		oldt = lttng_ust_uatomic_read((uint16_t *) addr);
 		do {
 			old = oldt;
 			oldt = uatomic_cmpxchg((uint16_t *) addr,
@@ -466,7 +466,7 @@ unsigned long _uatomic_add_return(void *addr, unsigned long val, int len)
 	{
 		uint32_t old, oldt;
 
-		oldt = uatomic_read((uint32_t *) addr);
+		oldt = lttng_ust_uatomic_read((uint32_t *) addr);
 		do {
 			old = oldt;
 			oldt = uatomic_cmpxchg((uint32_t *) addr,
@@ -480,7 +480,7 @@ unsigned long _uatomic_add_return(void *addr, unsigned long val, int len)
 	{
 		uint64_t old, oldt;
 
-		oldt = uatomic_read((uint64_t *) addr);
+		oldt = lttng_ust_uatomic_read((uint64_t *) addr);
 		do {
 			old = oldt;
 			oldt = uatomic_cmpxchg((uint64_t *) addr,
@@ -513,7 +513,7 @@ unsigned long _uatomic_exchange(void *addr, unsigned long val, int len)
 	{
 		uint8_t old, oldt;
 
-		oldt = uatomic_read((uint8_t *) addr);
+		oldt = lttng_ust_uatomic_read((uint8_t *) addr);
 		do {
 			old = oldt;
 			oldt = uatomic_cmpxchg((uint8_t *) addr,
@@ -528,7 +528,7 @@ unsigned long _uatomic_exchange(void *addr, unsigned long val, int len)
 	{
 		uint16_t old, oldt;
 
-		oldt = uatomic_read((uint16_t *) addr);
+		oldt = lttng_ust_uatomic_read((uint16_t *) addr);
 		do {
 			old = oldt;
 			oldt = uatomic_cmpxchg((uint16_t *) addr,
@@ -542,7 +542,7 @@ unsigned long _uatomic_exchange(void *addr, unsigned long val, int len)
 	{
 		uint32_t old, oldt;
 
-		oldt = uatomic_read((uint32_t *) addr);
+		oldt = lttng_ust_uatomic_read((uint32_t *) addr);
 		do {
 			old = oldt;
 			oldt = uatomic_cmpxchg((uint32_t *) addr,
@@ -556,7 +556,7 @@ unsigned long _uatomic_exchange(void *addr, unsigned long val, int len)
 	{
 		uint64_t old, oldt;
 
-		oldt = uatomic_read((uint64_t *) addr);
+		oldt = lttng_ust_uatomic_read((uint64_t *) addr);
 		do {
 			old = oldt;
 			oldt = uatomic_cmpxchg((uint64_t *) addr,

@@ -464,7 +464,7 @@ void lib_ring_buffer_channel_switch_timer(int sig, siginfo_t *si, void *uc)
 
 			if (!buf)
 				goto end;
-			if (uatomic_read(&buf->active_readers))
+			if (lttng_ust_uatomic_read(&buf->active_readers))
 				lib_ring_buffer_switch_slow(buf, SWITCH_ACTIVE,
 					chan->handle);
 		}
@@ -474,7 +474,7 @@ void lib_ring_buffer_channel_switch_timer(int sig, siginfo_t *si, void *uc)
 
 		if (!buf)
 			goto end;
-		if (uatomic_read(&buf->active_readers))
+		if (lttng_ust_uatomic_read(&buf->active_readers))
 			lib_ring_buffer_switch_slow(buf, SWITCH_ACTIVE,
 				chan->handle);
 	}
@@ -492,7 +492,7 @@ int lib_ring_buffer_poll_deliver(const struct lttng_ust_lib_ring_buffer_config *
 	unsigned long consumed_old, consumed_idx, commit_count, write_offset;
 	struct commit_counters_cold *cc_cold;
 
-	consumed_old = uatomic_read(&buf->consumed);
+	consumed_old = lttng_ust_uatomic_read(&buf->consumed);
 	consumed_idx = subbuf_index(consumed_old, chan);
 	cc_cold = shmp_index(handle, buf->commit_cold, consumed_idx);
 	if (!cc_cold)
@@ -615,7 +615,7 @@ void lib_ring_buffer_channel_do_read(struct channel *chan)
 
 			if (!buf)
 				goto end;
-			if (uatomic_read(&buf->active_readers)
+			if (lttng_ust_uatomic_read(&buf->active_readers)
 			    && lib_ring_buffer_poll_deliver(config, buf,
 					chan, handle)) {
 				lib_ring_buffer_wakeup(buf, handle);
@@ -627,7 +627,7 @@ void lib_ring_buffer_channel_do_read(struct channel *chan)
 
 		if (!buf)
 			goto end;
-		if (uatomic_read(&buf->active_readers)
+		if (lttng_ust_uatomic_read(&buf->active_readers)
 		    && lib_ring_buffer_poll_deliver(config, buf,
 				chan, handle)) {
 			lib_ring_buffer_wakeup(buf, handle);
@@ -1277,7 +1277,7 @@ void lib_ring_buffer_release_read(struct lttng_ust_lib_ring_buffer *buf,
 
 	if (!chan)
 		return;
-	CHAN_WARN_ON(chan, uatomic_read(&buf->active_readers) != 1);
+	CHAN_WARN_ON(chan, lttng_ust_uatomic_read(&buf->active_readers) != 1);
 	lttng_ust_smp_mb();
 	uatomic_dec(&buf->active_readers);
 }
@@ -1310,7 +1310,7 @@ int lib_ring_buffer_snapshot(struct lttng_ust_lib_ring_buffer *buf,
 	 * Read finalized before counters.
 	 */
 	lttng_ust_smp_rmb();
-	consumed_cur = uatomic_read(&buf->consumed);
+	consumed_cur = lttng_ust_uatomic_read(&buf->consumed);
 	/*
 	 * No need to issue a memory barrier between consumed count read and
 	 * write offset read, because consumed count can only change
@@ -1369,7 +1369,7 @@ int lib_ring_buffer_snapshot_sample_positions(
 		return -EPERM;
 	config = &chan->backend.config;
 	lttng_ust_smp_rmb();
-	*consumed = uatomic_read(&buf->consumed);
+	*consumed = lttng_ust_uatomic_read(&buf->consumed);
 	/*
 	 * No need to issue a memory barrier between consumed count read and
 	 * write offset read, because consumed count can only change
@@ -1398,14 +1398,14 @@ void lib_ring_buffer_move_consumer(struct lttng_ust_lib_ring_buffer *buf,
 	chan = shmp(handle, bufb->chan);
 	if (!chan)
 		return;
-	CHAN_WARN_ON(chan, uatomic_read(&buf->active_readers) != 1);
+	CHAN_WARN_ON(chan, lttng_ust_uatomic_read(&buf->active_readers) != 1);
 
 	/*
 	 * Only push the consumed value forward.
 	 * If the consumed cmpxchg fails, this is because we have been pushed by
 	 * the writer in flight recorder mode.
 	 */
-	consumed = uatomic_read(&buf->consumed);
+	consumed = lttng_ust_uatomic_read(&buf->consumed);
 	while ((long) consumed - (long) consumed_new < 0)
 		consumed = uatomic_cmpxchg(&buf->consumed, consumed,
 					   consumed_new);
@@ -1439,7 +1439,7 @@ retry:
 	 * Read finalized before counters.
 	 */
 	lttng_ust_smp_rmb();
-	consumed_cur = uatomic_read(&buf->consumed);
+	consumed_cur = lttng_ust_uatomic_read(&buf->consumed);
 	consumed_idx = subbuf_index(consumed, chan);
 	cc_cold = shmp_index(handle, buf->commit_cold, consumed_idx);
 	if (!cc_cold)
@@ -1597,7 +1597,7 @@ void lib_ring_buffer_put_subbuf(struct lttng_ust_lib_ring_buffer *buf,
 	if (!chan)
 		return;
 	config = &chan->backend.config;
-	CHAN_WARN_ON(chan, uatomic_read(&buf->active_readers) != 1);
+	CHAN_WARN_ON(chan, lttng_ust_uatomic_read(&buf->active_readers) != 1);
 
 	if (!buf->get_subbuf) {
 		/*
@@ -1702,14 +1702,14 @@ void lib_ring_buffer_print_buffer_errors(struct lttng_ust_lib_ring_buffer *buf,
 	 * references are left.
 	 */
 	write_offset = v_read(config, &buf->offset);
-	cons_offset = uatomic_read(&buf->consumed);
+	cons_offset = lttng_ust_uatomic_read(&buf->consumed);
 	if (write_offset != cons_offset)
 		DBG("ring buffer %s, cpu %d: "
 		       "non-consumed data\n"
 		       "  [ %lu bytes written, %lu bytes read ]\n",
 		       chan->backend.name, cpu, write_offset, cons_offset);
 
-	for (cons_offset = uatomic_read(&buf->consumed);
+	for (cons_offset = lttng_ust_uatomic_read(&buf->consumed);
 	     (long) (subbuf_trunc((unsigned long) v_read(config, &buf->offset),
 				  chan)
 		     - cons_offset) > 0;
@@ -1998,7 +1998,7 @@ int lib_ring_buffer_try_switch_slow(enum switch_mode mode,
 			if (lttng_ust_unlikely(config->mode != RING_BUFFER_OVERWRITE &&
 				subbuf_trunc(offsets->begin, chan)
 				 - subbuf_trunc((unsigned long)
-				     uatomic_read(&buf->consumed), chan)
+				     lttng_ust_uatomic_read(&buf->consumed), chan)
 				>= chan->backend.buf_size)) {
 				/*
 				 * We do not overwrite non consumed buffers
@@ -2214,7 +2214,7 @@ retry:
 			if (lttng_ust_unlikely(config->mode != RING_BUFFER_OVERWRITE &&
 				subbuf_trunc(offsets->begin, chan)
 				 - subbuf_trunc((unsigned long)
-				     uatomic_read(&buf->consumed), chan)
+				     lttng_ust_uatomic_read(&buf->consumed), chan)
 				>= chan->backend.buf_size)) {
 				unsigned long nr_lost;
 
@@ -2549,7 +2549,7 @@ void lib_ring_buffer_check_deliver_slow(const struct lttng_ust_lib_ring_buffer_c
 		 * RING_BUFFER_WAKEUP_BY_WRITER wakeup is not lock-free.
 		 */
 		if (config->wakeup == RING_BUFFER_WAKEUP_BY_WRITER
-		    && uatomic_read(&buf->active_readers)
+		    && lttng_ust_uatomic_read(&buf->active_readers)
 		    && lib_ring_buffer_poll_deliver(config, buf, chan, handle)) {
 			lib_ring_buffer_wakeup(buf, handle);
 		}

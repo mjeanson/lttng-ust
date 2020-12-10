@@ -195,7 +195,7 @@ static inline
 unsigned long lib_ring_buffer_get_consumed(const struct lttng_ust_lib_ring_buffer_config *config,
 					   struct lttng_ust_lib_ring_buffer *buf)
 {
-	return uatomic_read(&buf->consumed);
+	return lttng_ust_uatomic_read(&buf->consumed);
 }
 
 /*
@@ -223,7 +223,7 @@ int lib_ring_buffer_channel_is_finalized(const struct channel *chan)
 static inline
 int lib_ring_buffer_channel_is_disabled(const struct channel *chan)
 {
-	return uatomic_read(&chan->record_disabled);
+	return lttng_ust_uatomic_read(&chan->record_disabled);
 }
 
 static inline
