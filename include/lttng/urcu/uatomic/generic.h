@@ -1,5 +1,5 @@
-#ifndef _URCU_UATOMIC_GENERIC_H
-#define _URCU_UATOMIC_GENERIC_H
+#ifndef _LTTNG_UST_URCU_UATOMIC_GENERIC_H
+#define _LTTNG_UST_URCU_UATOMIC_GENERIC_H
 
 /*
  * Copyright (c) 1991-1994 by Xerox Corporation.  All rights reserved.
@@ -610,4 +610,4 @@ unsigned long _lttng_ust_uatomic_exchange(void *addr, unsigned long val, int len
 }
 #endif
 
-#endif /* _URCU_UATOMIC_GENERIC_H */
+#endif /* _LTTNG_UST_URCU_UATOMIC_GENERIC_H */

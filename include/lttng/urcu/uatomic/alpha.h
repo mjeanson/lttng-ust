@@ -1,5 +1,5 @@
-#ifndef _URCU_UATOMIC_ARCH_ALPHA_H
-#define _URCU_UATOMIC_ARCH_ALPHA_H
+#ifndef _LTTNG_UST_URCU_UATOMIC_ARCH_ALPHA_H
+#define _LTTNG_UST_URCU_UATOMIC_ARCH_ALPHA_H
 
 /*
  * Atomic exchange operations for the Alpha architecture. Let GCC do it.
@@ -29,4 +29,4 @@
 #include <lttng/urcu/system.h>
 #include <lttng/urcu/uatomic/generic.h>
 
-#endif /* _URCU_UATOMIC_ARCH_ALPHA_H */
+#endif /* _LTTNG_UST_URCU_UATOMIC_ARCH_ALPHA_H */

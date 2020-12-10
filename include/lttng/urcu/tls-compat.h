@@ -1,5 +1,5 @@
-#ifndef _URCU_TLS_COMPAT_H
-#define _URCU_TLS_COMPAT_H
+#ifndef _LTTNG_UST_URCU_TLS_COMPAT_H
+#define _LTTNG_UST_URCU_TLS_COMPAT_H
 
 /*
  * urcu/tls-compat.h
@@ -157,4 +157,4 @@ struct urcu_tls {
 }
 #endif
 
-#endif /* _URCU_TLS_COMPAT_H */
+#endif /* _LTTNG_UST_URCU_TLS_COMPAT_H */

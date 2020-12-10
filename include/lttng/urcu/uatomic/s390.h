@@ -1,5 +1,5 @@
-#ifndef _URCU_UATOMIC_ARCH_S390_H
-#define _URCU_UATOMIC_ARCH_S390_H
+#ifndef _LTTNG_UST_URCU_UATOMIC_ARCH_S390_H
+#define _LTTNG_UST_URCU_UATOMIC_ARCH_S390_H
 
 /*
  * Atomic exchange operations for the S390 architecture. Based on information
@@ -158,4 +158,4 @@ unsigned long _lttng_ust_lttng_ust_uatomic_cmpxchg(void *addr, unsigned long old
 
 #include <lttng/urcu/uatomic/generic.h>
 
-#endif /* _URCU_UATOMIC_ARCH_S390_H */
+#endif /* _LTTNG_UST_URCU_UATOMIC_ARCH_S390_H */
