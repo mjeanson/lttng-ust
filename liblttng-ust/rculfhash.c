@@ -901,7 +901,7 @@ int _lttng_ust_lfht_del(struct lttng_ust_lfht *ht, unsigned long size,
 	assert(!is_bucket(next));
 	/*
 	 * The del operation semantic guarantees a full memory barrier
-	 * before the uatomic_or atomic commit of the deletion flag.
+	 * before the lttng_ust_uatomic_or atomic commit of the deletion flag.
 	 */
 	lttng_ust_smp_mb__before_uatomic_or();
 	/*
@@ -910,7 +910,7 @@ int _lttng_ust_lfht_del(struct lttng_ust_lfht *ht, unsigned long size,
 	 * Knowing which wins the race will be known after the garbage
 	 * collection phase, stay tuned!
 	 */
-	uatomic_or(&node->next, REMOVED_FLAG);
+	lttng_ust_uatomic_or(&node->next, REMOVED_FLAG);
 	/* We performed the (logical) deletion. */
 
 	/*

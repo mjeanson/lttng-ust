@@ -46,7 +46,7 @@ static inline void lttng_bitmap_set_bit(unsigned int index, unsigned long *p)
 
 	lttng_bitmap_index(index, &word, &bit);
 	val = 1U << bit;
-	uatomic_or(p + word, val);
+	lttng_ust_uatomic_or(p + word, val);
 }
 
 static inline void lttng_bitmap_clear_bit(unsigned int index, unsigned long *p)

@@ -134,11 +134,11 @@ void _lttng_ust_uatomic_and(void *addr, unsigned long val,
 
 #endif
 
-/* uatomic_or */
+/* lttng_ust_uatomic_or */
 
-#ifndef uatomic_or
+#ifndef lttng_ust_uatomic_or
 static inline __attribute__((always_inline))
-void _uatomic_or(void *addr, unsigned long val,
+void _lttng_ust_uatomic_or(void *addr, unsigned long val,
 		 int len)
 {
 	switch (len) {
@@ -165,8 +165,8 @@ void _uatomic_or(void *addr, unsigned long val,
 	return;
 }
 
-#define uatomic_or(addr, v)			\
-	(_uatomic_or((addr),			\
+#define lttng_ust_uatomic_or(addr, v)			\
+	(_lttng_ust_uatomic_or((addr),			\
 		lttng_ust_cast_long_keep_sign(v),	\
 		sizeof(*(addr))))
 #define lttng_ust_smp_mb__before_uatomic_or()		lttng_ust_barrier()
@@ -351,11 +351,11 @@ void _lttng_ust_uatomic_and(void *addr, unsigned long val, int len)
 
 #endif /* #ifndef lttng_ust_uatomic_and */
 
-#ifndef uatomic_or
-/* uatomic_or */
+#ifndef lttng_ust_uatomic_or
+/* lttng_ust_uatomic_or */
 
 static inline __attribute__((always_inline))
-void _uatomic_or(void *addr, unsigned long val, int len)
+void _lttng_ust_uatomic_or(void *addr, unsigned long val, int len)
 {
 	switch (len) {
 #ifdef LTTNG_UST_HAS_ATOMIC_BYTE
@@ -416,14 +416,14 @@ void _uatomic_or(void *addr, unsigned long val, int len)
 	_lttng_ust_uatomic_link_error();
 }
 
-#define uatomic_or(addr, v)			\
-	(_uatomic_or((addr),			\
+#define lttng_ust_uatomic_or(addr, v)			\
+	(_lttng_ust_uatomic_or((addr),			\
 		lttng_ust_cast_long_keep_sign(v),	\
 		sizeof(*(addr))))
 #define lttng_ust_smp_mb__before_uatomic_or()		lttng_ust_barrier()
 #define lttng_ust_smp_mb__after_uatomic_or()		lttng_ust_barrier()
 
-#endif /* #ifndef uatomic_or */
+#endif /* #ifndef lttng_ust_uatomic_or */
 
 #ifndef uatomic_add_return
 /* uatomic_add_return */

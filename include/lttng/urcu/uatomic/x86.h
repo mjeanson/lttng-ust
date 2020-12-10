@@ -301,7 +301,7 @@ void __lttng_ust_and(void *addr, unsigned long val, int len)
 #define lttng_ust_uatomic_and(addr, v)						   \
 	(__lttng_ust_and((addr), lttng_ust_cast_long_keep_sign(v), sizeof(*(addr))))
 
-/* uatomic_or */
+/* lttng_ust_uatomic_or */
 
 static inline __attribute__((always_inline))
 void __lttng_ust_or(void *addr, unsigned long val, int len)
@@ -354,7 +354,7 @@ void __lttng_ust_or(void *addr, unsigned long val, int len)
 	return;
 }
 
-#define uatomic_or(addr, v)						   \
+#define lttng_ust_uatomic_or(addr, v)						   \
 	(__lttng_ust_or((addr), lttng_ust_cast_long_keep_sign(v), sizeof(*(addr))))
 
 /* uatomic_add */
