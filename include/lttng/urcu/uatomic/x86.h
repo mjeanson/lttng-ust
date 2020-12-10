@@ -245,7 +245,7 @@ unsigned long __lttng_ust_add_return(void *addr, unsigned long val,
 						lttng_ust_cast_long_keep_sign(v), \
 						sizeof(*(addr))))
 
-/* uatomic_and */
+/* lttng_ust_uatomic_and */
 
 static inline __attribute__((always_inline))
 void __lttng_ust_and(void *addr, unsigned long val, int len)
@@ -298,7 +298,7 @@ void __lttng_ust_and(void *addr, unsigned long val, int len)
 	return;
 }
 
-#define uatomic_and(addr, v)						   \
+#define lttng_ust_uatomic_and(addr, v)						   \
 	(__lttng_ust_and((addr), lttng_ust_cast_long_keep_sign(v), sizeof(*(addr))))
 
 /* uatomic_or */

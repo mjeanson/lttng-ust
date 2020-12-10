@@ -95,9 +95,9 @@ unsigned long _lttng_ust_lttng_ust_uatomic_cmpxchg(void *addr, unsigned long old
 						sizeof(*(addr))))
 
 
-/* uatomic_and */
+/* lttng_ust_uatomic_and */
 
-#ifndef uatomic_and
+#ifndef lttng_ust_uatomic_and
 static inline __attribute__((always_inline))
 void _lttng_ust_uatomic_and(void *addr, unsigned long val,
 		  int len)
@@ -125,7 +125,7 @@ void _lttng_ust_uatomic_and(void *addr, unsigned long val,
 	_lttng_ust_uatomic_link_error();
 }
 
-#define uatomic_and(addr, v)			\
+#define lttng_ust_uatomic_and(addr, v)			\
 	(_lttng_ust_uatomic_and((addr),			\
 		lttng_ust_cast_long_keep_sign(v),	\
 		sizeof(*(addr))))
@@ -279,8 +279,8 @@ unsigned long _uatomic_exchange(void *addr, unsigned long val, int len)
 
 #else /* #ifndef lttng_ust_uatomic_cmpxchg */
 
-#ifndef uatomic_and
-/* uatomic_and */
+#ifndef lttng_ust_uatomic_and
+/* lttng_ust_uatomic_and */
 
 static inline __attribute__((always_inline))
 void _lttng_ust_uatomic_and(void *addr, unsigned long val, int len)
@@ -342,14 +342,14 @@ void _lttng_ust_uatomic_and(void *addr, unsigned long val, int len)
 	_lttng_ust_uatomic_link_error();
 }
 
-#define uatomic_and(addr, v)			\
+#define lttng_ust_uatomic_and(addr, v)			\
 	(_lttng_ust_uatomic_and((addr),			\
 		lttng_ust_cast_long_keep_sign(v),	\
 		sizeof(*(addr))))
 #define lttng_ust_smp_mb__before_uatomic_and()	lttng_ust_barrier()
 #define lttng_ust_smp_mb__after_uatomic_and()		lttng_ust_barrier()
 
-#endif /* #ifndef uatomic_and */
+#endif /* #ifndef lttng_ust_uatomic_and */
 
 #ifndef uatomic_or
 /* uatomic_or */
