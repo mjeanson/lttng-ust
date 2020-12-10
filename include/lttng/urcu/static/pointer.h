@@ -79,7 +79,7 @@ extern "C" {
  * using synchronize_rcu(). If fails (unexpected value), returns old (which
  * should not be freed !).
  *
- * uatomic_cmpxchg() acts as both release and acquire barriers.
+ * lttng_ust_uatomic_cmpxchg() acts as both release and acquire barriers.
  *
  * This macro is less than 10 lines long.  The intent is that this macro
  * meets the 10-line criterion in LGPL, allowing this function to be
@@ -90,7 +90,7 @@ extern "C" {
 	({								\
 		__typeof__(*p) _________pold = (old);			\
 		__typeof__(*p) _________pnew = (_new);			\
-		uatomic_cmpxchg(p, _________pold, _________pnew);	\
+		lttng_ust_uatomic_cmpxchg(p, _________pold, _________pnew);	\
 	})
 
 /**

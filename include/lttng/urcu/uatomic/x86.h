@@ -109,7 +109,7 @@ unsigned long __lttng_ust_cmpxchg(void *addr, unsigned long old,
 	return 0;
 }
 
-#define uatomic_cmpxchg(addr, old, _new)				      \
+#define lttng_ust_uatomic_cmpxchg(addr, old, _new)				      \
 	((__typeof__(*(addr))) __lttng_ust_cmpxchg((addr),		      \
 						lttng_ust_cast_long_keep_sign(old), \
 						lttng_ust_cast_long_keep_sign(_new),\

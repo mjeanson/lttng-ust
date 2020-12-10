@@ -50,5 +50,5 @@ void *lttng_ust_rcu_xchg_pointer_sym(void **p, void *v)
 void *lttng_ust_rcu_cmpxchg_pointer_sym(void **p, void *old, void *_new)
 {
 	lttng_ust_wmb();
-	return uatomic_cmpxchg(p, old, _new);
+	return lttng_ust_uatomic_cmpxchg(p, old, _new);
 }

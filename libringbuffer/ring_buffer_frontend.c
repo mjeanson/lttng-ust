@@ -1264,7 +1264,7 @@ int ring_buffer_stream_close_wakeup_fd(const struct lttng_ust_lib_ring_buffer_co
 int lib_ring_buffer_open_read(struct lttng_ust_lib_ring_buffer *buf,
 			      struct lttng_ust_shm_handle *handle)
 {
-	if (uatomic_cmpxchg(&buf->active_readers, 0, 1) != 0)
+	if (lttng_ust_uatomic_cmpxchg(&buf->active_readers, 0, 1) != 0)
 		return -EBUSY;
 	lttng_ust_smp_mb();
 	return 0;
@@ -1407,7 +1407,7 @@ void lib_ring_buffer_move_consumer(struct lttng_ust_lib_ring_buffer *buf,
 	 */
 	consumed = lttng_ust_uatomic_read(&buf->consumed);
 	while ((long) consumed - (long) consumed_new < 0)
-		consumed = uatomic_cmpxchg(&buf->consumed, consumed,
+		consumed = lttng_ust_uatomic_cmpxchg(&buf->consumed, consumed,
 					   consumed_new);
 }
 

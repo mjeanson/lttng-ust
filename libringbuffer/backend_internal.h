@@ -487,7 +487,7 @@ void lib_ring_buffer_clear_noref(const struct lttng_ust_lib_ring_buffer_config *
 		}
 		new_id = id;
 		subbuffer_id_clear_noref(config, &new_id);
-		new_id = uatomic_cmpxchg(&wsb->id, id, new_id);
+		new_id = lttng_ust_uatomic_cmpxchg(&wsb->id, id, new_id);
 		if (lttng_ust_likely(new_id == id))
 			break;
 		id = new_id;
@@ -579,7 +579,7 @@ int update_read_sb_index(const struct lttng_ust_lib_ring_buffer_config *config,
 		CHAN_WARN_ON(chan, !subbuffer_id_is_noref(config, bufb->buf_rsb.id));
 		subbuffer_id_set_noref_offset(config, &bufb->buf_rsb.id,
 					      consumed_count);
-		new_id = uatomic_cmpxchg(&wsb->id, old_id, bufb->buf_rsb.id);
+		new_id = lttng_ust_uatomic_cmpxchg(&wsb->id, old_id, bufb->buf_rsb.id);
 		if (lttng_ust_unlikely(old_id != new_id))
 			return -EAGAIN;
 		bufb->buf_rsb.id = new_id;

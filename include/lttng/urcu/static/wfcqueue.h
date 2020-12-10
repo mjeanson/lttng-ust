@@ -423,14 +423,14 @@ ___lttng_ust_wfcq_dequeue_with_state(lttng_ust_wfcq_head_ptr_t u_head,
 		 * cmpxchg fail due to a concurrent enqueue, the
 		 * q->head.next will be set to the next node.
 		 * The implicit memory barrier before
-		 * uatomic_cmpxchg() orders load node->next
+		 * lttng_ust_uatomic_cmpxchg() orders load node->next
 		 * before loading q->tail.
-		 * The implicit memory barrier before uatomic_cmpxchg
+		 * The implicit memory barrier before lttng_ust_uatomic_cmpxchg
 		 * orders load q->head.next before loading node's
 		 * content.
 		 */
 		_lttng_ust_wfcq_node_init(&head->node);
-		if (uatomic_cmpxchg(&tail->p, node, &head->node) == node) {
+		if (lttng_ust_uatomic_cmpxchg(&tail->p, node, &head->node) == node) {
 			if (state)
 				*state |= LTTNG_UST_WFCQ_STATE_LAST;
 			return node;

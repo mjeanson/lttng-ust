@@ -76,7 +76,7 @@ void ust_malloc_spin_lock(pthread_mutex_t *lock)
 	 * memory accesses with respect to the start of the critical
 	 * section.
 	 */
-	while (uatomic_cmpxchg(&ust_malloc_lock, 0, 1) != 0)
+	while (lttng_ust_uatomic_cmpxchg(&ust_malloc_lock, 0, 1) != 0)
 		lttng_ust_cpu_relax();
 }
 
@@ -126,7 +126,7 @@ void *static_calloc_aligned(size_t nmemb, size_t size, size_t alignment)
 		if (new_offset > sizeof(static_calloc_buf)) {
 			abort();
 		}
-	} while ((res_offset = uatomic_cmpxchg(&static_calloc_buf_offset,
+	} while ((res_offset = lttng_ust_uatomic_cmpxchg(&static_calloc_buf_offset,
 			prev_offset, new_offset)) != prev_offset);
 	*(size_t *) &static_calloc_buf[aligned_offset - sizeof(size_t)] = size;
 	return &static_calloc_buf[aligned_offset];

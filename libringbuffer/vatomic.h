@@ -84,7 +84,7 @@ long v_cmpxchg(const struct lttng_ust_lib_ring_buffer_config *config, union v_at
 	       long old, long _new)
 {
 	assert(config->sync != RING_BUFFER_SYNC_PER_CPU);
-	return uatomic_cmpxchg(&v_a->a, old, _new);
+	return lttng_ust_uatomic_cmpxchg(&v_a->a, old, _new);
 }
 
 #endif /* _LTTNG_RING_BUFFER_VATOMIC_H */

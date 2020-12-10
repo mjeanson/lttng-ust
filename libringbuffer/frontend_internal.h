@@ -202,7 +202,7 @@ void lib_ring_buffer_reserve_push_reader(struct lttng_ust_lib_ring_buffer *buf,
 			consumed_new = subbuf_align(consumed_old, chan);
 		else
 			return;
-	} while (lttng_ust_unlikely(uatomic_cmpxchg(&buf->consumed, consumed_old,
+	} while (lttng_ust_unlikely(lttng_ust_uatomic_cmpxchg(&buf->consumed, consumed_old,
 					      consumed_new) != consumed_old));
 }
 
@@ -235,7 +235,7 @@ void lib_ring_buffer_clear_reader(struct lttng_ust_lib_ring_buffer *buf,
 				- subbuf_trunc(consumed_old, chan))
 				< 0);
 		consumed_new = subbuf_trunc(offset, chan);
-	} while (lttng_ust_unlikely(uatomic_cmpxchg(&buf->consumed, consumed_old,
+	} while (lttng_ust_unlikely(lttng_ust_uatomic_cmpxchg(&buf->consumed, consumed_old,
 					      consumed_new) != consumed_old));
 }
 

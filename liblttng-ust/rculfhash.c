@@ -683,7 +683,7 @@ void _lttng_ust_lfht_gc_bucket(struct lttng_ust_lfht_node *bucket, struct lttng_
 			new_next = flag_bucket(clear_flag(next));
 		else
 			new_next = clear_flag(next);
-		(void) uatomic_cmpxchg(&iter_prev->next, iter, new_next);
+		(void) lttng_ust_uatomic_cmpxchg(&iter_prev->next, iter, new_next);
 	}
 }
 
@@ -738,7 +738,7 @@ int _lttng_ust_lfht_replace(struct lttng_ust_lfht *ht, unsigned long size,
 		 * REMOVED and REMOVAL_OWNER flags atomically so we own
 		 * the node after successful cmpxchg.
 		 */
-		ret_next = uatomic_cmpxchg(&old_node->next,
+		ret_next = lttng_ust_uatomic_cmpxchg(&old_node->next,
 			old_next, flag_removed_or_removal_owner(new_node));
 		if (ret_next == old_next)
 			break;		/* We performed the replacement. */
@@ -850,7 +850,7 @@ void _lttng_ust_lfht_add(struct lttng_ust_lfht *ht,
 			new_node = flag_bucket(node);
 		else
 			new_node = node;
-		if (uatomic_cmpxchg(&iter_prev->next, iter,
+		if (lttng_ust_uatomic_cmpxchg(&iter_prev->next, iter,
 				    new_node) != iter) {
 			continue;	/* retry */
 		} else {
@@ -865,7 +865,7 @@ void _lttng_ust_lfht_add(struct lttng_ust_lfht *ht,
 			new_next = flag_bucket(clear_flag(next));
 		else
 			new_next = clear_flag(next);
-		(void) uatomic_cmpxchg(&iter_prev->next, iter, new_next);
+		(void) lttng_ust_uatomic_cmpxchg(&iter_prev->next, iter, new_next);
 		/* retry */
 	}
 end:
