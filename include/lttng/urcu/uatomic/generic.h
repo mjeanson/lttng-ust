@@ -39,7 +39,7 @@ extern "C" {
 
 #if !defined __OPTIMIZE__  || defined UATOMIC_NO_LINK_ERROR
 static inline __attribute__((always_inline))
-void _uatomic_link_error(void)
+void _lttng_ust_uatomic_link_error(void)
 {
 #ifdef LTTNG_UST_ILLEGAL_INSTR
 	/*
@@ -53,7 +53,7 @@ void _uatomic_link_error(void)
 }
 
 #else /* #if !defined __OPTIMIZE__  || defined UATOMIC_NO_LINK_ERROR */
-extern void _uatomic_link_error(void);
+extern void _lttng_ust_uatomic_link_error(void);
 #endif /* #else #if !defined __OPTIMIZE__  || defined UATOMIC_NO_LINK_ERROR */
 
 /* cmpxchg */
@@ -83,7 +83,7 @@ unsigned long _uatomic_cmpxchg(void *addr, unsigned long old,
 				_new);
 #endif
 	}
-	_uatomic_link_error();
+	_lttng_ust_uatomic_link_error();
 	return 0;
 }
 
@@ -122,7 +122,7 @@ void _uatomic_and(void *addr, unsigned long val,
 		return;
 #endif
 	}
-	_uatomic_link_error();
+	_lttng_ust_uatomic_link_error();
 }
 
 #define uatomic_and(addr, v)			\
@@ -161,7 +161,7 @@ void _uatomic_or(void *addr, unsigned long val,
 		return;
 #endif
 	}
-	_uatomic_link_error();
+	_lttng_ust_uatomic_link_error();
 	return;
 }
 
@@ -198,7 +198,7 @@ unsigned long _uatomic_add_return(void *addr, unsigned long val,
 		return __sync_add_and_fetch_8((uint64_t *) addr, val);
 #endif
 	}
-	_uatomic_link_error();
+	_lttng_ust_uatomic_link_error();
 	return 0;
 }
 
@@ -267,7 +267,7 @@ unsigned long _uatomic_exchange(void *addr, unsigned long val, int len)
 	}
 #endif
 	}
-	_uatomic_link_error();
+	_lttng_ust_uatomic_link_error();
 	return 0;
 }
 
@@ -339,7 +339,7 @@ void _uatomic_and(void *addr, unsigned long val, int len)
 	}
 #endif
 	}
-	_uatomic_link_error();
+	_lttng_ust_uatomic_link_error();
 }
 
 #define uatomic_and(addr, v)			\
@@ -413,7 +413,7 @@ void _uatomic_or(void *addr, unsigned long val, int len)
 	}
 #endif
 	}
-	_uatomic_link_error();
+	_lttng_ust_uatomic_link_error();
 }
 
 #define uatomic_or(addr, v)			\
@@ -491,7 +491,7 @@ unsigned long _uatomic_add_return(void *addr, unsigned long val, int len)
 	}
 #endif
 	}
-	_uatomic_link_error();
+	_lttng_ust_uatomic_link_error();
 	return 0;
 }
 
@@ -567,7 +567,7 @@ unsigned long _uatomic_exchange(void *addr, unsigned long val, int len)
 	}
 #endif
 	}
-	_uatomic_link_error();
+	_lttng_ust_uatomic_link_error();
 	return 0;
 }
 
