@@ -60,7 +60,7 @@ static inline
 void v_add(const struct lttng_ust_lib_ring_buffer_config *config, long v, union v_atomic *v_a)
 {
 	assert(config->sync != RING_BUFFER_SYNC_PER_CPU);
-	uatomic_add(&v_a->a, v);
+	lttng_ust_uatomic_add(&v_a->a, v);
 }
 
 static inline

@@ -683,7 +683,7 @@ void decrement_sem_count(unsigned int count)
 		return;
 	}
 
-	ret = uatomic_add_return(&sem_count, -count);
+	ret = lttng_ust_uatomic_add_return(&sem_count, -count);
 	if (ret == 0) {
 		ret = sem_post(&constructor_wait);
 		assert(!ret);

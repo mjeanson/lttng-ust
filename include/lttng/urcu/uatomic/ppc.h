@@ -170,10 +170,10 @@ unsigned long _lttng_ust_lttng_ust_uatomic_cmpxchg(void *addr, unsigned long old
 						lttng_ust_cast_long_keep_sign(_new),\
 						sizeof(*(addr))))
 
-/* uatomic_add_return */
+/* lttng_ust_uatomic_add_return */
 
 static inline __attribute__((always_inline))
-unsigned long _uatomic_add_return(void *addr, unsigned long val,
+unsigned long _lttng_ust_uatomic_add_return(void *addr, unsigned long val,
 				 int len)
 {
 	switch (len) {
@@ -223,8 +223,8 @@ unsigned long _uatomic_add_return(void *addr, unsigned long val,
 }
 
 
-#define uatomic_add_return(addr, v)					    \
-	((__typeof__(*(addr))) _uatomic_add_return((addr),		    \
+#define lttng_ust_uatomic_add_return(addr, v)					    \
+	((__typeof__(*(addr))) _lttng_ust_uatomic_add_return((addr),		    \
 						lttng_ust_cast_long_keep_sign(v), \
 						sizeof(*(addr))))
 

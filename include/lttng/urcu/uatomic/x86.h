@@ -178,7 +178,7 @@ unsigned long __lttng_ust_exchange(void *addr, unsigned long val, int len)
 						lttng_ust_cast_long_keep_sign(v),   \
 						sizeof(*(addr))))
 
-/* uatomic_add_return */
+/* lttng_ust_uatomic_add_return */
 
 static inline __attribute__((always_inline))
 unsigned long __lttng_ust_add_return(void *addr, unsigned long val,
@@ -240,7 +240,7 @@ unsigned long __lttng_ust_add_return(void *addr, unsigned long val,
 	return 0;
 }
 
-#define uatomic_add_return(addr, v)					    \
+#define lttng_ust_uatomic_add_return(addr, v)					    \
 	((__typeof__(*(addr))) __lttng_ust_add_return((addr),		    \
 						lttng_ust_cast_long_keep_sign(v), \
 						sizeof(*(addr))))
@@ -357,7 +357,7 @@ void __lttng_ust_or(void *addr, unsigned long val, int len)
 #define lttng_ust_uatomic_or(addr, v)						   \
 	(__lttng_ust_or((addr), lttng_ust_cast_long_keep_sign(v), sizeof(*(addr))))
 
-/* uatomic_add */
+/* lttng_ust_uatomic_add */
 
 static inline __attribute__((always_inline))
 void __lttng_ust_add(void *addr, unsigned long val, int len)
@@ -410,7 +410,7 @@ void __lttng_ust_add(void *addr, unsigned long val, int len)
 	return;
 }
 
-#define uatomic_add(addr, v)						   \
+#define lttng_ust_uatomic_add(addr, v)						   \
 	(__lttng_ust_add((addr), lttng_ust_cast_long_keep_sign(v), sizeof(*(addr))))
 
 
