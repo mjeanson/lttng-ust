@@ -99,7 +99,7 @@ unsigned long _lttng_ust_lttng_ust_uatomic_cmpxchg(void *addr, unsigned long old
 
 #ifndef uatomic_and
 static inline __attribute__((always_inline))
-void _uatomic_and(void *addr, unsigned long val,
+void _lttng_ust_uatomic_and(void *addr, unsigned long val,
 		  int len)
 {
 	switch (len) {
@@ -126,7 +126,7 @@ void _uatomic_and(void *addr, unsigned long val,
 }
 
 #define uatomic_and(addr, v)			\
-	(_uatomic_and((addr),			\
+	(_lttng_ust_uatomic_and((addr),			\
 		lttng_ust_cast_long_keep_sign(v),	\
 		sizeof(*(addr))))
 #define lttng_ust_smp_mb__before_uatomic_and()	lttng_ust_barrier()
@@ -283,7 +283,7 @@ unsigned long _uatomic_exchange(void *addr, unsigned long val, int len)
 /* uatomic_and */
 
 static inline __attribute__((always_inline))
-void _uatomic_and(void *addr, unsigned long val, int len)
+void _lttng_ust_uatomic_and(void *addr, unsigned long val, int len)
 {
 	switch (len) {
 #ifdef LTTNG_UST_HAS_ATOMIC_BYTE
@@ -343,7 +343,7 @@ void _uatomic_and(void *addr, unsigned long val, int len)
 }
 
 #define uatomic_and(addr, v)			\
-	(_uatomic_and((addr),			\
+	(_lttng_ust_uatomic_and((addr),			\
 		lttng_ust_cast_long_keep_sign(v),	\
 		sizeof(*(addr))))
 #define lttng_ust_smp_mb__before_uatomic_and()	lttng_ust_barrier()
