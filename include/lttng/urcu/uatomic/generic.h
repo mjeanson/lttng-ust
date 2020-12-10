@@ -579,7 +579,7 @@ unsigned long _lttng_ust_uatomic_exchange(void *addr, unsigned long val, int len
 
 #endif /* #else #ifndef lttng_ust_uatomic_cmpxchg */
 
-/* uatomic_sub_return, lttng_ust_uatomic_add, uatomic_sub, uatomic_inc, uatomic_dec */
+/* lttng_ust_uatomic_sub_return, lttng_ust_uatomic_add, lttng_ust_uatomic_sub, uatomic_inc, uatomic_dec */
 
 #ifndef lttng_ust_uatomic_add
 #define lttng_ust_uatomic_add(addr, v)		(void)lttng_ust_uatomic_add_return((addr), (v))
@@ -587,9 +587,9 @@ unsigned long _lttng_ust_uatomic_exchange(void *addr, unsigned long val, int len
 #define lttng_ust_smp_mb__after_uatomic_add()		lttng_ust_barrier()
 #endif
 
-#define uatomic_sub_return(addr, v)	\
+#define lttng_ust_uatomic_sub_return(addr, v)	\
 	lttng_ust_uatomic_add_return((addr), -(lttng_ust_cast_long_keep_sign(v)))
-#define uatomic_sub(addr, v)		\
+#define lttng_ust_uatomic_sub(addr, v)		\
 	lttng_ust_uatomic_add((addr), -(lttng_ust_cast_long_keep_sign(v)))
 #define lttng_ust_smp_mb__before_uatomic_sub()	lttng_ust_smp_mb__before_uatomic_add()
 #define lttng_ust_smp_mb__after_uatomic_sub()		lttng_ust_smp_mb__after_uatomic_add()
