@@ -414,7 +414,7 @@ void __lttng_ust_add(void *addr, unsigned long val, int len)
 	(__lttng_ust_add((addr), lttng_ust_cast_long_keep_sign(v), sizeof(*(addr))))
 
 
-/* uatomic_inc */
+/* lttng_ust_uatomic_inc */
 
 static inline __attribute__((always_inline))
 void __lttng_ust_inc(void *addr, int len)
@@ -465,7 +465,7 @@ void __lttng_ust_inc(void *addr, int len)
 	return;
 }
 
-#define uatomic_inc(addr)	(__lttng_ust_inc((addr), sizeof(*(addr))))
+#define lttng_ust_uatomic_inc(addr)	(__lttng_ust_inc((addr), sizeof(*(addr))))
 
 /* uatomic_dec */
 

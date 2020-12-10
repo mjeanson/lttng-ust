@@ -266,7 +266,7 @@ void *channel_get_private(struct channel *chan)
 				__chan = (void *) (c);			\
 			else						\
 				BUG_ON(1);				\
-			uatomic_inc(&__chan->record_disabled);		\
+			lttng_ust_uatomic_inc(&__chan->record_disabled);		\
 			WARN_ON(1);					\
 		}							\
 		_____ret = _____ret; /* For clang "unused result". */	\

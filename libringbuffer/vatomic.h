@@ -67,7 +67,7 @@ static inline
 void v_inc(const struct lttng_ust_lib_ring_buffer_config *config, union v_atomic *v_a)
 {
 	assert(config->sync != RING_BUFFER_SYNC_PER_CPU);
-	uatomic_inc(&v_a->a);
+	lttng_ust_uatomic_inc(&v_a->a);
 }
 
 /*
