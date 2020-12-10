@@ -1279,7 +1279,7 @@ void lib_ring_buffer_release_read(struct lttng_ust_lib_ring_buffer *buf,
 		return;
 	CHAN_WARN_ON(chan, lttng_ust_uatomic_read(&buf->active_readers) != 1);
 	lttng_ust_smp_mb();
-	uatomic_dec(&buf->active_readers);
+	lttng_ust_uatomic_dec(&buf->active_readers);
 }
 
 /**

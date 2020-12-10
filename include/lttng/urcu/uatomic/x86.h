@@ -467,7 +467,7 @@ void __lttng_ust_inc(void *addr, int len)
 
 #define lttng_ust_uatomic_inc(addr)	(__lttng_ust_inc((addr), sizeof(*(addr))))
 
-/* uatomic_dec */
+/* lttng_ust_uatomic_dec */
 
 static inline __attribute__((always_inline))
 void __lttng_ust_dec(void *addr, int len)
@@ -520,7 +520,7 @@ void __lttng_ust_dec(void *addr, int len)
 	return;
 }
 
-#define uatomic_dec(addr)	(__lttng_ust_dec((addr), sizeof(*(addr))))
+#define lttng_ust_uatomic_dec(addr)	(__lttng_ust_dec((addr), sizeof(*(addr))))
 
 #define lttng_ust_smp_mb__before_uatomic_and()		lttng_ust_barrier()
 #define lttng_ust_smp_mb__after_uatomic_and()		lttng_ust_barrier()

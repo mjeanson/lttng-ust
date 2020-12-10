@@ -354,7 +354,7 @@ static inline
 void channel_record_enable(const struct lttng_ust_lib_ring_buffer_config *config,
 			   struct channel *chan)
 {
-	uatomic_dec(&chan->record_disabled);
+	lttng_ust_uatomic_dec(&chan->record_disabled);
 }
 
 static inline
@@ -368,7 +368,7 @@ static inline
 void lib_ring_buffer_record_enable(const struct lttng_ust_lib_ring_buffer_config *config,
 				   struct lttng_ust_lib_ring_buffer *buf)
 {
-	uatomic_dec(&buf->record_disabled);
+	lttng_ust_uatomic_dec(&buf->record_disabled);
 }
 
 #endif /* _LTTNG_RING_BUFFER_FRONTEND_API_H */
