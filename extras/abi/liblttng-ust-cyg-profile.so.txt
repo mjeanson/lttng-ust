@@ -1,0 +1,19 @@
+ELF SONAME changed
+Functions changes summary: 0 Removed, 0 Changed, 0 Added function
+Variables changes summary: 0 Removed, 0 Changed, 0 Added variable
+Function symbols changes summary: 0 Removed, 2 Added function symbols not referenced by debug info
+Variable symbols changes summary: 0 Removed, 3 Added variable symbols not referenced by debug info
+
+SONAME changed from 'liblttng-ust-cyg-profile.so.0' to 'liblttng-ust-cyg-profile.so.1'
+
+2 Added function symbols not referenced by debug info:
+
+  __cyg_profile_func_enter
+  __cyg_profile_func_exit
+
+3 Added variable symbols not referenced by debug info:
+
+  __tracepoint_lttng_ust_cyg_profile___func_entry
+  __tracepoint_lttng_ust_cyg_profile___func_exit
+  __tracepoint_provider_lttng_ust_cyg_profile
+

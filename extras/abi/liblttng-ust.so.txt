@@ -1,0 +1,151 @@
+ELF SONAME changed
+Functions changes summary: 0 Removed, 0 Changed, 0 Added function
+Variables changes summary: 0 Removed, 0 Changed, 0 Added variable
+Function symbols changes summary: 0 Removed, 99 Added function symbols not referenced by debug info
+Variable symbols changes summary: 0 Removed, 38 Added variable symbols not referenced by debug info
+
+SONAME changed from 'liblttng-ust.so.0' to 'liblttng-ust.so.1'
+
+99 Added function symbols not referenced by debug info:
+
+  _lttng_ust_tracef
+  _lttng_ust_tracelog_TRACE_ALERT
+  _lttng_ust_tracelog_TRACE_CRIT
+  _lttng_ust_tracelog_TRACE_DEBUG
+  _lttng_ust_tracelog_TRACE_DEBUG_FUNCTION
+  _lttng_ust_tracelog_TRACE_DEBUG_LINE
+  _lttng_ust_tracelog_TRACE_DEBUG_MODULE
+  _lttng_ust_tracelog_TRACE_DEBUG_PROCESS
+  _lttng_ust_tracelog_TRACE_DEBUG_PROGRAM
+  _lttng_ust_tracelog_TRACE_DEBUG_SYSTEM
+  _lttng_ust_tracelog_TRACE_DEBUG_UNIT
+  _lttng_ust_tracelog_TRACE_EMERG
+  _lttng_ust_tracelog_TRACE_ERR
+  _lttng_ust_tracelog_TRACE_INFO
+  _lttng_ust_tracelog_TRACE_NOTICE
+  _lttng_ust_tracelog_TRACE_WARNING
+  _lttng_ust_vtracef
+  _lttng_ust_vtracelog_TRACE_ALERT
+  _lttng_ust_vtracelog_TRACE_CRIT
+  _lttng_ust_vtracelog_TRACE_DEBUG
+  _lttng_ust_vtracelog_TRACE_DEBUG_FUNCTION
+  _lttng_ust_vtracelog_TRACE_DEBUG_LINE
+  _lttng_ust_vtracelog_TRACE_DEBUG_MODULE
+  _lttng_ust_vtracelog_TRACE_DEBUG_PROCESS
+  _lttng_ust_vtracelog_TRACE_DEBUG_PROGRAM
+  _lttng_ust_vtracelog_TRACE_DEBUG_SYSTEM
+  _lttng_ust_vtracelog_TRACE_DEBUG_UNIT
+  _lttng_ust_vtracelog_TRACE_EMERG
+  _lttng_ust_vtracelog_TRACE_ERR
+  _lttng_ust_vtracelog_TRACE_INFO
+  _lttng_ust_vtracelog_TRACE_NOTICE
+  _lttng_ust_vtracelog_TRACE_WARNING
+  lttng_abi_create_root_handle
+  lttng_context_procname_reset
+  lttng_filter_enabler_attach_bytecode
+  lttng_probe_register
+  lttng_probe_unregister
+  lttng_ring_buffer_client_discard_exit
+  lttng_ring_buffer_client_discard_init
+  lttng_ring_buffer_client_discard_rt_exit
+  lttng_ring_buffer_client_discard_rt_init
+  lttng_ring_buffer_client_overwrite_exit
+  lttng_ring_buffer_client_overwrite_init
+  lttng_ring_buffer_client_overwrite_rt_exit
+  lttng_ring_buffer_client_overwrite_rt_init
+  lttng_ring_buffer_metadata_client_exit
+  lttng_ring_buffer_metadata_client_init
+  lttng_session_active
+  lttng_transport_find
+  lttng_ust_abi_exit
+  lttng_ust_add_app_context_to_ctx_rcu
+  lttng_ust_add_fd_to_tracker
+  lttng_ust_context_provider_register
+  lttng_ust_context_provider_unregister
+  lttng_ust_context_set_provider_rcu
+  lttng_ust_context_set_session_provider
+  lttng_ust_delete_fd_from_tracker
+  lttng_ust_dl_update
+  lttng_ust_elf_create
+  lttng_ust_elf_destroy
+  lttng_ust_elf_get_build_id
+  lttng_ust_elf_get_debug_link
+  lttng_ust_elf_get_debug_link_from_section
+  lttng_ust_elf_get_memsz
+  lttng_ust_elf_is_pic
+  lttng_ust_enable_trace_clock_override
+  lttng_ust_events_exit
+  lttng_ust_exit
+  lttng_ust_getcpu_override
+  lttng_ust_init
+  lttng_ust_init_fd_tracker
+  lttng_ust_libc_wrapper_malloc_init
+  lttng_ust_lock_fd_tracker
+  lttng_ust_objd_table_owner_cleanup
+  lttng_ust_objd_unref
+  lttng_ust_safe_close_fd
+  lttng_ust_safe_closefrom_fd
+  lttng_ust_safe_fclose_stream
+  lttng_ust_strerror
+  lttng_ust_trace_clock_set_description_cb
+  lttng_ust_trace_clock_set_freq_cb
+  lttng_ust_trace_clock_set_name_cb
+  lttng_ust_trace_clock_set_read64_cb
+  lttng_ust_trace_clock_set_uuid_cb
+  lttng_ust_unlock_fd_tracker
+  objd_ops
+  ust_after_fork_child
+  ust_after_fork_parent
+  ust_after_setegid
+  ust_after_seteuid
+  ust_after_setgid
+  ust_after_setns
+  ust_after_setregid
+  ust_after_setresgid
+  ust_after_setresuid
+  ust_after_setreuid
+  ust_after_setuid
+  ust_after_unshare
+  ust_before_fork
+
+38 Added variable symbols not referenced by debug info:
+
+  __lttng_ust_compat_futex_cond
+  __lttng_ust_compat_futex_lock
+  __tracepoint_lttng_ust_lib___build_id
+  __tracepoint_lttng_ust_lib___debug_link
+  __tracepoint_lttng_ust_lib___load
+  __tracepoint_lttng_ust_lib___unload
+  __tracepoint_lttng_ust_statedump___bin_info
+  __tracepoint_lttng_ust_statedump___build_id
+  __tracepoint_lttng_ust_statedump___debug_link
+  __tracepoint_lttng_ust_statedump___end
+  __tracepoint_lttng_ust_statedump___procname
+  __tracepoint_lttng_ust_statedump___start
+  __tracepoint_lttng_ust_tracef___event
+  __tracepoint_lttng_ust_tracelog___TRACE_ALERT
+  __tracepoint_lttng_ust_tracelog___TRACE_CRIT
+  __tracepoint_lttng_ust_tracelog___TRACE_DEBUG
+  __tracepoint_lttng_ust_tracelog___TRACE_DEBUG_FUNCTION
+  __tracepoint_lttng_ust_tracelog___TRACE_DEBUG_LINE
+  __tracepoint_lttng_ust_tracelog___TRACE_DEBUG_MODULE
+  __tracepoint_lttng_ust_tracelog___TRACE_DEBUG_PROCESS
+  __tracepoint_lttng_ust_tracelog___TRACE_DEBUG_PROGRAM
+  __tracepoint_lttng_ust_tracelog___TRACE_DEBUG_SYSTEM
+  __tracepoint_lttng_ust_tracelog___TRACE_DEBUG_UNIT
+  __tracepoint_lttng_ust_tracelog___TRACE_EMERG
+  __tracepoint_lttng_ust_tracelog___TRACE_ERR
+  __tracepoint_lttng_ust_tracelog___TRACE_INFO
+  __tracepoint_lttng_ust_tracelog___TRACE_NOTICE
+  __tracepoint_lttng_ust_tracelog___TRACE_WARNING
+  __tracepoint_provider_lttng_ust_lib
+  __tracepoint_provider_lttng_ust_statedump
+  __tracepoint_provider_lttng_ust_tracef
+  __tracepoint_provider_lttng_ust_tracelog
+  dl_state_table
+  dt_var_fields
+  global_apps
+  local_apps
+  lttng_crash_magic_xor
+  lttng_ust_loaded
+

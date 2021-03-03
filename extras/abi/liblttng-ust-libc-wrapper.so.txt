@@ -1,0 +1,28 @@
+ELF SONAME changed
+Functions changes summary: 0 Removed, 0 Changed, 0 Added function
+Variables changes summary: 0 Removed, 0 Changed, 0 Added variable
+Function symbols changes summary: 0 Removed, 7 Added function symbols not referenced by debug info
+Variable symbols changes summary: 0 Removed, 7 Added variable symbols not referenced by debug info
+
+SONAME changed from 'liblttng-ust-libc-wrapper.so.0' to 'liblttng-ust-libc-wrapper.so.1'
+
+7 Added function symbols not referenced by debug info:
+
+  calloc
+  free
+  lttng_ust_libc_wrapper_malloc_init
+  malloc
+  memalign
+  posix_memalign
+  realloc
+
+7 Added variable symbols not referenced by debug info:
+
+  __tracepoint_lttng_ust_libc___calloc
+  __tracepoint_lttng_ust_libc___free
+  __tracepoint_lttng_ust_libc___malloc
+  __tracepoint_lttng_ust_libc___memalign
+  __tracepoint_lttng_ust_libc___posix_memalign
+  __tracepoint_lttng_ust_libc___realloc
+  __tracepoint_provider_lttng_ust_libc
+

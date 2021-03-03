@@ -1,0 +1,23 @@
+ELF SONAME changed
+Functions changes summary: 0 Removed, 0 Changed, 0 Added function
+Variables changes summary: 0 Removed, 0 Changed, 0 Added variable
+Function symbols changes summary: 0 Removed, 3 Added function symbols not referenced by debug info
+Variable symbols changes summary: 0 Removed, 6 Added variable symbols not referenced by debug info
+
+SONAME changed from 'liblttng-ust-dl.so.0' to 'liblttng-ust-dl.so.1'
+
+3 Added function symbols not referenced by debug info:
+
+  dlclose
+  dlmopen
+  dlopen
+
+6 Added variable symbols not referenced by debug info:
+
+  __tracepoint_lttng_ust_dl___build_id
+  __tracepoint_lttng_ust_dl___debug_link
+  __tracepoint_lttng_ust_dl___dlclose
+  __tracepoint_lttng_ust_dl___dlmopen
+  __tracepoint_lttng_ust_dl___dlopen
+  __tracepoint_provider_lttng_ust_dl
+

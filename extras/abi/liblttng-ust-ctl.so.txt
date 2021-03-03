@@ -1,0 +1,136 @@
+ELF SONAME changed
+Functions changes summary: 0 Removed, 0 Changed, 0 Added function
+Variables changes summary: 0 Removed, 0 Changed, 0 Added variable
+Function symbols changes summary: 0 Removed, 120 Added function symbols not referenced by debug info
+Variable symbols changes summary: 0 Removed, 2 Added variable symbols not referenced by debug info
+
+SONAME changed from 'liblttng-ust-ctl.so.4' to 'liblttng-ust-ctl.so.5'
+
+120 Added function symbols not referenced by debug info:
+
+  [A] lttng_ring_buffer_client_discard_exit
+  [A] lttng_ring_buffer_client_discard_init
+  [A] lttng_ring_buffer_client_discard_rt_exit
+  [A] lttng_ring_buffer_client_discard_rt_init
+  [A] lttng_ring_buffer_client_overwrite_exit
+  [A] lttng_ring_buffer_client_overwrite_init
+  [A] lttng_ring_buffer_client_overwrite_rt_exit
+  [A] lttng_ring_buffer_client_overwrite_rt_init
+  [A] lttng_ring_buffer_metadata_client_exit
+  [A] lttng_ring_buffer_metadata_client_init
+  [A] lttng_transport_find
+  [A] lttng_ust_add_fd_to_tracker
+  [A] lttng_ust_delete_fd_from_tracker
+  [A] lttng_ust_enable_trace_clock_override
+  [A] lttng_ust_fixup_fd_tracker_tls
+  [A] lttng_ust_getcpu_override
+  [A] lttng_ust_init_fd_tracker
+  [A] lttng_ust_lock_fd_tracker
+  [A] lttng_ust_safe_close_fd
+  [A] lttng_ust_safe_closefrom_fd
+  [A] lttng_ust_safe_fclose_stream
+  [A] lttng_ust_strerror
+  [A] lttng_ust_trace_clock_set_description_cb
+  [A] lttng_ust_trace_clock_set_freq_cb
+  [A] lttng_ust_trace_clock_set_name_cb
+  [A] lttng_ust_trace_clock_set_read64_cb
+  [A] lttng_ust_trace_clock_set_uuid_cb
+  [A] lttng_ust_unlock_fd_tracker
+  [A] ustctl_add_context
+  [A] ustctl_calibrate
+  [A] ustctl_channel_close_wait_fd
+  [A] ustctl_channel_close_wakeup_fd
+  [A] ustctl_channel_get_wait_fd
+  [A] ustctl_channel_get_wakeup_fd
+  [A] ustctl_clear_buffer
+  [A] ustctl_counter_aggregate
+  [A] ustctl_counter_clear
+  [A] ustctl_counter_read
+  [A] ustctl_create_channel
+  [A] ustctl_create_counter
+  [A] ustctl_create_counter_cpu_data
+  [A] ustctl_create_counter_data
+  [A] ustctl_create_counter_global_data
+  [A] ustctl_create_event
+  [A] ustctl_create_event_notifier
+  [A] ustctl_create_event_notifier_group
+  [A] ustctl_create_session
+  [A] ustctl_create_stream
+  [A] ustctl_destroy_channel
+  [A] ustctl_destroy_counter
+  [A] ustctl_destroy_stream
+  [A] ustctl_disable
+  [A] ustctl_duplicate_ust_object_data
+  [A] ustctl_enable
+  [A] ustctl_flush_buffer
+  [A] ustctl_get_content_size
+  [A] ustctl_get_current_timestamp
+  [A] ustctl_get_events_discarded
+  [A] ustctl_get_instance_id
+  [A] ustctl_get_max_subbuf_size
+  [A] ustctl_get_mmap_base
+  [A] ustctl_get_mmap_len
+  [A] ustctl_get_mmap_read_offset
+  [A] ustctl_get_next_subbuf
+  [A] ustctl_get_nr_cpu_per_counter
+  [A] ustctl_get_nr_stream_per_channel
+  [A] ustctl_get_packet_size
+  [A] ustctl_get_padded_subbuf_size
+  [A] ustctl_get_sequence_number
+  [A] ustctl_get_stream_id
+  [A] ustctl_get_subbuf
+  [A] ustctl_get_subbuf_size
+  [A] ustctl_get_timestamp_begin
+  [A] ustctl_get_timestamp_end
+  [A] ustctl_has_perf_counters
+  [A] ustctl_put_next_subbuf
+  [A] ustctl_put_subbuf
+  [A] ustctl_recv_channel_from_consumer
+  [A] ustctl_recv_notify
+  [A] ustctl_recv_reg_msg
+  [A] ustctl_recv_register_channel
+  [A] ustctl_recv_register_enum
+  [A] ustctl_recv_register_event
+  [A] ustctl_recv_stream_from_consumer
+  [A] ustctl_regenerate_statedump
+  [A] ustctl_register_done
+  [A] ustctl_release_handle
+  [A] ustctl_release_object
+  [A] ustctl_reply_register_channel
+  [A] ustctl_reply_register_enum
+  [A] ustctl_reply_register_event
+  [A] ustctl_send_channel_to_sessiond
+  [A] ustctl_send_channel_to_ust
+  [A] ustctl_send_counter_cpu_data_to_ust
+  [A] ustctl_send_counter_data_to_ust
+  [A] ustctl_send_counter_global_data_to_ust
+  [A] ustctl_send_stream_to_sessiond
+  [A] ustctl_send_stream_to_ust
+  [A] ustctl_set_capture
+  [A] ustctl_set_exclusion
+  [A] ustctl_set_filter
+  [A] ustctl_snapshot
+  [A] ustctl_snapshot_get_consumed
+  [A] ustctl_snapshot_get_produced
+  [A] ustctl_snapshot_sample_positions
+  [A] ustctl_sock_flush_buffer
+  [A] ustctl_start_session
+  [A] ustctl_stop_session
+  [A] ustctl_stream_close_wait_fd
+  [A] ustctl_stream_close_wakeup_fd
+  [A] ustctl_stream_get_wait_fd
+  [A] ustctl_stream_get_wakeup_fd
+  [A] ustctl_tracepoint_field_list
+  [A] ustctl_tracepoint_field_list_get
+  [A] ustctl_tracepoint_list
+  [A] ustctl_tracepoint_list_get
+  [A] ustctl_tracer_version
+  [A] ustctl_wait_quiescent
+  [A] ustctl_write_metadata_to_channel
+  [A] ustctl_write_one_packet_to_channel
+
+2 Added variable symbols not referenced by debug info:
+
+  dt_var_fields
+  lttng_crash_magic_xor
+
