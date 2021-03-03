@@ -1,0 +1,37 @@
+* Bump python provider soname to '1', follow liblttng-ust for co-instability
+* Same for java, have to check how jni loads libraries
+
+* Discuss 'extern' symbols in public API
+  * Clarify ownership of symbols across library
+  * Document extern symbols in the code
+
+* Check public functions / structs in 'include/lttng/ust-events.h'
+
+* Rename 'include/lttng/ust.h', only contains functions for liblttng-ust-fork
+
+
+* Possible public symbols in 'liblttng-ust/tracepoint-internal.h' for liblttng-ust-tracepoint.so
+
+* lttng_trace_clock, copy of private header in lttng-tools 'src/bin/lttng-sessiond/ust-clock.h'
+
+
+* Normalize public symbols prefix?
+* Prefix per public lib?
+
+  - liblttng-ust-tracepoint.so:
+    - Current mix of 'tp_' and 'tracepoint_'
+
+  - liblttng-ust.so:
+    - Big mess :)
+    - 'ustcomm_'
+    - 'ust_'
+    - 'lttng_ust_'
+    - 'lttng_ring_buffer_'
+    - 'lib_ring_buffer_'
+    - etc...
+
+  - liblttng-ust-ctl.so:
+    - 'lttng_ust_'
+    - 'lttng_'
+    - 'ustcomm_'
+    - 'ustctl_'
