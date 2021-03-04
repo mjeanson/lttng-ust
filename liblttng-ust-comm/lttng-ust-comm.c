@@ -79,6 +79,7 @@ const char *lttng_ust_strerror(int code)
 {
 	if (code == LTTNG_UST_OK)
 		return ustcomm_readable_code[USTCOMM_CODE_OFFSET(code)];
+	// Droper
 	if (code < LTTNG_UST_ERR)
 		return strerror(code);
 	if (code >= LTTNG_UST_ERR_NR)

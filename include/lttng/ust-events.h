@@ -55,6 +55,7 @@ struct lttng_event_notifier_group;
 /* Type description */
 
 /* Update the astract_types name table in lttng-types.c along with this enum */
+// Utilisé par les probe providers
 enum lttng_abstract_types {
 	atype_integer,
 	atype_enum,	/* legacy */
@@ -72,6 +73,7 @@ enum lttng_abstract_types {
 };
 
 /* Update the string_encodings name table in lttng-types.c along with this enum */
+// Utilisé par les probe providers
 enum lttng_string_encodings {
 	lttng_encode_none = 0,
 	lttng_encode_UTF8 = 1,
@@ -79,15 +81,18 @@ enum lttng_string_encodings {
 	NR_STRING_ENCODINGS,
 };
 
+// Utilisé par les probe providers
 struct lttng_enum_value {
 	unsigned long long value;
 	unsigned int signedness:1;
 };
 
+// Utilisé par les probe providers
 enum lttng_enum_entry_options {
 	LTTNG_ENUM_ENTRY_OPTION_IS_AUTO = 1U << 0,
 };
 
+// Utilisé par les probe providers
 #define LTTNG_UST_ENUM_ENTRY_PADDING	16
 struct lttng_enum_entry {
 	struct lttng_enum_value start, end; /* start and end are inclusive */
@@ -100,6 +105,7 @@ struct lttng_enum_entry {
 	} u;
 };
 
+// Utilisé par les probe providers
 #define __type_integer(_type, _byte_order, _base, _encoding)	\
 	{							\
 	  .atype = atype_integer,				\
@@ -117,6 +123,7 @@ struct lttng_enum_entry {
 		},						\
 	}							\
 
+// Utilisé par les probe providers
 #define LTTNG_UST_INTEGER_TYPE_PADDING	24
 struct lttng_integer_type {
 	unsigned int size;		/* in bits */
@@ -132,6 +139,7 @@ struct lttng_integer_type {
  * Only float and double are supported. long double is not supported at
  * the moment.
  */
+// Utilisé par les probe providers
 #define _float_mant_dig(_type)						\
 	(sizeof(_type) == sizeof(float) ? FLT_MANT_DIG			\
 		: (sizeof(_type) == sizeof(double) ? DBL_MANT_DIG	\
@@ -163,6 +171,7 @@ struct lttng_float_type {
 };
 
 /* legacy */
+// Droppé? voir tools?
 #define LTTNG_UST_BASIC_TYPE_PADDING	128
 union _lttng_basic_type {
 	struct lttng_integer_type integer;	/* legacy */
@@ -185,6 +194,7 @@ struct lttng_basic_type {
 	} u;
 };
 
+//probe provider
 #define LTTNG_UST_TYPE_PADDING	128
 struct lttng_type {
 	enum lttng_abstract_types atype;
@@ -215,6 +225,7 @@ struct lttng_type {
 			unsigned int alignment;
 		} struct_nestable;
 
+		// Dropper
 		union {
 			/* legacy provider ABI 1.0 */
 			union _lttng_basic_type basic;	/* legacy */
@@ -235,6 +246,7 @@ struct lttng_type {
 	} u;
 };
 
+// Probe provider
 #define LTTNG_UST_ENUM_TYPE_PADDING	24
 struct lttng_enum_desc {
 	const char *name;
@@ -251,6 +263,7 @@ struct lttng_enum_desc {
  * removed.
  */
 
+// Probe provider
 #define LTTNG_UST_EVENT_FIELD_PADDING	28
 struct lttng_event_field {
 	const char *name;
@@ -264,6 +277,10 @@ struct lttng_event_field {
 	} u;
 };
 
+// FIXME: lttng_ctx should be API after all?
+// "struct lttng_bytecode_runtime"
+
+// Bouger include/ust-dynamic-type.h
 enum lttng_ust_dynamic_type {
 	LTTNG_UST_DYNAMIC_TYPE_NONE,
 	LTTNG_UST_DYNAMIC_TYPE_S8,
@@ -280,6 +297,7 @@ enum lttng_ust_dynamic_type {
 	_NR_LTTNG_UST_DYNAMIC_TYPES,
 };
 
+// Bouger context-provider-internal.h
 struct lttng_ctx_value {
 	enum lttng_ust_dynamic_type sel;
 	union {
@@ -292,6 +310,7 @@ struct lttng_ctx_value {
 
 struct lttng_perf_counter_field;
 
+// Bouger context-provider-internal.h
 #define LTTNG_UST_CTX_FIELD_PADDING	40
 struct lttng_ctx_field {
 	struct lttng_event_field event_field;
@@ -309,6 +328,7 @@ struct lttng_ctx_field {
 	char *field_name;	/* Has ownership, dynamically allocated. */
 };
 
+// Bouger context-provider-internal.h
 #define LTTNG_UST_CTX_PADDING	20
 struct lttng_ctx {
 	struct lttng_ctx_field *fields;
@@ -318,6 +338,7 @@ struct lttng_ctx {
 	char padding[LTTNG_UST_CTX_PADDING];
 };
 
+// Public probe provider
 #define LTTNG_UST_EVENT_DESC_PADDING	40
 struct lttng_event_desc {
 	const char *name;
@@ -327,15 +348,18 @@ struct lttng_event_desc {
 	unsigned int nr_fields;
 	const int **loglevel;
 	const char *signature;	/* Argument types/names received */
+	// Enlever l'union, move eveything, bump padding to 64
 	union {
 		struct {
 			const char **model_emf_uri;
+			// Move up to struct
 			void (*event_notifier_callback)(void);
 		} ext;
 		char padding[LTTNG_UST_EVENT_DESC_PADDING];
 	} u;
 };
 
+// probe provider
 #define LTTNG_UST_PROBE_DESC_PADDING	12
 struct lttng_probe_desc {
 	const char *provider;
@@ -354,6 +378,7 @@ struct lttng_probe_desc {
 /*
  * Bytecode interpreter return value masks.
  */
+// Public probe provider
 enum lttng_bytecode_interpreter_ret {
 	LTTNG_INTERPRETER_DISCARD = 0,
 	LTTNG_INTERPRETER_RECORD_FLAG = (1ULL << 0),
@@ -368,6 +393,7 @@ struct lttng_interpreter_output;
  * structure we must not change the layout of these two fields as it is
  * considered ABI.
  */
+// Public probe provider
 struct lttng_bytecode_runtime {
 	/* Associated bytecode */
 	struct lttng_ust_bytecode_node *bc;
@@ -395,6 +421,7 @@ struct lttng_bytecode_runtime {
  * UST. Fields need to be only added at the end, never reordered, never
  * removed.
  */
+// Merger les 2 struct en une
 struct lttng_event {
 	unsigned int id;
 	struct lttng_channel *chan;
@@ -431,6 +458,7 @@ struct lttng_event_notifier {
 	struct lttng_event_notifier_group *group; /* weak ref */
 };
 
+// Public probe provider
 struct lttng_enum {
 	const struct lttng_enum_desc *desc;
 	struct lttng_session *session;
@@ -439,6 +467,7 @@ struct lttng_enum {
 	uint64_t id;			/* Enumeration ID in sessiond */
 };
 
+// Namespacer dans lib_ring_buffer
 struct channel;
 struct lttng_ust_shm_handle;
 
@@ -447,6 +476,8 @@ struct lttng_ust_shm_handle;
  * UST. Fields need to be only added at the end, never reordered, never
  * removed.
  */
+// 'struct channel' -> 'struct lttng_channel'
+// wrapper lib_ring_buffer
 struct lttng_channel_ops {
 	struct lttng_channel *(*channel_create)(const char *name,
 			void *buf_addr,
@@ -482,6 +513,7 @@ struct lttng_channel_ops {
  * UST. Fields need to be only added at the end, never reordered, never
  * removed.
  */
+// Public
 struct lttng_channel {
 	/*
 	 * The pointers located in this private data are NOT safe to be
@@ -509,6 +541,8 @@ struct lttng_channel {
 
 struct lttng_counter_dimension;
 
+// public
+// Ca prends un scheme d'extensibilité
 struct lttng_counter_ops {
 	struct lib_counter *(*counter_create)(size_t nr_dimensions,
 			const struct lttng_counter_dimension *dimensions,
@@ -529,6 +563,7 @@ struct lttng_counter_ops {
 	int (*counter_clear)(struct lib_counter *counter, const size_t *dimension_indexes);
 };
 
+// public
 #define LTTNG_UST_STACK_CTX_PADDING	32
 struct lttng_stack_ctx {
 	struct lttng_event *event;
@@ -537,6 +572,9 @@ struct lttng_stack_ctx {
 	char padding[LTTNG_UST_STACK_CTX_PADDING];
 };
 
+// mjeanson: these require the refactor of 'struct lttng_event'
+
+// private, events-internal
 #define LTTNG_UST_EVENT_HT_BITS		12
 #define LTTNG_UST_EVENT_HT_SIZE		(1U << LTTNG_UST_EVENT_HT_BITS)
 
@@ -544,18 +582,22 @@ struct lttng_ust_event_ht {
 	struct cds_hlist_head table[LTTNG_UST_EVENT_HT_SIZE];
 };
 
+// private, events-internal
 #define LTTNG_UST_EVENT_NOTIFIER_HT_BITS		12
 #define LTTNG_UST_EVENT_NOTIFIER_HT_SIZE		(1U << LTTNG_UST_EVENT_NOTIFIER_HT_BITS)
 struct lttng_ust_event_notifier_ht {
 	struct cds_hlist_head table[LTTNG_UST_EVENT_NOTIFIER_HT_SIZE];
 };
 
+// private, events-internal
 #define LTTNG_UST_ENUM_HT_BITS		12
 #define LTTNG_UST_ENUM_HT_SIZE		(1U << LTTNG_UST_ENUM_HT_BITS)
 
 struct lttng_ust_enum_ht {
 	struct cds_hlist_head table[LTTNG_UST_ENUM_HT_SIZE];
 };
+
+// Refactor, splitter les field privés et public
 
 /*
  * IMPORTANT: this structure is part of the ABI between the probe and
@@ -586,18 +628,28 @@ struct lttng_session {
 	struct lttng_ctx *ctx;			/* contexts for filters. */
 };
 
+// Public
 int lttng_probe_register(struct lttng_probe_desc *desc);
+// Public
 void lttng_probe_unregister(struct lttng_probe_desc *desc);
 
 /*
  * Can be used by applications that change their procname to clear the ust cached value.
  */
+// Public ou symbol equivalent pour la feature
 void lttng_context_procname_reset(void);
 
+// Private
+// mjeanson: Utilisé par liblttng-ctl, needs to be public?
 struct lttng_transport *lttng_transport_find(const char *name);
 
+
+// Public, documenter
+// Sert a determiner s'il y a une session active.
 int lttng_session_active(void);
 
+// Private
+// mjeanson: Utilisé par liblttng-ust-dl, could be in an internal conv lib, no shared state?
 void lttng_ust_dl_update(void *ip);
 
 #ifdef __cplusplus

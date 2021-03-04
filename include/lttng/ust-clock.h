@@ -52,4 +52,6 @@ int lttng_ust_trace_clock_set_description_cb(const char *(*description)(void));
  */
 int lttng_ust_enable_trace_clock_override(void);
 
+// FIXME: Ajouter un getter par callback
+
 #endif /* LTTNG_UST_CLOCK_H */

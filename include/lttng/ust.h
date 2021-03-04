@@ -13,12 +13,17 @@
 extern "C" {
 #endif
 
+// Réutiliser comme un entry point de l'API
+
 // FIXME: This header should be renamed
 
 // This is ABI for liblttng-ust-fork
 
 
 // Owned by liblttng-ust.so, no extern
+
+// Bouger un header avec procname utils
+// Trouver un nom pour ces utils
 void ust_before_fork(sigset_t *save_sigset);
 void ust_after_fork_parent(sigset_t *restore_sigset);
 void ust_after_fork_child(sigset_t *restore_sigset);
