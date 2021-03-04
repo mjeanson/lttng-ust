@@ -42,7 +42,7 @@ enum lttng_ust_error_code {
 
 /*
  * Return a human-readable error message for an lttng-ust error code.
- * code must be a positive value (or 0).
+ * Code must be a negative value of enum lttng_ust_error_code (or 0).
  */
 const char *lttng_ust_strerror(int code);
 
