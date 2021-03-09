@@ -17,7 +17,12 @@
 #include <urcu/arch.h>
 #include <lttng/ust-clock.h>
 
+#include "ust-helper.h"
+
 #include "lttng-ust-uuid.h"
+
+//FIXME: mjeanson: tools has a copy of this private header and expect the
+//extern sym to be available, move to public?
 
 struct lttng_trace_clock {
 	uint64_t (*read64)(void);
@@ -27,8 +32,10 @@ struct lttng_trace_clock {
 	const char *(*description)(void);
 };
 
+LTTNG_HIDDEN
 extern struct lttng_trace_clock *lttng_trace_clock;
 
+LTTNG_HIDDEN
 void lttng_ust_clock_init(void);
 
 /* Use the kernel MONOTONIC clock. */
