@@ -22,17 +22,26 @@ struct tracepoint_lib {
 	struct cds_list_head callsites;
 };
 
+/* FIXME: No callers, drop them?
+LTTNG_HIDDEN
 extern int tracepoint_probe_register_noupdate(const char *name,
 		void (*callback)(void), void *priv,
 		const char *signature);
+
+LTTNG_HIDDEN
 extern int tracepoint_probe_unregister_noupdate(const char *name,
 		void (*callback)(void), void *priv);
+LTTNG_HIDDEN
 extern void tracepoint_probe_update_all(void);
-extern int __tracepoint_probe_register_queue_release(const char *name,
+*/
+
+// FIXME: ABI between liblttng-ust-tracepoint and liblttng-ust
+// Should probably be namespaced under 'lttng_ust_tp_'
+int __tracepoint_probe_register_queue_release(const char *name,
 		void (*func)(void), void *data, const char *signature);
-extern int __tracepoint_probe_unregister_queue_release(const char *name,
+int __tracepoint_probe_unregister_queue_release(const char *name,
 		void (*func)(void), void *data);
-extern void __tracepoint_probe_prune_release_queue(void);
+void __tracepoint_probe_prune_release_queue(void);
 
 void lttng_ust_tp_init(void);
 void lttng_ust_tp_exit(void);

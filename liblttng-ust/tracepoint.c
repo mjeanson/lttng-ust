@@ -89,7 +89,6 @@ static CDS_LIST_HEAD(libs);
 static struct cds_hlist_head tracepoint_table[TRACEPOINT_TABLE_SIZE];
 
 static CDS_LIST_HEAD(old_probes);
-static int need_update;
 
 static CDS_LIST_HEAD(release_queue);
 static int release_queue_need_update;
@@ -543,18 +542,6 @@ static void lib_unregister_callsites(struct tracepoint_lib *lib)
 		remove_callsite(callsite);
 }
 
-/*
- * Update probes, removing the faulty probes.
- */
-static void tracepoint_update_probes(void)
-{
-	struct tracepoint_lib *lib;
-
-	/* tracepoints registered from libraries and executable. */
-	cds_list_for_each_entry(lib, &libs, list)
-		lib_update_tracepoints(lib);
-}
-
 static struct lttng_ust_tracepoint_probe *
 tracepoint_add_probe(const char *name, void (*probe)(void), void *data,
 		const char *signature)
@@ -734,96 +721,6 @@ void __tracepoint_probe_prune_release_queue(void)
 	/* Wait for grace period between all sync_callsites and free. */
 	lttng_ust_urcu_synchronize_rcu();
 
-	cds_list_for_each_entry_safe(pos, next, &release_probes, u.list) {
-		cds_list_del(&pos->u.list);
-		free(pos);
-	}
-end:
-	pthread_mutex_unlock(&tracepoint_mutex);
-}
-
-static void tracepoint_add_old_probes(void *old)
-{
-	need_update = 1;
-	if (old) {
-		struct tp_probes *tp_probes = caa_container_of(old,
-			struct tp_probes, probes[0]);
-		cds_list_add(&tp_probes->u.list, &old_probes);
-	}
-}
-
-/**
- * tracepoint_probe_register_noupdate -  register a probe but not connect
- * @name: tracepoint name
- * @probe: probe handler
- *
- * caller must call tracepoint_probe_update_all()
- */
-int tracepoint_probe_register_noupdate(const char *name, void (*probe)(void),
-				       void *data, const char *signature)
-{
-	void *old;
-	int ret = 0;
-
-	pthread_mutex_lock(&tracepoint_mutex);
-	old = tracepoint_add_probe(name, probe, data, signature);
-	if (IS_ERR(old)) {
-		ret = PTR_ERR(old);
-		goto end;
-	}
-	tracepoint_add_old_probes(old);
-end:
-	pthread_mutex_unlock(&tracepoint_mutex);
-	return ret;
-}
-
-/**
- * tracepoint_probe_unregister_noupdate -  remove a probe but not disconnect
- * @name: tracepoint name
- * @probe: probe function pointer
- *
- * caller must call tracepoint_probe_update_all()
- * Called with the tracepoint mutex held.
- */
-int tracepoint_probe_unregister_noupdate(const char *name, void (*probe)(void),
-					 void *data)
-{
-	void *old;
-	int ret = 0;
-
-	DBG("Un-registering probe from tracepoint %s", name);
-
-	pthread_mutex_lock(&tracepoint_mutex);
-	old = tracepoint_remove_probe(name, probe, data);
-	if (IS_ERR(old)) {
-		ret = PTR_ERR(old);
-		goto end;
-	}
-	tracepoint_add_old_probes(old);
-end:
-	pthread_mutex_unlock(&tracepoint_mutex);
-	return ret;
-}
-
-/**
- * tracepoint_probe_update_all -  update tracepoints
- */
-void tracepoint_probe_update_all(void)
-{
-	CDS_LIST_HEAD(release_probes);
-	struct tp_probes *pos, *next;
-
-	pthread_mutex_lock(&tracepoint_mutex);
-	if (!need_update) {
-		goto end;
-	}
-	if (!cds_list_empty(&old_probes))
-		cds_list_replace_init(&old_probes, &release_probes);
-	need_update = 0;
-
-	tracepoint_update_probes();
-	/* Wait for grace period between update_probes and free. */
-	lttng_ust_urcu_synchronize_rcu();
 	cds_list_for_each_entry_safe(pos, next, &release_probes, u.list) {
 		cds_list_del(&pos->u.list);
 		free(pos);
