@@ -11,6 +11,8 @@
 #include <lttng/tracepoint-types.h>
 #include <lttng/ust-events.h>
 
+#include "ust-helper.h"
+
 #define TRACE_DEFAULT	TRACE_DEBUG_LINE
 
 struct tracepoint_lib {
@@ -35,8 +37,12 @@ extern void __tracepoint_probe_prune_release_queue(void);
 void lttng_ust_tp_init(void);
 void lttng_ust_tp_exit(void);
 
+/* Test compiler support for weak symbols with hidden visibility. */
+LTTNG_HIDDEN
 void *lttng_ust_tp_check_weak_hidden1(void);
+LTTNG_HIDDEN
 void *lttng_ust_tp_check_weak_hidden2(void);
+LTTNG_HIDDEN
 void *lttng_ust_tp_check_weak_hidden3(void);
 
 #endif /* _LTTNG_TRACEPOINT_INTERNAL_H */

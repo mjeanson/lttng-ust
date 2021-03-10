@@ -32,11 +32,14 @@
 #include "error.h"
 
 /* Test compiler support for weak symbols with hidden visibility. */
-int __tracepoint_test_symbol1 __attribute__((weak, visibility("hidden")));
-void *__tracepoint_test_symbol2 __attribute__((weak, visibility("hidden")));
+LTTNG_HIDDEN
+int __tracepoint_test_symbol1 __attribute__((weak));
+LTTNG_HIDDEN
+void *__tracepoint_test_symbol2 __attribute__((weak));
+LTTNG_HIDDEN
 struct {
 	char a[24];
-} __tracepoint_test_symbol3 __attribute__((weak, visibility("hidden")));
+} __tracepoint_test_symbol3 __attribute__((weak));
 
 /* Set to 1 to enable tracepoint debug output */
 static const int tracepoint_debug;
