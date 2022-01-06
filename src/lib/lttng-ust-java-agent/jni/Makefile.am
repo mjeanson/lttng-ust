@@ -9,3 +9,7 @@ endif
 if ENABLE_JAVA_AGENT_WITH_LOG4J
 SUBDIRS += log4j
 endif
+
+if ENABLE_JAVA_AGENT_WITH_LOG4J2
+SUBDIRS += log4j2
+endif
