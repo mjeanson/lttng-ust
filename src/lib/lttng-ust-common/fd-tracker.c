@@ -80,6 +80,27 @@ void lttng_ust_fd_tracker_alloc_tls(void)
 	asm volatile ("" : : "m" (URCU_TLS(ust_fd_mutex_nest)));
 }
 
+#if !defined(LTTNG_UST_CUSTOM_UPGRADE_CONFLICTING_SYMBOLS)
+static void *ust0_handle;
+
+static
+void init_dlopen_ust0(void)
+{
+	if (ust0_handle)
+		return;
+	/*
+	 * Load ust-2.12 in the global symbol namespace.
+	 */
+	ust0_handle = dlopen("liblttng-ust.so.0", RTLD_GLOBAL | RTLD_NOW);
+	if (!ust0_handle) {
+		fprintf(stderr, "liblttng-ust-fd.so.1: Failed to dlopen liblttng-ust.so.0: %s\n", dlerror());
+		abort();
+	}
+}
+#else
+static void init_dlopen_ust0(void) { }
+#endif
+
 /*
  * Allocate the fd set array based on the hard limit set for this
  * process. This will be called during the constructor execution
@@ -93,6 +114,7 @@ void lttng_ust_fd_tracker_init(void)
 	if (CMM_LOAD_SHARED(init_done))
 		return;
 
+	init_dlopen_ust0();
 	memset(&rlim, 0, sizeof(rlim));
 	/* Get the current possible max number of fd for this process. */
 	if (getrlimit(RLIMIT_NOFILE, &rlim) < 0)
